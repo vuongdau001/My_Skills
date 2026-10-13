@@ -1,0 +1,64 @@
+# Sequential lesson and quiz review
+
+Use one learning-design dossier per lesson and a track-level summary. Keep review records separate from learner-facing prose. In Audit, record current content and proposals; in Normalize, add the final candidate and closure evidence; in Author, establish the intended lesson and assessment design before final prose. Do not invent learner-effectiveness evidence.
+
+## 1. Establish the lesson's learning promise
+
+Read the complete theory before inspecting answer keys. Record:
+
+- the professional problem or decision the lesson helps solve;
+- audience and prerequisites;
+- core concepts, relationships, principles, and observable outcomes;
+- what learners need to remember and why it enables later work;
+- what learners need to apply, diagnose, review, or decide;
+- boundaries, local conventions, and simplified examples.
+
+Describe the current lesson separately from the proposed promise. Do not silently reinterpret weak current material as an already coherent design.
+
+## 2. Review each theory section in order
+
+For every section, identify its teaching purpose, supported outcome, key claims and authority, example value, prerequisite demands, terminology, and clarity. Decide whether to retain, clarify, correct, move to optional material, relocate, or remove it. A section's length or apparent completeness is not evidence that it contributes to learning.
+
+Check whether the lesson supplies enough explanation and worked practice for the cognitive demand later required by quizzes. Resolve technical claims using the authority registry, not the lesson's own assertions.
+
+## 3. Define the assessment coverage
+
+Map taught content to outcomes and planned items. Distinguish essential recall from case-detail memory. Justify recall through its professional use or role as a prerequisite; do not prescribe one cognitive mix for all lessons.
+
+Each item has one primary assessment purpose. Its explanation may reinforce, remind, or teach further implications, but the item must not require an essential concept first introduced after submission.
+
+## 4. Review every quiz item in source order
+
+First blind-solve with the key, explanation, and author intent hidden. Record the actual reasoning needed. Then inspect all options, key, explanation, and any documented intent.
+
+For each item, make explicit:
+
+- exact content and capability being assessed;
+- intended learning purpose: recall, discriminate, apply, diagnose, review evidence, or decide;
+- whether intent is documented or inferred by the reviewer;
+- theory anchor and whether the concept was taught sufficiently;
+- what the learner actually does to answer, including keyword or tone shortcuts;
+- facts and governing rule that make one answer best;
+- the distinct plausible misconception behind each distractor;
+- what feedback helps the learner understand or reconsider;
+- fit with the lesson's objective, audience, prerequisites, technical context, and bank coverage.
+
+Compare intended demand with actual demand. An application label does not make an item applied if its answer can be found through wording alone. When revising, preserve the target capability where it remains useful; do not merely polish a weak assessment.
+
+## 5. Record a disposition and a separate correctness verdict
+
+Use one disposition with rationale:
+
+- `KEEP`: correct, clear, useful, and aligned;
+- `EDIT_LANGUAGE`: capability and answer logic hold; terminology or prose needs repair;
+- `REDESIGN`: capability is useful but the item is ambiguous, misleading, or measures the wrong operation;
+- `MOVE`: valid content belongs in another lesson or requires different prerequisites;
+- `REMOVE_OR_REPLACE`: redundant, incidental, unsupported, or without useful assessment purpose.
+
+Keep this separate from the answer verdict in quiz-authoring-and-review.md. A correct key can still belong to a poor item. Follow the repo's bank-size contract; replace weak items with uncovered worthwhile capabilities rather than filler. Preserve stable IDs when the assessed capability remains unchanged.
+
+## 6. Close the lesson, then review the track
+
+Conclude which outcomes are covered, missing, overrepresented, or untaught; which items repeat the same decision; which theory repairs affect keys; and what remains blocked. Record the lesson's next review milestone before advancing. Do not report unreviewed items as passing.
+
+After all lessons, check prerequisite continuity, term consistency, overlapping assessments, and random-attempt coverage. Independent review must blind-solve before seeing author intent. Learner pilot evidence is needed to establish whether intended learning effects actually occur.

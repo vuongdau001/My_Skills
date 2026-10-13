@@ -1,0 +1,4 @@
+interface:
+  display_name: "AI Academy Content & Quiz Quality"
+  short_description: "Audit and author reliable learning content"
+  default_prompt: "Use $ai-academy-quiz-quality to audit this AI Academy theory and quiz for correctness, assessment quality, and release readiness."
