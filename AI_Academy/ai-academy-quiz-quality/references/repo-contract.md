@@ -22,7 +22,7 @@ For tracks imported from a book or another maintained source, identify the canon
 
 Compare all affected theory and quiz files against the canonical source. Allow only explicit serving transformations, such as image URL rewriting and harmless whitespace normalization; do not silently strip editorial prose only in the runtime copy. Use existing import/verification tools where available. When assets change, check referenced files against the source and verify their served URLs.
 
-For an authorized DB synchronization, use [ai-academy-content-sync](../../ai-academy-content-sync/SKILL.md) and verify persisted runtime fields against the final curriculum. Source consistency checks do not authorize DB writes, deployment, or global catalog synchronization.
+For an authorized DB synchronization, locate the available `ai-academy-content-sync` skill in the target project's skill catalog and verify persisted runtime fields against the final curriculum. Do not assume the personal skill library has that sibling directory. If the sync skill is unavailable, report the missing capability instead of inventing a sync workflow. Source consistency checks do not authorize DB writes, deployment, or global catalog synchronization.
 
 ## Quiz contract
 

@@ -12,6 +12,7 @@ Read the complete theory before inspecting answer keys. Record:
 - what learners need to remember and why it enables later work;
 - what learners need to apply, diagnose, review, or decide;
 - boundaries, local conventions, and simplified examples.
+- the agreed assessment profile, separating professional capability from recall/understanding or practical performance actually measured.
 
 Describe the current lesson separately from the proposed promise. Do not silently reinterpret weak current material as an already coherent design.
 
@@ -21,11 +22,15 @@ For every section, identify its teaching purpose, supported outcome, key claims 
 
 Check whether the lesson supplies enough explanation and worked practice for the cognitive demand later required by quizzes. Resolve technical claims using the authority registry, not the lesson's own assertions.
 
+Trace source concept -> taught claim -> core -> example reasoning. Verify that a worked example demonstrates interpretation and a bounded conclusion, including an evidence-seeking next step where the source cannot settle policy. Check that the opening case can be revisited without changing confirmed facts, and that detailed editorial metadata stays in the dossier rather than interrupting learner prose.
+
 ## 3. Define the assessment coverage
 
 Map taught content to outcomes and planned items. Distinguish essential recall from case-detail memory. Justify recall through its professional use or role as a prerequisite; do not prescribe one cognitive mix for all lessons.
 
 Each item has one primary assessment purpose. Its explanation may reinforce, remind, or teach further implications, but the item must not require an essential concept first introduced after submission.
+
+Record its reinforcement target and source-supported claim explicitly. Allocate items by meaningful distinctions and misconceptions, not a mandatory fixed core count or equal grid; follow the selected profile's question count and cognitive scope.
 
 ## 4. Review every quiz item in source order
 

@@ -10,6 +10,10 @@ Theory anchor:
 Claim:
 Claim class: canonical | official-current | community | local-convention | lesson-only
 Authority source and exact anchor:
+Source title/author/edition and access limits:
+Source concept actually supported:
+Editorial application/derivation and boundaries:
+Core content ID(s):
 Verdict: SUPPORTED | PARTIALLY_SUPPORTED | CONTRADICTED | UNVERIFIABLE
 Qualification or correction:
 Dependent objectives/items:
@@ -27,12 +31,19 @@ Professional problem/decision:
 Audience/prerequisites:
 Core concepts and relationships:
 Observable outcomes:
+Professional capability supported / operation actually assessed:
+Assessment scope/profile and bank count:
 Essential recall and professional use:
 Applied capabilities and worked practice:
+Worked example: evidence | interpretation | options | justification | bounded conclusion | uncertainty
+Main takeaway and supporting principles:
+Layout blocks and representation choice:
+Visual IDs/purpose/source-core mapping, producer phase and pending status:
+Actual-renderer/styles desktop/mobile evidence and remaining visual checks:
 Boundaries/local conventions/simplifications:
 Glossary entries and confusing adjacent terms:
 Section review: anchor | teaching purpose | outcome | claim evidence | clarity | disposition
-Assessment mapping: taught content | outcome | intended purpose | item IDs
+Assessment mapping: authority concept/locator | claim | core | theory anchor | outcome | intended purpose | reinforcement target | item IDs
 Reviewed item IDs / pending item IDs:
 Coverage gaps/repetition/untaught demands:
 Cross-lesson dependencies:
@@ -45,6 +56,8 @@ Verdict and next milestone:
 Module ID:
 Audience and prerequisite:
 Learning objective:
+Core/claim IDs:
+Authority concept/edition/locator and editorial bridge:
 Source anchor:
 Observable skill:
 Cognitive target: remember | understand | apply | analyze
@@ -52,6 +65,7 @@ Planned question families:
 Misconceptions to diagnose:
 Coverage count:
 Rationale for the mix:
+Full-bank versus delivered-attempt coverage and selected sample thresholds:
 ```
 
 ## Item card
@@ -59,11 +73,14 @@ Rationale for the mix:
 ```text
 Question ID:
 Objective ID:
+Core/claim IDs:
+Authority concept/edition/locator and editorial bridge:
 Source anchor:
 Cognitive level:
 Question family:
 Skill being tested:
 Intended learning purpose:
+Reinforcement target (exact taught principle/distinction):
 Intent provenance: documented | reviewer-inferred
 Taught support and adequacy:
 Actual learner operation (record before viewing key/intent):

@@ -21,6 +21,8 @@ If the request is ambiguous, default to **Audit**. Audit and Gate may write a re
 Read only the references needed for the current mode:
 
 - For creating or reviewing theory, including learner-facing editorial cleanup, read [references/learning-content-method.md](references/learning-content-method.md).
+- For learner-facing layout, diagrams, visual design/production boundaries, and rendered review (LAYOUT-01), read [references/content-layout-and-visuals.md](references/content-layout-and-visuals.md).
+- For the BA/PO course's theory + level-1 quiz contract, also read [references/ba-po-content-profile.md](references/ba-po-content-profile.md). Apply this profile only to that course or when the user explicitly adopts it; it does not impose recall-only assessment on other tracks.
 - For writing or reviewing quiz items, read [references/quiz-authoring-and-review.md](references/quiz-authoring-and-review.md).
 - For source selection and factual disputes, read [references/authority-registry.md](references/authority-registry.md).
 - For review milestones, verdicts, and report structure, read [references/review-gates.md](references/review-gates.md).
@@ -32,7 +34,7 @@ Read only the references needed for the current mode:
 ## Core workflow
 
 1. **Ground in the repository.** Inspect the track manifest, theory, quiz files, relevant validators, and current working-tree state. Preserve unrelated changes.
-2. **Establish authority.** Identify the track's canonical or official baseline. Classify every material source claim; do not silently promote a heuristic or local convention into an industry rule.
+2. **Establish authority.** Identify the track's canonical or official baseline and assessment scope. Design competency-first and source-first; use story-first presentation. Trace source concept -> taught claim -> core content -> objective -> item, distinguishing source doctrine from editorial application.
 3. **Review theory first.** Build a claim ledger for definitions, rules, causal claims, recommendations, numbers, quotes, and absolutes. A contradicted or unsupported theory claim blocks dependent quiz items.
 4. **Lock observable outcomes.** Express what the learner must distinguish, calculate, diagnose, review, produce, or decide. “Know” and “understand” alone are insufficient.
 5. **Create or verify the assessment blueprint.** Map outcome -> source anchor -> observable skill -> cognitive level -> question family -> misconception set.
@@ -47,6 +49,7 @@ Run steps 2–7 as a complete cycle for each lesson in curriculum order. Review 
 - Do not use the current theory as proof of its own correctness when external authority is required.
 - Do not put untaught concepts into a quiz; correct or expand theory first, or remove the item.
 - Case studies must contain decision-relevant facts. Names and story detail that do not affect reasoning are decoration.
+- A worked example must show reasoning and a bounded conclusion, not merely a blank template or list of open questions. Match learner activity to the agreed assessment scope; do not add artifact submissions, interactive labs, or fixed section quotas by adopting an external framework.
 - Every distractor must represent a distinct plausible misconception in the same decision space as the key.
 - Explanations must state the governing rule, apply the supplied facts, and reject the closest alternatives. They may not rescue an ambiguous stem.
 - Distinguish author intent from what the learner actually has to do to answer. Every item needs one primary assessment purpose, taught support, and an explicit suitability decision; teaching or reminding through feedback is secondary.

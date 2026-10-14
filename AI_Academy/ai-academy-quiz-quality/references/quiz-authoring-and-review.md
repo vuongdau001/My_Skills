@@ -6,7 +6,9 @@ Use this reference for knowledge-check multiple-choice quizzes. Interactive labs
 
 For each module, map:
 
-`objective -> source anchor -> observable skill -> cognitive level -> question family -> misconception set`
+`authority concept/locator -> taught claim -> core content -> objective -> theory anchor -> observable operation -> question family -> misconception set`
+
+Record the primary assessment purpose and the exact principle the item reinforces. A core ID alone is not enough: the reviewer must be able to identify which claim or distinction that particular question checks. Use sidecars/review artifacts for this chain while keeping the runtime schema intact.
 
 Choose cognitive demand based on the taught capability. Technical procedures should normally require application; conceptual modules may emphasize discrimination, diagnosis, or trade-off reasoning. Do not raise difficulty beyond the evidence and practice supplied in theory.
 
@@ -20,15 +22,19 @@ Useful question families include:
 
 Avoid enforcing one universal distribution across all subjects. Record and justify the selected distribution in the blueprint. For a 15-item technical bank, a useful starting profile is approximately 3 discrimination, 5 application, 3 artifact review, 2 misconception diagnosis, and 2 trade-off items; adapt it when the capability requires another mix.
 
+When the agreed scope is level-1 knowledge checks, including the [BA/PO profile](ba-po-content-profile.md), the applied starting mix above does not apply. Author recall/understanding of taught concepts, misconceptions and boundaries. Use 15 items for that course without forcing five cores or three items per core, and do not add a novel-case decision or artifact exercise to reach the count. Distinguish internal level labels from Bloom categories, and professional learning goals from the operation actually assessed.
+
 ## 2. Create an item card
 
 Before polishing wording, record:
 
 - question ID and objective ID;
 - exact theory/source anchor;
+- authority concept and taught claim/core IDs, with source versus editorial interpretation;
 - cognitive level and question family;
 - capability being tested;
 - intended learning purpose, with documented versus reviewer-inferred intent;
+- reinforcement target: the exact taught principle or distinction feedback should revisit;
 - actual learner operation observed in blind solving, compared with intended demand;
 - suitability for the lesson, audience, prerequisites, and technical context;
 - test basis or evidence supplied in the stem;
@@ -81,6 +87,8 @@ The key must be uniquely best under the supplied facts. Distractors should model
 - confusing evidence of execution with evidence of outcome.
 
 Do not use comic incompetence, moralized wording, irrelevant technology, obvious absolutes, or padded verbosity to make distractors look different. “All of the above” and “none of the above” require exceptional justification.
+
+Keep distractors close enough to require the taught distinction. When checking event versus state, use confusions between event, state and condition; an unrelated role restriction is not a meaningful substitute. Detect options that merely differ in how careful, ethical or responsible they sound. Do not make a knowledge check difficult by introducing unstated policy or unfamiliar case facts.
 
 ## 5. Verify the answer by blind solve
 
@@ -136,5 +144,7 @@ If a heuristic materially exceeds random performance, inspect the affected items
 ## 9. Random-delivery review
 
 AI Academy normally serves six questions from a larger pool. Inspect whether plausible attempts cover enough objectives and applied reasoning. Exhaustively enumerate combinations when practical; otherwise use deterministic simulation.
+
+Set sample-analysis thresholds according to the agreed scope. A recall/understanding-only bank has `--min-applied 0`; this does not change its cognitive labels into apply/analyze. Report full-bank coverage separately from attempt coverage and from evidence of learning effectiveness.
 
 Content balancing cannot guarantee a balanced attempt under an unstratified sampler. Report residual risk honestly and recommend runtime stratification separately when needed.

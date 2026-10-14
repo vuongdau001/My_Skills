@@ -16,6 +16,8 @@ Confirm the source hierarchy, terminology, learner audience, prerequisites, and 
 
 Evidence: lesson learning promise and track glossary, distinguishing current content from proposed outcomes.
 
+Record the professional capability, assessed operation, source concept/claim/core links, and any agreed course profile separately. For BA/PO, use the level-1 scope and 15-item contract in [ba-po-content-profile.md](ba-po-content-profile.md); do not apply an unrelated practical-assessment mix.
+
 Block when material authority is absent, conflicting without a decision, or objectives are only topic labels.
 
 ## R2 — Theory correctness
@@ -23,6 +25,10 @@ Block when material authority is absent, conflicting without a decision, or obje
 Build the claim ledger. Check definitions, boundaries, causal claims, quotations, numbers, examples, absolutes, and freshness.
 
 Evidence: section-by-section theory review, including each section's teaching purpose and contribution to outcomes.
+
+Check that worked examples expose interpretation and a bounded conclusion, not only a blank template/open-question list. Keep confirmed facts, simulated inputs, source doctrine and derived practice distinct. Check learner-facing prose for intrusive editorial mapping labels while retaining citations and interpretation limits.
+
+Apply LAYOUT-01 from [content-layout-and-visuals.md](content-layout-and-visuals.md): check representation, reading density and rendered blocks. Distinguish design-ready briefs from completed/legible visual assets; final visual review remains pending when production is deferred. Layout polish does not close a semantic finding.
 
 Block dependent items for `CONTRADICTED` or `UNVERIFIABLE` material claims. Produce a separate theory-correction list; do not silently repair theory outside the authorized scope.
 
@@ -33,6 +39,8 @@ Map objectives to source anchors, skills, cognitive levels, question families, a
 Evidence: taught-content → intended assessment purpose → item mapping, with justified recall and applied demands.
 
 Block final item authoring when important objectives have no plan, quiz scope exceeds taught theory, or the bank is dominated by recall without justification.
+
+An explicit recall/understanding-only contract is a justification, not a defect requiring applied items. Check that each item has a distinct purpose and reinforcement target; a fixed core-times-item grid is not required.
 
 ## R4 — Item correctness
 
@@ -52,6 +60,8 @@ Evidence: lesson closure with missing, repeated, overrepresented, or untaught ou
 
 Block systematic shortcuts, missing critical-objective coverage, or a pool containing filler items that are unsafe when sampled.
 
+Reject distractors removable without the taught distinction, such as unrelated roles in an event/state question. Distinguish author intent from a shortcut actually observed in blind solving; review tone cues as well as option length and keyword overlap.
+
 ## R6 — Independent semantic review
 
 A reviewer who did not author the candidate repeats source verification and blind solving. Record disagreements rather than averaging them away.
@@ -67,6 +77,8 @@ If independent review did not occur, verdict must say `PENDING INDEPENDENT REVIE
 - `BLOCK`: theory contradiction, unsupported claim, wrong or ambiguous key, untaught concept, critical coverage gap, systematic answer cue, or missing required independent review.
 
 Report machine evidence separately from reviewer judgment.
+
+Factual correctness, supported claims, taught-content alignment and defensible keys are hard gates. Aggregate rubric scores, visual/quote quotas and a completed format checklist cannot compensate for their failure. Do not treat a content candidate or knowledge-check score as demonstrated learner competence.
 
 ## R8 — Learner validation
 

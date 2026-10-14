@@ -1,0 +1,47 @@
+# AI Academy BA/PO — theory and level-1 quiz profile
+
+Apply to the BA/PO course discussed with the user, or another course only after the user explicitly adopts this profile. These are course-specific editorial decisions, not universal pedagogy or a certification standard. Explicit later user instructions take precedence.
+
+## Design and learner experience
+
+Design competency-first and source-first: professional capability -> authoritative knowledge -> core content -> misconceptions -> worked example and quiz blueprint. Present story-first: situation -> central question -> theory -> worked reasoning -> boundary/takeaway -> quiz.
+
+Identify the technique being taught, the one central learning promise, and the core concepts that support it. Keep the number of cores meaningful; do not force five cores to make a five-times-three question grid. Explain definitions, relations, why the technique works, and its limits using official standards/glossaries or foundational works actually accessed. Preserve a complete trace:
+
+`source (author/edition/locator) -> source concept -> taught claim -> core ID -> outcome -> question ID -> reinforcement target/explanation`
+
+Store detailed mapping in the existing assessment sidecar and review source map. Keep learner prose readable with concise citations and necessary qualifications. Reading-time estimates are estimates, not measured pilot results.
+
+## Theory shape
+
+**Content designer output:** Markdown lesson content plus inline presentation instructions (visual type, purpose, nodes/relations, caption and source/core mapping). Leave asset generation, HTML/UI preview and render implementation to the specialist unless the user explicitly requests those deliverables.
+
+1. **Situation:** a concise realistic difficulty, ambiguity, opportunity, or decision; distinguish confirmed fact from simulation. Do not require a dramatic incident or named persona.
+2. **Central question:** what the learner should be able to distinguish or explain, and why it matters in BA/PO work.
+3. **Core theory:** the definitions, relationships, principles and conditions needed to answer that question. Do not compress prerequisite reasoning into ten lines or replace it with an inspirational quote.
+4. **Worked example:** show information -> interpretation -> options -> justification -> bounded conclusion/next check. Use a completed illustrative artifact with annotations when helpful. A blank form or question inventory alone is insufficient.
+5. **Limits and takeaway:** one main idea supported by the taught principles; an actionable checklist or comparison only when useful. Distinguish when a technique is unnecessary, when to use it lightly, and when deeper analysis is justified.
+6. **Quiz:** 15 four-option, single-answer questions at internal level 1, in project format.
+
+Revisit a case across these parts when it provides continuity. Use GAMS, AI Word Add-in, Loan Management, CRM and supplementary situations according to the concept, without inventing confirmed project history. GAMS's agreed email need concerns a subscription **about to expire**, not an already overdue subscription. Keep TnM/commercial disputes out of the Loan case. Avoid recurring character stereotypes and explanations that preassign blame to either people or systems.
+
+Before/after examples may compare interview questions, requirements, rules, models or decisions. They need no code or named commercial tool. If using actual product behavior, verify it against official documentation. Simulated examples need coherent conditions; do not invent financial rules, target metrics or approvals to fill a table.
+
+## Assessment contract
+
+For the learner page, apply [content-layout-and-visuals.md](content-layout-and-visuals.md): use short blocks/callouts and compact comparisons, process diagrams for relationships that prose obscures, and maintain text fallback when visual assets are pending. In design-only work, hand off nodes/relations, caption, scope and source/core links to the specialist; do not produce or dispatch visuals before the authorized phase.
+
+- Internal **level 1** means remembering/understanding principles, distinguishing nearby concepts, recognising misconceptions and limits already taught. It is not a claim that all items are Bloom Remember, and is unrelated to an external Observe/Analyze/Create/Teach numbering scheme.
+- Keep 15 meaningful questions per lesson. Allocate them by concept importance and distinct misconceptions; each essential core must be covered, without a mandatory three-per-core distribution. Replace filler/duplicates rather than raising cognitive demand to reach 15.
+- No story trivia, novel case-solving, open-ended judgments, artifact submissions, or grading of practice competence. Teaching an applied worked example does not authorize assessing an applied case.
+- Each question needs a core/claim/outcome link, exact theory anchor, source basis, one documented primary assessment purpose, reinforcement target, governing rule, three distinct plausible misconceptions, and an explanation rejecting the nearest confusion.
+- Compare options along the same semantic dimension. For example, WHEN/WHILE distractors should represent event/state confusions, not invented BA/developer role restrictions. Do not let correct answers stand out as the only evidence-aware or responsible-sounding choice.
+- Quiz feedback reinforces taught knowledge; it cannot supply a premise missing from the stem. A score describes knowledge-check performance, not professional readiness.
+
+Use the existing runtime quiz fields; keep durable traceability in sidecars/review artifacts. Distinguish the full 15-question bank from the delivered attempt. For random six-question analysis set `--min-applied 0` under this profile; state the chosen objective-coverage target and inspect missing cores. Sampling analysis is not a pass criterion for semantic correctness and does not authorize changing runtime, thresholds, or production data.
+
+## Review and delivery
+
+Review source/claims and theory before dependent items, lesson by lesson. Check worked reasoning, boundaries, terminology, plausible distractors, unique keys, coverage, repetitions and answer cues. Missing source support or an ambiguous/wrong key cannot be offset by an average quality score. Preserve independent-review and pilot status honestly.
+
+Save the requested theory, quiz and review package in the project's agreed output folder. Deliver one chapter for user review before starting the next. Skill updates alone do not authorize editing previously delivered lessons or releasing content. Retain TERM-EN-01 English technical keywords with readable Vietnamese explanation; apply interactive exercises only if separately requested with a learning purpose.

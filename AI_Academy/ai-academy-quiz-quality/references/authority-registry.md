@@ -45,3 +45,6 @@ When sources disagree, record the conflict, scope, version, and chosen interpret
 - `reviewedAt` is metadata, not review evidence.
 - A source can support a definition without supporting a numerical threshold or recommendation derived from it.
 - When only weak authority exists, qualify the claim or teach it explicitly as a heuristic.
+- For each core, distinguish the concept supported by the source from the workflow, checklist or example derived by the author. Preserve author/edition/locator and access limitations; never cite an unread full book as though a public summary established all its claims.
+- Narrative frameworks, timing/length ratios, adapted exercise labels and quality-score thresholds are local conventions unless primary evidence establishes more. An assertion of cognitive science is not that evidence. Quantified retention or effectiveness gains require a study and measurement context; do not promote an illustrative number into a general law.
+- A named product, realistic story, apparent before/after improvement or completed artifact does not establish a causal claim. Verify technical behavior and distinguish source interpretation from a quotation attributed to its author.
