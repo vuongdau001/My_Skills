@@ -36,3 +36,12 @@ Commits on the feature branch; `curriculum/<track>/…`, `public/curriculum/<tra
 
 ## Resumability
 Runs get cut (~50 min): keep a PROGRESS.md (DB, scripts, commits, current step), commit after each step, run agy with nohup and poll its log.
+
+## Learnings (BA/PO CH01 pilot, 2026-10-14)
+- **Fetch the shared feature branch before starting and before every push** (`git fetch && git log HEAD..origin/<branch>`). In the pilot, another team pushed 50 commits (CH02–06 + CH01 review rewrite in `docs/…/chapter-XX/curriculum/<track>/` layout) while we moved CH01 to `curriculum/<track>/` → non-fast-forward + content conflicts. Agree the source-of-truth layout with the other team first; never force-push; check `git merge-tree --write-tree HEAD origin/<branch>` before integrating.
+- `/teamwork-preview` and `/goal` both run in print mode (`-p "/teamwork-preview $(cat BRIEF.md)" --output-format stream-json`); success = final `"status":"SUCCESS"` + the report file ending `READY_FOR_REVIEW`. Typical: goal ≈ 47 min, teamwork polish ≈ 15 min.
+- argon-high quota: a 429 "Individual quota reached… Resets in ~4h" can hit mid-run (after one long goal). Stop and report; a later rerun of the same brief works. No Flash fallback.
+- A teamwork brief that names concrete FAIL items + evidence PNG paths + numeric targets (viewBox 640–720, text ≥ 22 units, ≤ 6 tables, ≤ 3 short columns) fixed all of them in one round.
+- Mobile gate: `scripts/probe-mobile.mjs` (MODS env) measures each table wrapper `scrollWidth > clientWidth` at 390px and screenshots each image element; use it as an objective check for checklist items 3–4. (The sticky tab bar may cover the top of element screenshots — cosmetic.)
+- Reference track itself has 5 mobile-overflowing tables; "as good as reference" ≠ copy its flaws.
+- Always restart the dev server after `local-sync.sh` (in-memory content cache) — otherwise screenshots show stale content.
