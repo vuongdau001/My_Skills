@@ -42,11 +42,13 @@ Evidence: item cards comparing intended learning purpose with actual learner rea
 
 Block `AMBIGUOUS`, `CONDITIONALLY_CORRECT`, `INCORRECT`, and `UNSUPPORTED` items.
 
+Apply terminology rule TERM-EN-01 (see [quiz-authoring-and-review.md](quiz-authoring-and-review.md) §3a and [terminology-en-keywords.md](terminology-en-keywords.md)) to the stem, options, and explanation: a term that changes the key or makes two options defensible is `BLOCKER`; one that can change meaning is `MAJOR`; readability-only is `MINOR`.
+
 ## R5 — Bank quality
 
 Review coverage, duplicates, cognitive mix, answer distribution, cue resistance, explanation reuse, and random-delivery risk.
 
-Evidence: lesson closure with missing, repeated, overrepresented, or untaught outcomes; final track review checks prerequisites and terminology across lessons.
+Evidence: lesson closure with missing, repeated, overrepresented, or untaught outcomes; final track review checks prerequisites and terminology across lessons, including TERM-EN-01 keyword consistency between theory, glossary, and quiz.
 
 Block systematic shortcuts, missing critical-objective coverage, or a pool containing filler items that are unsafe when sampled.
 

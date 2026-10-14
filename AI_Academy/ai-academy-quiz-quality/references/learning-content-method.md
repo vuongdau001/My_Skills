@@ -58,6 +58,8 @@ Maintain a track glossary with the English term, a concise Vietnamese explanatio
 
 Distinguish terms by meaning rather than mechanically translating or replacing words. Do not flatten relations such as category/subcategory or confuse adjacent concepts. Local labels must be explicitly identified as local. When changing a term or definition, inspect dependent claims and items. Quiz wording may briefly clarify a taught term when necessary for the scenario, but must not supply the answer through that clarification.
 
+Apply rule TERM-EN-01 ([quiz-authoring-and-review.md](quiz-authoring-and-review.md) §3a): technical and domain terms use the English keyword, with an optional short Vietnamese gloss on first use, and "nghiệp vụ" is never used alone. Seed the track glossary from [terminology-en-keywords.md](terminology-en-keywords.md).
+
 ### Learner-facing content and editorial cleanup
 
 Keep authoring and release-process notes in review artifacts, not lesson prose. Examples include candidate status, pending independent review, reviewer instructions, and publishing checklists. Preserve their accurate status in the review record; removing them from a lesson does not grant release approval.

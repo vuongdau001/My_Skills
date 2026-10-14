@@ -53,6 +53,20 @@ Avoid:
 - negative stems unless the negative is conspicuous and necessary;
 - asking for an exact number that is only a local teaching heuristic.
 
+## 3a. Terminology rule TERM-EN-01 — English keywords
+
+Applies to theory, stems, options, and explanations in every track.
+
+- **Use the English keyword** practitioners use daily for every domain or technical term (testing, QA, software engineering, the case-study business domain). Vietnamese translations such as "đặc tả", "khiếm khuyết", "bản dựng" slow IT readers and can be misread.
+- **Optional first-use gloss.** At the first occurrence in each independent reading unit (the theory page, and each quiz item because runtime samples items randomly) a short Vietnamese gloss may follow: `specification (đặc tả)`, `defect (lỗi trong sản phẩm)`. Afterwards use the keyword alone.
+- **Vietnamese is fine for everyday words** with no special technical meaning (khách hàng, kho, đơn hàng, chi phí, rủi ro in a general sense, quy trình, thời gian) when they cannot be misread in context.
+- **No ambiguous umbrella words.** Never use "nghiệp vụ" alone where it could mean business rule, business domain, business requirement, or the BA role; choose `business rule`, `business requirement`, `domain`, `business stakeholder`, `domain expert`, or `Business Analyst (BA)`.
+- **Consistency.** One concept, one keyword across theory, glossary, stem, options, and explanation. Do not alternate synonyms (e.g. defect / khiếm khuyết / sai sót / lỗi). Keep authority distinctions such as ISTQB error / defect / failure when the prose relies on them.
+- **Authority.** Take the keyword from the track's authority (see [authority-registry.md](authority-registry.md); e.g. ISTQB Glossary and CTFL v4.0.1 for testing, GS1 for supply-chain identifiers). If none exists, record "TERM-EN-01, no authority source".
+- **Severity.** `BLOCKER` when an ambiguous or mistranslated term changes the correct answer or makes two options defensible; `MAJOR` when it can change the meaning of a claim, stem, or key, or the tested concept is named inconsistently between theory and quiz; `MINOR` when only readability is affected (long Vietnamese rendering, missing gloss, naming drift without meaning change).
+
+Use [terminology-en-keywords.md](terminology-en-keywords.md) as the shared glossary and extend it when a new term is reviewed.
+
 ## 4. Write the options
 
 All four options must answer the same question, use comparable granularity, and belong to the same semantic category.

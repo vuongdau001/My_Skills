@@ -25,6 +25,7 @@ Read only the references needed for the current mode:
 - For source selection and factual disputes, read [references/authority-registry.md](references/authority-registry.md).
 - For review milestones, verdicts, and report structure, read [references/review-gates.md](references/review-gates.md).
 - For AI Academy paths, schemas, source-to-runtime consistency, commands, and runtime constraints, read [references/repo-contract.md](references/repo-contract.md).
+- For English-keyword terminology (rule TERM-EN-01) and the shared VI → EN glossary, read [references/terminology-en-keywords.md](references/terminology-en-keywords.md).
 - For reusable claim, blueprint, item-card, and finding formats, read [references/templates.md](references/templates.md).
 - For lesson-by-lesson review and question intent analysis, read [references/sequential-learning-review.md](references/sequential-learning-review.md). Required for all content review and authoring modes.
 

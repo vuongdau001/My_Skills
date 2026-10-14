@@ -94,7 +94,8 @@ Finding ID:
 Track/module/item:
 Milestone:
 Severity: BLOCKER | MAJOR | MINOR
-Category: theory | source | objective | stem | key | distractor | explanation | coverage | cue | sampling | language
+Category: theory | source | objective | stem | key | distractor | explanation | coverage | cue | sampling | language | terminology (TERM-EN-01)
+Rule ID: (optional, e.g. TERM-EN-01)
 Current content:
 Evidence:
 Impact:
