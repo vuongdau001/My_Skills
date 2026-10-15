@@ -73,3 +73,7 @@ Cross-check the active case premise across theory, diagrams/captions, worked exa
 Conclude which outcomes are covered, missing, overrepresented, or untaught; which items repeat the same decision; which theory repairs affect keys; and what remains blocked. Record the lesson's next review milestone before advancing. Do not report unreviewed items as passing.
 
 After all lessons, check prerequisite continuity, term consistency, overlapping assessments, and random-attempt coverage. Independent review must blind-solve before seeing author intent. Learner pilot evidence is needed to establish whether intended learning effects actually occur.
+
+## Case-integrated explanation check
+
+For each core concept, ask: can the learner point to a detail in the worked example, explain why the term applies, and explain what changes in the decision? Record a missing example-to-concept bridge as a theory repair, even when the definition and source citation are correct. For behavioral-flow lessons, inspect branch conditions, response, outcome and rejoin/termination. A filled artifact alone is insufficient if the prose never explains it. Apply this check to the actual technique; do not demand flow branches in every subject.

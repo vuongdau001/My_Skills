@@ -27,6 +27,10 @@ Revisit a case across these parts when it provides continuity. Use GAMS, AI Word
 
 Before/after examples may compare interview questions, requirements, rules, models or decisions. They need no code or named commercial tool. If using actual product behavior, verify it against official documentation. Simulated examples need coherent conditions; do not invent financial rules, target metrics or approvals to fill a table.
 
+## Case-to-concept acceptance
+
+Each core explanation must connect meaning -> a concrete case detail -> why that interpretation matters to the analysis. A case used only for an opening story, a blank form, or labels pasted onto generic definitions is insufficient. Repair the case if it cannot carry the intended explanation. For flow-analysis lessons, show a filled main flow and meaningful branches with conditions, responses, outcomes and rejoin/termination; do not impose this layout on every lesson. Keep learner-facing prose coherent rather than repeating a mandatory three-column template.
+
 ## Chapter narrative and case continuity
 
 Before authoring a chapter, record each lesson's central question, owned technique, prerequisites, next capability and overlap to avoid. Each lesson should contribute a new reasoning step rather than repeat the same warning with new vocabulary. Bridge from an unresolved example to a later selected/implemented solution with an explicit new simulation premise; do not silently promote unknowns into confirmed facts.
