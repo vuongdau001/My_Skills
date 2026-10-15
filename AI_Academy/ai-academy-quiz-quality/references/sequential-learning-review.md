@@ -8,7 +8,7 @@ Read the complete theory before inspecting answer keys. Record:
 
 - the professional problem or decision the lesson helps solve;
 - audience and prerequisites;
-- core concepts, relationships, principles, and observable outcomes;
+- core concepts, relationships, principles, observable outcomes, the misconception to resolve, and the intended change in reasoning;
 - what learners need to remember and why it enables later work;
 - what learners need to apply, diagnose, review, or decide;
 - boundaries, local conventions, and simplified examples.
@@ -22,7 +22,7 @@ For every section, identify its teaching purpose, supported outcome, key claims 
 
 Check whether the lesson supplies enough explanation and worked practice for the cognitive demand later required by quizzes. Resolve technical claims using the authority registry, not the lesson's own assertions.
 
-Trace source concept -> taught claim -> core -> example reasoning. Verify that a worked example demonstrates interpretation and a bounded conclusion, including an evidence-seeking next step where the source cannot settle policy. Check that the opening case can be revisited without changing confirmed facts, and that detailed editorial metadata stays in the dossier rather than interrupting learner prose.
+Trace source concept -> taught claim -> core -> example reasoning. Verify that a worked example demonstrates interpretation and a bounded conclusion, including an evidence-seeking next step where the source cannot settle policy. Check that the opening case can be revisited without changing confirmed facts, and that detailed editorial metadata stays in the dossier rather than interrupting learner prose. Check case provenance independently of theory authority: user-provided context, checked evidence, assumptions, and simulated extensions. For an unclear process, inspect the decision-relevant roles, inputs/outputs, handoffs, and completion; for other topics do not require this structure. Verify that core terms are explained through case details and the reasoning for the classification, including absent instances rather than fabricated examples.
 
 ## 3. Define the assessment coverage
 

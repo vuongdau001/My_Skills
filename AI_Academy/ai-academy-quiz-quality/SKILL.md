@@ -34,7 +34,7 @@ Read only the references needed for the current mode:
 ## Core workflow
 
 1. **Ground in the repository.** Inspect the track manifest, theory, quiz files, relevant validators, and current working-tree state. Preserve unrelated changes.
-2. **Establish authority.** Identify the track's canonical or official baseline and assessment scope. Design competency-first and source-first; use story-first presentation. Trace source concept -> taught claim -> core content -> objective -> item, distinguishing source doctrine from editorial application.
+2. **Establish authority.** Identify the track's canonical or official baseline and assessment scope. Identify the central principle, misconception, and change in learner reasoning; keep this design intent in the dossier. Design competency-first and source-first; use story-first presentation. Trace source concept -> taught claim -> core content -> objective -> item, distinguishing source doctrine from editorial application.
 3. **Review theory first.** Build a claim ledger for definitions, rules, causal claims, recommendations, numbers, quotes, and absolutes. A contradicted or unsupported theory claim blocks dependent quiz items.
 4. **Lock observable outcomes.** Express what the learner must distinguish, calculate, diagnose, review, produce, or decide. “Know” and “understand” alone are insufficient.
 5. **Create or verify the assessment blueprint.** Map outcome -> source anchor -> observable skill -> cognitive level -> question family -> misconception set.

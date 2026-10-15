@@ -10,6 +10,8 @@ For each module, map:
 
 Record the primary assessment purpose and the exact principle the item reinforces. A core ID alone is not enough: the reviewer must be able to identify which claim or distinction that particular question checks. Use sidecars/review artifacts for this chain while keeping the runtime schema intact.
 
+After changing theory emphasis, trace every existing item back to its source, core, current theory anchor, and primary purpose before asserting alignment; record untaught or displaced concepts explicitly. Feedback cannot supply missing teaching.
+
 Choose cognitive demand based on the taught capability. Technical procedures should normally require application; conceptual modules may emphasize discrimination, diagnosis, or trade-off reasoning. Do not raise difficulty beyond the evidence and practice supplied in theory.
 
 Useful question families include:

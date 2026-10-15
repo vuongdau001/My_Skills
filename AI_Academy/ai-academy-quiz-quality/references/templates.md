@@ -29,14 +29,18 @@ Current learning promise:
 Proposed learning promise (if different):
 Professional problem/decision:
 Audience/prerequisites:
+Central principle / misconception / intended shift in reasoning:
 Core concepts and relationships:
 Observable outcomes:
 Professional capability supported / operation actually assessed:
 Assessment scope/profile and bank count:
 Essential recall and professional use:
 Applied capabilities and worked practice:
-Worked example: evidence | interpretation | options | justification | bounded conclusion | uncertainty
-Main takeaway and supporting principles:
+Case provenance: user-provided | independently checked | assumed | simulated
+Worked example: evidence | interpretation | unresolved points and decision impact | options | justification | bounded conclusion | next check
+Process-dependent decisions only: roles | inputs/outputs | handoffs | completion
+Core terminology: meaning | case detail or explicit absence | why this interpretation
+Main takeaway and supporting principles / principle-level visual semantics and limits:
 Layout blocks and representation choice:
 Visual IDs/purpose/source-core mapping, producer phase and pending status:
 Actual-renderer/styles desktop/mobile evidence and remaining visual checks:
