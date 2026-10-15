@@ -56,6 +56,14 @@ Case details, code, tables, and visuals must carry explanatory value. Remove a c
 
 For dense topics, separate a concise core lesson from optional deep dives. Do not force a fixed word count; optimize for one coherent capability per module.
 
+### Learning order versus work order
+
+Choose the teaching sequence from the learner's reasoning gap; do not reproduce a book's table of contents or present the editorial sequence as the source's mandatory workflow. Explain the source basis and editorial adaptation in the design dossier. Real analysis can revisit need, process, expected results and evidence rather than complete them once in a rigid chain.
+
+When a concrete artifact makes the subject easier to grasp, let learners encounter the work/case and annotated whole picture before a detached glossary. Explain each central term at the relevant detail: meaning -> example -> why the distinction changes a decision. This is a preferred BA/PO presentation strategy, not a rule to postpone every definition or force a process into unrelated subjects.
+
+Ask about the desired change early, before choosing implementation. A later outcome/metrics lesson deepens how to operationalize and verify that expectation; it must not imply outcomes are first defined after delivery. In retrospective worked examples, explicitly say goals, hypotheses and criteria predate the trial when that is the premise.
+
 ### Worked examples, cases, and adapted frameworks
 
 Use a realistic question, opportunity, ambiguity, or decision as the opening; failure/incident is not mandatory. Revisit the opening case when demonstrating reasoning, and introduce another context only when it clarifies transfer or a boundary. Use consistent case facts without forcing a single company, recurring persona, or role stereotype across the course.

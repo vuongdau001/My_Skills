@@ -62,6 +62,12 @@ Use one disposition with rationale:
 
 Keep this separate from the answer verdict in quiz-authoring-and-review.md. A correct key can still belong to a poor item. Follow the repo's bank-size contract; replace weak items with uncovered worthwhile capabilities rather than filler. Preserve stable IDs when the assessed capability remains unchanged.
 
+## Chapter continuity checks
+
+Check the chapter as a learner's reasoning progression: what new question each lesson answers, what it inherits, and what it intentionally leaves for the next. Confirm that desired results appear before implementation, even when measurement is taught later. Inspect transitions for hidden jumps from unconfirmed need/process to implemented solution.
+
+Cross-check the active case premise across theory, diagrams/captions, worked examples and item feedback. Confirm current versus future initiator, responsibility versus decision authority, and record entry versus real business completion. After a user correction, update related active artifacts and refresh exact taught spans; a previous reviewer verdict cannot be inherited by rewritten content. Do not infer pedagogical effectiveness from the coherence check.
+
 ## 6. Close the lesson, then review the track
 
 Conclude which outcomes are covered, missing, overrepresented, or untaught; which items repeat the same decision; which theory repairs affect keys; and what remains blocked. Record the lesson's next review milestone before advancing. Do not report unreviewed items as passing.

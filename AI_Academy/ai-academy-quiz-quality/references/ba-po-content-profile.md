@@ -27,6 +27,16 @@ Revisit a case across these parts when it provides continuity. Use GAMS, AI Word
 
 Before/after examples may compare interview questions, requirements, rules, models or decisions. They need no code or named commercial tool. If using actual product behavior, verify it against official documentation. Simulated examples need coherent conditions; do not invent financial rules, target metrics or approvals to fill a table.
 
+## Chapter narrative and case continuity
+
+Before authoring a chapter, record each lesson's central question, owned technique, prerequisites, next capability and overlap to avoid. Each lesson should contribute a new reasoning step rather than repeat the same warning with new vocabulary. Bridge from an unresolved example to a later selected/implemented solution with an explicit new simulation premise; do not silently promote unknowns into confirmed facts.
+
+Maintain one current case ledger and apply user corrections across all lessons, visuals and source/core/item sidecars in the active scope. Preserve archived versions as history. For GAMS, current user-provided information is that the project PM initiates renewal consideration; IT does not initiate it. The future intent is system-initiated consideration, with trigger conditions still to specify. Initiation does not automatically confer approval, purchasing or renewal authority. Other workflow details remain hypothetical unless supplied or verified. Prefer a neutral “authorized approver” rather than assigning approval to a familiar role just to simplify a downstream example.
+
+For process-led lessons, a useful optional reading path is current work -> whole picture -> concepts on the example -> worked handoff reasoning -> AS-IS/TO-BE -> support scope. Adapt it to the lesson; do not impose six headings or repeat the model in full prose. Separate known AS-IS fragments, a simulated extended flow, intended TO-BE and runtime facts. Automation of the trigger does not imply automation of decisions or the entire process.
+
+Keep outcome/value as the purpose of solution work throughout the chapter. Metric arithmetic supports defensible evidence; place supporting detail outside the main narrative when helpful, but clearly require it before any dependent quiz. Objectives stay in the design dossier and level-1 questions remain concept checks.
+
 ## Assessment contract
 
 For the learner page, apply [content-layout-and-visuals.md](content-layout-and-visuals.md): use short blocks/callouts and compact comparisons, process diagrams for relationships that prose obscures, and maintain text fallback when visual assets are pending. In design-only work, hand off nodes/relations, caption, scope and source/core links to the specialist; do not produce or dispatch visuals before the authorized phase.

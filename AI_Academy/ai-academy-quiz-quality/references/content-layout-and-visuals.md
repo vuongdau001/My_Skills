@@ -25,6 +25,12 @@ A diagram may carry the main explanation of a process. Prose explains interpreta
 - Place limits near the principle they qualify; end with one takeaway and supporting points. Use expandable material for supporting detail, but do not label quiz prerequisites as optional; mark required reading clearly or teach them in the main flow. Detailed source/core/item mapping remains in sidecars/review artifacts with concise citations in theory.
 - Code blocks are for code, syntax or genuinely structured technical specimens, not colored containers for ordinary prose.
 
+## Whole-picture process visuals
+
+When the teaching goal is end-to-end thinking, a short chain of role names may hide the key lesson. Show enough participants, external parties, systems/manual records, inputs/outputs and handoffs to explain where the work crosses boundaries. Include decision branches, returns or waiting states that affect the question and the completion condition. Complexity serves the reasoning; do not invent confirmed organization policy or add systems merely for visual density.
+
+Use a cross-functional process map, swimlane or valid BPMN according to the needed semantics. Distinguish work order from supporting tools and automated integration. Mark simulated roles/tools/branches where case evidence is absent. On narrow screens preserve readable labels with a zoomable/openable image, horizontal diagram scrolling or split views and a text equivalent; page overflow checks alone do not prove diagram readability.
+
 ## Principle-level takeaway visual
 
 When a concluding infographic helps, explain the reusable principle or relationship, rather than retelling the case. Record the intended takeaway, semantic relationships, limits, and misleading implications to avoid. Check whether the visual still makes sense after removing project names, role names, and story objects. Candidate paths must not imply a proven winner; arrows must not turn a revisitable reasoning aid into a mandatory linear process.

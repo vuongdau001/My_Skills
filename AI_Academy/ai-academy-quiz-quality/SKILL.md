@@ -42,7 +42,7 @@ Read only the references needed for the current mode:
 7. **Review the bank and delivery behavior.** Check objective coverage, repeated templates, answer-position and length cues, duplicate ideas, explanation reuse, and the quality of random six-question attempts.
 8. **Apply the staged gates.** Separate structural automation from semantic judgment. Report `PASS`, `CONDITIONAL PASS`, or `BLOCK` with explicit evidence and unresolved risks.
 
-Run steps 2–7 as a complete cycle for each lesson in curriculum order. Review every theory section and then every quiz item in source order before moving to the next lesson. Record cross-lesson dependencies and revisit affected lessons at the final track review. An upstream blocker does not prevent inventorying downstream items, but their dependent claims cannot pass. For a user-scoped subset, follow its curriculum order and report prerequisite gaps.
+Run steps 2–7 as a complete cycle for each lesson in curriculum order. Review every theory section and then every quiz item in source order before moving to the next lesson. Record cross-lesson dependencies, distinguish editorial learning order from work order, and revisit case continuity at the final chapter/track review. An upstream blocker does not prevent inventorying downstream items, but their dependent claims cannot pass. For a user-scoped subset, follow its curriculum order and report prerequisite gaps.
 
 ## Non-negotiable constraints
 
