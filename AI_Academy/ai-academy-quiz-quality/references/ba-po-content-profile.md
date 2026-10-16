@@ -31,6 +31,8 @@ Before/after examples may compare interview questions, requirements, rules, mode
 
 Each core explanation must connect meaning -> a concrete case detail -> why that interpretation matters to the analysis. A case used only for an opening story, a blank form, or labels pasted onto generic definitions is insufficient. Repair the case if it cannot carry the intended explanation. For flow-analysis lessons, show a filled main flow and meaningful branches with conditions, responses, outcomes and rejoin/termination; do not impose this layout on every lesson. Keep learner-facing prose coherent rather than repeating a mandatory three-column template.
 
+For artifact/analysis lessons, apply the transformation guidance in [learning-content-method.md](learning-content-method.md#demonstrate-the-transformation-not-only-the-issue): show the initial artifact, diagnosis, annotated revision and recheck. A case that only exposes gaps without demonstrating the taught repair is incomplete. Keep proposed, unresolved and conditionally confirmed simulated content distinct; connect the repair back to the initial issue without guaranteeing prevention.
+
 ## Chapter narrative and case continuity
 
 Before authoring a chapter, record each lesson's central question, owned technique, prerequisites, next capability and overlap to avoid. Each lesson should contribute a new reasoning step rather than repeat the same warning with new vocabulary. Bridge from an unresolved example to a later selected/implemented solution with an explicit new simulation premise; do not silently promote unknowns into confirmed facts.

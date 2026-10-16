@@ -77,3 +77,7 @@ After all lessons, check prerequisite continuity, term consistency, overlapping 
 ## Case-integrated explanation check
 
 For each core concept, ask: can the learner point to a detail in the worked example, explain why the term applies, and explain what changes in the decision? Record a missing example-to-concept bridge as a theory repair, even when the definition and source citation are correct. For behavioral-flow lessons, inspect branch conditions, response, outcome and rejoin/termination. A filled artifact alone is insufficient if the prose never explains it. Apply this check to the actual technique; do not demand flow branches in every subject.
+
+## Artifact-transformation check
+
+For analysis or artifact lessons, inspect the initial input, diagnosed gap, principle used, revised artifact, explanation of the material changes and recheck. Record a missing transformation as a theory repair even if the incident and definitions are convincing. Check that the proposed revision addresses the initial issue within stated limits, and that unknowns have not silently become confirmed facts. Scope this check to the taught technique; a dispute, fixed before/after layout or completed domain policy is not required. After a revision, preserve the agreed assessment level and refresh taught spans rather than adding case-trivia items.

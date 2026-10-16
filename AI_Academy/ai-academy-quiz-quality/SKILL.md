@@ -49,7 +49,7 @@ Run steps 2–7 as a complete cycle for each lesson in curriculum order. Review 
 - Do not use the current theory as proof of its own correctness when external authority is required.
 - Do not put untaught concepts into a quiz; correct or expand theory first, or remove the item.
 - Case studies must contain decision-relevant facts. Names and story detail that do not affect reasoning are decoration. For BA/PO, explain every core concept through a specific case detail and its decision consequence; repair a case that cannot demonstrate the technique (see learning-content-method).
-- A worked example must show reasoning and a bounded conclusion, not merely a blank template or list of open questions. Match learner activity to the agreed assessment scope; do not add artifact submissions, interactive labs, or fixed section quotas by adopting an external framework.
+- A worked example must show reasoning and a bounded conclusion, not merely a blank template or list of open questions. For analysis/artifact lessons, demonstrate the annotated transformation and recheck described in learning-content-method. Match learner activity to the agreed assessment scope; do not add artifact submissions, interactive labs, or fixed section quotas by adopting an external framework.
 - Every distractor must represent a distinct plausible misconception in the same decision space as the key.
 - Explanations must state the governing rule, apply the supplied facts, and reject the closest alternatives. They may not rescue an ambiguous stem.
 - Distinguish author intent from what the learner actually has to do to answer. Every item needs one primary assessment purpose, taught support, and an explicit suitability decision; teaching or reminding through feedback is secondary.
