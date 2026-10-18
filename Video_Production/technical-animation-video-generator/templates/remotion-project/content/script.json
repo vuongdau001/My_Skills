@@ -1,0 +1,52 @@
+{
+  "version": "1.0.0",
+  "slug": "demo-session",
+  "title": "Demo: Session & Cookie",
+  "fps": 30,
+  "width": 1080,
+  "height": 1920,
+  "ttsRate": "+12%",
+  "targetSec": 60,
+  "authoringRules": {
+    "cueSubMaxChars": 64,
+    "stageLabelMaxWords": 4,
+    "realModeForbiddenTerms": ["HTTP", "HTTPS", "Server", "Client", "Browser", "Request", "Cookie", "Session", "Token", "JWT", "Hash", "Salt", "API", "OAuth", "OIDC", "Passkey", "Database", "Base64"]
+  },
+  "scenes": [
+    {
+      "id": "demo",
+      "act": "DEMO",
+      "title": "Session & Cookie",
+      "part": 1,
+      "beats": [
+        {
+          "id": "demo_bridge",
+          "mode": "bridge",
+          "stage": ["1", "Session & Cookie"],
+          "cues": [
+            { "sub": "Trình giấy tờ ở mọi quầy quá phiền. Trình một lần được không?", "tts": "Trình giấy tờ ở mọi quầy quá phiền. Chỉ trình một lần được không?", "hl": ["một lần"] }
+          ]
+        },
+        {
+          "id": "demo_real",
+          "mode": "real",
+          "stage": ["Khách hàng", "Lễ tân", "Sổ khách", "Thẻ K7X9"],
+          "cues": [
+            { "sub": "Lễ tân xem Căn cước một lần, ghi sổ và phát thẻ khách K7X9.", "tts": "Lễ tân xem căn cước một lần, ghi vào sổ, rồi phát thẻ khách mang mã riêng.", "hl": ["một lần"] },
+            { "sub": "Quầy sau tra sổ là biết bạn. Gạch sổ là thẻ vô hiệu ngay.", "tts": "Quầy sau tra sổ là biết bạn. Gạch sổ là thẻ vô hiệu ngay.", "hl": ["vô hiệu ngay"] }
+          ]
+        },
+        {
+          "id": "demo_tech",
+          "mode": "tech",
+          "stage": ["Browser", "Server", "Session Store"],
+          "mapBar": { "real": "Thẻ khách · Sổ khách", "tech": "Cookie (Session ID) · Session Store" },
+          "cues": [
+            { "sub": "Sổ khách là Session Store; thẻ khách là Cookie chứa Session ID.", "tts": "Sổ khách là kho lưu phiên. Thẻ khách là cúc-ki chứa mã phiên.", "hl": ["Session Store", "Cookie"] },
+            { "sub": "Trình duyệt tự gửi Cookie. Xóa Session là đăng xuất ngay.", "tts": "Trình duyệt tự gửi cúc-ki. Xóa phiên là đăng xuất ngay.", "hl": ["đăng xuất ngay"] }
+          ]
+        }
+      ]
+    }
+  ]
+}
