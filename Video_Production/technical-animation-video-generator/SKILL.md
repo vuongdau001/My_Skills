@@ -8,7 +8,8 @@ description: >-
   "explainer video". Gồm: phương pháp Thực tế trước → Kỹ thuật sau (không chồng lấn), mô phỏng
   cơ chế (gói tin chạy đúng thứ tự, không kiểu slide), chuyển tiếp 3 tầng, linter kịch bản,
   TTS theo từng cue, QA khung hình từng beat, báo cáo phần đã/chưa xác minh. Có template
-  Remotion và script Python đã kiểm chứng.
+  Remotion và script Python đã kiểm chứng. YÊU CẦU MÁY: macOS (dùng afinfo/say) + Google Chrome
+  + Node/pnpm + Python 3 + mạng (edge-tts). Không chạy được trên Linux/Windows nếu chưa thay các lệnh đó.
 ---
 
 # Technical Animation Video Generator
@@ -39,18 +40,18 @@ description: >-
 ## Quy trình 8 bước
 
 ### Bước 0. Intake
-Hỏi (ask_question) những gì brief chưa có: chủ đề + mục tiêu học (người xem hiểu được gì), đối tượng,
+Hỏi user (dùng công cụ hỏi có sẵn của agent) những gì brief chưa có: chủ đề + mục tiêu học (người xem hiểu được gì), đối tượng,
 **thời lượng mục tiêu mỗi tập & nền tảng**, tỉ lệ khung hình, giọng nam/nữ, style tham khảo, thế giới ví dụ.
 Báo trước: cách "thực tế → kỹ thuật" dài **gấp ~2 lần** giải thích thẳng (~3 chương / tập 120s).
 
 ### Bước 1. Khởi tạo project (chỉ dùng runtime có sẵn, xem skill `use-local-runtime`)
 ```bash
-SK=~/.gemini/config/skills/technical-animation-video-generator
+SK=<thư mục skill này>   # vd ~/.gemini/config/skills/..., ~/.claude/skills/..., ~/.codex/skills/... (hoặc clone My_Skills/Video_Production)
 cp -R $SK/templates/remotion-project <workspace>/<slug> && cp $SK/scripts/*.py <workspace>/<slug>/tools/
 cd <workspace>/<slug> && pnpm install          # cài cục bộ (pnpm có sẵn; không có thì npm install)
 python3 -m venv tools/.venv && tools/.venv/bin/pip install edge-tts   # venv cục bộ, KHÔNG pip global
 ```
-`pnpm install` và `pip install` cần mạng, nên chạy với BypassSandbox. Template đã có `public/.gitkeep`.
+`pnpm install` và `pip install` cần mạng: nếu agent chạy trong sandbox thì phải xin quyền chạy ngoài sandbox/có mạng. Template đã có `public/.gitkeep`.
 
 ### Bước 2. Kịch bản + fact-check (`content/script.json`)
 - Schema, cấu trúc bridge/real/tech/outro, ngân sách thời lượng: **references/01**.
@@ -62,13 +63,16 @@ python3 -m venv tools/.venv && tools/.venv/bin/pip install edge-tts   # venv c�
 ### Bước 3. Cổng duyệt duy nhất: user duyệt kịch bản
 Trình bày bảng: Cảnh | Sân khấu | Vietsub + thời lượng ước tính từng tập (số của linter).
 Vượt mục tiêu thì đề xuất chia series hoặc cắt, nêu rõ được/mất. Không tự hạ chuẩn trong im lặng.
+**Nếu `lint_script.py` exit 1 (vd vượt `targetSec`) thì DỪNG, hỏi user chọn: cắt cue / chia tập / chấp nhận mục tiêu mới. Không sang Bước 4 khi chưa có quyết định.**
 
 ### Bước 4. TTS theo từng cue
 ```bash
-tools/.venv/bin/python3 tools/generate_audio.py --part 1 --voice nam   # BypassSandbox: cần speech.platform.bing.com
+tools/.venv/bin/python3 tools/generate_audio.py --part 1 --voice nam   # cần mạng tới speech.platform.bing.com (ngoài sandbox)
 ```
 - Cache theo `sha1(voice|rate|tts)`: sửa lời là tự tạo lại, lời cũ giữ nguyên.
-- Offline thì tự fallback `say -v Linh` (.m4a). Giọng kém hơn, nên **chạy lại khi có mạng** trước khi bàn giao.
+- Cue nào edge-tts lỗi thì tự fallback `say -v Linh` (.m4a) → video bị **lẫn 2 giọng**. Script in danh sách cue lỗi và
+  **exit 3** (manifest/srt vẫn được ghi; `--allow-fallback` chỉ cho bản nháp). Chạy lại tới khi hết cảnh báo (chỉ cue lỗi được tạo lại)
+  rồi mới render. Trước bàn giao: `grep -c '.m4a' src/manifest-part*.json` phải ra 0.
 - Đọc **thời lượng thật** in ra. Vượt mục tiêu thì quay lại Bước 2.
 - Output: `src/manifest-part1.json`, `out/<slug>-part1.srt`, `public/audio/cues/*`.
 
@@ -78,7 +82,8 @@ tools/.venv/bin/python3 tools/generate_audio.py --part 1 --voice nam   # BypassS
 - Thêm tập 2: chạy `--part 2`, import `manifest-part2.json` vào `EPISODES` trong `src/Root.tsx`.
 - Font: dùng font hệ thống (đã cấu hình trong `tokens.ts`), không tải Google Fonts lúc render
   (từng gặp `ERR_CONNECTION_CLOSED` khi render nhiều tab).
-- `./node_modules/.bin/tsc --noEmit` phải exit 0 trước khi render.
+- `./node_modules/.bin/tsc --noEmit` phải exit 0 trước khi render. Template mới chưa có `src/manifest-part1.json`
+  nên `tsc` sẽ báo lỗi import cho tới khi chạy Bước 4 ít nhất một lần.
 
 ### Bước 6. QA khung hình từng beat
 ```bash
@@ -86,13 +91,15 @@ tools/.venv/bin/python3 tools/qa_frames.py --part 1 --csv      # 1 frame/cue, l�
 ./node_modules/.bin/remotion still src/index.ts Part1 out/qa/<id>.png --frame=<N> --log=error \
   --browser-executable="/Applications/Google Chrome.app/Contents/MacOS/Google Chrome"
 ```
-- `remotion still`/`render` cần **BypassSandbox** (Chrome cần Mach port, nếu không sẽ lỗi `Permission denied (1100)`).
-- Xem từng ảnh bằng view_file. Checklist:
+- `remotion still`/`render` phải chạy **ngoài sandbox** (Chrome cần Mach port, nếu không sẽ lỗi `Permission denied (1100)`).
+- Mở và xem từng ảnh (công cụ xem ảnh của agent). Checklist:
   - [ ] Pha real không có chữ IT; pha tech có Mapping Bar
   - [ ] Có gói tin/trạng thái thể hiện **thứ tự xử lý**, không phải lưới thẻ
   - [ ] Không phần tử nào tràn khỏi canvas 912px; không vùng trống > 30% sân khấu
   - [ ] Vietsub ≤ 2 dòng; cụm highlight không gãy dòng
   - [ ] Một thời điểm chỉ 1 gói tin đang bay; verdict cũ đã ẩn trước khi verdict mới hiện
+  - [ ] **Không chữ/chip/verdict nào đè lên nhãn node hoặc lên nhau** (lỗi gặp nhiều nhất: nhãn nằm dưới icon ~y+100;
+        packet đích dùng x-80 thay vì tâm node; chip "vật đang giữ" đặt ≥ y+170). Chi tiết: references/02
 - **Sửa code thì phải chụp lại ảnh QA** của beat bị ảnh hưởng.
 
 ### Bước 7. Render + bàn giao

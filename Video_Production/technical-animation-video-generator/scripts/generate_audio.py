@@ -9,7 +9,8 @@ Audio & Subtitle Pipeline (v5) — per-cue TTS, per-part manifests.
 - Timing constants come from tools/timing.py (shared with lint_script.py).
 - Outputs per part:  src/manifest-part{N}.json  and  out/<slug>-part{N}.srt  (slug from script.json)
 
-Usage:  tools/.venv/bin/python3 tools/generate_audio.py --part 1 [--voice nam|nu]
+Usage:  tools/.venv/bin/python3 tools/generate_audio.py --part 1 [--voice nam|nu] [--allow-fallback]
+Exit code 3 = some cues fell back to the macOS voice (manifest/srt are still written).
 """
 
 import argparse
@@ -89,7 +90,7 @@ def synthesize_macos_fallback(text: str, base: Path) -> Path:
     return m4a
 
 
-async def build_part(part: int, voice_key: str) -> None:
+async def build_part(part: int, voice_key: str, allow_fallback: bool = False) -> int:
     script = json.loads(SCRIPT_PATH.read_text(encoding="utf-8"))
     fps: int = script["fps"]
     rate: str = script.get("ttsRate", "+5%")
@@ -107,6 +108,7 @@ async def build_part(part: int, voice_key: str) -> None:
     chapters: List[Dict[str, Any]] = []
     srt: List[str] = []
     frame = 0
+    fallback_cues: List[str] = []  # cues voiced by macOS `say` instead of the neural voice
 
     for scene in scenes:
         chapters.append({"id": scene["id"], "title": scene["title"], "act": scene["act"], "startFrame": frame})
@@ -134,6 +136,8 @@ async def build_part(part: int, voice_key: str) -> None:
                         audio = synthesize_macos_fallback(cue["tts"], base)
                         tag = "say"
                         providers.add("macOS say Linh (fallback — re-run with network for neural voice)")
+                if audio.suffix == ".m4a":
+                    fallback_cues.append(f"{beat['id']} cue{ci}")
                 sec = get_duration_seconds(audio)
                 if sec < 0.5:
                     raise SystemExit(f"Bogus audio duration {sec:.2f}s for {audio.name} — check the file/container.")
@@ -182,11 +186,21 @@ async def build_part(part: int, voice_key: str) -> None:
     (OUT_DIR / f"{slug}-part{part}.srt").write_text("\n".join(srt), encoding="utf-8")
     print(f"\n[DONE] Part {part}: {len(beats_out)} beats, {len(srt)} cues, {frame} frames = {frame / fps:.1f}s")
     print(f"[DONE] Voice: {manifest['voiceProvider']}")
+    if fallback_cues:
+        print(f"\n[WARN] {len(fallback_cues)} cue(s) use the macOS fallback voice (mixed voices in one video):")
+        print("       " + ", ".join(fallback_cues))
+        print("       Re-run this command when the network is stable (only these cues are regenerated),")
+        print("       then re-render. Do NOT hand over until this list is empty.")
+        if not allow_fallback:
+            print("       Exit code 3 (pass --allow-fallback to accept mixed voices for a draft).")
+            return 3
+    return 0
 
 
 if __name__ == "__main__":
     ap = argparse.ArgumentParser()
     ap.add_argument("--part", type=int, default=1)
     ap.add_argument("--voice", choices=list(VOICES), default="nam")
+    ap.add_argument("--allow-fallback", action="store_true", help="exit 0 even if some cues use the macOS fallback voice (draft only)")
     a = ap.parse_args()
-    asyncio.run(build_part(a.part, a.voice))
+    sys.exit(asyncio.run(build_part(a.part, a.voice, a.allow_fallback)))
