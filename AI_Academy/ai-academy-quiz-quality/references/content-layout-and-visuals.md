@@ -25,6 +25,14 @@ A diagram may carry the main explanation of a process. Prose explains interpreta
 - Place limits near the principle they qualify; end with one takeaway and supporting points. Use expandable material for supporting detail, but do not label quiz prerequisites as optional; mark required reading clearly or teach them in the main flow. Detailed source/core/item mapping remains in sidecars/review artifacts with concise citations in theory.
 - Code blocks are for code, syntax or genuinely structured technical specimens, not colored containers for ordinary prose.
 
+## Reusable case background — BA/PO
+
+When a lesson uses a project case that newcomers may not know, place an optional, default-collapsed background block before its first substantive use. Maintain one source per case and reuse it consistently across lessons; do not repeat the block whenever the same case is mentioned again. Explain project/work scope, relevant participants, known current/future context and unresolved boundaries using available case evidence. Keep lesson-specific incidents, decisions, numbers and simulated continuations in the lesson, rather than turning them into shared project facts.
+
+The collapsed reading path must still identify the setting and supply every premise needed for the worked reasoning and quiz. Background is reference material, not hidden prerequisite theory. Keep local simulation labels and decision-relevant qualifications visible beside the example even if the background also describes provenance. Distinguish user-provided context, verified operational information and teaching-only premises; do not fill missing project details from professional theory or another case variant.
+
+Prefer the existing renderer's native `details/summary` support when available. Verify default state, pointer/keyboard toggle and mobile layout in the actual app. Do not assume HTML comments are invisible: a Markdown renderer may escape them into learner text. When inserting content, refresh line-based theory/quiz/assessment anchors and confirm that unchanged assessed knowledge remains taught outside the collapse. Keep reusable context and provenance records separate from runtime schema changes; applying the pattern does not authorize deployment or DB synchronization beyond the requested environment.
+
 ## Whole-picture process visuals
 
 When the teaching goal is end-to-end thinking, a short chain of role names may hide the key lesson. Show enough participants, external parties, systems/manual records, inputs/outputs and handoffs to explain where the work crosses boundaries. Include decision branches, returns or waiting states that affect the question and the completion condition. Complexity serves the reasoning; do not invent confirmed organization policy or add systems merely for visual density.
