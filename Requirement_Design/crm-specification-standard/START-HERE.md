@@ -1,7 +1,13 @@
 # Start Here
 
-ID: **CRM-START** · CRM Workflow Kit 1.4.0 · 03/11/2026
+ID: **CRM-START** · CRM Workflow Kit 1.5.0 · 03/11/2026
 
+
+## Install or Check an Installation
+
+Đọc [INSTALL.md](INSTALL.md): helper tạo một package tự chứa cho Antigravity/Claude, config repo riêng, scaffold và scoped instructions khi chưa có. Bắt đầu bằng install dry-run → --apply → doctor → fresh-session smoke test. Teammate nhận repo đã commit: doctor và xác nhận discovery, không cần sửa lại binding trong skill.
+
+Có thể yêu cầu agent: “Đọc INSTALL.md trong kit và chuẩn bị cài vào repo này; cho tôi xem dry-run và các file sẽ tạo.” Lệnh quản trị không tự là slash command ở mọi nền tảng. Source kit dùng tên crm-specification-standard; installed skill dùng crm-spec-kit.
 
 ## Dùng kit lần đầu
 
@@ -88,4 +94,4 @@ Cuối mỗi workflow đọc target/scope/revision, artifacts, findings/evidence
 
 Có một root skill cùng 5 profiles và 13 workflow guides. Chúng không tự khởi chạy multi-agent, không phụ thuộc BMAD runtime và không thực hiện Jira/Git/CI mutations. Files dự án và policy đã duyệt là inputs; kit không mang sẵn approval CRM. [Nguồn BMAD và CRM tailoring](provenance/bmad-inspiration-and-crm-tailoring.md) giải thích cách áp dụng tư tưởng.
 
-Chạy `python3 scripts/validate_reference_pack.py` để kiểm cấu trúc kit; xem [kết quả 1.4](provenance/pack-validation-report-v1.4.md). Kết quả này khác pilot hay test sản phẩm thực tế.
+Chạy `python3 scripts/validate_reference_pack.py` để kiểm cấu trúc kit; xem [kết quả 1.5](provenance/pack-validation-report-v1.5.md). Kết quả này khác pilot hay test sản phẩm thực tế.

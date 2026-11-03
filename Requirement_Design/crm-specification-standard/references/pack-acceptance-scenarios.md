@@ -88,3 +88,9 @@ Dùng [pilot procedure](pilot-and-operational-validation.md) và [record](../ass
 Các case WK01–WK15, input fixtures, quyết định và giới hạn walkthrough nằm ở [Workflow Routing and Handoff Walkthrough](examples/workflow-routing-and-handoff-walkthrough.md). Chúng bao phủ routing, scope, rework, quyền của check workflows, handoff/resume và tính portable; không tự thay pilot thật.
 
 Để review bản phát hành: đọc [Start Here](../START-HERE.md), dùng registry để mở từng function, đối chiếu workflow với case tương ứng; kiểm mỗi function có input/steps/output/receiver/next action, và correction được route về tác giả thay vì check tự sửa target.
+
+## Installation Tooling Acceptance — 1.5
+
+Dùng [INSTALL](../INSTALL.md) để chạy install dry-run/apply trên repo tạm, doctor và fresh-session smoke test theo nền tảng. Các automated tests tại [test_installation_tooling.py](../scripts/tests/test_installation_tooling.py) kiểm filesystem/config/context/lint/ID/update, bao gồm clone sạch và rollback. [Report 1.5](../provenance/pack-validation-report-v1.5.md) ghi kết quả và phần chưa kiểm.
+
+Không suy runtime discovery từ SKILL file tồn tại, không suy semantic approval từ lint, không coi reservation local là global allocation qua nhiều clone. Bản cài cũ chỉ được migration theo ownership/diff được review, không undo toàn file.

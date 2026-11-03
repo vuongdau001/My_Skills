@@ -1,6 +1,6 @@
 # Workflow Execution Protocol
 
-ID: **CRM-WORKFLOW-PROTOCOL** · CRM Workflow Kit 1.4.0 · 03/11/2026
+ID: **CRM-WORKFLOW-PROTOCOL** · CRM Workflow Kit 1.5.0 · 03/11/2026
 
 
 ## Purpose & Routing
@@ -9,7 +9,7 @@ Dùng cho mọi function và agent profile trong kit. Người dùng gọi `crm-
 
 1. Nhận mục tiêu; phân biệt cần soạn/sửa, review nội dung, check điều kiện, assess impact hay report. Chọn function theo ý định và bước hiện tại, không tự chạy toàn bộ vòng đời.
 2. Xác định target/canonical refs, selected scope, revision và baseline. Nếu nhiều target hợp lý, hỏi trước khi chỉnh sửa; không dùng target ngầm từ phiên cũ.
-3. Thông báo ngắn function/profile đang dùng, scope và output dự kiến. Đọc workflow, profile tương ứng và refs cần cho target; không tải mọi model.
+3. Thông báo ngắn function/profile đang dùng, scope và output dự kiến. Nếu có helper context bundle, dùng các phần workflow/profile/protocol đã nạp, không đọc lại toàn chuỗi. Chỉ mở refs/model theo applicability; không tải mọi model.
 4. Kiểm required inputs. Tiếp tục phần độc lập khi thiếu input; ghi missing item/authority/owner nếu biết và gate impact. Không invent policy, approval, expected behavior hoặc dữ liệu test.
 5. Thực hiện workflow; ghi output/handoff tại artifact hiện hành hoặc nơi user chỉ định. Không tạo competing spec và không tự tạo folder project mới khi chưa biết canonical location.
 
@@ -19,7 +19,7 @@ Context gồm project/artifact locations, target ID/kind và Jira mapping nếu 
 
 Không lưu một active Epic/Story toàn cục. Khi resume hoặc đổi người, đọc lại các refs được bàn giao và current revision; so với record trước để phát hiện stale context. Chat history hỗ trợ tìm nguồn, không thay canonical artifacts. Khi đổi target, xác nhận lựa chọn nếu còn mơ hồ, tách record cho target mới, giữ record cũ như lịch sử.
 
-Dùng [context/handoff template](../assets/templates/work-context-and-handoff-template.md) như section trong tài liệu hiện hành hoặc record riêng khi cần. Không bắt sinh file cho mỗi lần chạy. Không tạo module runtime, hidden state hay database trong lần triển khai kit này.
+Dùng [context/handoff template](../assets/templates/work-context-and-handoff-template.md) như section trong tài liệu hiện hành hoặc record riêng khi cần. Không bắt sinh file cho mỗi lần chạy. Config workstreams và ID reservations là repo-owned tooling records công khai; không lưu active target toàn cục hoặc hidden state. Các hồ sơ authority/evidence vẫn ở artifacts, không được suy ra từ config.
 
 ## Verbs & Write Boundaries
 
@@ -58,3 +58,7 @@ Check structural/ref có thể dùng công cụ; semantic comparison là thao t�
 - Stale approval/evidence: xác định revision mới, impact và phần cần review/test lại; giữ lịch sử, không tự sao chép Pass.
 - Sau correction: chạy lại check/review liên quan; không auto nâng kết quả từ việc tác giả nói đã sửa.
 - Next function là đề xuất, không tự cho phép thực thi hoặc xác nhận approval. Có đủ input thì có thể bỏ qua các bước đã được chứng minh, không bắt replay toàn quy trình.
+
+## Installation Tooling and Artifact Checks — 1.5
+
+[Installation guide](../INSTALL.md) định nghĩa package/config separation, filesystem adapters và giới hạn doctor. [Artifact metadata/lint](artifact-metadata-and-lint.md) giúp bắt cấu trúc/vocabulary/ID/links; không thay Q01–Q07 hoặc gate authority. Dùng context bundle khi có Python, references mở rộng theo nhu cầu. Sau ghi artifact chạy lint và nêu cảnh báo legacy/coverage chưa kiểm. Helper có thể tạo scaffolds/config/ID reservation đúng quyền; không merge, commit/push, thay shared instructions hoặc Jira states.

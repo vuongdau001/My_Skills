@@ -63,3 +63,7 @@ Kiểm từ nguồn đến giao hàng: need/decision → REQ/BR → model → St
 **Đạt:** định danh/meaning/source/version và trace phù hợp bước đều resolve, không duplicate hoặc orphan chặn. **Chưa kiểm:** thiếu register/source. **Không đạt:** xung đột kind/ID, stale pin hoặc mất allocation. BA quản lý register; authority quyết nghĩa; TL/QA kiểm allocation/verification; PM chốt scope.
 
 Liên quan: [Q05](checks/traceability-and-versioning.md), [phân rã](backlog-hierarchy-and-decomposition.md), [nguồn](standards-and-crm-tailoring.md). Cấu trúc ID trên là quy ước CRM, không phải chuẩn bắt buộc của IREB hay Jira.
+
+## Allocation Tooling — 1.5
+
+`kit.py next-id` gợi ý ID từ tất cả workstreams và reservation ledger; chỉ --reserve --owner --apply mới giữ số trong checkout hiện tại. Local lock không giải quyết cấp số giữa các clone; cần reconcile/central allocator trước merge. Lint phân biệt definition với reference bằng [artifact metadata](artifact-metadata-and-lint.md), đồng thời audit các heading/property/ID columns rõ ràng của legacy. Q-CRM-NNN có thể dùng cho câu hỏi project binding đã chọn, khác Q01 check IDs. Không đổi ID nguồn hoặc cấp lại số đã bỏ.

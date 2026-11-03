@@ -1,0 +1,103 @@
+# Install and Operate CRM Spec Kit
+
+ID: **CRM-INSTALL** · CRM Workflow Kit 1.5.0 · 03/11/2026
+
+## Packaging Contract
+
+Nguồn phát triển là folder `crm-specification-standard`. Bản cài có một package tự chứa tên `crm-spec-kit`; helper thay **chỉ trường name của root SKILL** khi đóng gói. Không có wrapper/vendor hay SKILL lồng thứ hai. Registry, profiles, workflows và chuẩn nằm ngay trong package. Bản cài không được sửa trực tiếp; mọi thay đổi nguồn thực hiện ở upstream rồi update.
+
+Config dự án ở `.agents/crm-spec-kit.json`, nằm ngoài package và do repo sở hữu. Spec artifacts ở spec_root của từng workstream. Receipt `crm-spec-kit-installation.json` ghi version/hash toàn bộ package đã cài; digest kiểm drift, không là chữ ký hoặc chứng nhận nguồn tin cậy.
+
+## Bootstrap
+
+Cần Python **3.11+**, chỉ stdlib, không pip/network. Từ folder nguồn kit đã tải hoặc clone, dùng:
+
+```text
+python3 scripts/kit.py install --repo <repo-root> --agent both --workstream p3 --spec-root phase-3/spec --source SRC-FL=phase-3/function-list.md
+python3 scripts/kit.py install --repo <repo-root> --agent both --workstream p3 --spec-root phase-3/spec --source SRC-FL=phase-3/function-list.md --apply
+python3 scripts/kit.py doctor --repo <repo-root>
+```
+
+Lệnh đầu dry-run; lệnh thứ hai mới ghi. `<repo-root>` là argument lúc chạy, không ghi absolute path đó vào config/artifacts. Chọn `--agent antigravity`, `claude` hoặc `both`. Nếu chưa biết repo/spec_root/source thì agent hỏi phần thực sự thiếu; không giới hạn cứng số câu hỏi mà bỏ qua xung đột quyền hoặc scope.
+
+Helper tạo package tại `.agents/skills/crm-spec-kit` và/hoặc `.claude/skills/crm-spec-kit`. Mặc định là **copy**, không tạo symlink. Package có .gitattributes giữ LF cho Markdown/JSON/Python và đánh dấu ZIP binary để receipt không lệch chỉ vì Git checkout đổi line ending; vẫn cần smoke test Windows native. Nếu repo đã có symlink nội bộ từ `.claude/skills` tới `.agents/skills`, helper resolve và chỉ cài một lần. Link trỏ ra ngoài repo bị từ chối. Mọi file của package được tìm từ `__file__`, không từ số tầng `../../vendor` hoặc thư mục làm việc.
+
+Để chia sẻ kiểu “copy một folder”, copy **bản đã đóng gói** crm-spec-kit từ installation, gồm cả receipt, vào skills directory repo mới. Có thể chạy scripts/kit.py install ngay từ package đó để tạo config/scaffold; chỉ dùng slash command nếu công cụ đã nhận diện skill. Copy source nguyên bản crm-specification-standard vẫn dùng được bằng cách yêu cầu agent đọc SKILL/INSTALL, hoặc chạy bootstrap ở trên để sinh public package name.
+
+Không chạy install đè lên folder skill chưa có ownership receipt; nếu folder đã có cùng tên, dừng và yêu cầu kiểm tra/migration. Không tự di chuyển bản cài cũ hoặc sửa shared AGENTS/rules. Bản cài đã khác version phải dùng update.
+
+## Config and Scaffold
+
+Mẫu nền: [project config blueprint](assets/installation/project-config.template.json). Mỗi workstream có id/title, spec_root, optional input_root, sources với id/path/use và read_only. Tất cả path là repo-relative POSIX; không `..`, absolute path hoặc symlink thoát repo. spec_root không được chồng tool dirs, source/read_only hoặc spec_root khác. Namespace hiện hành là CRM theo bộ chuẩn; không đổi ngầm theo tên domain.
+
+Scaffold: `00-project`, `features`, `epics`, `stories`, `tasks`, `reviews`, `baselines`, `reports`, `pilot`. Có thư mục tasks không có nghĩa phải tạo Task. Mỗi thư mục scaffold có marker .crm-spec-kit-keep để tồn tại sau git clone; marker không là requirement/policy/approval. Không sinh artifact nghiệp vụ giả để lấp thư mục.
+
+Scoped AGENTS/CLAUDE chỉ được tạo khi chưa có; file có sẵn được giữ và báo cần xem xét. Chúng hướng dẫn trong spec_root, không override instruction/policy cấp cao hơn. Không tự tạo file `.agents/rules` rồi tuyên bố mọi nền tảng sẽ nạp. Các thay đổi config để thêm workstream là cập nhật config kit có chủ đích; config fields/values cũ được giữ.
+
+```text
+python3 scripts/kit.py install --repo <repo-root> --workstream p4 --spec-root phase-4/spec --apply
+```
+
+Chạy lại install cho stream có sẵn không cần lặp --source/read-only. Muốn sửa config stream hiện tại: edit config của repo một cách có chủ đích rồi doctor; install không silently đổi sources hoặc root.
+
+## Doctor and Fresh-session Check
+
+Doctor kiểm config/boundaries/scaffold/sources, validator, package receipt/hash, copies giữa hai adapter và git dirty state. ERROR dẫn exit 1; WARN không tự làm structural health fail, nhưng `runtime_verified` luôn false vì filesystem presence không chứng minh runtime discovery. Kiểm package sạch không chứng minh authority hoặc requirement đúng.
+
+Sau cài, mở phiên mới trên từng công cụ; xác nhận chỉ một public `crm-spec-kit`, gọi một function, hỏi agent báo package root/workstream/target. Lưu tool/version và observed evidence trong pilot. Đừng ghi discovery PASS từ việc `doctor` tìm thấy SKILL.md. Antigravity/Claude filesystem adapters đã được kiểm trên repo tạm; UI discovery và Windows native cần smoke test thật.
+
+Source missing là WARN để workflow có thể ghi question và làm phần độc lập. Có file tồn tại không chứng minh source đầy đủ/nghiệp vụ đã xác nhận. Kit không tự giải nén ZIP hoặc chạy executable trong nguồn.
+
+## Context and Workflow
+
+Từ package đã cài, dùng helper bên trong package:
+
+```text
+python3 scripts/kit.py context crm-define-feature --repo <repo-root> --workstream p3 --target FEAT-CRM-001 --target-kind Feature --revision working-tree
+python3 scripts/kit.py context crm-review-specification --repo <repo-root> --workstream p3 --target STORY-CRM-001 --target-kind Story --revision <revision> --reference Q03 --reference D05
+```
+
+Context mặc định gồm workflow, phần profile liên quan và các section protocol bắt buộc; config được in như dữ liệu, không approval. Tài nguyên chi tiết nằm ở available_references; thêm bằng --reference (entry ID hoặc path nội bộ). --full chỉ để so sánh/debug, không mặc định nạp mọi catalog. --format json cung cấp paths/hashes/character counts. Helper không tự chọn active workstream khi có nhiều stream, không tự đoán target/revision.
+
+Các lệnh đọc doctor/context/lint nhận --config <candidate-config.json> để audit migration mà không tạo config trong repo thật; đường dẫn trong config vẫn được kiểm theo --repo.
+
+Sau khi ghi artifact chạy lint; cuối run ghi Handoff theo template hiện có. Admin actions install/doctor/context/lint/next-id/update là helper, không thêm function nghiệp vụ vào bộ 13 function IDs.
+
+## Artifact Lint and IDs
+
+Đọc [Artifact Metadata and Lint](references/artifact-metadata-and-lint.md). Lint kiểm cấu trúc metadata/explicit fields và links; không là full semantic review hoặc gate enforcement.
+
+```text
+python3 scripts/kit.py lint --repo <repo-root> --workstream p3
+python3 scripts/kit.py next-id FEAT --repo <repo-root>
+python3 scripts/kit.py next-id FEAT --repo <repo-root> --reserve --owner ba-session-1 --apply
+```
+
+next-id không reserve chỉ là gợi ý. Reservation có local lock và ledger ngoài package; scan tất cả workstreams cùng namespace. Không tái dùng ID đã reserve. Lock không bảo đảm uniqueness qua các clone độc lập; reconcile/central allocator và lint trước merge vẫn cần. Q chỉ dùng cho câu hỏi của project binding khi được chọn, khác Q01 checklist của kit.
+
+## Controlled Local Update
+
+Chạy helper từ **folder nguồn riêng**, không từ chính installation sẽ được thay:
+
+```text
+python3 scripts/kit.py update --repo <repo-root> --source <trusted-new-kit-folder> --install-path .agents/skills/crm-spec-kit
+python3 scripts/kit.py update --repo <repo-root> --source <trusted-new-kit-folder> --install-path .agents/skills/crm-spec-kit --apply
+```
+
+Có thể thêm --ref với full commit SHA để export kit subfolder từ một Git checkout local. Không fetch/clone mạng tự động; người vận hành chọn và lấy trusted release trước. Không chạy code/tests của candidate; dùng validator hiện tại kiểm candidate như dữ liệu. Nếu release cần schema/validator mới, dừng và kiểm migration riêng.
+
+Install/update --apply có operation lock theo checkout; lock tồn tại không được tự xóa. Update dry-run báo files/version; apply yêu cầu installation không drift, stage bản mới, validate rồi thay managed package bằng rename. Giữ backup sibling để đối chiếu/khôi phục; nếu swap lỗi thì restore. Không đụng config/spec artifacts, không tự cập nhật adapter copy khác; update copy còn lại bằng install-path tương ứng rồi doctor. Có backup cũ thì dừng để người dùng xử lý có chủ đích. Không tự commit/push.
+
+## Manual Mode
+
+Không có Python: agent có thể đọc workflows và soạn/review theo checklist, tạo thư mục được giao bằng công cụ có sẵn. Phải ghi hash/config/lint/update checks chưa chạy; không báo doctor hoặc auto checks đã đạt. Không đảm bảo hai chế độ có cùng mức kiểm chứng.
+
+## Migrating an Existing Wrapper
+
+1. Inventory package/binding/shared-file diffs; lưu snapshot và xác định ownership. Không undo toàn file người dùng đang sửa.
+2. Tách repo values vào config; missing sources/decisions vào work-context, giữ metadata nghiệp vụ.
+3. Cài và kiểm package mới trên repo clone/bản sao, chạy doctor/lint và fresh-session discovery.
+4. Đối soát source/ID/artifact paths và authority rules; chỉ gỡ đúng đoạn integration cũ sau khi chủ repo xác nhận quy tắc thay thế có hiệu lực.
+5. Review diff/backup, chuyển package và refs theo kế hoạch migration được giao. File có sẵn của repo không bị đổi bởi install.
+
+Bản triển khai này kiểm nguồn kit và repo tạm; repo crm-docs đang cài thử được đọc để đối chiếu, chưa bị migration/hoàn tác/commit bởi công cụ này.

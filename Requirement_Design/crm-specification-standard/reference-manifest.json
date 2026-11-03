@@ -1,6 +1,6 @@
 {
   "pack_id": "crm-specification-standard",
-  "version": "1.4.0",
+  "version": "1.5.0",
   "date": "2026-11-03",
   "language": "vi",
   "scope": "Self-contained CRM workflow kit: logical agent profiles, workflow contracts and reference standards; no runtime installation or external mutations",
@@ -786,6 +786,72 @@
       "kind": "example",
       "title": "Workflow Routing and Handoff Walkthrough",
       "path": "references/examples/workflow-routing-and-handoff-walkthrough.md"
+    },
+    {
+      "id": "TPL-SCOPED-INSTRUCTIONS",
+      "kind": "installation-template",
+      "title": "CRM Spec Kit Scope",
+      "path": "assets/installation/scoped-instructions.md"
+    },
+    {
+      "id": "TPL-CLAUDE-IMPORT",
+      "kind": "installation-template",
+      "title": "Claude Scoped Import",
+      "path": "assets/installation/claude-import.md"
+    },
+    {
+      "id": "TPL-PROJECT-CONFIG",
+      "kind": "installation-template",
+      "title": "Project Config Blueprint",
+      "path": "assets/installation/project-config.template.json"
+    },
+    {
+      "id": "CRM-INSTALL",
+      "kind": "installation-guide",
+      "title": "Install and Operate CRM Spec Kit",
+      "path": "INSTALL.md"
+    },
+    {
+      "id": "CRM-ARTIFACT-LINT",
+      "kind": "reference",
+      "title": "Artifact Metadata and Lint",
+      "path": "references/artifact-metadata-and-lint.md"
+    },
+    {
+      "id": "TPL-ARTIFACT-METADATA",
+      "kind": "template",
+      "title": "Artifact Metadata Template",
+      "path": "assets/templates/artifact-metadata-template.md"
+    },
+    {
+      "id": "CRM-INSTALL-ASSESSMENT",
+      "kind": "provenance",
+      "title": "Installation Feedback Assessment",
+      "path": "provenance/installation-feedback-assessment.md"
+    },
+    {
+      "id": "CRM-KIT-HELPER",
+      "kind": "script",
+      "title": "CRM Installation and Execution Helper",
+      "path": "scripts/kit.py"
+    },
+    {
+      "id": "CRM-INSTALL-TESTS",
+      "kind": "test-script",
+      "title": "Installation Tooling Regression Tests",
+      "path": "scripts/tests/test_installation_tooling.py"
+    },
+    {
+      "id": "CRM-VALIDATION-1-5",
+      "kind": "provenance",
+      "title": "Installation Tooling Validation Report 1.5",
+      "path": "provenance/pack-validation-report-v1.5.md"
+    },
+    {
+      "id": "CRM-PACKAGE-ATTRIBUTES",
+      "kind": "packaging",
+      "title": "Package Line Ending Rules",
+      "path": ".gitattributes"
     }
   ],
   "source_archive": "provenance/original-epic-story-standard-and-workflow-v1.1.zip",
