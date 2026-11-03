@@ -4,6 +4,9 @@ Mã tài liệu: **CRM-PILOT** · Gói CRM 1.3.1 · 03/11/2026
 
 **Đọc khi:** chuẩn bị áp dụng quy trình hoặc cần chứng minh agent/member dùng tài liệu được. **Đầu vào:** một phạm vi Epic thật có nguồn/authority, một vài Story candidates, repo và quyền truy cập được cho phép. **Đầu ra:** [pilot record](../assets/templates/pilot-review-record-template.md), findings/corrections và quyết định áp dụng. Tài liệu này là kế hoạch, chưa phải pilot đã thực hiện.
 
+Bắt đầu tại [Run Pilot](../workflows/crm-run-pilot.md), dùng [protocol](workflow-execution-protocol.md) để ghi target/revision và giới hạn kiểm. Có workflow guide chưa chứng minh pilot đã thực hiện.
+
+
 ## Chọn phạm vi và chuẩn bị
 
 PM chọn scope nhỏ nhưng có data/permission hoặc state để kiểm thực tế; có người Business, Dev/TL và QA tham gia. Có thể bắt đầu một Story trực tiếp không Task; chỉ thêm Task khi có đầu ra giao riêng thật. Không chế tạo Story phức tạp để đủ mọi model.

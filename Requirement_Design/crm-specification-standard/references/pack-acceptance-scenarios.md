@@ -82,3 +82,9 @@ Dùng [pilot procedure](pilot-and-operational-validation.md) và [record](../ass
 ---
 
 **Liên quan:** [Điểm vào gói](../SKILL.md) · [Review và verdict](requirements-review-process-and-verdicts.md) · [Nguồn và cách điều chỉnh](standards-and-crm-tailoring.md).
+
+## Workflow Kit Acceptance — 1.4.0
+
+Các case WK01–WK15, input fixtures, quyết định và giới hạn walkthrough nằm ở [Workflow Routing and Handoff Walkthrough](examples/workflow-routing-and-handoff-walkthrough.md). Chúng bao phủ routing, scope, rework, quyền của check workflows, handoff/resume và tính portable; không tự thay pilot thật.
+
+Để review bản phát hành: đọc [Start Here](../START-HERE.md), dùng registry để mở từng function, đối chiếu workflow với case tương ứng; kiểm mỗi function có input/steps/output/receiver/next action, và correction được route về tác giả thay vì check tự sửa target.

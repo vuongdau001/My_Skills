@@ -6,6 +6,9 @@ Mã tài liệu: **CRM-RULES** · Gói CRM 1.3.1 · 03/11/2026
 
 **Đọc khi:** Bắt đầu mọi yêu cầu CRM; sau đó chỉ đọc tuyến liên quan.
 
+Điểm vào vận hành 1.4: [Start Here](../START-HERE.md), [Workflow Execution Protocol](workflow-execution-protocol.md) và menu trong [root skill](../SKILL.md). Các tiêu chí dưới đây giữ vai trò nguồn chuẩn; workflows hướng dẫn thực hiện và bàn giao.
+
+
 
 ## Quy ước hiện hành và cách đọc
 

@@ -6,6 +6,9 @@ Mã tài liệu: **CRM-GATES** · Gói CRM 1.3.1 · 03/11/2026
 
 **Đọc khi:** Review chuyển bước; đọc Task guide cho cổng Task.
 
+Dùng các workflows [Check Readiness](../workflows/crm-check-readiness.md), [Check Handoff](../workflows/crm-check-handoff.md), [Check Completion](../workflows/crm-check-completion.md). Chúng lập record đối chiếu, không tự chuyển status hoặc thay authority. [Prepare Baseline](../workflows/crm-prepare-baseline.md) tách package/review/approval/confirmed merge.
+
+
 
 <a id="workflow-7"></a>
 

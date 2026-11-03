@@ -1,9 +1,9 @@
 {
   "pack_id": "crm-specification-standard",
-  "version": "1.3.1",
+  "version": "1.4.0",
   "date": "2026-11-03",
   "language": "vi",
-  "scope": "CRM reusable reference pack; not runtime installation or deployed Jira/CI gates",
+  "scope": "Self-contained CRM workflow kit: logical agent profiles, workflow contracts and reference standards; no runtime installation or external mutations",
   "entries": [
     {
       "id": "CRM-ENTRY",
@@ -636,6 +636,156 @@
       "kind": "provenance",
       "title": "Kết quả kiểm tra cập nhật 1.3.0",
       "path": "provenance/pack-validation-report-v1.3.md"
+    },
+    {
+      "id": "crm-guide",
+      "kind": "agent-profile",
+      "title": "CRM Guide",
+      "path": "agents/profiles/crm-guide.md"
+    },
+    {
+      "id": "crm-requirements-analyst",
+      "kind": "agent-profile",
+      "title": "Requirements Analyst",
+      "path": "agents/profiles/crm-requirements-analyst.md"
+    },
+    {
+      "id": "crm-solution-architect",
+      "kind": "agent-profile",
+      "title": "Solution Architect",
+      "path": "agents/profiles/crm-solution-architect.md"
+    },
+    {
+      "id": "crm-quality-reviewer",
+      "kind": "agent-profile",
+      "title": "Quality Reviewer",
+      "path": "agents/profiles/crm-quality-reviewer.md"
+    },
+    {
+      "id": "crm-delivery-coordinator",
+      "kind": "agent-profile",
+      "title": "Delivery Coordinator",
+      "path": "agents/profiles/crm-delivery-coordinator.md"
+    },
+    {
+      "id": "CRM-WORKFLOW-PROTOCOL",
+      "kind": "reference",
+      "title": "Workflow Execution Protocol",
+      "path": "references/workflow-execution-protocol.md"
+    },
+    {
+      "id": "TPL-WORK-CONTEXT",
+      "kind": "template",
+      "title": "Work Context and Handoff Template",
+      "path": "assets/templates/work-context-and-handoff-template.md"
+    },
+    {
+      "id": "crm-setup-project",
+      "kind": "workflow",
+      "title": "Set Up Project",
+      "path": "workflows/crm-setup-project.md"
+    },
+    {
+      "id": "crm-define-feature",
+      "kind": "workflow",
+      "title": "Define Feature",
+      "path": "workflows/crm-define-feature.md"
+    },
+    {
+      "id": "crm-specify-epic",
+      "kind": "workflow",
+      "title": "Specify Epic",
+      "path": "workflows/crm-specify-epic.md"
+    },
+    {
+      "id": "crm-design-solution",
+      "kind": "workflow",
+      "title": "Design Solution",
+      "path": "workflows/crm-design-solution.md"
+    },
+    {
+      "id": "crm-prepare-stories",
+      "kind": "workflow",
+      "title": "Prepare Stories",
+      "path": "workflows/crm-prepare-stories.md"
+    },
+    {
+      "id": "crm-review-specification",
+      "kind": "workflow",
+      "title": "Review Specification",
+      "path": "workflows/crm-review-specification.md"
+    },
+    {
+      "id": "crm-prepare-baseline",
+      "kind": "workflow",
+      "title": "Prepare Baseline",
+      "path": "workflows/crm-prepare-baseline.md"
+    },
+    {
+      "id": "crm-check-readiness",
+      "kind": "workflow",
+      "title": "Check Readiness",
+      "path": "workflows/crm-check-readiness.md"
+    },
+    {
+      "id": "crm-check-handoff",
+      "kind": "workflow",
+      "title": "Check Handoff",
+      "path": "workflows/crm-check-handoff.md"
+    },
+    {
+      "id": "crm-check-completion",
+      "kind": "workflow",
+      "title": "Check Completion",
+      "path": "workflows/crm-check-completion.md"
+    },
+    {
+      "id": "crm-assess-change",
+      "kind": "workflow",
+      "title": "Assess Change",
+      "path": "workflows/crm-assess-change.md"
+    },
+    {
+      "id": "crm-report-status",
+      "kind": "workflow",
+      "title": "Report Status",
+      "path": "workflows/crm-report-status.md"
+    },
+    {
+      "id": "crm-run-pilot",
+      "kind": "workflow",
+      "title": "Run Pilot",
+      "path": "workflows/crm-run-pilot.md"
+    },
+    {
+      "id": "CRM-START",
+      "kind": "onboarding",
+      "title": "Start Here",
+      "path": "START-HERE.md"
+    },
+    {
+      "id": "CRM-BMAD-TAILORING",
+      "kind": "provenance",
+      "title": "BMAD Inspiration and CRM Tailoring",
+      "path": "provenance/bmad-inspiration-and-crm-tailoring.md"
+    },
+    {
+      "id": "CRM-VALIDATION-1-4",
+      "kind": "provenance",
+      "title": "Workflow Kit Validation Report 1.4",
+      "path": "provenance/pack-validation-report-v1.4.md"
+    },
+    {
+      "id": "CRM-WORKFLOW-TESTS",
+      "kind": "test-script",
+      "title": "Workflow Registry Regression Tests",
+      "path": "scripts/tests/test_workflow_registry.py"
+    },
+    {
+      "id": "EX-WORKFLOW-WALKTHROUGH",
+      "kind": "example",
+      "title": "Workflow Routing and Handoff Walkthrough",
+      "path": "references/examples/workflow-routing-and-handoff-walkthrough.md"
     }
   ],
   "source_archive": "provenance/original-epic-story-standard-and-workflow-v1.1.zip",
@@ -1606,6 +1756,365 @@
       "target": "references/standards-and-crm-tailoring.md",
       "anchor": "workflow-18",
       "disposition": "retained-and-relinked"
+    }
+  ],
+  "agents": [
+    {
+      "id": "crm-guide",
+      "title": "CRM Guide",
+      "path": "agents/profiles/crm-guide.md"
+    },
+    {
+      "id": "crm-requirements-analyst",
+      "title": "Requirements Analyst",
+      "path": "agents/profiles/crm-requirements-analyst.md"
+    },
+    {
+      "id": "crm-solution-architect",
+      "title": "Solution Architect",
+      "path": "agents/profiles/crm-solution-architect.md"
+    },
+    {
+      "id": "crm-quality-reviewer",
+      "title": "Quality Reviewer",
+      "path": "agents/profiles/crm-quality-reviewer.md"
+    },
+    {
+      "id": "crm-delivery-coordinator",
+      "title": "Delivery Coordinator",
+      "path": "agents/profiles/crm-delivery-coordinator.md"
+    }
+  ],
+  "functions": [
+    {
+      "id": "crm-setup-project",
+      "title": "Set Up Project",
+      "description": "Draft policy register/context, artifact-location map và missing-decision queue; approval để riêng.",
+      "agent": "crm-delivery-coordinator",
+      "workflow": "workflows/crm-setup-project.md",
+      "supported_targets": [
+        "Project"
+      ],
+      "references": [
+        "references/project-policy-register.md",
+        "references/requirement-types-identifiers-and-traceability.md",
+        "references/crm-project-rules.md"
+      ],
+      "templates": [
+        "assets/templates/project-policy-register-template.md"
+      ],
+      "next_functions": [
+        "crm-define-feature"
+      ],
+      "write_scope": "scoped-artifacts"
+    },
+    {
+      "id": "crm-define-feature",
+      "title": "Define Feature",
+      "description": "Feature F01–F08, source/outcome/scope, acceptance method, Epic candidates và decisions cần authority.",
+      "agent": "crm-requirements-analyst",
+      "workflow": "workflows/crm-define-feature.md",
+      "supported_targets": [
+        "Feature"
+      ],
+      "references": [
+        "references/feature-specification-catalog.md",
+        "references/requirement-types-identifiers-and-traceability.md",
+        "references/readiness-completion-and-approval-gates.md"
+      ],
+      "templates": [
+        "assets/templates/feature-specification-template.md"
+      ],
+      "next_functions": [
+        "crm-specify-epic",
+        "crm-review-specification"
+      ],
+      "write_scope": "scoped-artifacts"
+    },
+    {
+      "id": "crm-specify-epic",
+      "title": "Specify Epic",
+      "description": "Epic spec/model inventory, BR/AC refs, question log, applicability và solution/decomposition inputs.",
+      "agent": "crm-requirements-analyst",
+      "workflow": "workflows/crm-specify-epic.md",
+      "supported_targets": [
+        "Epic"
+      ],
+      "references": [
+        "references/epic-specification-catalog.md",
+        "references/catalog-check-model-mapping.md",
+        "references/coverage-inventories-and-traceability.md"
+      ],
+      "templates": [
+        "assets/templates/epic-specification-template.md"
+      ],
+      "next_functions": [
+        "crm-design-solution",
+        "crm-review-specification"
+      ],
+      "write_scope": "scoped-artifacts"
+    },
+    {
+      "id": "crm-design-solution",
+      "title": "Design Solution",
+      "description": "Solution/contract draft, rationale, dependency/feasibility record, verification approach và open technical decisions.",
+      "agent": "crm-solution-architect",
+      "workflow": "workflows/crm-design-solution.md",
+      "supported_targets": [
+        "Epic",
+        "Story"
+      ],
+      "references": [
+        "references/models/solution-and-story-decomposition.md",
+        "references/models/api-and-integration-contracts.md",
+        "references/catalog-check-model-mapping.md",
+        "references/checks/feasibility-and-handoff-readiness.md"
+      ],
+      "templates": [],
+      "next_functions": [
+        "crm-prepare-stories",
+        "crm-review-specification"
+      ],
+      "write_scope": "scoped-artifacts"
+    },
+    {
+      "id": "crm-prepare-stories",
+      "title": "Prepare Stories",
+      "description": "Story drafts/manifest, allocation/INVEST record, execution checklist hoặc optional Task briefs trong phạm vi được giao.",
+      "agent": "crm-requirements-analyst",
+      "workflow": "workflows/crm-prepare-stories.md",
+      "supported_targets": [
+        "Epic",
+        "Story",
+        "Task"
+      ],
+      "references": [
+        "references/backlog-hierarchy-and-decomposition.md",
+        "references/story-specification-catalog.md",
+        "references/task-planning-and-completion.md",
+        "references/catalog-check-model-mapping.md"
+      ],
+      "templates": [
+        "assets/templates/story-specification-template.md",
+        "assets/templates/implementation-task-template.md"
+      ],
+      "next_functions": [
+        "crm-review-specification",
+        "crm-prepare-baseline"
+      ],
+      "write_scope": "scoped-artifacts"
+    },
+    {
+      "id": "crm-review-specification",
+      "title": "Review Specification",
+      "description": "Review record, inventory/evidence refs, findings với witness, verdict scoped và correction/handoff actions.",
+      "agent": "crm-quality-reviewer",
+      "workflow": "workflows/crm-review-specification.md",
+      "supported_targets": [
+        "Feature",
+        "Epic",
+        "Story",
+        "Task"
+      ],
+      "references": [
+        "references/requirements-review-process-and-verdicts.md",
+        "references/catalog-check-model-mapping.md",
+        "references/coverage-inventories-and-traceability.md",
+        "references/task-planning-and-completion.md",
+        "references/feature-specification-catalog.md",
+        "references/epic-specification-catalog.md",
+        "references/story-specification-catalog.md"
+      ],
+      "templates": [
+        "assets/templates/requirements-review-record-template.md"
+      ],
+      "next_functions": [
+        "crm-specify-epic",
+        "crm-design-solution",
+        "crm-prepare-stories",
+        "crm-prepare-baseline"
+      ],
+      "write_scope": "review-record-only"
+    },
+    {
+      "id": "crm-prepare-baseline",
+      "title": "Prepare Baseline",
+      "description": "PM review package/gap list và evidence index; baseline receipt chỉ khi commit/merge đã được xác nhận.",
+      "agent": "crm-delivery-coordinator",
+      "workflow": "workflows/crm-prepare-baseline.md",
+      "supported_targets": [
+        "Epic",
+        "BaselinePackage"
+      ],
+      "references": [
+        "references/baseline-and-change-control.md",
+        "references/readiness-completion-and-approval-gates.md",
+        "references/project-policy-register.md",
+        "references/ai-handoff-and-hard-gates.md"
+      ],
+      "templates": [],
+      "next_functions": [
+        "crm-review-specification",
+        "crm-check-readiness"
+      ],
+      "write_scope": "scoped-artifacts"
+    },
+    {
+      "id": "crm-check-readiness",
+      "title": "Check Readiness",
+      "description": "DoR check record, evidence/gap list, gate impact và next actions; không thay target hoặc Jira state.",
+      "agent": "crm-quality-reviewer",
+      "workflow": "workflows/crm-check-readiness.md",
+      "supported_targets": [
+        "Story",
+        "Task"
+      ],
+      "references": [
+        "references/readiness-completion-and-approval-gates.md",
+        "references/story-specification-catalog.md",
+        "references/task-planning-and-completion.md",
+        "references/project-policy-register.md"
+      ],
+      "templates": [
+        "assets/templates/requirements-review-record-template.md"
+      ],
+      "next_functions": [
+        "crm-prepare-stories",
+        "crm-design-solution",
+        "crm-prepare-baseline"
+      ],
+      "write_scope": "check-record-only"
+    },
+    {
+      "id": "crm-check-handoff",
+      "title": "Check Handoff",
+      "description": "Handoff check record scoped theo baseline/build, missing/stale evidence và next actions cho Dev/QA.",
+      "agent": "crm-quality-reviewer",
+      "workflow": "workflows/crm-check-handoff.md",
+      "supported_targets": [
+        "Story"
+      ],
+      "references": [
+        "references/readiness-completion-and-approval-gates.md",
+        "references/ai-handoff-and-hard-gates.md",
+        "references/project-policy-register.md",
+        "references/jira-status-and-progress-reporting.md"
+      ],
+      "templates": [
+        "assets/templates/requirements-review-record-template.md"
+      ],
+      "next_functions": [
+        "crm-assess-change",
+        "crm-check-completion"
+      ],
+      "write_scope": "check-record-only"
+    },
+    {
+      "id": "crm-check-completion",
+      "title": "Check Completion",
+      "description": "Completion check record và evidence index, findings, missing authority và điều kiện còn thiếu để chốt.",
+      "agent": "crm-quality-reviewer",
+      "workflow": "workflows/crm-check-completion.md",
+      "supported_targets": [
+        "Task",
+        "Story",
+        "Epic",
+        "Feature"
+      ],
+      "references": [
+        "references/readiness-completion-and-approval-gates.md",
+        "references/task-planning-and-completion.md",
+        "references/feature-specification-catalog.md",
+        "references/project-policy-register.md"
+      ],
+      "templates": [
+        "assets/templates/requirements-review-record-template.md"
+      ],
+      "next_functions": [
+        "crm-assess-change",
+        "crm-report-status"
+      ],
+      "write_scope": "check-record-only"
+    },
+    {
+      "id": "crm-assess-change",
+      "title": "Assess Change",
+      "description": "Impact assessment, affected artifact/evidence list, missing decisions và correction/revalidation plan.",
+      "agent": "crm-delivery-coordinator",
+      "workflow": "workflows/crm-assess-change.md",
+      "supported_targets": [
+        "Feature",
+        "Epic",
+        "Story",
+        "Task",
+        "BaselinePackage",
+        "Policy"
+      ],
+      "references": [
+        "references/baseline-and-change-control.md",
+        "references/requirement-types-identifiers-and-traceability.md",
+        "references/checks/traceability-and-versioning.md",
+        "references/project-policy-register.md"
+      ],
+      "templates": [],
+      "next_functions": [
+        "crm-define-feature",
+        "crm-specify-epic",
+        "crm-design-solution",
+        "crm-prepare-stories",
+        "crm-review-specification"
+      ],
+      "write_scope": "assessment-record-only"
+    },
+    {
+      "id": "crm-report-status",
+      "title": "Report Status",
+      "description": "Progress report tách readiness, delivery, acceptance và blocker, có snapshot/mẫu số/source refs.",
+      "agent": "crm-delivery-coordinator",
+      "workflow": "workflows/crm-report-status.md",
+      "supported_targets": [
+        "Project",
+        "Feature",
+        "Epic"
+      ],
+      "references": [
+        "references/progress-measurement-and-feature-rollup.md",
+        "references/jira-status-and-progress-reporting.md",
+        "references/project-policy-register.md"
+      ],
+      "templates": [
+        "assets/templates/progress-report-template.md"
+      ],
+      "next_functions": [
+        "crm-review-specification",
+        "crm-assess-change"
+      ],
+      "write_scope": "report-only"
+    },
+    {
+      "id": "crm-run-pilot",
+      "title": "Run Pilot",
+      "description": "Pilot record hoặc kế hoạch + missing inputs nếu chưa thể chạy; observed results, findings và corrections có scope rõ.",
+      "agent": "crm-delivery-coordinator",
+      "workflow": "workflows/crm-run-pilot.md",
+      "supported_targets": [
+        "Project",
+        "Epic",
+        "Story"
+      ],
+      "references": [
+        "references/pilot-and-operational-validation.md",
+        "references/pack-acceptance-scenarios.md",
+        "references/workflow-execution-protocol.md"
+      ],
+      "templates": [
+        "assets/templates/pilot-review-record-template.md"
+      ],
+      "next_functions": [
+        "crm-review-specification",
+        "crm-report-status"
+      ],
+      "write_scope": "pilot-record-only"
     }
   ]
 }

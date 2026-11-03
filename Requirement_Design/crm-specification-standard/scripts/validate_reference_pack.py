@@ -53,6 +53,87 @@ def source_sections(text):
             for i, (start, key) in enumerate(starts)}
 
 
+
+EXPECTED_FUNCTIONS = {
+    'crm-setup-project', 'crm-define-feature', 'crm-specify-epic',
+    'crm-design-solution', 'crm-prepare-stories', 'crm-review-specification',
+    'crm-prepare-baseline', 'crm-check-readiness', 'crm-check-handoff',
+    'crm-check-completion', 'crm-assess-change', 'crm-report-status', 'crm-run-pilot',
+}
+EXPECTED_AGENTS = {
+    'crm-guide', 'crm-requirements-analyst', 'crm-solution-architect',
+    'crm-quality-reviewer', 'crm-delivery-coordinator',
+}
+
+
+def validate_workflow_registry(manifest, root, texts, resolve):
+    """Structural contract checks, never workflow or business approval."""
+    errors = []
+    entries = {entry['path']: entry for entry in manifest.get('entries', [])}
+    agents = manifest.get('agents', [])
+    functions = manifest.get('functions', [])
+    if not isinstance(agents, list) or not isinstance(functions, list):
+        return ['Agent/function registries must be lists']
+    agent_ids = [a.get('id') for a in agents if isinstance(a, dict)]
+    function_ids = [f.get('id') for f in functions if isinstance(f, dict)]
+    if len(agent_ids) != len(agents) or len(agent_ids) != len(set(agent_ids)) or set(agent_ids) != EXPECTED_AGENTS:
+        errors.append('Agent registry inventory mismatch or duplicate ID')
+    if len(function_ids) != len(functions) or len(function_ids) != len(set(function_ids)) or set(function_ids) != EXPECTED_FUNCTIONS:
+        errors.append('Function registry inventory mismatch or duplicate ID')
+    for agent in agents:
+        if not isinstance(agent, dict):
+            continue
+        path, title = agent.get('path'), agent.get('title', '')
+        if not isinstance(path, str) or not path:
+            errors.append(f'Missing agent profile path: {agent.get("id")}')
+            continue
+        resolve(path, origin=f'agent {agent.get("id")}')
+        if path not in entries or entries[path].get('kind') != 'agent-profile':
+            errors.append(f'Unregistered agent profile: {path}')
+        if not re.fullmatch(r'[A-Za-z][A-Za-z ]+', title):
+            errors.append(f'English agent title required: {agent.get("id")}')
+    routed = texts.get(root / 'SKILL.md', '')
+    onboarding = texts.get(root / 'START-HERE.md', '')
+    for function in functions:
+        if not isinstance(function, dict):
+            continue
+        fid, path = function.get('id', ''), function.get('workflow')
+        if not re.fullmatch(r'crm-[a-z]+-[a-z]+', fid):
+            errors.append(f'Invalid function name: {fid}')
+        if not re.fullmatch(r'[A-Za-z][A-Za-z ]+', function.get('title', '')):
+            errors.append(f'English function title required: {fid}')
+        if not function.get('description') or not function.get('supported_targets'):
+            errors.append(f'Function description/targets missing: {fid}')
+        if function.get('agent') not in agent_ids:
+            errors.append(f'Unknown function agent: {fid}')
+        if not isinstance(path, str) or not path:
+            errors.append(f'Missing workflow path: {fid}')
+            continue
+        resolve(path, origin=f'function {fid}')
+        if path not in entries or entries[path].get('kind') != 'workflow' or entries[path].get('id') != fid:
+            errors.append(f'Unregistered workflow: {fid}')
+        if f']({path})' not in routed or f']({path})' not in onboarding:
+            errors.append(f'Workflow not linked from entry/onboarding: {fid}')
+        if fid.startswith('crm-check-') and function.get('write_scope') != 'check-record-only':
+            errors.append(f'Check workflow write boundary mismatch: {fid}')
+        for field in ('references', 'templates', 'next_functions'):
+            values = function.get(field)
+            if not isinstance(values, list):
+                errors.append(f'Function list missing: {fid}: {field}')
+                continue
+            for value in values:
+                if not isinstance(value, str):
+                    errors.append(f'Invalid function ref: {fid}: {field}')
+                elif field == 'next_functions':
+                    if value not in function_ids:
+                        errors.append(f'Unknown next function: {fid}: {value}')
+                else:
+                    resolve(value, origin=f'{fid} {field}')
+                    if value not in entries:
+                        errors.append(f'Unregistered function resource: {fid}: {value}')
+    return errors
+
+
 def validate(root):
     root, errors = root.resolve(), []
     try:
@@ -99,7 +180,7 @@ def validate(root):
         errors.append('E/S review mapping coverage mismatch or duplicate item')
     for path, text in texts.items():
         relative = path.relative_to(root).as_posix()
-        if relative.startswith(('references/', 'assets/')) and relative not in registered:
+        if relative.startswith(('references/', 'assets/', 'agents/', 'workflows/')) and relative not in registered:
             errors.append(f'Unregistered document: {relative}')
         for href in re.findall(r'\[[^\]\n]*\]\(([^)\n]+)\)', unfenced(text)):
             href = href.strip().strip('<>'); parsed = urlsplit(href)
@@ -110,6 +191,7 @@ def validate(root):
                 errors.append(f'Link outside pack: {relative}: {href}')
             else:
                 resolve(target.relative_to(root).as_posix(),parsed.fragment,relative)
+    errors.extend(validate_workflow_registry(manifest, root, texts, resolve))
     try:
         with zipfile.ZipFile(root / manifest['source_archive']) as archive:
             expected_sections = {}
@@ -133,7 +215,9 @@ def validate(root):
     except (OSError,KeyError,zipfile.BadZipFile) as exc:
         errors.append(f'Source archive validation failed: {exc}')
     return errors, {'markdown_documents':len(texts),'manifest_entries':len(ids),
-                    'source_sections':len(manifest.get('migration',[]))}
+                    'source_sections':len(manifest.get('migration',[])),
+                    'agent_profiles':len(manifest.get('agents',[])),
+                    'workflow_functions':len(manifest.get('functions',[]))}
 
 
 if __name__ == '__main__':

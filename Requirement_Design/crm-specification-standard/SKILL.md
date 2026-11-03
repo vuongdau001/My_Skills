@@ -1,46 +1,50 @@
 ---
 name: crm-specification-standard
-description: Soạn và review yêu cầu CRM, phân rã Epic thành Story, quyết định checklist hay Task, kiểm DoR/DoD và truy vết baseline theo quy trình CRM. Dùng khi chuẩn bị hồ sơ hoặc đánh giá readiness; không tự triển khai sản phẩm hay thao tác Jira/Git thay người dùng.
+description: "Vận hành yêu cầu và backlog CRM theo workflow: làm rõ Feature/Epic/Story và solution, review đặc tả, chuẩn bị baseline, kiểm readiness/handoff/completion, đánh giá thay đổi và báo cáo tiến độ. Dùng để soạn hồ sơ hoặc kiểm điều kiện bàn giao theo chuẩn CRM; không tự triển khai product code hoặc thao tác Jira/Git/CI."
 ---
 
-# Chuẩn đặc tả và bàn giao CRM
+# CRM Workflow Kit
 
-Đây là gói tài liệu dùng lại cho nhiều agent. Đọc [quy ước CRM](references/crm-project-rules.md) trước, rồi chọn tuyến theo yêu cầu; không tải toàn bộ tài liệu mỗi lần. Quy trình không tự cấp quyền tạo/comment ticket, chuyển trạng thái hay merge. Repo package không đồng nghĩa đã cài vào runtime.
+Phiên bản **1.4.0**. Một root skill, các agent profiles logic và workflows tự chứa. Người mới đọc [Start Here](START-HERE.md). Đây là repo package; function IDs bên dưới không tự là CLI/slash commands đã cài.
 
-## Chọn tuyến đọc
+## Route the Request
 
-| Yêu cầu | Đọc theo thứ tự | Đầu ra |
+1. Đọc [CRM Guide](agents/profiles/crm-guide.md) và [Workflow Execution Protocol](references/workflow-execution-protocol.md). Xác định mục tiêu, target, selected scope, revision/baseline và phạm vi quyền được giao.
+2. Chọn function theo ý định hoặc ID người dùng nêu. Nếu target/input không phù hợp thì giải thích và chọn lại; nếu nhiều target hợp lý thì hỏi trước chỉnh sửa. Không dùng active target ngầm toàn cục.
+3. Thông báo function/profile và output dự kiến; đọc workflow + profile tương ứng, rồi chỉ refs/templates cần cho target. Không tải toàn bộ gói.
+4. Thực hiện workflow; kết thúc với artifact refs, findings/evidence, verdict scoped, approvals còn thiếu và receiver/next function. Resume phải đọc lại current revision, không chỉ dựa chat history.
+
+## Functions
+
+| Function | Purpose | Agent |
 |---|---|---|
-| Soạn/review Feature | [F01–F08](references/feature-specification-catalog.md) → [mẫu Feature](assets/templates/feature-specification-template.md) | Outcome/scope/Epic allocation/acceptance đúng bước |
-| Thiết lập policy và định danh | [Policy register](references/project-policy-register.md) → [ID và loại requirement](references/requirement-types-identifiers-and-traceability.md) | Register dự án hoặc missing decisions; không tự duyệt ngưỡng |
-| Báo cáo tiến độ | [Measurement/roll-up](references/progress-measurement-and-feature-rollup.md) → [mẫu báo cáo](assets/templates/progress-report-template.md) | Readiness, delivery, acceptance riêng; mẫu số và snapshot rõ |
-| Pilot quy trình | [Pilot thực tế](references/pilot-and-operational-validation.md) → [pilot record](assets/templates/pilot-review-record-template.md) | Evidence/findings cho bước thật sự được thử |
-| Giải thích/phân rã backlog | [Phân cấp và phân rã](references/backlog-hierarchy-and-decomposition.md) → [baseline](references/baseline-and-change-control.md) | Story manifest, rationale, dependency và câu hỏi |
-| Soạn/review Epic | [Catalog Epic E01–E16](references/epic-specification-catalog.md) → [model áp dụng](references/coverage-inventories-and-traceability.md) → [mẫu Epic](assets/templates/epic-specification-template.md) | Scope/model/solution/acceptance, applicability và gaps |
-| Soạn/review Story | [Catalog Story S01–S12](references/story-specification-catalog.md) → baseline/model cha + delta → [mẫu Story](assets/templates/story-specification-template.md) | Hành vi/AC/test conditions, pinned refs và readiness |
-| Lập kế hoạch hoặc giao Task | [Quyết định checklist/Task](references/backlog-hierarchy-and-decomposition.md) → [Task T01–T08](references/task-planning-and-completion.md) → [mẫu Task](assets/templates/implementation-task-template.md) nếu cần | Checklist hoặc brief Task; không sinh ticket hình thức |
-| Review toàn bộ Feature/Epic/Story | [Quy trình/verdict](references/requirements-review-process-and-verdicts.md) → catalog target + [mapping E/S](references/catalog-check-model-mapping.md) → bảy check Q01–Q07 → các model áp dụng → [review record](assets/templates/requirements-review-record-template.md) | Findings/evidence/verdict scoped, không ngầm PASS |
-| Review một vấn đề | Quy trình/verdict → đúng check/model từ [inventory](references/coverage-inventories-and-traceability.md) | Kết luận đúng phần được kiểm; nêu phần chưa xét |
-| Xét gate/tiến độ/thay đổi | [DoR/DoD/approval](references/readiness-completion-and-approval-gates.md) → [Jira/progress](references/jira-status-and-progress-reporting.md) → [change control](references/baseline-and-change-control.md) | Quyết định có evidence hoặc missing items/owner |
-| Thiết kế bàn giao AI/hook | [Context và hard gate](references/ai-handoff-and-hard-gates.md) | Yêu cầu cơ chế kiểm; không tuyên bố hook đã cài |
+| [crm-setup-project](workflows/crm-setup-project.md) | Set Up Project | Delivery Coordinator |
+| [crm-define-feature](workflows/crm-define-feature.md) | Define Feature | Requirements Analyst |
+| [crm-specify-epic](workflows/crm-specify-epic.md) | Specify Epic | Requirements Analyst |
+| [crm-design-solution](workflows/crm-design-solution.md) | Design Solution | Solution Architect |
+| [crm-prepare-stories](workflows/crm-prepare-stories.md) | Prepare Stories | Requirements Analyst |
+| [crm-review-specification](workflows/crm-review-specification.md) | Review Specification | Quality Reviewer |
+| [crm-prepare-baseline](workflows/crm-prepare-baseline.md) | Prepare Baseline | Delivery Coordinator |
+| [crm-check-readiness](workflows/crm-check-readiness.md) | Check Readiness | Quality Reviewer |
+| [crm-check-handoff](workflows/crm-check-handoff.md) | Check Handoff | Quality Reviewer |
+| [crm-check-completion](workflows/crm-check-completion.md) | Check Completion | Quality Reviewer |
+| [crm-assess-change](workflows/crm-assess-change.md) | Assess Change | Delivery Coordinator |
+| [crm-report-status](workflows/crm-report-status.md) | Report Status | Delivery Coordinator |
+| [crm-run-pilot](workflows/crm-run-pilot.md) | Run Pilot | Delivery Coordinator |
 
-## Quy tắc thực hiện
+## Operating Rules
 
-- Policy bắt buộc chưa được phê duyệt thì gate liên quan chưa đủ điều kiện; không dùng SLA hết hạn, skipped check hoặc “theo policy” không ref làm bằng chứng Đạt.
-- Chốt target, selected scope và revision; phân biệt nguồn/decision, assumption, proposal và unknown. Không tự điền policy/ngưỡng còn thiếu.
-- Story đủ DoR có thể triển khai trực tiếp. Task chỉ khi cần quản lý output riêng, không là nơi bù requirement thiếu.
-- Dùng source → rule/model → Story/AC → planned verification; sau triển khai mới gắn code/build/run/evidence. Giữ một nguồn chuẩn, pin version và chỉ ghi delta.
-- Full review phải xét Q01–Q07 và applicability của model; N/A cần lý do/reviewer. Thiếu input là Chưa kiểm, có gap là Không đạt; không trung bình điểm để qua gate.
-- Business/technical/QA authority xác nhận chuyên môn; PM chốt output/gate theo quy trình. AI không tự giả approval, QA Pass hoặc evidence runtime.
-- Thay đổi nội dung đã duyệt phải impact/review lại đúng phần. Task Done không tự làm Story Done; baseline phần Epic không làm Epic Done.
-- Mọi [ví dụ](references/examples/decomposition-and-task-decisions.md) là giả định. Ví dụ [ProjectCodeRequest](references/examples/project-code-request-specification.md) còn câu hỏi chặn, không phải spec Ready.
+- Standards hiện hành nằm tại [quy ước CRM](references/crm-project-rules.md), catalogs/checks/models và [policy guide](references/project-policy-register.md). Workflow điều phối cách dùng, không ghi đè tiêu chí nguồn.
+- Không invent policy/expected behavior/approval. Policy bắt buộc Pending thì gate liên quan chưa đủ điều kiện; tiếp tục phần độc lập và nêu missing decision.
+- Story đủ DoR có thể dùng checklist, Task tùy nhu cầu. Chuẩn bị plan/brief Task qua crm-prepare-stories; crm-check-readiness chỉ kiểm và đề xuất.
+- Review/check chỉ ghi record/findings, không tự sửa source target. Full specification review xét catalog + Q01–Q07; focused review không kết luận toàn target. Task theo T01–T08/SMART.
+- Chuyển profile trong cùng phiên là self-check, không tự independent review. Human approval, QA runtime verdict, PM closure và Business acceptance cần evidence đúng authority.
+- Tách output prepared, review performed, authority approved và actual action confirmed. Package draft chưa là baseline merged; Task Done không tự Story Done.
+- Giữ source/IDs/pinned versions; thay đổi sau baseline qua crm-assess-change trước khi áp dụng correction. Ví dụ trong gói là giả định, không phải policy đã duyệt.
+- Không tự spawn multi-agent, triển khai product code/test runtime hoặc thực hiện Jira/Git/CI mutations. Ghi actions chưa làm và giới hạn access. Hard gates thực tế cần cơ chế chặn tại hệ thống tương ứng.
 
-Trả output phù hợp yêu cầu: scope/revision, artifacts/refs, thao tác kiểm, findings với evidence/counterexample, verdict và next actions/owner. Nếu thiếu authority/input, tiếp tục phần độc lập và nêu quyết định đang chặn; không tự quyết để hoàn thiện template.
+## Registry & Verification
 
-## Nguồn và kiểm tra gói
+[Manifest](reference-manifest.json) nối function → profile → workflow → refs/templates. [Nguồn và tailoring](references/standards-and-crm-tailoring.md), [BMAD inspiration](provenance/bmad-inspiration-and-crm-tailoring.md), [acceptance scenarios](references/pack-acceptance-scenarios.md) và [report 1.4](provenance/pack-validation-report-v1.4.md) phục vụ đối chiếu.
 
-Xem [nguồn và CRM tailoring](references/standards-and-crm-tailoring.md) khi cần lý giải phương pháp. Các mã F/E/S/T/Q/D thuộc gói CRM, không là checklist nguyên bản của một framework. [Manifest](reference-manifest.json) định danh tài liệu; [migration map](provenance/source-to-reference-migration-map.md) truy nguồn; [acceptance scenarios](references/pack-acceptance-scenarios.md) kiểm hành vi mong đợi.
-
-Chạy `python3 scripts/validate_reference_pack.py` từ folder này (hoặc gọi bằng đường dẫn tới script). Kết quả chỉ xác nhận cấu trúc/refs/migration; không cấp approval hay chứng minh spec/phần mềm đạt.
-
-Kết quả: [báo cáo cập nhật 1.3](provenance/pack-validation-report-v1.3.md); [báo cáo lịch sử 1.2](provenance/pack-validation-report.md).
+Chạy `python3 scripts/validate_reference_pack.py` từ folder này hoặc gọi bằng đường dẫn script. Validator kiểm cấu trúc/refs/registry/migration, không cấp DoR/DoD approval hoặc chứng minh phần mềm đạt.
