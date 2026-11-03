@@ -1,0 +1,146 @@
+# Ví dụ đặc tả yêu cầu mở mã dự án
+
+Mã tài liệu: **EX-PROJECT-CODE** · Gói CRM 1.2.0 · 02/11/2026
+
+**Mục đích:** Minh họa liên kết Epic, Story, model, AC và test conditions.
+
+**Đọc khi:** Học cách đặc tả; mọi policy/giá trị ở đây là giả định.
+
+
+<a id="spec-9"></a>
+
+## Ví dụ liên kết Epic → Story → model → AC → test condition
+
+**Tất cả tên/giá trị/rule trong ví dụ là giả định để minh họa cách đặc tả, chưa được duyệt cho CRM thật. Ví dụ chỉ khai triển các phần chính, không tự coi là bộ hồ sơ đã đủ điều kiện baseline.**
+
+
+<a id="spec-9-1"></a>
+
+### Epic: Gửi và xét duyệt yêu cầu mở mã dự án
+
+- Entity: `ProjectCodeRequest`; actor: Requester và designated Approver.
+- Scope: tạo draft, submit, approve, reject và cancel draft. Việc tạo mã dự án thật sau quyết định không được ngầm suy ra từ ví dụ.
+- Invariant: mỗi hồ sơ có ID duy nhất và version; một logical submit không được chuyển state/audit/notification intent lặp do retry.
+- Quyền giả định: Requester thao tác draft của mình; Approver được phân công và khác người tạo mới approve/reject.
+- Epic gồm Story submit, Story quyết định duyệt và các phần còn lại theo manifest; Story submit không cần triển khai cả UI approve/reject.
+
+
+<a id="spec-9-2"></a>
+
+### Business state và transition
+
+```mermaid
+stateDiagram-v2
+    [*] --> Draft
+    Draft --> PendingApproval: submit [owner, valid data, current version]
+    PendingApproval --> Approved: approve [assigned approver, not creator]
+    PendingApproval --> Rejected: reject [assigned approver, reason]
+    Draft --> Cancelled: cancel [owner]
+    Approved --> [*]
+    Rejected --> [*]
+    Cancelled --> [*]
+```
+
+Sơ đồ Mermaid minh họa trạng thái, không phải một file UML/BPMN được xác nhận tuân thủ ký pháp. Bảng dưới bổ sung hành vi cụ thể; actor/guard đã được định nghĩa trong rule và permission matrix.
+
+| ID | Source / command | Điều kiện cho phép | Target / effect | Khi không đạt |
+|---|---|---|---|---|
+| TR-01 | Draft / submit | Requester là owner, dữ liệu hợp lệ, version hiện hành | PendingApproval, tăng version; ghi audit và durable notification intent | Từ chối theo nguyên nhân; không đổi dữ liệu/state |
+| TR-02 | PendingApproval / approve | Assigned Approver khác creator, version hiện hành | Approved, tăng version, audit decision | Không đổi state/data; trả lỗi phù hợp |
+| TR-03 | PendingApproval / reject | Assigned Approver khác creator, reason hợp lệ, version hiện hành | Rejected, tăng version, audit decision | Không đổi state/data; trả lỗi phù hợp |
+| TR-04 | Draft / cancel | Requester là owner, version hiện hành | Cancelled, tăng version, audit decision | Không đổi state/data; trả lỗi phù hợp |
+
+**Disposition cho các trường hợp còn lại:** command không được liệt kê hợp lệ tại state hiện tại bị từ chối, không đổi state; gồm submit ở Approved/Rejected/Cancelled, approve/reject ở Draft và cancel khi đã PendingApproval. Replay cùng idempotency key/payload/principal/resource đã thành công là trả kết quả đã ghi, không phải một transition mới. Trường hợp reopen/resubmit từ terminal state không thuộc scope ví dụ và không được tự cho phép.
+
+Như vậy không còn ô “state sai thì Dev tự xử lý”. Trong spec thật cần contract/error cụ thể cho mọi nhóm từ chối; bảng sau minh họa phần submit.
+
+
+<a id="spec-9-3"></a>
+
+### Story: Owner gửi draft để chờ duyệt
+
+**In scope:** command submit, permission, dữ liệu/version, retry/concurrency, response và notification intent. **Out of scope:** triển khai UI approve/reject; nhưng vòng đời và guard chung vẫn tham chiếu Epic.
+
+Precondition của lần submit mới: hồ sơ Draft tồn tại, actor có quyền và là owner. Postcondition: hồ sơ PendingApproval đúng một lần, version tăng một đơn vị, audit và notification intent được ghi nhất quán.
+
+#### A. Main flow và nhánh lỗi
+
+```mermaid
+flowchart TD
+    A[Owner gửi Submit] --> B{Auth, resource và ownership hợp lệ?}
+    B -- Không --> X[Từ chối, không đổi state]
+    B -- Có --> C{Đã có key operation?}
+    C -- Cùng payload --> R[Trả lại kết quả đã ghi]
+    C -- Khác payload --> K[Conflict, không đổi state]
+    C -- Chưa có --> D{Draft và version hiện hành?}
+    D -- Không --> K
+    D -- Có --> E{Dữ liệu hợp lệ?}
+    E -- Không --> V[Validation error, không đổi state]
+    E -- Có --> F[Ghi state, version, audit, intent và operation result nhất quán]
+    F --> G{Commit thành công?}
+    G -- Không --> Z[Lỗi lưu, không có thay đổi một phần]
+    G -- Có --> H[Trả kết quả PendingApproval]
+```
+
+Replay được kiểm trước validation state/version của lần submit mới, nhưng sau authentication/authorization hiện tại: sau commit đầu tiên state đã đổi, retry được phép của cùng operation phải trả kết quả cũ; mất quyền thì không được dùng key cũ để đọc dữ liệu ngoài quyền. Việc gửi thông báo thật diễn ra nền; lỗi gửi không tự hủy quyết định submit đã commit. Dev chọn giải pháp phù hợp để bảo đảm contract này, không nhất thiết một thiết kế lưu trữ duy nhất.
+
+#### B. Data và permission subset
+
+| Item | Quy ước giả định | Nhóm cần kiểm |
+|---|---|---|
+| requestId | ID do hệ thống cấp, định danh một hồ sơ | Tồn tại/không tồn tại; request khác owner |
+| expectedVersion | Số nguyên khớp version hiện hành cho operation mới | Khớp, stale, absent/invalid |
+| projectName | Bắt buộc; trim đầu/cuối; 1–100 Unicode code points sau trim | Null/empty/whitespace, 1, 100, 101 code points và Unicode |
+| idempotencyKey | Bắt buộc cho submit; scope theo principal + request + command | Replay payload khớp, key trùng payload khác, hai key cạnh tranh |
+| permission | Requester có quyền và là owner mới submit | Sai role, đúng role nhưng sai owner, thiếu auth |
+
+Các chính sách như thời hạn giữ operation result, giới hạn key và data retention phải được chốt trong spec thật trước baseline nếu ảnh hưởng contract/retry. Bảng mẫu không trao quyền để Dev/AI tự đặt chúng.
+
+#### C. Decision/error rules cho submit
+
+Các dòng được xét theo thứ tự; dòng sau chỉ áp dụng khi chưa trúng dòng trước. Response codes dưới đây là ví dụ contract, không phải quy định áp dụng sẵn cho CRM.
+
+| ID | Điều kiện | Kết quả giả định |
+|---|---|---|
+| DR-01 | Thiếu/không hợp lệ authentication | 401, không đổi state/data |
+| DR-02 | Không có resource phù hợp | 404 theo policy disclosure được duyệt |
+| DR-03 | Actor không có quyền hoặc không là owner | 403, không đổi state/data |
+| DR-04 | Có operation cùng key nhưng payload khác | 409, không tạo operation/transition mới |
+| DR-05 | Có operation cùng key và payload khớp | Trả kết quả đã ghi; không tăng version/audit/intent lần nữa |
+| DR-06 | Operation mới nhưng state hoặc version không hợp lệ | 409, không đổi state/data |
+| DR-07 | Operation mới, state/version đúng nhưng data sai | 422, không đổi state/data |
+| DR-08 | Các điều kiện đều đạt nhưng commit thất bại | Lỗi server; không có state/audit/intent ghi một phần |
+| DR-09 | Các điều kiện đều đạt và commit thành công | Response thành công chứa state/version; ghi một logical transition |
+
+Business/security authority phải review thứ tự lỗi và thông tin được tiết lộ; không chỉ “chọn code HTTP cho đủ”. Lỗi gửi notification sau commit thuộc xử lý nền và không rơi lại vào DR-08.
+
+#### D. AC và test conditions trọng yếu
+
+| AC | Kết quả cần đạt | Test conditions dự kiến |
+|---|---|---|
+| AC-SUB-01 | Submit mới hợp lệ: Draft → PendingApproval, tăng version một đơn vị, audit và intent nhất quán | Đúng owner/role/version/data; kiểm response, state, version và các record/effect liên quan |
+| AC-SUB-02 | Sai auth/quyền/owner bị từ chối, không có thay đổi nghiệp vụ | Thiếu auth; sai role; đúng role nhưng khác owner; đối chiếu DR-01/03 |
+| AC-SUB-03 | Data invalid không đổi state/data; error theo contract | Empty sau trim, biên 1/100 và vượt 101; kết hợp với input khác hợp lệ để không che lỗi |
+| AC-SUB-04 | State sai hoặc stale version bị từ chối; không tăng version | PendingApproval với operation mới; từng terminal state; Draft với version cũ |
+| AC-SUB-05 | Retry cùng operation trả kết quả cũ, không lặp logical side effects | Commit đã xong nhưng response bị mất; cùng key/payload; key cũ payload khác bị conflict |
+| AC-SUB-06 | Hai operation mới cạnh tranh trên cùng version chỉ một lần chuyển thành công | Hai key trên cùng Draft/version; một thành công, một conflict; không có hai transition |
+| AC-SUB-07 | Notification lỗi sau commit không đổi ngược state và có đường recovery | Intent đã lưu, gửi lỗi/timeout, retry notification không nhân đôi logical event |
+| AC-SUB-08 | Commit lỗi không để dữ liệu nghiệp vụ/audit/intent thay đổi một phần | Mô phỏng lỗi tại boundary ghi; kiểm toàn bộ output/record theo contract |
+
+Đây là planned conditions, chưa phải kết quả chạy test. Khi triển khai cần bổ sung testcase/data cụ thể, tiêu chí retry/retention và cách mô phỏng/quan sát phù hợp giải pháp được duyệt.
+
+
+<a id="spec-9-4"></a>
+
+### Vì sao ví dụ này rõ hơn một Story chỉ có mô tả?
+
+- Dev biết transition và thứ tự replay/state validation, không tự đoán retry có phải lỗi không.
+- QA biết kiểm state/data/side effects, không chỉ thông báo “Gửi thành công”.
+- Business thấy quyền, ngoại lệ và kết quả khi từ chối để xác nhận có đúng mong muốn.
+- PM thấy phạm vi Story submit, phần kế thừa từ Epic và câu hỏi còn phải chốt trước baseline.
+- Agent có bộ nội dung và tiêu chí để hỗ trợ; không có quyền tự quyết những phần còn thiếu.
+
+
+---
+
+**Liên quan:** [Điểm vào gói](../../SKILL.md) · [Review và verdict](../requirements-review-process-and-verdicts.md) · [Nguồn và cách điều chỉnh](../standards-and-crm-tailoring.md).

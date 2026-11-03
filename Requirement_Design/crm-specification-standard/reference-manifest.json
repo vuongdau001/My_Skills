@@ -1,0 +1,1489 @@
+{
+  "pack_id": "crm-specification-standard",
+  "version": "1.2.0",
+  "date": "2026-11-02",
+  "language": "vi",
+  "scope": "CRM reusable reference pack; not runtime installation or deployed Jira/CI gates",
+  "entries": [
+    {
+      "id": "CRM-ENTRY",
+      "kind": "entry",
+      "title": "Điểm vào gói",
+      "path": "SKILL.md"
+    },
+    {
+      "id": "CRM-RULES",
+      "kind": "reference",
+      "title": "Quy ước dự án CRM và ranh giới sử dụng",
+      "path": "references/crm-project-rules.md"
+    },
+    {
+      "id": "CRM-SOURCES",
+      "kind": "reference",
+      "title": "Nguồn tham khảo và cách điều chỉnh cho CRM",
+      "path": "references/standards-and-crm-tailoring.md"
+    },
+    {
+      "id": "CRM-DECOMPOSITION",
+      "kind": "reference",
+      "title": "Phân cấp và phân rã Feature, Epic, Story, Task",
+      "path": "references/backlog-hierarchy-and-decomposition.md"
+    },
+    {
+      "id": "CRM-BASELINE",
+      "kind": "reference",
+      "title": "Baseline yêu cầu, solution và kiểm soát thay đổi",
+      "path": "references/baseline-and-change-control.md"
+    },
+    {
+      "id": "CRM-GATES",
+      "kind": "reference",
+      "title": "DoR, AC, DoD và thẩm quyền bàn giao",
+      "path": "references/readiness-completion-and-approval-gates.md"
+    },
+    {
+      "id": "CRM-TRACKING",
+      "kind": "reference",
+      "title": "Status Jira và tiến độ phân tích, triển khai",
+      "path": "references/jira-status-and-progress-reporting.md"
+    },
+    {
+      "id": "CRM-HANDOFF",
+      "kind": "reference",
+      "title": "Bàn giao context cho AI và đặc tả hard gate",
+      "path": "references/ai-handoff-and-hard-gates.md"
+    },
+    {
+      "id": "CRM-REVIEW",
+      "kind": "reference",
+      "title": "Quy trình review, evidence và điều kiện kết luận",
+      "path": "references/requirements-review-process-and-verdicts.md"
+    },
+    {
+      "id": "CRM-COVERAGE",
+      "kind": "reference",
+      "title": "Inventory, coverage, AC và truy vết",
+      "path": "references/coverage-inventories-and-traceability.md"
+    },
+    {
+      "id": "CRM-EPIC",
+      "kind": "reference",
+      "title": "Danh mục nội dung và tiêu chí đặc tả Epic",
+      "path": "references/epic-specification-catalog.md"
+    },
+    {
+      "id": "CRM-STORY",
+      "kind": "reference",
+      "title": "Danh mục nội dung và tiêu chí đặc tả Story",
+      "path": "references/story-specification-catalog.md"
+    },
+    {
+      "id": "CRM-TASK",
+      "kind": "reference",
+      "title": "Lập kế hoạch, giao và hoàn tất Task",
+      "path": "references/task-planning-and-completion.md"
+    },
+    {
+      "id": "EX-PROJECT-CODE",
+      "kind": "reference",
+      "title": "Ví dụ đặc tả yêu cầu mở mã dự án",
+      "path": "references/examples/project-code-request-specification.md"
+    },
+    {
+      "id": "EX-REVIEW",
+      "kind": "reference",
+      "title": "Ví dụ finding và phản ví dụ khi review",
+      "path": "references/examples/review-findings-and-counterexamples.md"
+    },
+    {
+      "id": "EX-BASELINE",
+      "kind": "reference",
+      "title": "Ví dụ từ baseline đến bàn giao",
+      "path": "references/examples/baseline-to-delivery-walkthrough.md"
+    },
+    {
+      "id": "EX-DECOMPOSITION",
+      "kind": "reference",
+      "title": "Ví dụ phân rã Story và quyết định tạo Task",
+      "path": "references/examples/decomposition-and-task-decisions.md"
+    },
+    {
+      "id": "CRM-PACK-ACCEPTANCE",
+      "kind": "reference",
+      "title": "Kịch bản nghiệm thu bộ tài liệu",
+      "path": "references/pack-acceptance-scenarios.md"
+    },
+    {
+      "id": "Q01",
+      "kind": "check",
+      "title": "Q01 — Đúng nhu cầu và sự cần thiết",
+      "path": "references/checks/adequacy-and-necessity.md"
+    },
+    {
+      "id": "Q02",
+      "kind": "check",
+      "title": "Q02 — Đầy đủ ở mức yêu cầu và tập yêu cầu",
+      "path": "references/checks/requirements-completeness.md"
+    },
+    {
+      "id": "Q03",
+      "kind": "check",
+      "title": "Q03 — Nhất quán giữa các mô hình",
+      "path": "references/checks/cross-model-consistency.md"
+    },
+    {
+      "id": "Q04",
+      "kind": "check",
+      "title": "Q04 — Khả năng kiểm chứng yêu cầu",
+      "path": "references/checks/requirements-verifiability.md"
+    },
+    {
+      "id": "Q05",
+      "kind": "check",
+      "title": "Q05 — Truy vết và quản lý phiên bản",
+      "path": "references/checks/traceability-and-versioning.md"
+    },
+    {
+      "id": "Q06",
+      "kind": "check",
+      "title": "Q06 — Rõ nghĩa và không mơ hồ",
+      "path": "references/checks/clarity-and-unambiguity.md"
+    },
+    {
+      "id": "Q07",
+      "kind": "check",
+      "title": "Q07 — Khả thi và sẵn sàng bàn giao",
+      "path": "references/checks/feasibility-and-handoff-readiness.md"
+    },
+    {
+      "id": "D01",
+      "kind": "model",
+      "title": "D01 — Flow nghiệp vụ, use case và swimlane",
+      "path": "references/models/business-flows-and-use-cases.md"
+    },
+    {
+      "id": "D02",
+      "kind": "model",
+      "title": "D02 — Vòng đời và chuyển trạng thái nghiệp vụ",
+      "path": "references/models/business-state-transitions.md"
+    },
+    {
+      "id": "D03",
+      "kind": "model",
+      "title": "D03 — Business rules và bảng quyết định",
+      "path": "references/models/business-rules-and-decision-tables.md"
+    },
+    {
+      "id": "D04",
+      "kind": "model",
+      "title": "D04 — Từ điển dữ liệu và validation",
+      "path": "references/models/data-dictionary-and-validation.md"
+    },
+    {
+      "id": "D05",
+      "kind": "model",
+      "title": "D05 — Quyền và phạm vi truy cập dữ liệu",
+      "path": "references/models/permissions-and-data-access.md"
+    },
+    {
+      "id": "D06",
+      "kind": "model",
+      "title": "D06 — Hành vi UI và trạng thái tương tác",
+      "path": "references/models/ui-behavior-and-interaction-states.md"
+    },
+    {
+      "id": "D07",
+      "kind": "model",
+      "title": "D07 — Contract API và tích hợp",
+      "path": "references/models/api-and-integration-contracts.md"
+    },
+    {
+      "id": "D08",
+      "kind": "model",
+      "title": "D08 — Ngoại lệ và edge cases",
+      "path": "references/models/exceptions-and-edge-cases.md"
+    },
+    {
+      "id": "D09",
+      "kind": "model",
+      "title": "D09 — NFR, migration và vận hành",
+      "path": "references/models/nonfunctional-migration-and-operations.md"
+    },
+    {
+      "id": "D10",
+      "kind": "model",
+      "title": "D10 — Solution, phân rã Story và testability",
+      "path": "references/models/solution-and-story-decomposition.md"
+    },
+    {
+      "id": "TPL-EPIC-SPECIFICATION-TEMPLATE",
+      "kind": "template",
+      "title": "Mẫu hồ sơ Epic",
+      "path": "assets/templates/epic-specification-template.md"
+    },
+    {
+      "id": "TPL-STORY-SPECIFICATION-TEMPLATE",
+      "kind": "template",
+      "title": "Mẫu hồ sơ Story",
+      "path": "assets/templates/story-specification-template.md"
+    },
+    {
+      "id": "TPL-REQUIREMENTS-REVIEW-RECORD-TEMPLATE",
+      "kind": "template",
+      "title": "Mẫu bản ghi review",
+      "path": "assets/templates/requirements-review-record-template.md"
+    },
+    {
+      "id": "TPL-IMPLEMENTATION-TASK-TEMPLATE",
+      "kind": "template",
+      "title": "Mẫu Task triển khai",
+      "path": "assets/templates/implementation-task-template.md"
+    },
+    {
+      "id": "E01",
+      "kind": "catalog-item",
+      "title": "E01 — B — Mục tiêu, nguồn, scope",
+      "path": "references/epic-specification-catalog.md",
+      "anchor": "e01"
+    },
+    {
+      "id": "E02",
+      "kind": "catalog-item",
+      "title": "E02 — B — Actor, thuật ngữ, đối tượng",
+      "path": "references/epic-specification-catalog.md",
+      "anchor": "e02"
+    },
+    {
+      "id": "E03",
+      "kind": "catalog-item",
+      "title": "E03 — B — Business flow và use cases",
+      "path": "references/epic-specification-catalog.md",
+      "anchor": "e03"
+    },
+    {
+      "id": "E04",
+      "kind": "catalog-item",
+      "title": "E04 — C — Business state/lifecycle",
+      "path": "references/epic-specification-catalog.md",
+      "anchor": "e04"
+    },
+    {
+      "id": "E05",
+      "kind": "catalog-item",
+      "title": "E05 — B — Rule và tổ hợp quyết định",
+      "path": "references/epic-specification-catalog.md",
+      "anchor": "e05"
+    },
+    {
+      "id": "E06",
+      "kind": "catalog-item",
+      "title": "E06 — B — Data và validation",
+      "path": "references/epic-specification-catalog.md",
+      "anchor": "e06"
+    },
+    {
+      "id": "E07",
+      "kind": "catalog-item",
+      "title": "E07 — B — Quyền và phạm vi dữ liệu",
+      "path": "references/epic-specification-catalog.md",
+      "anchor": "e07"
+    },
+    {
+      "id": "E08",
+      "kind": "catalog-item",
+      "title": "E08 — C — UI và trải nghiệm",
+      "path": "references/epic-specification-catalog.md",
+      "anchor": "e08"
+    },
+    {
+      "id": "E09",
+      "kind": "catalog-item",
+      "title": "E09 — C — Integration và contract",
+      "path": "references/epic-specification-catalog.md",
+      "anchor": "e09"
+    },
+    {
+      "id": "E10",
+      "kind": "catalog-item",
+      "title": "E10 — B — Ngoại lệ và edge cases",
+      "path": "references/epic-specification-catalog.md",
+      "anchor": "e10"
+    },
+    {
+      "id": "E11",
+      "kind": "catalog-item",
+      "title": "E11 — C — NFR/control",
+      "path": "references/epic-specification-catalog.md",
+      "anchor": "e11"
+    },
+    {
+      "id": "E12",
+      "kind": "catalog-item",
+      "title": "E12 — C — Migration/vận hành",
+      "path": "references/epic-specification-catalog.md",
+      "anchor": "e12"
+    },
+    {
+      "id": "E13",
+      "kind": "catalog-item",
+      "title": "E13 — B — Solution và dependency",
+      "path": "references/epic-specification-catalog.md",
+      "anchor": "e13"
+    },
+    {
+      "id": "E14",
+      "kind": "catalog-item",
+      "title": "E14 — B — AC, coverage và test approach",
+      "path": "references/epic-specification-catalog.md",
+      "anchor": "e14"
+    },
+    {
+      "id": "E15",
+      "kind": "catalog-item",
+      "title": "E15 — B — Phương án Story",
+      "path": "references/epic-specification-catalog.md",
+      "anchor": "e15"
+    },
+    {
+      "id": "E16",
+      "kind": "catalog-item",
+      "title": "E16 — B — Decision, review và baseline",
+      "path": "references/epic-specification-catalog.md",
+      "anchor": "e16"
+    },
+    {
+      "id": "S01",
+      "kind": "catalog-item",
+      "title": "S01 — Định danh và baseline",
+      "path": "references/story-specification-catalog.md",
+      "anchor": "s01"
+    },
+    {
+      "id": "S02",
+      "kind": "catalog-item",
+      "title": "S02 — Outcome và scope",
+      "path": "references/story-specification-catalog.md",
+      "anchor": "s02"
+    },
+    {
+      "id": "S03",
+      "kind": "catalog-item",
+      "title": "S03 — Trigger và pre/postconditions",
+      "path": "references/story-specification-catalog.md",
+      "anchor": "s03"
+    },
+    {
+      "id": "S04",
+      "kind": "catalog-item",
+      "title": "S04 — Flow được chọn",
+      "path": "references/story-specification-catalog.md",
+      "anchor": "s04"
+    },
+    {
+      "id": "S05",
+      "kind": "catalog-item",
+      "title": "S05 — Rule/state/decision subset",
+      "path": "references/story-specification-catalog.md",
+      "anchor": "s05"
+    },
+    {
+      "id": "S06",
+      "kind": "catalog-item",
+      "title": "S06 — Data và quyền",
+      "path": "references/story-specification-catalog.md",
+      "anchor": "s06"
+    },
+    {
+      "id": "S07",
+      "kind": "catalog-item",
+      "title": "S07 — UI/API/contract/solution",
+      "path": "references/story-specification-catalog.md",
+      "anchor": "s07"
+    },
+    {
+      "id": "S08",
+      "kind": "catalog-item",
+      "title": "S08 — Edge/NFR/transition impact",
+      "path": "references/story-specification-catalog.md",
+      "anchor": "s08"
+    },
+    {
+      "id": "S09",
+      "kind": "catalog-item",
+      "title": "S09 — AC và ví dụ",
+      "path": "references/story-specification-catalog.md",
+      "anchor": "s09"
+    },
+    {
+      "id": "S10",
+      "kind": "catalog-item",
+      "title": "S10 — Verification approach",
+      "path": "references/story-specification-catalog.md",
+      "anchor": "s10"
+    },
+    {
+      "id": "S11",
+      "kind": "catalog-item",
+      "title": "S11 — Dependency, ownership, estimate",
+      "path": "references/story-specification-catalog.md",
+      "anchor": "s11"
+    },
+    {
+      "id": "S12",
+      "kind": "catalog-item",
+      "title": "S12 — Completion và change refs",
+      "path": "references/story-specification-catalog.md",
+      "anchor": "s12"
+    },
+    {
+      "id": "T01",
+      "kind": "catalog-item",
+      "title": "T01 — Liên kết và mục đích",
+      "path": "references/task-planning-and-completion.md",
+      "anchor": "t01"
+    },
+    {
+      "id": "T02",
+      "kind": "catalog-item",
+      "title": "T02 — Đầu ra và ranh giới",
+      "path": "references/task-planning-and-completion.md",
+      "anchor": "t02"
+    },
+    {
+      "id": "T03",
+      "kind": "catalog-item",
+      "title": "T03 — Đầu vào và phiên bản",
+      "path": "references/task-planning-and-completion.md",
+      "anchor": "t03"
+    },
+    {
+      "id": "T04",
+      "kind": "catalog-item",
+      "title": "T04 — Kế hoạch và constraint",
+      "path": "references/task-planning-and-completion.md",
+      "anchor": "t04"
+    },
+    {
+      "id": "T05",
+      "kind": "catalog-item",
+      "title": "T05 — Dependency và bàn giao",
+      "path": "references/task-planning-and-completion.md",
+      "anchor": "t05"
+    },
+    {
+      "id": "T06",
+      "kind": "catalog-item",
+      "title": "T06 — Owner, reviewer và timebox",
+      "path": "references/task-planning-and-completion.md",
+      "anchor": "t06"
+    },
+    {
+      "id": "T07",
+      "kind": "catalog-item",
+      "title": "T07 — Tiêu chí hoàn tất",
+      "path": "references/task-planning-and-completion.md",
+      "anchor": "t07"
+    },
+    {
+      "id": "T08",
+      "kind": "catalog-item",
+      "title": "T08 — Evidence và closure",
+      "path": "references/task-planning-and-completion.md",
+      "anchor": "t08"
+    },
+    {
+      "id": "CRM-VALIDATOR",
+      "kind": "script",
+      "title": "Kiểm cấu trúc, liên kết và migration của gói",
+      "path": "scripts/validate_reference_pack.py"
+    },
+    {
+      "id": "CRM-MIGRATION",
+      "kind": "provenance",
+      "title": "Bản đồ chuyển nội dung nguồn",
+      "path": "provenance/source-to-reference-migration-map.md"
+    },
+    {
+      "id": "CRM-SNAPSHOT",
+      "kind": "provenance",
+      "title": "Snapshot hai tài liệu nguồn 1.1",
+      "path": "provenance/original-epic-story-standard-and-workflow-v1.1.zip"
+    },
+    {
+      "id": "CRM-VALIDATION",
+      "kind": "provenance",
+      "title": "Kết quả kiểm cấu trúc và walkthrough gói 1.2.0",
+      "path": "provenance/pack-validation-report.md"
+    }
+  ],
+  "source_archive": "provenance/original-epic-story-standard-and-workflow-v1.1.zip",
+  "sources": {
+    "spec": {
+      "filename": "CRM_Epic_Story_Specification_Standard_v1.md",
+      "sha256": "dfc8383ec0f25c4a84356a26e3fbc693ce865e6c05e76eecfb72e040129d7559"
+    },
+    "workflow": {
+      "filename": "CRM_Requirement_Baseline_Jira_Workflow_v1.md",
+      "sha256": "91efbc73c71f1facdd55a059bfe5fd3dfdcf0667d55b30fcfc0e8b4674f93dc6"
+    }
+  },
+  "migration": [
+    {
+      "source": "spec",
+      "section": "preamble",
+      "title": "Thông tin kiểm soát tài liệu nguồn",
+      "source_sha256": "05675dcb908ab758dc16439f6cd2428681febbf2f8b48a3e8dc1e5ebb8152a0f",
+      "target": "references/crm-project-rules.md",
+      "anchor": "spec-preamble",
+      "disposition": "source-metadata-archived-current-metadata-replaced"
+    },
+    {
+      "source": "spec",
+      "section": "1",
+      "title": "Nguyên tắc sử dụng",
+      "source_sha256": "598e5d6afa625f5523e22ea1bef76f5ef25d8963f046bdaaf99d33520cd2196c",
+      "target": "references/crm-project-rules.md",
+      "anchor": "spec-1",
+      "disposition": "retained-and-relinked"
+    },
+    {
+      "source": "spec",
+      "section": "2",
+      "title": "Cơ sở chuẩn và cách áp dụng",
+      "source_sha256": "355ef64cf304f2e4d6290e10d42a04483fad01c2ef0019c663863b8494a45ffa",
+      "target": "references/standards-and-crm-tailoring.md",
+      "anchor": "spec-2",
+      "disposition": "retained-and-relinked"
+    },
+    {
+      "source": "spec",
+      "section": "3",
+      "title": "Cách kết luận một hạng mục đã đạt",
+      "source_sha256": "1aa45b0fba419c2ab848c5ab41a6cd18ec373c8c9199977159cf5bcda62ea422",
+      "target": "references/requirements-review-process-and-verdicts.md",
+      "anchor": "spec-3",
+      "disposition": "retained-and-relinked"
+    },
+    {
+      "source": "spec",
+      "section": "3.1",
+      "title": "Cấu trúc review dùng chung",
+      "source_sha256": "ee2a31fbed5508e953a941fdeb92821b2c6b14e864148b6bf79dfd975b4019be",
+      "target": "references/requirements-review-process-and-verdicts.md",
+      "anchor": "spec-3-1",
+      "disposition": "retained-and-relinked"
+    },
+    {
+      "source": "spec",
+      "section": "3.2",
+      "title": "Bảy nhóm kiểm thực hành và phạm vi nguồn tham khảo",
+      "source_sha256": "43ef173db90d0a574f2a160016fe32ce71e828baf4177296f0dff58ecaa9fe9b",
+      "target": "references/requirements-review-process-and-verdicts.md",
+      "anchor": "spec-3-2",
+      "disposition": "retained-and-relinked"
+    },
+    {
+      "source": "spec",
+      "section": "3.3",
+      "title": "Chuẩn bị review và quy tắc kết luận",
+      "source_sha256": "bc24321d92802a47664fb5a8630ce512d880d7aef09b428448853c9689864ccd",
+      "target": "references/requirements-review-process-and-verdicts.md",
+      "anchor": "spec-3-3",
+      "disposition": "retained-and-relinked"
+    },
+    {
+      "source": "spec",
+      "section": "3.4",
+      "title": "Q01 — Kiểm đúng nhu cầu và sự cần thiết",
+      "source_sha256": "44d070e1587e70793210c95d4b252065102e74ed55b7c3447d3e42a93b83a745",
+      "target": "references/checks/adequacy-and-necessity.md",
+      "anchor": "spec-3-4",
+      "disposition": "retained-and-relinked"
+    },
+    {
+      "source": "spec",
+      "section": "3.5",
+      "title": "Q02 — Kiểm đầy đủ ở hai mức",
+      "source_sha256": "c509f8de53a6429403fecf5786a8907b207d0c27b1141fe7c7a69521fae9b9ac",
+      "target": "references/checks/requirements-completeness.md",
+      "anchor": "spec-3-5",
+      "disposition": "retained-and-relinked"
+    },
+    {
+      "source": "spec",
+      "section": "3.6",
+      "title": "Q03 — Kiểm nhất quán giữa các phát biểu và mô hình",
+      "source_sha256": "b7b63d810e462acf04b642018dd745bc9a0bf252bc496036b664d999042249bf",
+      "target": "references/checks/cross-model-consistency.md",
+      "anchor": "spec-3-6",
+      "disposition": "retained-and-relinked"
+    },
+    {
+      "source": "spec",
+      "section": "3.7",
+      "title": "Q04 — Kiểm khả năng kiểm chứng",
+      "source_sha256": "b2cc9be285a890ba95bac52e007ae4f71199673ff2029cf0e25ddd492ab521c0",
+      "target": "references/checks/requirements-verifiability.md",
+      "anchor": "spec-3-7",
+      "disposition": "retained-and-relinked"
+    },
+    {
+      "source": "spec",
+      "section": "3.8",
+      "title": "Q05 — Kiểm truy vết, phiên bản và khả năng sửa đổi",
+      "source_sha256": "eaf88bf41bfad227263d011490c02d47a6e5a3e8411d2db73ba2f1b0fdee6f32",
+      "target": "references/checks/traceability-and-versioning.md",
+      "anchor": "spec-3-8",
+      "disposition": "retained-and-relinked"
+    },
+    {
+      "source": "spec",
+      "section": "3.9",
+      "title": "Q06 — Kiểm không mơ hồ và một nghĩa chấp nhận rõ",
+      "source_sha256": "166a92fe5406f31cc4f6b769b595ef91d0ef2bdd17d5df32c37dc4a769a7c896",
+      "target": "references/checks/clarity-and-unambiguity.md",
+      "anchor": "spec-3-9",
+      "disposition": "retained-and-relinked"
+    },
+    {
+      "source": "spec",
+      "section": "3.10",
+      "title": "Q07 — Kiểm khả thi và đúng mức bàn giao",
+      "source_sha256": "d2b83a453da3a93df043398d689eda2faa34c17cacfee1d209211d5844e2a408",
+      "target": "references/checks/feasibility-and-handoff-readiness.md",
+      "anchor": "spec-3-10",
+      "disposition": "retained-and-relinked"
+    },
+    {
+      "source": "spec",
+      "section": "3.11",
+      "title": "Cách xác định mẫu số và điều kiện dừng theo loại hồ sơ",
+      "source_sha256": "1bfc4604155097ef5ba8f8093e64663c0eece2db3b4703dca37bf88c5b036a96",
+      "target": "references/coverage-inventories-and-traceability.md",
+      "anchor": "spec-3-11",
+      "disposition": "inventory-index-retained-detail-moved-to-models",
+      "related_targets": [
+        "references/models/business-flows-and-use-cases.md",
+        "references/models/business-state-transitions.md",
+        "references/models/business-rules-and-decision-tables.md",
+        "references/models/data-dictionary-and-validation.md",
+        "references/models/permissions-and-data-access.md",
+        "references/models/ui-behavior-and-interaction-states.md",
+        "references/models/api-and-integration-contracts.md",
+        "references/models/exceptions-and-edge-cases.md",
+        "references/models/nonfunctional-migration-and-operations.md",
+        "references/models/solution-and-story-decomposition.md"
+      ]
+    },
+    {
+      "source": "spec",
+      "section": "3.12",
+      "title": "Ví dụ kiểm đủ state transition: từ nhận xét tới finding có căn cứ",
+      "source_sha256": "a2b425fe5c556e684f30e342733092bbe58c52fb9fbe1a2f4923402a0d62b916",
+      "target": "references/examples/review-findings-and-counterexamples.md",
+      "anchor": "spec-3-12",
+      "disposition": "retained-and-relinked"
+    },
+    {
+      "source": "spec",
+      "section": "3.13",
+      "title": "Mẫu record review để member thực hiện nhất quán",
+      "source_sha256": "38ea51043cf9df5efba25d91a7fbfec0c647d0a10184516716dd79efb902f9e7",
+      "target": "assets/templates/requirements-review-record-template.md",
+      "anchor": "spec-3-13",
+      "disposition": "retained-and-relinked"
+    },
+    {
+      "source": "spec",
+      "section": "4",
+      "title": "Epic cần làm rõ những hạng mục nào?",
+      "source_sha256": "bc9c15b870ed2fbba1d259fa27aec4f15e65d5d8284e36126fe252ae6aef501c",
+      "target": "references/epic-specification-catalog.md",
+      "anchor": "spec-4",
+      "disposition": "retained-and-relinked"
+    },
+    {
+      "source": "spec",
+      "section": "5",
+      "title": "Story cần đầy đủ những hạng mục nào?",
+      "source_sha256": "248b8f9b2b356e5a7c781618384623eb6ba5ed4fdd89fecb41054e49eb42c2c8",
+      "target": "references/story-specification-catalog.md",
+      "anchor": "spec-5",
+      "disposition": "retained-and-relinked"
+    },
+    {
+      "source": "spec",
+      "section": "6",
+      "title": "Hướng dẫn chi tiết cho từng loại mô hình/hồ sơ",
+      "source_sha256": "6f89f957f1307338f38af25e41613fb6d401fb19fcf8f5b4b8d1f8f311914367",
+      "target": "references/coverage-inventories-and-traceability.md",
+      "anchor": "spec-6",
+      "disposition": "retained-and-relinked"
+    },
+    {
+      "source": "spec",
+      "section": "D01",
+      "title": "Flow, use case và swimlane",
+      "source_sha256": "6705022a076891e87a8a37714e5ce7d573f640e85449bd963fcacc56041d5538",
+      "target": "references/models/business-flows-and-use-cases.md",
+      "anchor": "spec-d01",
+      "disposition": "retained-and-relinked"
+    },
+    {
+      "source": "spec",
+      "section": "D02",
+      "title": "State transition và vòng đời nghiệp vụ",
+      "source_sha256": "0ff9ab18b3113d814f7c546113242ad1a0f73cebe63153a59ff50d070cdc4553",
+      "target": "references/models/business-state-transitions.md",
+      "anchor": "spec-d02",
+      "disposition": "retained-and-relinked"
+    },
+    {
+      "source": "spec",
+      "section": "D03",
+      "title": "Business rules và decision table",
+      "source_sha256": "001ca163111834bc5ac1cda9ff3a40caf8a8c9636d9b3f8c5e44c9eab5a84d85",
+      "target": "references/models/business-rules-and-decision-tables.md",
+      "anchor": "spec-d03",
+      "disposition": "retained-and-relinked"
+    },
+    {
+      "source": "spec",
+      "section": "D04",
+      "title": "Data dictionary, validation và ranh giới dữ liệu",
+      "source_sha256": "525f0a6c7845abf66fd9ff3171a03a7bbed58e59d2cfdfca90028871e3b9cf96",
+      "target": "references/models/data-dictionary-and-validation.md",
+      "anchor": "spec-d04",
+      "disposition": "retained-and-relinked"
+    },
+    {
+      "source": "spec",
+      "section": "D05",
+      "title": "Permission matrix và phạm vi dữ liệu",
+      "source_sha256": "093bc567c19acc80c38689d6e5eb3a2965843d3fc4c6a8e88d29ca7a3465833a",
+      "target": "references/models/permissions-and-data-access.md",
+      "anchor": "spec-d05",
+      "disposition": "retained-and-relinked"
+    },
+    {
+      "source": "spec",
+      "section": "D06",
+      "title": "UI/UX và quan hệ với contract",
+      "source_sha256": "2be1f8e10aee7a3c85611cf7df695ce20ca0594c253bbb3639d7d3cc50f58a14",
+      "target": "references/models/ui-behavior-and-interaction-states.md",
+      "anchor": "spec-d06",
+      "disposition": "retained-and-relinked"
+    },
+    {
+      "source": "spec",
+      "section": "D07",
+      "title": "API/integration contract và sequence",
+      "source_sha256": "4ea23307f783c40fd1d3a985b932543bd031311561b71f7c4f2c03fe2098ee8f",
+      "target": "references/models/api-and-integration-contracts.md",
+      "anchor": "spec-d07",
+      "disposition": "retained-and-relinked"
+    },
+    {
+      "source": "spec",
+      "section": "D08",
+      "title": "Exception, edge case và tính nhất quán khi có lỗi",
+      "source_sha256": "2a574fb209d2a34acdb83536f2e334f47f3d6936afd40f39448e238f7c6f397f",
+      "target": "references/models/exceptions-and-edge-cases.md",
+      "anchor": "spec-d08",
+      "disposition": "retained-and-relinked"
+    },
+    {
+      "source": "spec",
+      "section": "D09",
+      "title": "NFR, migration và điều kiện vận hành",
+      "source_sha256": "85d1836cfacf697693f4bf8386acf1df35970d0f534f0a3d91459af5cfa14015",
+      "target": "references/models/nonfunctional-migration-and-operations.md",
+      "anchor": "spec-d09",
+      "disposition": "retained-and-relinked"
+    },
+    {
+      "source": "spec",
+      "section": "D10",
+      "title": "Solution, decomposition và testability",
+      "source_sha256": "0a76bb5a0cf36df476b2a5cb5af83c9e7d282d68fd26a9c08a1606c01a3f11f3",
+      "target": "references/models/solution-and-story-decomposition.md",
+      "anchor": "spec-d10",
+      "disposition": "retained-and-relinked"
+    },
+    {
+      "source": "spec",
+      "section": "7",
+      "title": "AC, scenario và kiểm tra coverage trước khi bàn giao",
+      "source_sha256": "eeec494c6f686e6d4d9e3bf9c8e9bc13722603403cbf0b9a2931502b75a4609d",
+      "target": "references/coverage-inventories-and-traceability.md",
+      "anchor": "spec-7",
+      "disposition": "retained-and-relinked"
+    },
+    {
+      "source": "spec",
+      "section": "7.1",
+      "title": "Mẫu AC có thể kiểm chứng",
+      "source_sha256": "ead21e2bff8bbd5b09e8a12cd25efe8ac51107e14d28b1a15c2c0650f6d261b9",
+      "target": "references/coverage-inventories-and-traceability.md",
+      "anchor": "spec-7-1",
+      "disposition": "retained-and-relinked"
+    },
+    {
+      "source": "spec",
+      "section": "7.2",
+      "title": "Chuỗi truy vết và bảng coverage",
+      "source_sha256": "f8e83f0c642d258baf2a7da93bc3c370c895626496814993e629fad56836e226",
+      "target": "references/coverage-inventories-and-traceability.md",
+      "anchor": "spec-7-2",
+      "disposition": "retained-and-relinked"
+    },
+    {
+      "source": "spec",
+      "section": "7.3",
+      "title": "Kiểm theo từng loại coverage",
+      "source_sha256": "43d9b18ce7c660c5a1d16a61d0a957f0dcd91f44751d096092c7ad59c5a42020",
+      "target": "references/coverage-inventories-and-traceability.md",
+      "anchor": "spec-7-3",
+      "disposition": "retained-and-relinked"
+    },
+    {
+      "source": "spec",
+      "section": "8",
+      "title": "Quy trình review: bảo đảm nội dung được xác nhận bởi đúng người",
+      "source_sha256": "79e3066a673635acb6897f1a14e3546811792cafd30ecbaede82407189fd9c05",
+      "target": "references/requirements-review-process-and-verdicts.md",
+      "anchor": "spec-8",
+      "disposition": "retained-and-relinked"
+    },
+    {
+      "source": "spec",
+      "section": "8.1",
+      "title": "Cổng trước tạo Story và cổng trước code",
+      "source_sha256": "e9234d03ac259e01482c5ba228c24b61ed5f63c89ec8ec9e5d4da03c8a4dee79",
+      "target": "references/requirements-review-process-and-verdicts.md",
+      "anchor": "spec-8-1",
+      "disposition": "retained-and-relinked"
+    },
+    {
+      "source": "spec",
+      "section": "8.2",
+      "title": "Kiểm máy được và phần cần con người",
+      "source_sha256": "00dc0c5937f3773a7880ce41a64d8424b0c164a7cb912d64873dd488dd8fa7ec",
+      "target": "references/requirements-review-process-and-verdicts.md",
+      "anchor": "spec-8-2",
+      "disposition": "retained-and-relinked"
+    },
+    {
+      "source": "spec",
+      "section": "9",
+      "title": "Ví dụ liên kết Epic → Story → model → AC → test condition",
+      "source_sha256": "084118d516ab6535778f2fd93f517b7e475a7a00939305551cfc44e1ace79288",
+      "target": "references/examples/project-code-request-specification.md",
+      "anchor": "spec-9",
+      "disposition": "retained-and-relinked"
+    },
+    {
+      "source": "spec",
+      "section": "9.1",
+      "title": "Epic: Gửi và xét duyệt yêu cầu mở mã dự án",
+      "source_sha256": "5f838ef1bc6930abc21689677bf596eaa72d9924d1af40c0b83eed8e1c163e68",
+      "target": "references/examples/project-code-request-specification.md",
+      "anchor": "spec-9-1",
+      "disposition": "retained-and-relinked"
+    },
+    {
+      "source": "spec",
+      "section": "9.2",
+      "title": "Business state và transition",
+      "source_sha256": "446933601fb5a905f3deeabc2d7cdd6c7afb10d088ee08c84748e61e0d8b8f63",
+      "target": "references/examples/project-code-request-specification.md",
+      "anchor": "spec-9-2",
+      "disposition": "retained-and-relinked"
+    },
+    {
+      "source": "spec",
+      "section": "9.3",
+      "title": "Story: Owner gửi draft để chờ duyệt",
+      "source_sha256": "df87dbb451302619f84d94b231c6238a5f5c0cb99c0be4a2bf975e3c3226eeeb",
+      "target": "references/examples/project-code-request-specification.md",
+      "anchor": "spec-9-3",
+      "disposition": "retained-and-relinked"
+    },
+    {
+      "source": "spec",
+      "section": "9.4",
+      "title": "Vì sao ví dụ này rõ hơn một Story chỉ có mô tả?",
+      "source_sha256": "9637f4e9fec9639a476c44bc200700bf5ba63a4f77b8ea62ecf388ccf975affb",
+      "target": "references/examples/project-code-request-specification.md",
+      "anchor": "spec-9-4",
+      "disposition": "retained-and-relinked"
+    },
+    {
+      "source": "spec",
+      "section": "10",
+      "title": "Mẫu cấu trúc hồ sơ để sử dụng",
+      "source_sha256": "e5a9c05d0ed9cff1b1c0026360fa38b79c211a87336ee6a8ce1b09c63a4cce73",
+      "target": "assets/templates/epic-specification-template.md",
+      "anchor": "spec-10",
+      "disposition": "retained-and-relinked"
+    },
+    {
+      "source": "spec",
+      "section": "10.1",
+      "title": "Epic specification",
+      "source_sha256": "26dddd6a889c59f5aac149b0e00fc6d0d16966fac4290737be4b250a6a4c0aed",
+      "target": "assets/templates/epic-specification-template.md",
+      "anchor": "spec-10-1",
+      "disposition": "retained-and-relinked"
+    },
+    {
+      "source": "spec",
+      "section": "10.2",
+      "title": "Story specification",
+      "source_sha256": "f396a541edafa2e8d4e41a1b408fd6bd80847f1df18875ceba4464a72be915f2",
+      "target": "assets/templates/story-specification-template.md",
+      "anchor": "spec-10-2",
+      "disposition": "retained-and-relinked"
+    },
+    {
+      "source": "spec",
+      "section": "11",
+      "title": "Ví dụ cách kết luận review đạt hoặc chưa đạt",
+      "source_sha256": "a00886d00cfc68e71e12c99487f2de3f225d39653fa53a664559c1afd320c1a5",
+      "target": "references/examples/review-findings-and-counterexamples.md",
+      "anchor": "spec-11",
+      "disposition": "retained-and-relinked"
+    },
+    {
+      "source": "spec",
+      "section": "12",
+      "title": "Các quyết định cần thống nhất trước khi thiết kế skill",
+      "source_sha256": "986166af18ff9ab9c77ae629d23b4e9ed5f830c3e657dda69b54174b5aa10339",
+      "target": "references/pack-acceptance-scenarios.md",
+      "anchor": "spec-12",
+      "disposition": "updated-to-pilot-guidance-after-pack-creation"
+    },
+    {
+      "source": "workflow",
+      "section": "preamble",
+      "title": "Thông tin kiểm soát tài liệu nguồn",
+      "source_sha256": "75f69e0cc5693401f1bd1bc8c64244e4d174055d1a01a04c5106ed371b577c55",
+      "target": "references/crm-project-rules.md",
+      "anchor": "workflow-preamble",
+      "disposition": "source-metadata-archived-current-metadata-replaced"
+    },
+    {
+      "source": "workflow",
+      "section": "1",
+      "title": "Mục tiêu và các quy ước đầu vào",
+      "source_sha256": "ee652cd75f345f20671637307ec6f831300488040d13b1cdb15d5777e1a91107",
+      "target": "references/crm-project-rules.md",
+      "anchor": "workflow-1",
+      "disposition": "retained-and-relinked"
+    },
+    {
+      "source": "workflow",
+      "section": "1.1",
+      "title": "Những thông tin đã được người quản lý dự án cung cấp",
+      "source_sha256": "424087f6bfc8711b13d0fe4bfd0a7b319ff48dab0dd3f13aa50511ab5d99d289",
+      "target": "references/crm-project-rules.md",
+      "anchor": "workflow-1-1",
+      "disposition": "retained-and-relinked"
+    },
+    {
+      "source": "workflow",
+      "section": "1.2",
+      "title": "Quan hệ với các tài liệu trước",
+      "source_sha256": "fd52a09a598d5457af6250e7f0340c44c47956d3a4e729f0058d9650ccc64a2e",
+      "target": "references/crm-project-rules.md",
+      "anchor": "workflow-1-2",
+      "disposition": "retained-and-relinked"
+    },
+    {
+      "source": "workflow",
+      "section": "2",
+      "title": "Định nghĩa: Requirement, AC, DoR, DoD và Baseline",
+      "source_sha256": "67176acc5dd2456bb047246da70b7bf18efaf1d1d8c61e83928ebf73a0600a65",
+      "target": "references/crm-project-rules.md",
+      "anchor": "workflow-2",
+      "disposition": "retained-and-relinked"
+    },
+    {
+      "source": "workflow",
+      "section": "2.1",
+      "title": "Cách phân biệt AC, DoR và DoD",
+      "source_sha256": "4170349ae88fa5e7452eec78e26267a2238ca4224562f07b23ab547905eb3c5c",
+      "target": "references/crm-project-rules.md",
+      "anchor": "workflow-2-1",
+      "disposition": "retained-and-relinked"
+    },
+    {
+      "source": "workflow",
+      "section": "3",
+      "title": "Phân loại và phân cấp requirement",
+      "source_sha256": "0a662cb885c7d4aa03b3e40c7f5e968943e3bf73854e3ca3218c7a687fcfcfad",
+      "target": "references/backlog-hierarchy-and-decomposition.md",
+      "anchor": "workflow-3",
+      "disposition": "retained-and-relinked"
+    },
+    {
+      "source": "workflow",
+      "section": "3.1",
+      "title": "Phân loại theo bản chất nội dung",
+      "source_sha256": "e6b03a7962dfbc10c275509c767a893300c44f2e6cede7c5bca1e1662646984c",
+      "target": "references/backlog-hierarchy-and-decomposition.md",
+      "anchor": "workflow-3-1",
+      "disposition": "retained-and-relinked"
+    },
+    {
+      "source": "workflow",
+      "section": "3.2",
+      "title": "Phân cấp theo phạm vi và công việc",
+      "source_sha256": "7f93a9c998df57d009b7733ef01ac13cd8660875dd3fb6d38dbf49c0add7cf6d",
+      "target": "references/backlog-hierarchy-and-decomposition.md",
+      "anchor": "workflow-3-2",
+      "disposition": "retained-and-relinked"
+    },
+    {
+      "source": "workflow",
+      "section": "4",
+      "title": "Baseline của cái gì?",
+      "source_sha256": "701e310820fb557a017b8ddba5f3b7c344f33f41acadd42311d2b1342dac6c1c",
+      "target": "references/baseline-and-change-control.md",
+      "anchor": "workflow-4",
+      "disposition": "retained-and-relinked"
+    },
+    {
+      "source": "workflow",
+      "section": "4.1",
+      "title": "Câu phải dùng trước khi tạo Story",
+      "source_sha256": "8582bc78402022841f929625fbc59b393cf86599b84f04a1560b32cdd0d5e6d0",
+      "target": "references/baseline-and-change-control.md",
+      "anchor": "workflow-4-1",
+      "disposition": "retained-and-relinked"
+    },
+    {
+      "source": "workflow",
+      "section": "4.2",
+      "title": "Phân biệt ba tập nội dung được chốt ở ba thời điểm",
+      "source_sha256": "8b26e8650dbb6fd8cd7c77fa037d98097c33edf4f48690795bf4481a1c583e68",
+      "target": "references/baseline-and-change-control.md",
+      "anchor": "workflow-4-2",
+      "disposition": "retained-and-relinked"
+    },
+    {
+      "source": "workflow",
+      "section": "4.3",
+      "title": "Phạm vi của một baseline",
+      "source_sha256": "99e524508fa34b99c903af102df78c6346e18aac9803386198a75d03ceefa7a4",
+      "target": "references/baseline-and-change-control.md",
+      "anchor": "workflow-4-3",
+      "disposition": "retained-and-relinked"
+    },
+    {
+      "source": "workflow",
+      "section": "5",
+      "title": "Bộ hồ sơ phải review và merge trước khi tạo Story",
+      "source_sha256": "503b824902a5154259bfc24d97f8b2e137cf7988d7efdce2b5bbc533eaaeba28",
+      "target": "references/baseline-and-change-control.md",
+      "anchor": "workflow-5",
+      "disposition": "retained-and-relinked"
+    },
+    {
+      "source": "workflow",
+      "section": "5.1",
+      "title": "Cấu trúc lưu trữ đề xuất",
+      "source_sha256": "83d35e222ec86708ccc687f30fc6374fafa3c5c02767e7df9a5f411c5f25df3b",
+      "target": "references/baseline-and-change-control.md",
+      "anchor": "workflow-5-1",
+      "disposition": "retained-and-relinked"
+    },
+    {
+      "source": "workflow",
+      "section": "5.2",
+      "title": "Ví dụ manifest trước khi tạo Story",
+      "source_sha256": "6d3c1a93920202392f3c77a418f13883b477ea5690e77497b20a9d886d1e6b2d",
+      "target": "references/baseline-and-change-control.md",
+      "anchor": "workflow-5-2",
+      "disposition": "retained-and-relinked"
+    },
+    {
+      "source": "workflow",
+      "section": "6",
+      "title": "Quy trình từ Feature đến Story thực thi",
+      "source_sha256": "0fe2e24505e3c3e381104c5901826625a5f63c5fbe389311d130083b470b0173",
+      "target": "references/baseline-and-change-control.md",
+      "anchor": "workflow-6",
+      "disposition": "retained-and-relinked"
+    },
+    {
+      "source": "workflow",
+      "section": "7",
+      "title": "DoR, AC và DoD của Feature",
+      "source_sha256": "783b982dc91f0a9a5f49580b6546ce29f812e5add620517681b7e5d0822e3503",
+      "target": "references/readiness-completion-and-approval-gates.md",
+      "anchor": "workflow-7",
+      "disposition": "retained-and-relinked"
+    },
+    {
+      "source": "workflow",
+      "section": "7.1",
+      "title": "DoR để bắt đầu làm rõ/phân rã Feature",
+      "source_sha256": "22c90da62773d949e52353e7ada73585e7114d167c65b6028d0f50dca7e4b5de",
+      "target": "references/readiness-completion-and-approval-gates.md",
+      "anchor": "workflow-7-1",
+      "disposition": "retained-and-relinked"
+    },
+    {
+      "source": "workflow",
+      "section": "7.2",
+      "title": "AC cấp Feature",
+      "source_sha256": "6665a4b8681d26dad2988290366d97cbce859319b29a2bf669b36a64a2789b85",
+      "target": "references/readiness-completion-and-approval-gates.md",
+      "anchor": "workflow-7-2",
+      "disposition": "retained-and-relinked"
+    },
+    {
+      "source": "workflow",
+      "section": "7.3",
+      "title": "Hoàn tất phân tích Feature và DoD bàn giao Feature là hai mốc",
+      "source_sha256": "7b89c323a2ca6397ff3bb98981dab52ca7e16af303ca8421e27362fd713f3701",
+      "target": "references/readiness-completion-and-approval-gates.md",
+      "anchor": "workflow-7-3",
+      "disposition": "retained-and-relinked"
+    },
+    {
+      "source": "workflow",
+      "section": "8",
+      "title": "DoR, AC và DoD của Epic",
+      "source_sha256": "277981335f72408e68daa723a59b187872c5a1c5e8bc4338a1b6700659716b30",
+      "target": "references/readiness-completion-and-approval-gates.md",
+      "anchor": "workflow-8",
+      "disposition": "retained-and-relinked"
+    },
+    {
+      "source": "workflow",
+      "section": "8.1",
+      "title": "DoR để bắt đầu làm rõ Epic: `todo` → `inprogress`",
+      "source_sha256": "bc3ed8b25dcb8ce2d2020cbff99b36aa4934531d9b159c3a5d1921742e7c651d",
+      "target": "references/readiness-completion-and-approval-gates.md",
+      "anchor": "workflow-8-1",
+      "disposition": "retained-and-relinked"
+    },
+    {
+      "source": "workflow",
+      "section": "8.2",
+      "title": "Điều kiện Epic được phép sinh Story thực thi",
+      "source_sha256": "453e53ae1f1d896e1d940ac1b7b1d2295a5c55121a6c50e33ace2b934a9d9560",
+      "target": "references/readiness-completion-and-approval-gates.md",
+      "anchor": "workflow-8-2",
+      "disposition": "retained-and-relinked"
+    },
+    {
+      "source": "workflow",
+      "section": "8.3",
+      "title": "AC cấp Epic",
+      "source_sha256": "66866ee78ad6bbd493aad12e304678594523b213d1c330f42d5f2714e8b0f08c",
+      "target": "references/readiness-completion-and-approval-gates.md",
+      "anchor": "workflow-8-3",
+      "disposition": "retained-and-relinked"
+    },
+    {
+      "source": "workflow",
+      "section": "8.4",
+      "title": "DoD để đóng Epic: `inprogress` → `done`",
+      "source_sha256": "8cc33d428d16ba715c556d4a100eccb3070477cd98b6830553f34a145c420363",
+      "target": "references/readiness-completion-and-approval-gates.md",
+      "anchor": "workflow-8-4",
+      "disposition": "retained-and-relinked"
+    },
+    {
+      "source": "workflow",
+      "section": "9",
+      "title": "DoR, AC và DoD của Story",
+      "source_sha256": "d15e64eba83be3d7a3986572fabfa8d13ffc290103258d1a57ec1da6851d7ff4",
+      "target": "references/readiness-completion-and-approval-gates.md",
+      "anchor": "workflow-9",
+      "disposition": "retained-and-relinked"
+    },
+    {
+      "source": "workflow",
+      "section": "9.1",
+      "title": "DoR để bắt đầu triển khai: `todo` → `inprogress`",
+      "source_sha256": "ff32cbd2c8ec569ec0a95dbdd035f036619aa7c860be954952f06fdbbaa87641",
+      "target": "references/readiness-completion-and-approval-gates.md",
+      "anchor": "workflow-9-1",
+      "disposition": "retained-and-relinked"
+    },
+    {
+      "source": "workflow",
+      "section": "9.2",
+      "title": "AC của Story",
+      "source_sha256": "7c44b7646dbe1115f14e2f7a298e7d37bde6409c77f4bff4d6e1d285a908501e",
+      "target": "references/readiness-completion-and-approval-gates.md",
+      "anchor": "workflow-9-2",
+      "disposition": "retained-and-relinked"
+    },
+    {
+      "source": "workflow",
+      "section": "9.3",
+      "title": "Điều kiện Dev bàn giao QA: `inprogress` → `resolved`",
+      "source_sha256": "97d97f1f516cab7ccd9a519e2ecdbc05955b6e10bea0b7b6078293f07de83990",
+      "target": "references/readiness-completion-and-approval-gates.md",
+      "anchor": "workflow-9-3",
+      "disposition": "retained-and-relinked"
+    },
+    {
+      "source": "workflow",
+      "section": "9.4",
+      "title": "DoD đóng Story: `resolved` → `done`",
+      "source_sha256": "87f5370ad6a9ee004f49cbd084736199911a5ee43016099e1e70291088b8b349",
+      "target": "references/readiness-completion-and-approval-gates.md",
+      "anchor": "workflow-9-4",
+      "disposition": "retained-and-relinked"
+    },
+    {
+      "source": "workflow",
+      "section": "10",
+      "title": "DoR và DoD của Task theo loại đầu ra",
+      "source_sha256": "84ad8e73b8359a0c46ee7998fe41ee463d3387f60254360a8fe6e9df91990bc6",
+      "target": "references/task-planning-and-completion.md",
+      "anchor": "workflow-10",
+      "disposition": "retained-and-relinked"
+    },
+    {
+      "source": "workflow",
+      "section": "10.1",
+      "title": "DoR dùng chung: `todo` → `inprogress`",
+      "source_sha256": "e5461db3c2363591250bcc863959a8699977711038daa28209a3c1bac8be883a",
+      "target": "references/task-planning-and-completion.md",
+      "anchor": "workflow-10-1",
+      "disposition": "retained-and-relinked"
+    },
+    {
+      "source": "workflow",
+      "section": "10.2",
+      "title": "DoD dùng chung",
+      "source_sha256": "81a1d76511a41d4763017c49074b8622a1f72a741d1589b78c273bac96411f5e",
+      "target": "references/task-planning-and-completion.md",
+      "anchor": "workflow-10-2",
+      "disposition": "retained-and-relinked"
+    },
+    {
+      "source": "workflow",
+      "section": "10.3",
+      "title": "DoD bổ sung theo đầu ra triển khai",
+      "source_sha256": "59a014f47fb15db9e93762b4ac0261774deb757a077e5b4917a0c95ba54a8839",
+      "target": "references/task-planning-and-completion.md",
+      "anchor": "workflow-10-3",
+      "disposition": "retained-and-relinked"
+    },
+    {
+      "source": "workflow",
+      "section": "10.4",
+      "title": "Hoạt động refinement và trường hợp nghiên cứu độc lập",
+      "source_sha256": "deb0043b20605ded14b41ef34477edf6ce5245a3fc06d656a5e70e1d803d1b7c",
+      "target": "references/task-planning-and-completion.md",
+      "anchor": "workflow-10-4",
+      "disposition": "retained-and-relinked"
+    },
+    {
+      "source": "workflow",
+      "section": "11",
+      "title": "Ý nghĩa từng status Jira và quy tắc chuyển",
+      "source_sha256": "063c05c14af7e691dd191185bb9ba80c56500ea0ed4c553ba362b2d98f3ccae6",
+      "target": "references/jira-status-and-progress-reporting.md",
+      "anchor": "workflow-11",
+      "disposition": "retained-and-relinked"
+    },
+    {
+      "source": "workflow",
+      "section": "11.1",
+      "title": "Epic",
+      "source_sha256": "f89ec57e40ea39ebf21ede4a8b6ad58d1a471c26a0f786177e35071de54fb7cf",
+      "target": "references/jira-status-and-progress-reporting.md",
+      "anchor": "workflow-11-1",
+      "disposition": "retained-and-relinked"
+    },
+    {
+      "source": "workflow",
+      "section": "11.2",
+      "title": "Story",
+      "source_sha256": "c003fc5837753efb951348f8ddd73097169e63ead23b260d9c3dbf12e7cbe2e9",
+      "target": "references/jira-status-and-progress-reporting.md",
+      "anchor": "workflow-11-2",
+      "disposition": "retained-and-relinked"
+    },
+    {
+      "source": "workflow",
+      "section": "11.3",
+      "title": "Task",
+      "source_sha256": "d70c75df05c6d79f5ca911a1c0935896306349eee71c89a977f0aabb3a35812f",
+      "target": "references/jira-status-and-progress-reporting.md",
+      "anchor": "workflow-11-3",
+      "disposition": "retained-and-relinked"
+    },
+    {
+      "source": "workflow",
+      "section": "11.4",
+      "title": "Dùng `pending`, trả sửa và `cancel`",
+      "source_sha256": "a470b13c1b40b9bf75c86ff5e29913f51adec74004d53f37f512df9c4dffcdc1",
+      "target": "references/jira-status-and-progress-reporting.md",
+      "anchor": "workflow-11-4",
+      "disposition": "retained-and-relinked"
+    },
+    {
+      "source": "workflow",
+      "section": "11.5",
+      "title": "Status `resolved` khác trường Resolution của Jira",
+      "source_sha256": "cb79c1d43914c31877e726886ff5a29e68b83ebdf244a1a86bfe7e552b148312",
+      "target": "references/jira-status-and-progress-reporting.md",
+      "anchor": "workflow-11-5",
+      "disposition": "retained-and-relinked"
+    },
+    {
+      "source": "workflow",
+      "section": "12",
+      "title": "Ai review và ai có quyền chốt?",
+      "source_sha256": "f20ead695729bbda0412a4720f0f9c234237977b773f334ece551ce70ef26386",
+      "target": "references/readiness-completion-and-approval-gates.md",
+      "anchor": "workflow-12",
+      "disposition": "retained-and-relinked"
+    },
+    {
+      "source": "workflow",
+      "section": "13",
+      "title": "Bàn giao baseline cho người và AI như thế nào?",
+      "source_sha256": "d1493193491632d6d9b6312860f744ca1c57a6ee7424b30318775148435c5b55",
+      "target": "references/ai-handoff-and-hard-gates.md",
+      "anchor": "workflow-13",
+      "disposition": "retained-and-relinked"
+    },
+    {
+      "source": "workflow",
+      "section": "13.1",
+      "title": "Sau merge, trước và sau tạo ticket",
+      "source_sha256": "b601229134f08b2f116d782e3eed83c116874507bcfb58f5f09e540ee2851a47",
+      "target": "references/ai-handoff-and-hard-gates.md",
+      "anchor": "workflow-13-1",
+      "disposition": "retained-and-relinked"
+    },
+    {
+      "source": "workflow",
+      "section": "13.2",
+      "title": "Bộ context tối thiểu cho Dev/QA/AI",
+      "source_sha256": "1f8e8efbc5772354ca0231f57c4d17331aef158a219b9a8b7ae6f05f4b0c15cd",
+      "target": "references/ai-handoff-and-hard-gates.md",
+      "anchor": "workflow-13-2",
+      "disposition": "retained-and-relinked"
+    },
+    {
+      "source": "workflow",
+      "section": "13.3",
+      "title": "Gate kiểm bằng máy",
+      "source_sha256": "8cfde838c8f25234bedefa6b8c1237107fea5e21d00337453254f522c7fd896d",
+      "target": "references/ai-handoff-and-hard-gates.md",
+      "anchor": "workflow-13-3",
+      "disposition": "retained-and-relinked"
+    },
+    {
+      "source": "workflow",
+      "section": "14",
+      "title": "Thay đổi sau baseline",
+      "source_sha256": "0061f2dc1a92956284bff7ca45b15dd3733f121ba6db4ca7748d1322ccef8b6b",
+      "target": "references/baseline-and-change-control.md",
+      "anchor": "workflow-14",
+      "disposition": "retained-and-relinked"
+    },
+    {
+      "source": "workflow",
+      "section": "15",
+      "title": "Theo dõi Requirement Backlog và Development Backlog",
+      "source_sha256": "d82fbaedd4c1d7a688b3921eb6d24de2b07a60a5f247b491433bee49130f82ed",
+      "target": "references/jira-status-and-progress-reporting.md",
+      "anchor": "workflow-15",
+      "disposition": "retained-and-relinked"
+    },
+    {
+      "source": "workflow",
+      "section": "15.1",
+      "title": "Requirement Backlog",
+      "source_sha256": "1c34865829b7639fc386dd5603833b20cf96cb4d948fb5fee45216f0c1ce4566",
+      "target": "references/jira-status-and-progress-reporting.md",
+      "anchor": "workflow-15-1",
+      "disposition": "retained-and-relinked"
+    },
+    {
+      "source": "workflow",
+      "section": "15.2",
+      "title": "Development Backlog",
+      "source_sha256": "f7b1150c2cfe2b3dd4055c8cba2a422f2b8020fad55d55047fe204e78567932e",
+      "target": "references/jira-status-and-progress-reporting.md",
+      "anchor": "workflow-15-2",
+      "disposition": "retained-and-relinked"
+    },
+    {
+      "source": "workflow",
+      "section": "16",
+      "title": "Ví dụ đi hết một vòng: baseline cụ thể của phần manual",
+      "source_sha256": "8f0f525bed9469a74dff469813b4146e1d9c476e6e35e5c7e1049f366747aa3a",
+      "target": "references/examples/baseline-to-delivery-walkthrough.md",
+      "anchor": "workflow-16",
+      "disposition": "retained-and-relinked"
+    },
+    {
+      "source": "workflow",
+      "section": "16.1",
+      "title": "Feature và Epic",
+      "source_sha256": "e1b42328c855c2460d550465cce096375b0c82966eaec7a4bdb869f1c02f0a91",
+      "target": "references/examples/baseline-to-delivery-walkthrough.md",
+      "anchor": "workflow-16-1",
+      "disposition": "retained-and-relinked"
+    },
+    {
+      "source": "workflow",
+      "section": "16.2",
+      "title": "Đầu ra phân tích và solution",
+      "source_sha256": "f0711a0ca41cd3478f5690778e7f542e835c3d3f4f135ad6fa19220163c2c4d7",
+      "target": "references/examples/baseline-to-delivery-walkthrough.md",
+      "anchor": "workflow-16-2",
+      "disposition": "retained-and-relinked"
+    },
+    {
+      "source": "workflow",
+      "section": "16.3",
+      "title": "PR phải chứa gì?",
+      "source_sha256": "665e09b718b37fe24c695e857323e29d002e5e37faf2cd8bb11719321eed8939",
+      "target": "references/examples/baseline-to-delivery-walkthrough.md",
+      "anchor": "workflow-16-3",
+      "disposition": "retained-and-relinked"
+    },
+    {
+      "source": "workflow",
+      "section": "16.4",
+      "title": "Sau merge và khi triển khai",
+      "source_sha256": "5ff13deb5c63866a8d2e73351a662a6996ec3aea667dee72cf3062e2372c19bb",
+      "target": "references/examples/baseline-to-delivery-walkthrough.md",
+      "anchor": "workflow-16-4",
+      "disposition": "retained-and-relinked"
+    },
+    {
+      "source": "workflow",
+      "section": "17",
+      "title": "Checklist trước khi áp dụng",
+      "source_sha256": "da5477a84b33e089f6db6a9f7c892fb29b42a8fe7eb9d8db207097b777a4ccbe",
+      "target": "references/pack-acceptance-scenarios.md",
+      "anchor": "workflow-17",
+      "disposition": "retained-and-relinked"
+    },
+    {
+      "source": "workflow",
+      "section": "18",
+      "title": "Tài liệu tham khảo",
+      "source_sha256": "a14d07ecdf116ed507abab26d93d307a14a9d98eb471009ac3cd5bb146c5237d",
+      "target": "references/standards-and-crm-tailoring.md",
+      "anchor": "workflow-18",
+      "disposition": "retained-and-relinked"
+    }
+  ]
+}
