@@ -1,11 +1,13 @@
 # Inventory, coverage, AC và truy vết
 
-Mã tài liệu: **CRM-COVERAGE** · Gói CRM 1.2.0 · 02/11/2026
+Mã tài liệu: **CRM-COVERAGE** · Gói CRM 1.3.1 · 03/11/2026
 
 **Mục đích:** Xác định mẫu số của việc kiểm đủ và tách planned/executed coverage.
 
 **Đọc khi:** Chuẩn bị review completeness, acceptance hoặc impact analysis.
 
+
+<a id="spec-6"></a>
 
 ## Chọn model và lập inventory
 
@@ -29,30 +31,11 @@ Một nhóm không áp dụng phải có lý do và reviewer. Chưa biết khôn
 
 <a id="spec-3-11"></a>
 
-### Cách xác định mẫu số và điều kiện dừng theo loại hồ sơ
+### Xác định mẫu số trước khi kết luận
 
-Bảng này áp dụng Q02/Q03/Q04 cho D01–D10. Owner phải tạo inventory cụ thể của Epic/Story đang review; các chữ “mọi”, “đủ”, “phù hợp” trong tiêu chí chỉ được kết luận sau khi có tập item và disposition bên dưới.
+Owner lập inventory cụ thể cho target, theo hướng dẫn model ở bảng trên. Chi tiết inventory, thao tác reviewer và điều kiện dừng được duy trì tại từng model để chỉ có một nguồn chuẩn. Dùng [mapping hạng mục → model/evidence](catalog-check-model-mapping.md) để chọn tuyến, rồi áp dụng các check Q01–Q07.
 
-| Hồ sơ | Inventory/đơn vị cần rà | Reviewer thực hiện | Điều kiện dừng để kết luận ở mức đặc tả |
-|---|---|---|---|
-| [D01 — Flow nghiệp vụ, use case và swimlane](models/business-flows-and-use-cases.md) | Xem inventory cụ thể trong hướng dẫn model | Xem các bước kiểm model | Xem điều kiện dừng của model |
-| [D02 — Vòng đời và chuyển trạng thái nghiệp vụ](models/business-state-transitions.md) | Xem inventory cụ thể trong hướng dẫn model | Xem các bước kiểm model | Xem điều kiện dừng của model |
-| [D03 — Business rules và bảng quyết định](models/business-rules-and-decision-tables.md) | Xem inventory cụ thể trong hướng dẫn model | Xem các bước kiểm model | Xem điều kiện dừng của model |
-| [D04 — Từ điển dữ liệu và validation](models/data-dictionary-and-validation.md) | Xem inventory cụ thể trong hướng dẫn model | Xem các bước kiểm model | Xem điều kiện dừng của model |
-| [D05 — Quyền và phạm vi truy cập dữ liệu](models/permissions-and-data-access.md) | Xem inventory cụ thể trong hướng dẫn model | Xem các bước kiểm model | Xem điều kiện dừng của model |
-| [D06 — Hành vi UI và trạng thái tương tác](models/ui-behavior-and-interaction-states.md) | Xem inventory cụ thể trong hướng dẫn model | Xem các bước kiểm model | Xem điều kiện dừng của model |
-| [D07 — Contract API và tích hợp](models/api-and-integration-contracts.md) | Xem inventory cụ thể trong hướng dẫn model | Xem các bước kiểm model | Xem điều kiện dừng của model |
-| [D08 — Ngoại lệ và edge cases](models/exceptions-and-edge-cases.md) | Xem inventory cụ thể trong hướng dẫn model | Xem các bước kiểm model | Xem điều kiện dừng của model |
-| [D09 — NFR, migration và vận hành](models/nonfunctional-migration-and-operations.md) | Xem inventory cụ thể trong hướng dẫn model | Xem các bước kiểm model | Xem điều kiện dừng của model |
-| [D10 — Solution, phân rã Story và testability](models/solution-and-story-decomposition.md) | Xem inventory cụ thể trong hướng dẫn model | Xem các bước kiểm model | Xem điều kiện dừng của model |
-
-**Mẫu số không phải số dòng trong một template trống.** Ví dụ state coverage dùng tập state/command được phân tích và xác nhận; nếu còn thiếu một command nghiệp vụ do chưa hỏi đúng stakeholder thì bảng 100% ô hiện có vẫn không chứng minh Q02 Đạt. Vì vậy bước source/actor review luôn đi trước kiểm bảng.
-
-
-<a id="spec-6"></a>
-
-## Hướng dẫn chi tiết cho từng loại mô hình/hồ sơ
-
+**Mẫu số không phải số dòng trong template.** Tập state/command phải được xác nhận từ nguồn/stakeholder; bảng 100% ô hiện có không chứng minh đầy đủ nếu một command nghiệp vụ chưa được phát hiện. Unknown không được loại khỏi mẫu số mà không báo rõ. Evidence từng item và review đúng scope/revision là điều kiện kết luận.
 
 <a id="spec-7"></a>
 
@@ -96,9 +79,9 @@ Nhu cầu/Feature
 
 | Model / rule item | Outcome cần kiểm | Story / AC | Test condition dự kiến | Gap / quyết định |
 |---|---|---|---|---|
-| TR-01 submit hợp lệ | Đổi state và ghi đúng một logical operation | Story… / AC… | SCN… | … |
-| PM-… deny wrong owner | Không đổi state/data; response đúng | Story… / AC… | SCN… | … |
-| DAT-… maximum length | Biên hợp lệ và vượt biên | Story… / AC… | SCN… | … |
+| MOD-CRM-001 submit hợp lệ | Đổi state và ghi đúng một logical operation | Story… / AC… | Test condition ref cần điền | … |
+| MOD-CRM-201 (kind: permission) — deny wrong owner | Không đổi state/data; response đúng | Story… / AC… | Test condition ref cần điền | … |
+| MOD-CRM-202 (kind: data constraint) — maximum length | Biên hợp lệ và vượt biên | Story… / AC… | Test condition ref cần điền | … |
 
 Trước baseline chỉ có thể xác nhận **planned coverage**, chưa được ghi test đã pass. Khi code/test chạy mới có executed coverage và evidence.
 

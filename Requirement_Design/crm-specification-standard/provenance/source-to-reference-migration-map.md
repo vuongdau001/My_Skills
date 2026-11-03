@@ -20,12 +20,12 @@ Các section được giữ nội dung và chuyển liên kết. Metadata cũ th
 | spec §3.8 | Q05 — Kiểm truy vết, phiên bản và khả năng sửa đổi | [Mở nội dung](../references/checks/traceability-and-versioning.md#spec-3-8) | retained-and-relinked |
 | spec §3.9 | Q06 — Kiểm không mơ hồ và một nghĩa chấp nhận rõ | [Mở nội dung](../references/checks/clarity-and-unambiguity.md#spec-3-9) | retained-and-relinked |
 | spec §3.10 | Q07 — Kiểm khả thi và đúng mức bàn giao | [Mở nội dung](../references/checks/feasibility-and-handoff-readiness.md#spec-3-10) | retained-and-relinked |
-| spec §3.11 | Cách xác định mẫu số và điều kiện dừng theo loại hồ sơ | [Mở nội dung](../references/coverage-inventories-and-traceability.md#spec-3-11) | inventory-index-retained-detail-moved-to-models |
+| spec §3.11 | Cách xác định mẫu số và điều kiện dừng theo loại hồ sơ | [Mở nội dung](../references/coverage-inventories-and-traceability.md#spec-3-11) | single-model-index-and-denominator-guidance-detail-in-models |
 | spec §3.12 | Ví dụ kiểm đủ state transition: từ nhận xét tới finding có căn cứ | [Mở nội dung](../references/examples/review-findings-and-counterexamples.md#spec-3-12) | retained-and-relinked |
 | spec §3.13 | Mẫu record review để member thực hiện nhất quán | [Mở nội dung](../assets/templates/requirements-review-record-template.md#spec-3-13) | retained-and-relinked |
 | spec §4 | Epic cần làm rõ những hạng mục nào? | [Mở nội dung](../references/epic-specification-catalog.md#spec-4) | retained-and-relinked |
 | spec §5 | Story cần đầy đủ những hạng mục nào? | [Mở nội dung](../references/story-specification-catalog.md#spec-5) | retained-and-relinked |
-| spec §6 | Hướng dẫn chi tiết cho từng loại mô hình/hồ sơ | [Mở nội dung](../references/coverage-inventories-and-traceability.md#spec-6) | retained-and-relinked |
+| spec §6 | Hướng dẫn chi tiết cho từng loại mô hình/hồ sơ | [Mở nội dung](../references/coverage-inventories-and-traceability.md#spec-6) | empty-source-heading-replaced-by-model-index-at-preserved-anchor |
 | spec §D01 | Flow, use case và swimlane | [Mở nội dung](../references/models/business-flows-and-use-cases.md#spec-d01) | retained-and-relinked |
 | spec §D02 | State transition và vòng đời nghiệp vụ | [Mở nội dung](../references/models/business-state-transitions.md#spec-d02) | retained-and-relinked |
 | spec §D03 | Business rules và decision table | [Mở nội dung](../references/models/business-rules-and-decision-tables.md#spec-d03) | retained-and-relinked |
@@ -111,3 +111,13 @@ Các section được giữ nội dung và chuyển liên kết. Metadata cũ th
 | workflow §16.4 | Sau merge và khi triển khai | [Mở nội dung](../references/examples/baseline-to-delivery-walkthrough.md#workflow-16-4) | retained-and-relinked |
 | workflow §17 | Checklist trước khi áp dụng | [Mở nội dung](../references/pack-acceptance-scenarios.md#workflow-17) | retained-and-relinked |
 | workflow §18 | Tài liệu tham khảo | [Mở nội dung](../references/standards-and-crm-tailoring.md#workflow-18) | retained-and-relinked |
+
+## Điều chỉnh mapping trong gói 1.3
+
+Giữ nguyên ZIP/hash và 105 section nguồn. `spec-3-11` nay dẫn tới hướng dẫn xác định mẫu số cùng bảng model duy nhất; các inventory/procedure/exit criteria vẫn ở D01–D10. `spec-6` dẫn ngay tới bảng chọn model, thay heading rỗng. ID/anchor cũ vẫn resolve; manifest ghi disposition mới. Bổ sung Feature/policy/mapping/measurement/ID/pilot là CRM tailoring ngày 03/11/2026, không được gán ngược là nội dung nguồn 1.1.
+
+## Hiệu chỉnh ví dụ và policy refs — 1.3.1
+
+Các ví dụ đang dùng đã chuyển sang PREFIX-CRM-NNN, gồm logical IDs, BR/AC và MOD với kind rõ; mọi ref/path trong ví dụ được cập nhật cùng nhau. Customer AC dùng AC-CRM-001 đến 003; submit AC dùng AC-CRM-101 đến 108 để không trùng namespace. Transition items dùng MOD-CRM-001 đến 004; decision-rule items dùng MOD-CRM-101 đến 109. Đây là đổi định danh ví dụ, không đổi hành vi và không áp dụng lên ID Jira hoặc hồ sơ CRM thật. Snapshot 1.1 và source hashes giữ nguyên; mã cũ vẫn có thể thấy trong lịch sử.
+
+Checklist DoD Story dẫn trực tiếp POL-SEVERITY/POL-QUALITY; Dev handoff dẫn POL-CHECKS/POL-QUALITY. Các link là hướng dẫn chọn policy, còn gate cần ref/version/approval policy dự án thật.

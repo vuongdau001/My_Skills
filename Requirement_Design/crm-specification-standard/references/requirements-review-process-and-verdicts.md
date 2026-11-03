@@ -1,6 +1,6 @@
 # Quy trình review, evidence và điều kiện kết luận
 
-Mã tài liệu: **CRM-REVIEW** · Gói CRM 1.2.0 · 02/11/2026
+Mã tài liệu: **CRM-REVIEW** · Gói CRM 1.3.1 · 03/11/2026
 
 **Mục đích:** Xác định ai kiểm, kiểm phạm vi nào và được kết luận đến đâu.
 
@@ -137,6 +137,11 @@ Review thực hiện async trên Jira và PR; không cần họp đủ mọi rol
 | Approval actor/revision/digest và baseline merge/manifest integrity | Solution khả thi, testcase có khả năng phát hiện lỗi và đủ kiểm độc lập |
 
 Không lấy “AI review đạt” hoặc đủ số section làm gate duy nhất. Nội dung này chỉ xác định yêu cầu cho cơ chế kiểm; gói hiện tại chưa cài skill vào runtime hoặc cấu hình hook thực thi.
+
+
+## Chọn phép kiểm từ hạng mục và policy
+
+[Mapping E/S→Q/D](catalog-check-model-mapping.md) chỉ rõ model, trigger, evidence và reviewer của từng dòng. Full review Feature/Epic/Story vẫn xét Q01–Q07; mapping không là danh sách miễn check. Feature áp dụng [F01–F08](feature-specification-catalog.md), Task áp dụng T01–T08 theo brief. Readiness/risk/required checks phải dẫn [policy đã có hiệu lực](project-policy-register.md); authority của nội dung không được thay bằng một cờ “policy checked”.
 
 
 ---

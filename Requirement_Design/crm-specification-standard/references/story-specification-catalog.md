@@ -1,6 +1,6 @@
 # Danh mục nội dung và tiêu chí đặc tả Story
 
-Mã tài liệu: **CRM-STORY** · Gói CRM 1.2.0 · 02/11/2026
+Mã tài liệu: **CRM-STORY** · Gói CRM 1.3.1 · 03/11/2026
 
 **Mục đích:** Giữ S01–S12; Story đủ bắt đầu triển khai thông qua nội dung và refs.
 
@@ -46,6 +46,11 @@ S01–S02 giữ nguồn/giá trị; S03–S05 hành vi; S06–S07 data/solution;
 Không phải thiết kế mọi dòng code trước. Lựa chọn tổ chức code nội bộ vẫn do Dev trong constraint; quyền nghiệp vụ, lỗi, state, contract chưa quyết không phải chi tiết được tùy ý chọn.
 
 Đầy đủ S01–S12 trên giấy không chứng minh một Story thực tế đã Ready. Chỉ kết luận khi output/evidence/reviewer đúng scope/revision; thiếu input là Chưa kiểm. Dùng [mẫu Story](../assets/templates/story-specification-template.md).
+
+
+## Mapping, ID và policy cần kiểm
+
+Dùng [mapping theo từng S01–S12](catalog-check-model-mapping.md), [quy ước ID/trace](requirement-types-identifiers-and-traceability.md) và [policy register](project-policy-register.md). Record S11/S12 phải chỉ ra policy version áp dụng, không chỉ ghi “theo policy”. Các quyết định bắt buộc còn Pending chặn gate tương ứng, dù đã có đầy đủ Task. [Measurement](progress-measurement-and-feature-rollup.md) xác định cách báo readiness/delivery mà không đếm lặp.
 
 
 ---

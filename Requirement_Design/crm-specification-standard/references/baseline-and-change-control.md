@@ -1,6 +1,6 @@
 # Baseline yêu cầu, solution và kiểm soát thay đổi
 
-Mã tài liệu: **CRM-BASELINE** · Gói CRM 1.2.0 · 02/11/2026
+Mã tài liệu: **CRM-BASELINE** · Gói CRM 1.3.1 · 03/11/2026
 
 **Mục đích:** Định danh chính xác nội dung được duyệt và truyền xuống backlog.
 
@@ -88,11 +88,11 @@ Các đường dẫn dưới đây là cấu trúc đề xuất cho repo dự á
 ```text
 docs/
   features/
-    FEAT-CUS-001.md                 # Scope Feature, rule chung, Epic refs
+    FEAT-CRM-001.md                 # Scope Feature, rule chung, Epic refs
   epics/
-    EPIC-CUS-MANUAL.md              # Yêu cầu + solution + AC của phần manual
+    EPIC-CRM-001.md              # Yêu cầu + solution + AC của phần manual
   baselines/
-    BASE-CUS-MANUAL-001.yaml        # Selected scope, artifact refs, Story manifest
+    BASE-CRM-001.yaml        # Selected scope, artifact refs, Story manifest
   shared/
     customer-data-contract.md      # Nếu có contract dùng chung cần tách riêng
 ```
@@ -106,23 +106,23 @@ Có thể gộp yêu cầu, solution và manifest thành các section trong mộ
 
 ```yaml
 # Ví dụ minh họa, không phải dữ liệu Jira thực tế.
-baseline_id: BASE-CUS-MANUAL-001
-feature_id: FEAT-CUS-001
+baseline_id: BASE-CRM-001
+feature_id: FEAT-CRM-001
 epic_ref: <Jira Epic key đã tồn tại>
 scope:
   included: Tạo khách hàng thủ công theo các rule được chọn
   excluded: Import khách hàng
 artifact_refs:
-  - docs/features/FEAT-CUS-001.md
-  - docs/epics/EPIC-CUS-MANUAL.md
-selected_rules: [BR-CUS-01, BR-CUS-02]
-selected_acceptance: [AC-CUS-01, AC-CUS-02, AC-CUS-03]
+  - docs/features/FEAT-CRM-001.md
+  - docs/epics/EPIC-CRM-001.md
+selected_rules: [BR-CRM-001, BR-CRM-002]
+selected_acceptance: [AC-CRM-001, AC-CRM-002, AC-CRM-003]
 stories:
-  - logical_id: STORY-CUS-MANUAL-01
+  - logical_id: STORY-CRM-001
     outcome: AM tạo hồ sơ hợp lệ, có kiểm quyền và xử lý trùng
-    rules: [BR-CUS-01, BR-CUS-02]
-    acceptance: [AC-CUS-01, AC-CUS-02, AC-CUS-03]
-    solution_ref: docs/epics/EPIC-CUS-MANUAL.md#solution
+    rules: [BR-CRM-001, BR-CRM-002]
+    acceptance: [AC-CRM-001, AC-CRM-002, AC-CRM-003]
+    solution_ref: docs/epics/EPIC-CRM-001.md#solution
     dependencies: []  # Chỉ rỗng sau khi đã đánh giá
 ```
 
@@ -167,6 +167,11 @@ Một bàn giao có sender/receiver, input links, revision, output mong đợi v
 Story pin commit và phạm vi cụ thể. Không tự đổi toàn bộ Story sang “commit mới nhất” khi chỉ phần khác của Epic thay đổi. Phần không ảnh hưởng giữ pin cũ khi có đánh giá tác động được xác nhận.
 
 Acceptance/evidence cũ vẫn là lịch sử cho version cũ; không tự chứng minh scope/build mới đạt. Khi Staging đổi build/config/data trong lúc QA/demo, người deploy phải báo và đánh giá lại phần evidence bị ảnh hưởng.
+
+
+## Policy/ID và Feature scope trong baseline
+
+Manifest phải dẫn Feature scope/allocation và requirement/model IDs theo [ID/trace](requirement-types-identifiers-and-traceability.md), cùng các [policy versions](project-policy-register.md) áp dụng cho gate/acceptance. Không ghi approval cho policy còn Pending. Thay policy/Feature allocation cần impact analysis như thay rule; baseline từng phần phải truy được scope unit/outcome, không tự báo toàn Feature đã chốt.
 
 
 ---

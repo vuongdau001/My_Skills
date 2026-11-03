@@ -1,6 +1,6 @@
 # DoR, AC, DoD và thẩm quyền bàn giao
 
-Mã tài liệu: **CRM-GATES** · Gói CRM 1.2.0 · 02/11/2026
+Mã tài liệu: **CRM-GATES** · Gói CRM 1.3.1 · 03/11/2026
 
 **Mục đích:** Kiểm điều kiện bắt đầu/hoàn tất của Feature, Epic và Story.
 
@@ -138,9 +138,9 @@ AC phải mô tả điều kiện và kết quả có thể quan sát/kiểm ch�
 
 | AC | Điều kiện / thao tác | Kết quả mong đợi |
 |---|---|---|
-| AC-CUS-01 | AM có quyền, gửi dữ liệu hợp lệ không trùng | Tạo đúng một hồ sơ và trả kết quả xác định |
-| AC-CUS-02 | Request không có quyền tạo | Bị từ chối; không phát sinh hồ sơ |
-| AC-CUS-03 | MST trùng theo rule/phạm vi trạng thái được duyệt | Không tạo hồ sơ trùng; phản hồi theo contract |
+| AC-CRM-001 | AM có quyền, gửi dữ liệu hợp lệ không trùng | Tạo đúng một hồ sơ và trả kết quả xác định |
+| AC-CRM-002 | Request không có quyền tạo | Bị từ chối; không phát sinh hồ sơ |
+| AC-CRM-003 | MST trùng theo rule/phạm vi trạng thái được duyệt | Không tạo hồ sơ trùng; phản hồi theo contract |
 
 Nếu cần ngưỡng hiệu năng hoặc định nghĩa cụ thể về chuẩn hóa/trùng, chúng phải được chốt trong rule/NFR; không để AI tự chọn.
 
@@ -151,7 +151,7 @@ Nếu cần ngưỡng hiệu năng hoặc định nghĩa cụ thể về chuẩn
 
 - [ ] Code phù hợp baseline và AC của Story.
 - [ ] Peer/TL review cần thiết đã đạt trên đúng revision.
-- [ ] Unit/API/permission tests và required CI checks đạt theo policy áp dụng.
+- [ ] Unit/API/permission tests và required CI checks đạt theo [POL-CHECKS — Required checks](project-policy-register.md#pol-checks) và [POL-QUALITY](project-policy-register.md#pol-quality), có ref/version được dự án phê duyệt và evidence đúng revision/build; skipped/not-run không tính Pass.
 - [ ] Build đã được deploy vào môi trường nhận QA; smoke đạt.
 - [ ] Có baseline, code SHA, build/config/environment và hướng dẫn kiểm tra liên quan.
 - [ ] QA nhận được bộ bàn giao và dữ liệu/slot kiểm thử cần thiết.
@@ -165,12 +165,14 @@ Nếu cần ngưỡng hiệu năng hoặc định nghĩa cụ thể về chuẩn
 
 - [ ] Tất cả AC trong phạm vi Story đã được kiểm chứng.
 - [ ] Test matrix được duyệt đã thực hiện, kết quả đạt trên build xác định.
-- [ ] Không còn Critical/Major mở theo policy dự án; không hạ severity để qua gate.
-- [ ] Minor/known issue còn lại có đánh giá tác động và quyết định xử lý đúng thẩm quyền.
+- [ ] Không còn Critical/Major mở, phân loại theo [POL-SEVERITY — Phân loại ảnh hưởng lỗi](project-policy-register.md#pol-severity) và điều kiện đóng theo [POL-QUALITY — Chất lượng và completion](project-policy-register.md#pol-quality); cả hai phải có ref/version và phê duyệt có hiệu lực trong register dự án. Không hạ severity để qua gate.
+- [ ] Minor/known issue còn lại được phân loại theo [POL-SEVERITY](project-policy-register.md#pol-severity), có đánh giá tác động và quyết định xử lý đúng thẩm quyền theo [POL-QUALITY](project-policy-register.md#pol-quality), cùng ref/version/decision evidence của dự án.
 - [ ] Code, migration/config và tài liệu liên quan hoàn tất trong phạm vi Story.
 - [ ] Evidence truy được baseline → code/review/CI → build → test/defect/verdict.
 - [ ] QA xác nhận Pass đúng baseline/build còn hiệu lực.
 - [ ] PM hoặc người được ủy quyền chốt bộ đầu ra đủ điều kiện đóng Story.
+
+Các link POL ở checklist dẫn tới định nghĩa nhóm policy trong bộ chuẩn. Hồ sơ Story phải bổ sung ref/version của policy **thực tế đã được dự án phê duyệt**; link tới hướng dẫn này không tự thay approval. Thiếu policy bắt buộc thì chưa đủ điều kiện đóng.
 
 Không bắt Business nghiệm thu từng Story; Business nghiệm thu Epic/Feature. Nếu QA Pass nhưng chưa có PM closure, Story vẫn `resolved`, ghi rõ đang chờ PM và thời điểm chờ.
 
@@ -202,6 +204,13 @@ DoR bắt đầu phân tích Epic khác DoR bắt đầu triển khai Story. AC 
 **Input kiểm gate:** target/scope/revision, các review records, blocker/dependency, authority/ủy quyền và evidence của bước đó. **Output:** gate decision với bước được phép, revision, reviewer/approver, evidence và reason. Đủ dữ liệu mới xét nội dung; thiếu input hoặc authority không được đi tiếp. Không lấy điểm trung bình bù cho một phép kiểm ngữ nghĩa không đạt.
 
 PM chốt scope/manifest Story; cho phép phân rã Task trong phạm vi đã ủy quyền. Task thường do reviewer/receiver đóng; đổi scope/cam kết/dependency đáng kể phải trình lại PM. Xem [Task DoR/DoD](task-planning-and-completion.md#workflow-10), [status](jira-status-and-progress-reporting.md) và [hard gates](ai-handoff-and-hard-gates.md).
+
+
+## Đầu vào policy và nội dung Feature
+
+Feature dùng [catalog F01–F08](feature-specification-catalog.md) và [template](../assets/templates/feature-specification-template.md) theo bước đang xét. Hoàn tất bàn giao sản phẩm khác đánh giá lợi ích sau sử dụng; điều kiện nghiệm thu có hiệu lực phải được Business xác nhận.
+
+Mọi gate đọc [policy register](project-policy-register.md) được dự án duyệt, đúng ID/version/scope. Severity Critical/Major/Minor, required checks, risk-based coverage và thời hạn review phải có định nghĩa tương ứng trước khi dùng làm căn cứ. Thiếu policy bắt buộc = chưa đủ điều kiện đánh giá gate, không tự đặt ngưỡng. SLA quá hạn không tự Approved; priority không thay severity. Quy tắc không còn Critical/Major mở ở DoD Story vẫn giữ; không dùng policy chưa duyệt hoặc waiver ngầm để bỏ tiêu chí này.
 
 
 ---

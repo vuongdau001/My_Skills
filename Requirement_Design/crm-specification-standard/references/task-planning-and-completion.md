@@ -1,6 +1,6 @@
 # Lập kế hoạch, giao và hoàn tất Task
 
-Mã tài liệu: **CRM-TASK** · Gói CRM 1.2.0 · 02/11/2026
+Mã tài liệu: **CRM-TASK** · Gói CRM 1.3.1 · 03/11/2026
 
 **Mục đích:** Chọn Task có điều kiện và kiểm đầu ra thực thi.
 

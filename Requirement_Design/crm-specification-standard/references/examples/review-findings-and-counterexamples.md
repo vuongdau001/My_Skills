@@ -1,6 +1,6 @@
 # Ví dụ finding và phản ví dụ khi review
 
-Mã tài liệu: **EX-REVIEW** · Gói CRM 1.2.0 · 02/11/2026
+Mã tài liệu: **EX-REVIEW** · Gói CRM 1.3.1 · 03/11/2026
 
 **Mục đích:** Phân biệt đủ hình thức với đủ điều kiện đặc tả.
 
@@ -15,8 +15,8 @@ Dùng Epic minh họa tại mục [Ví dụ liên kết Epic → Story → model
 
 | State / command mới | submit | approve | reject | cancel |
 |---|---|---|---|---|
-| Draft | TR-01 nếu guard đạt | Denied | Denied | TR-04 nếu guard đạt |
-| PendingApproval | Denied | TR-02 nếu guard đạt | TR-03 nếu guard đạt | Denied |
+| Draft | MOD-CRM-001 nếu guard đạt | Denied | Denied | MOD-CRM-004 nếu guard đạt |
+| PendingApproval | Denied | MOD-CRM-002 nếu guard đạt | MOD-CRM-003 nếu guard đạt | Denied |
 | Approved | Denied | Denied | Denied | Denied |
 | Rejected | Denied | Denied | Denied | Denied |
 | Cancelled | Denied | Denied | Denied | Denied |
@@ -25,7 +25,7 @@ Dùng Epic minh họa tại mục [Ví dụ liên kết Epic → Story → model
 
 1. Xác nhận với Business rằng 5 states/4 commands đúng và các terminal state không có reopen/resubmit trong scope.
 2. Đối chiếu 4 ô transition với diagram, guard và side effects. 16 ô còn lại phải có rule từ chối và contract/error group, không chỉ bỏ trống.
-3. Với TR-01, liệt kê guard partitions: đúng/sai auth, role, owner, data, current state/version; thứ tự lỗi theo decision rules. Dùng trường hợp chỉ một điều kiện sai khi cần để không che lỗi.
+3. Với MOD-CRM-001, liệt kê guard partitions: đúng/sai auth, role, owner, data, current state/version; thứ tự lỗi theo decision rules. Dùng trường hợp chỉ một điều kiện sai khi cần để không che lỗi.
 4. Xét replay riêng với operation đã ghi, không nhập nhằng với submit mới ở PendingApproval. Cùng key/payload, key trùng payload khác, đổi quyền, mất response và hai key cạnh tranh đều có expected result theo applicability.
 5. Map các dòng và nhóm guard/failure tới AC/test conditions của scope Story. Story submit chọn cột submit và related guards/replay; approve/reject/cancel có allocation khác. Spec Epic vẫn giữ model chung.
 6. Ghi finding: ví dụ `F-STATE-01: PendingApproval × cancel chưa có disposition/decision`. Chỉ đóng khi có decision + model/contract/AC refs đã sửa và reviewer kiểm lại.

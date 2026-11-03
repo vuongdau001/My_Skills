@@ -1,6 +1,6 @@
 # Nguồn tham khảo và cách điều chỉnh cho CRM
 
-Mã tài liệu: **CRM-SOURCES** · Gói CRM 1.2.0 · 02/11/2026
+Mã tài liệu: **CRM-SOURCES** · Gói CRM 1.3.1 · 03/11/2026
 
 **Mục đích:** Phân biệt nội dung nguồn gốc với quy trình nội bộ.
 
@@ -54,6 +54,13 @@ Các nguồn giúp định nghĩa khái niệm; workflow, hierarchy Feature-trê
 Các bảng E/S/T, Q01–Q07, gate, mẫu số inventory và cách đặt Feature là chuẩn nội bộ đề xuất đã được chọn để đóng gói. ISO/IREB/NASA cung cấp nền tảng chất lượng yêu cầu; OMG ký pháp mô hình; ISTQB kỹ thuật review/test. Không nguồn nào được dẫn ở đây ban hành nguyên bộ checklist CRM. Không tuyên bố đạt mức CMMI hoặc tuân thủ toàn văn ISO từ việc dùng gói này.
 
 Duy trì citation gần nội dung sử dụng. Khi thay đổi tiêu chí, ghi rõ là từ nguồn, diễn giải hay quyết định CRM; xác minh lại tài liệu gốc nếu phiên bản hoặc cách dùng có thay đổi. Ngày đối chiếu cho lần đóng gói này: 02/11/2026; không sao chép toàn văn tiêu chuẩn trả phí.
+
+
+## Bổ sung vận hành 1.3 — 03/11/2026
+
+F01–F08, mapping E/S→model/evidence, policy register, quy ước ID và cách đo/roll-up là **CRM tailoring** để làm rõ cách sử dụng các nguyên tắc đã dẫn, không phải danh mục/công thức nguyên bản của IREB, Scrum hay CMMI. Bản 1.3 không cập nhật phiên bản nguồn tham khảo hoặc tuyên bố đã khảo sát lại toàn bộ nguồn ngoài. Không thêm framework mới chỉ để đặt tên cho checklist.
+
+Business/Stakeholder requirements tiếp tục dùng Q01–Q07; phương pháp kiểm chứng theo cấp độ và context. Loại requirement và cấp backlog là hai chiều; ID có type metadata riêng. Phân biệt acceptance sản phẩm với business benefits observation, chưa có dữ liệu thì không tuyên bố lợi ích đạt. Policy và các ngưỡng dự án phải được authority xác nhận, không được suy từ ví dụ.
 
 
 ---

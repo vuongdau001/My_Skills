@@ -1,6 +1,6 @@
 # Q01 — Đúng nhu cầu và sự cần thiết
 
-Mã tài liệu: **Q01** · Gói CRM 1.2.0 · 02/11/2026
+Mã tài liệu: **Q01** · Gói CRM 1.3.1 · 03/11/2026
 
 **Mục đích:** Thực hiện phép kiểm có thao tác, evidence và điều kiện kết luận.
 

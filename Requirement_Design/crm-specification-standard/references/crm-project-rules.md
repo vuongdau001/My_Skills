@@ -1,6 +1,6 @@
 # Quy ước dự án CRM và ranh giới sử dụng
 
-Mã tài liệu: **CRM-RULES** · Gói CRM 1.2.0 · 02/11/2026
+Mã tài liệu: **CRM-RULES** · Gói CRM 1.3.1 · 03/11/2026
 
 **Mục đích:** Giữ các quy ước chung và cách xử lý nguồn, quyết định, ví dụ.
 
@@ -103,7 +103,7 @@ Việc đặt Feature trên Epic là quy ước của CRM. Nó khác thứ tự 
 | Khái niệm | Định nghĩa sử dụng | Ví dụ / hệ quả |
 |---|---|---|
 | Requirement | Nhu cầu, hành vi hoặc ràng buộc mà giải pháp phải đáp ứng | Người không có quyền không được tạo khách hàng |
-| Business Rule — BR | Quy tắc nghiệp vụ có ID, nội dung và nguồn quyết định | BR-CUS-02 quy định phạm vi kiểm tra trùng MST |
+| Business Rule — BR | Quy tắc nghiệp vụ có ID, nội dung và nguồn quyết định | BR-CRM-002 quy định phạm vi kiểm tra trùng MST |
 | Acceptance Criteria — AC | Điều kiện có thể kiểm chứng để chấp nhận hành vi/kết quả của một phạm vi cụ thể | Request không có quyền bị từ chối và không tạo bản ghi |
 | Definition of Ready — DoR | Bộ điều kiện để một loại công việc được bắt đầu ở bước đã xác định | Story đủ rõ, có solution, dữ liệu/dependency và người thực hiện trước khi code |
 | Definition of Done — DoD | Bộ điều kiện để xác nhận công việc/đầu ra của một loại đối tượng đã hoàn thành | Story đáp ứng AC, review/test đạt, evidence và tài liệu đầy đủ |
@@ -125,6 +125,16 @@ Với Story “AM tạo khách hàng thủ công”:
 **Có AC chưa có nghĩa đã đạt DoR. Đạt AC chưa tự chứng minh đạt toàn bộ DoD.**
 
 Các bộ DoR/DoD cho Epic và Task trong tài liệu này là quy định điều chỉnh cho dự án. Trong Scrum Guide, DoD chính thức gắn với chất lượng của Increment; không có một bộ DoR/DoD bắt buộc chung cho mọi cấp Epic/Task.
+
+
+## Tuyến đọc bổ sung của gói 1.3
+
+- [Feature F01–F08](feature-specification-catalog.md): mục tiêu/scope/Epic allocation/acceptance; model chi tiết vẫn ở Epic/shared refs.
+- [Policy register](project-policy-register.md): tách chuẩn dùng lại khỏi các giá trị/approval dự án; không tự điền ngưỡng.
+- [Loại requirement, ID và trace](requirement-types-identifiers-and-traceability.md): BR là Business Rule; loại nội dung khác cấp backlog.
+- [Mapping E/S→Q/D](catalog-check-model-mapping.md): model/trigger/evidence/reviewer cho từng hạng mục.
+- [Measurement và roll-up](progress-measurement-and-feature-rollup.md): phân tích, triển khai và nghiệm thu báo riêng.
+- [Pilot thực tế](pilot-and-operational-validation.md): cách thử trên hồ sơ thật, chưa phải pilot đã làm.
 
 
 ---

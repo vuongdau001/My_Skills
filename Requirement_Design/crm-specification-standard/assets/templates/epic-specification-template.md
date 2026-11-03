@@ -1,6 +1,6 @@
 # Mẫu hồ sơ Epic
 
-Mã tài liệu: **TPL-EPIC-SPECIFICATION-TEMPLATE** · Gói CRM 1.2.0 · 02/11/2026
+Mã tài liệu: **TPL-EPIC-SPECIFICATION-TEMPLATE** · Gói CRM 1.3.1 · 03/11/2026
 
 **Mục đích:** Sao chép phần mẫu để tạo hồ sơ thực tế; không để trống rồi đánh dấu đạt.
 
@@ -67,6 +67,13 @@ Dùng [mẫu AC và coverage](../../references/coverage-inventories-and-traceabi
 | Candidate thực tế | Hành vi kiểm chứng được | ID/ref pinned | Điều kiện + effort cơ sở | Người được giao | Evidence hoặc missing input |
 
 Mỗi nhóm requirement/solution/testability có owner, due, reviewed revision, blocker và evidence. Chọn phạm vi baseline, không gọi toàn Epic Done từ việc đủ điều kiện sinh Story.
+
+
+## Policy, ID và trạng thái từng hạng mục
+
+Policy IDs/versions/effective scope; Pending policy + gate impact; source/requirement/model kind theo [ID guide](../../references/requirement-types-identifiers-and-traceability.md). Dùng [mapping](../../references/catalog-check-model-mapping.md) để chọn models/evidence.
+
+Bổ sung work signal (Chưa làm/Đang làm/Chờ review/Đã xác nhận), due và blocker vào mỗi E/S item record; verdict và evidence vẫn ghi riêng. Tổng hợp bằng [mẫu báo cáo](progress-report-template.md); không lấy % item Đạt làm % sản phẩm hoàn thành.
 
 
 ---

@@ -1,7 +1,7 @@
 {
   "pack_id": "crm-specification-standard",
-  "version": "1.2.0",
-  "date": "2026-11-02",
+  "version": "1.3.1",
+  "date": "2026-11-03",
   "language": "vi",
   "scope": "CRM reusable reference pack; not runtime installation or deployed Jira/CI gates",
   "entries": [
@@ -514,6 +514,128 @@
       "kind": "provenance",
       "title": "Kết quả kiểm cấu trúc và walkthrough gói 1.2.0",
       "path": "provenance/pack-validation-report.md"
+    },
+    {
+      "id": "CRM-POLICY",
+      "kind": "reference",
+      "title": "Policy dự án: khai báo, phê duyệt và áp dụng vào gate",
+      "path": "references/project-policy-register.md"
+    },
+    {
+      "id": "TPL-POLICY",
+      "kind": "template",
+      "title": "Mẫu register policy dự án",
+      "path": "assets/templates/project-policy-register-template.md"
+    },
+    {
+      "id": "CRM-IDENTIFIERS",
+      "kind": "reference",
+      "title": "Loại requirement, quy ước ID và truy vết",
+      "path": "references/requirement-types-identifiers-and-traceability.md"
+    },
+    {
+      "id": "CRM-FEATURE",
+      "kind": "reference",
+      "title": "Danh mục nội dung và tiêu chí Feature",
+      "path": "references/feature-specification-catalog.md"
+    },
+    {
+      "id": "TPL-FEATURE",
+      "kind": "template",
+      "title": "Mẫu hồ sơ Feature",
+      "path": "assets/templates/feature-specification-template.md"
+    },
+    {
+      "id": "CRM-MAPPING",
+      "kind": "reference",
+      "title": "Mapping Epic/Story với phép kiểm, mô hình và evidence",
+      "path": "references/catalog-check-model-mapping.md"
+    },
+    {
+      "id": "CRM-MEASUREMENT",
+      "kind": "reference",
+      "title": "Đo tiến độ phân tích, triển khai và tổng hợp lên Feature",
+      "path": "references/progress-measurement-and-feature-rollup.md"
+    },
+    {
+      "id": "TPL-PROGRESS",
+      "kind": "template",
+      "title": "Mẫu báo cáo tiến độ Requirement và Development",
+      "path": "assets/templates/progress-report-template.md"
+    },
+    {
+      "id": "CRM-PILOT",
+      "kind": "reference",
+      "title": "Pilot quy trình bằng Epic và Story thực tế",
+      "path": "references/pilot-and-operational-validation.md"
+    },
+    {
+      "id": "TPL-PILOT",
+      "kind": "template",
+      "title": "Mẫu ghi nhận pilot và quyết định áp dụng",
+      "path": "assets/templates/pilot-review-record-template.md"
+    },
+    {
+      "id": "F01",
+      "kind": "catalog-item",
+      "title": "F01 — Nguồn và vấn đề",
+      "path": "references/feature-specification-catalog.md",
+      "anchor": "f01"
+    },
+    {
+      "id": "F02",
+      "kind": "catalog-item",
+      "title": "F02 — Outcome và cách đánh giá",
+      "path": "references/feature-specification-catalog.md",
+      "anchor": "f02"
+    },
+    {
+      "id": "F03",
+      "kind": "catalog-item",
+      "title": "F03 — Stakeholder và authority",
+      "path": "references/feature-specification-catalog.md",
+      "anchor": "f03"
+    },
+    {
+      "id": "F04",
+      "kind": "catalog-item",
+      "title": "F04 — Phạm vi và ranh giới",
+      "path": "references/feature-specification-catalog.md",
+      "anchor": "f04"
+    },
+    {
+      "id": "F05",
+      "kind": "catalog-item",
+      "title": "F05 — Requirement/control dùng chung",
+      "path": "references/feature-specification-catalog.md",
+      "anchor": "f05"
+    },
+    {
+      "id": "F06",
+      "kind": "catalog-item",
+      "title": "F06 — Phân bổ Epic và dependency",
+      "path": "references/feature-specification-catalog.md",
+      "anchor": "f06"
+    },
+    {
+      "id": "F07",
+      "kind": "catalog-item",
+      "title": "F07 — Acceptance liên Epic",
+      "path": "references/feature-specification-catalog.md",
+      "anchor": "f07"
+    },
+    {
+      "id": "F08",
+      "kind": "catalog-item",
+      "title": "F08 — Quyết định, baseline và nghiệm thu",
+      "path": "references/feature-specification-catalog.md",
+      "anchor": "f08"
+    },
+    {
+      "id": "CRM-VALIDATION-1-3",
+      "kind": "provenance",
+      "title": "Kết quả kiểm tra cập nhật 1.3.0",
+      "path": "provenance/pack-validation-report-v1.3.md"
     }
   ],
   "source_archive": "provenance/original-epic-story-standard-and-workflow-v1.1.zip",
@@ -661,7 +783,7 @@
       "source_sha256": "1bfc4604155097ef5ba8f8093e64663c0eece2db3b4703dca37bf88c5b036a96",
       "target": "references/coverage-inventories-and-traceability.md",
       "anchor": "spec-3-11",
-      "disposition": "inventory-index-retained-detail-moved-to-models",
+      "disposition": "single-model-index-and-denominator-guidance-detail-in-models",
       "related_targets": [
         "references/models/business-flows-and-use-cases.md",
         "references/models/business-state-transitions.md",
@@ -718,7 +840,7 @@
       "source_sha256": "6f89f957f1307338f38af25e41613fb6d401fb19fcf8f5b4b8d1f8f311914367",
       "target": "references/coverage-inventories-and-traceability.md",
       "anchor": "spec-6",
-      "disposition": "retained-and-relinked"
+      "disposition": "empty-source-heading-replaced-by-model-index-at-preserved-anchor"
     },
     {
       "source": "spec",

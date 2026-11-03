@@ -1,6 +1,6 @@
 # Danh mục nội dung và tiêu chí đặc tả Epic
 
-Mã tài liệu: **CRM-EPIC** · Gói CRM 1.2.0 · 02/11/2026
+Mã tài liệu: **CRM-EPIC** · Gói CRM 1.3.1 · 03/11/2026
 
 **Mục đích:** Giữ E01–E16 và dẫn tới phương pháp kiểm chi tiết.
 
@@ -44,6 +44,11 @@ E01–E02 giữ mục tiêu/ranh giới; E03–E05 giữ hành vi dùng chung; E
 Áp dụng [Q01–Q07](requirements-review-process-and-verdicts.md), [inventory](coverage-inventories-and-traceability.md) và model liên quan để thực hiện tiêu chí, không tick bảng vì đã có tiêu đề. Chưa có input: Chưa kiểm; gap/contradiction: Không đạt; N/A cần reason/reviewer.
 
 Có thể baseline phần độc lập của Epic; shared rule ảnh hưởng scope chọn phải rõ. Phần chưa làm có owner/hạn/impact, không giấu gap bằng cách ghi out-of-scope. Đạt cổng sinh Story không làm Epic Done. [Gate Epic](readiness-completion-and-approval-gates.md#workflow-8-2), [phân rã](backlog-hierarchy-and-decomposition.md), [mẫu Epic](../assets/templates/epic-specification-template.md).
+
+
+## Định tuyến review và báo cáo
+
+Dùng [mapping E01–E16/S01–S12 → model, evidence và reviewer](catalog-check-model-mapping.md). Từng hạng mục giữ work signal, applicability và verdict tách biệt theo [measurement](progress-measurement-and-feature-rollup.md). Policy/threshold ảnh hưởng kết luận phải dẫn [policy register](project-policy-register.md) đúng version; thiếu quyết định bắt buộc thì chưa qua gate. Feature cha dùng [F01–F08](feature-specification-catalog.md), không chép lại model Epic.
 
 
 ---

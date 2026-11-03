@@ -86,11 +86,17 @@ def validate(root):
         resolve(entry['path'], entry.get('anchor', ''), entry['id'])
         if not entry.get('title') or entry['title'] == entry['id']:
             errors.append(f'Descriptive title required: {entry["id"]}')
-    for prefix, count in [('E',16),('S',12),('T',8),('Q',7),('D',10)]:
+    for prefix, count in [('F',8),('E',16),('S',12),('T',8),('Q',7),('D',10)]:
         expected = {f'{prefix}{i:02}' for i in range(1,count+1)}
         actual = {key for key in ids if re.fullmatch(prefix+r'\d{2}',key)}
         if actual != expected:
             errors.append(f'Catalog inventory mismatch: {prefix}')
+    mapping_path = root / 'references/catalog-check-model-mapping.md'
+    mapping_text = texts.get(mapping_path, '')
+    mapped_items = re.findall(r'^\| ([ES]\d{2}) — ', mapping_text, re.M)
+    expected_items = {f'E{i:02}' for i in range(1, 17)} | {f'S{i:02}' for i in range(1, 13)}
+    if set(mapped_items) != expected_items or len(mapped_items) != len(expected_items):
+        errors.append('E/S review mapping coverage mismatch or duplicate item')
     for path, text in texts.items():
         relative = path.relative_to(root).as_posix()
         if relative.startswith(('references/', 'assets/')) and relative not in registered:

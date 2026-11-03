@@ -1,6 +1,6 @@
 # Ví dụ đặc tả yêu cầu mở mã dự án
 
-Mã tài liệu: **EX-PROJECT-CODE** · Gói CRM 1.2.0 · 02/11/2026
+Mã tài liệu: **EX-PROJECT-CODE** · Gói CRM 1.3.1 · 03/11/2026
 
 **Mục đích:** Minh họa liên kết Epic, Story, model, AC và test conditions.
 
@@ -43,12 +43,12 @@ stateDiagram-v2
 
 Sơ đồ Mermaid minh họa trạng thái, không phải một file UML/BPMN được xác nhận tuân thủ ký pháp. Bảng dưới bổ sung hành vi cụ thể; actor/guard đã được định nghĩa trong rule và permission matrix.
 
-| ID | Source / command | Điều kiện cho phép | Target / effect | Khi không đạt |
+| ID (kind: transition) | Source / command | Điều kiện cho phép | Target / effect | Khi không đạt |
 |---|---|---|---|---|
-| TR-01 | Draft / submit | Requester là owner, dữ liệu hợp lệ, version hiện hành | PendingApproval, tăng version; ghi audit và durable notification intent | Từ chối theo nguyên nhân; không đổi dữ liệu/state |
-| TR-02 | PendingApproval / approve | Assigned Approver khác creator, version hiện hành | Approved, tăng version, audit decision | Không đổi state/data; trả lỗi phù hợp |
-| TR-03 | PendingApproval / reject | Assigned Approver khác creator, reason hợp lệ, version hiện hành | Rejected, tăng version, audit decision | Không đổi state/data; trả lỗi phù hợp |
-| TR-04 | Draft / cancel | Requester là owner, version hiện hành | Cancelled, tăng version, audit decision | Không đổi state/data; trả lỗi phù hợp |
+| MOD-CRM-001 | Draft / submit | Requester là owner, dữ liệu hợp lệ, version hiện hành | PendingApproval, tăng version; ghi audit và durable notification intent | Từ chối theo nguyên nhân; không đổi dữ liệu/state |
+| MOD-CRM-002 | PendingApproval / approve | Assigned Approver khác creator, version hiện hành | Approved, tăng version, audit decision | Không đổi state/data; trả lỗi phù hợp |
+| MOD-CRM-003 | PendingApproval / reject | Assigned Approver khác creator, reason hợp lệ, version hiện hành | Rejected, tăng version, audit decision | Không đổi state/data; trả lỗi phù hợp |
+| MOD-CRM-004 | Draft / cancel | Requester là owner, version hiện hành | Cancelled, tăng version, audit decision | Không đổi state/data; trả lỗi phù hợp |
 
 **Disposition cho các trường hợp còn lại:** command không được liệt kê hợp lệ tại state hiện tại bị từ chối, không đổi state; gồm submit ở Approved/Rejected/Cancelled, approve/reject ở Draft và cancel khi đã PendingApproval. Replay cùng idempotency key/payload/principal/resource đã thành công là trả kết quả đã ghi, không phải một transition mới. Trường hợp reopen/resubmit từ terminal state không thuộc scope ví dụ và không được tự cho phép.
 
@@ -100,32 +100,32 @@ Các chính sách như thời hạn giữ operation result, giới hạn key và
 
 Các dòng được xét theo thứ tự; dòng sau chỉ áp dụng khi chưa trúng dòng trước. Response codes dưới đây là ví dụ contract, không phải quy định áp dụng sẵn cho CRM.
 
-| ID | Điều kiện | Kết quả giả định |
+| ID (kind: decision rule) | Điều kiện | Kết quả giả định |
 |---|---|---|
-| DR-01 | Thiếu/không hợp lệ authentication | 401, không đổi state/data |
-| DR-02 | Không có resource phù hợp | 404 theo policy disclosure được duyệt |
-| DR-03 | Actor không có quyền hoặc không là owner | 403, không đổi state/data |
-| DR-04 | Có operation cùng key nhưng payload khác | 409, không tạo operation/transition mới |
-| DR-05 | Có operation cùng key và payload khớp | Trả kết quả đã ghi; không tăng version/audit/intent lần nữa |
-| DR-06 | Operation mới nhưng state hoặc version không hợp lệ | 409, không đổi state/data |
-| DR-07 | Operation mới, state/version đúng nhưng data sai | 422, không đổi state/data |
-| DR-08 | Các điều kiện đều đạt nhưng commit thất bại | Lỗi server; không có state/audit/intent ghi một phần |
-| DR-09 | Các điều kiện đều đạt và commit thành công | Response thành công chứa state/version; ghi một logical transition |
+| MOD-CRM-101 | Thiếu/không hợp lệ authentication | 401, không đổi state/data |
+| MOD-CRM-102 | Không có resource phù hợp | 404 theo policy disclosure được duyệt |
+| MOD-CRM-103 | Actor không có quyền hoặc không là owner | 403, không đổi state/data |
+| MOD-CRM-104 | Có operation cùng key nhưng payload khác | 409, không tạo operation/transition mới |
+| MOD-CRM-105 | Có operation cùng key và payload khớp | Trả kết quả đã ghi; không tăng version/audit/intent lần nữa |
+| MOD-CRM-106 | Operation mới nhưng state hoặc version không hợp lệ | 409, không đổi state/data |
+| MOD-CRM-107 | Operation mới, state/version đúng nhưng data sai | 422, không đổi state/data |
+| MOD-CRM-108 | Các điều kiện đều đạt nhưng commit thất bại | Lỗi server; không có state/audit/intent ghi một phần |
+| MOD-CRM-109 | Các điều kiện đều đạt và commit thành công | Response thành công chứa state/version; ghi một logical transition |
 
-Business/security authority phải review thứ tự lỗi và thông tin được tiết lộ; không chỉ “chọn code HTTP cho đủ”. Lỗi gửi notification sau commit thuộc xử lý nền và không rơi lại vào DR-08.
+Business/security authority phải review thứ tự lỗi và thông tin được tiết lộ; không chỉ “chọn code HTTP cho đủ”. Lỗi gửi notification sau commit thuộc xử lý nền và không rơi lại vào MOD-CRM-108.
 
 #### D. AC và test conditions trọng yếu
 
 | AC | Kết quả cần đạt | Test conditions dự kiến |
 |---|---|---|
-| AC-SUB-01 | Submit mới hợp lệ: Draft → PendingApproval, tăng version một đơn vị, audit và intent nhất quán | Đúng owner/role/version/data; kiểm response, state, version và các record/effect liên quan |
-| AC-SUB-02 | Sai auth/quyền/owner bị từ chối, không có thay đổi nghiệp vụ | Thiếu auth; sai role; đúng role nhưng khác owner; đối chiếu DR-01/03 |
-| AC-SUB-03 | Data invalid không đổi state/data; error theo contract | Empty sau trim, biên 1/100 và vượt 101; kết hợp với input khác hợp lệ để không che lỗi |
-| AC-SUB-04 | State sai hoặc stale version bị từ chối; không tăng version | PendingApproval với operation mới; từng terminal state; Draft với version cũ |
-| AC-SUB-05 | Retry cùng operation trả kết quả cũ, không lặp logical side effects | Commit đã xong nhưng response bị mất; cùng key/payload; key cũ payload khác bị conflict |
-| AC-SUB-06 | Hai operation mới cạnh tranh trên cùng version chỉ một lần chuyển thành công | Hai key trên cùng Draft/version; một thành công, một conflict; không có hai transition |
-| AC-SUB-07 | Notification lỗi sau commit không đổi ngược state và có đường recovery | Intent đã lưu, gửi lỗi/timeout, retry notification không nhân đôi logical event |
-| AC-SUB-08 | Commit lỗi không để dữ liệu nghiệp vụ/audit/intent thay đổi một phần | Mô phỏng lỗi tại boundary ghi; kiểm toàn bộ output/record theo contract |
+| AC-CRM-101 | Submit mới hợp lệ: Draft → PendingApproval, tăng version một đơn vị, audit và intent nhất quán | Đúng owner/role/version/data; kiểm response, state, version và các record/effect liên quan |
+| AC-CRM-102 | Sai auth/quyền/owner bị từ chối, không có thay đổi nghiệp vụ | Thiếu auth; sai role; đúng role nhưng khác owner; đối chiếu MOD-CRM-101 và MOD-CRM-103 |
+| AC-CRM-103 | Data invalid không đổi state/data; error theo contract | Empty sau trim, biên 1/100 và vượt 101; kết hợp với input khác hợp lệ để không che lỗi |
+| AC-CRM-104 | State sai hoặc stale version bị từ chối; không tăng version | PendingApproval với operation mới; từng terminal state; Draft với version cũ |
+| AC-CRM-105 | Retry cùng operation trả kết quả cũ, không lặp logical side effects | Commit đã xong nhưng response bị mất; cùng key/payload; key cũ payload khác bị conflict |
+| AC-CRM-106 | Hai operation mới cạnh tranh trên cùng version chỉ một lần chuyển thành công | Hai key trên cùng Draft/version; một thành công, một conflict; không có hai transition |
+| AC-CRM-107 | Notification lỗi sau commit không đổi ngược state và có đường recovery | Intent đã lưu, gửi lỗi/timeout, retry notification không nhân đôi logical event |
+| AC-CRM-108 | Commit lỗi không để dữ liệu nghiệp vụ/audit/intent thay đổi một phần | Mô phỏng lỗi tại boundary ghi; kiểm toàn bộ output/record theo contract |
 
 Đây là planned conditions, chưa phải kết quả chạy test. Khi triển khai cần bổ sung testcase/data cụ thể, tiêu chí retry/retention và cách mô phỏng/quan sát phù hợp giải pháp được duyệt.
 

@@ -1,6 +1,6 @@
 # Status Jira và tiến độ phân tích, triển khai
 
-Mã tài liệu: **CRM-TRACKING** · Gói CRM 1.2.0 · 02/11/2026
+Mã tài liệu: **CRM-TRACKING** · Gói CRM 1.3.1 · 03/11/2026
 
 **Mục đích:** Tách trạng thái Jira khỏi readiness và kết quả nghiệm thu.
 
@@ -149,6 +149,11 @@ Story là đơn vị kết quả bàn giao. Task của Story giúp thấy owner,
 Requirement/solution progress được theo dõi bằng output, owner, due, reviewed revision, finding và baseline scope trên Epic. Không tạo Task giả để thay readiness. Epic vẫn `inprogress` sau khi baseline được duyệt. Requirement thực sự đổi sau baseline phải cập nhật Git; comment Jira không tự thay bản chuẩn.
 
 Báo cáo hai chiều: (1) Requirement/solution/testability đang soạn, review, baseline; (2) Story đang dev, bàn giao QA, Done, với Task/blocker liên quan. `resolved` chưa được cộng vào Story Done; `cancel` không phải phạm vi đã bàn giao. Chưa khảo sát tenant nên chưa khẳng định báo cáo Jira đã dùng đúng status category/Resolution.
+
+
+## Quy tắc đo và mẫu báo cáo
+
+[Đo tiến độ và tổng hợp lên Feature](progress-measurement-and-feature-rollup.md) định nghĩa scope units, review coverage, baseline coverage, delivery, aging và acceptance, gồm unknown/zero denominator/cancel/change scope. Dùng [mẫu báo cáo](../assets/templates/progress-report-template.md). Bốn dòng readiness tổng hợp ở trên phải truy xuống từng E/S item có ID/tên/revision/evidence; không coi nó là toàn bộ dữ liệu review. Ngưỡng SLA/aging theo [policy register](project-policy-register.md), chưa chốt thì chỉ báo age, không tự gán vi phạm.
 
 
 ---

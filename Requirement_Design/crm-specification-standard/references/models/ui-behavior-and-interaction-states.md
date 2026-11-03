@@ -1,6 +1,6 @@
 # D06 — Hành vi UI và trạng thái tương tác
 
-Mã tài liệu: **D06** · Gói CRM 1.2.0 · 02/11/2026
+Mã tài liệu: **D06** · Gói CRM 1.3.1 · 03/11/2026
 
 **Mục đích:** Xác định hồ sơ, inventory và cách kiểm đủ cho mô hình này.
 

@@ -1,6 +1,6 @@
 # D01 — Flow nghiệp vụ, use case và swimlane
 
-Mã tài liệu: **D01** · Gói CRM 1.2.0 · 02/11/2026
+Mã tài liệu: **D01** · Gói CRM 1.3.1 · 03/11/2026
 
 **Mục đích:** Xác định hồ sơ, inventory và cách kiểm đủ cho mô hình này.
 

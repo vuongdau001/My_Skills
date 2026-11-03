@@ -1,6 +1,6 @@
 # Phân cấp và phân rã Feature, Epic, Story, Task
 
-Mã tài liệu: **CRM-DECOMPOSITION** · Gói CRM 1.2.0 · 02/11/2026
+Mã tài liệu: **CRM-DECOMPOSITION** · Gói CRM 1.3.1 · 03/11/2026
 
 **Mục đích:** Chọn đúng đơn vị yêu cầu và cách tổ chức công việc.
 
@@ -101,7 +101,7 @@ Ghi quyết định theo mẫu: `Story/Epic — checklist hoặc Task — lý do
 Ví dụ giả định khi có nhu cầu giao riêng các đầu ra API/UI/QA; đây không phải bộ Task bắt buộc:
 
 ```text
-Feature FEAT-CUS-001: Tiếp nhận khách hàng mới
+Feature FEAT-CRM-001: Tiếp nhận khách hàng mới
 ├── Epic: Tiếp nhận bằng nhập thủ công
 │   ├── Hồ sơ requirement/AC, solution và testability
 │   │   └── Theo dõi owner, readiness, review và evidence ngay trên Epic
@@ -115,6 +115,11 @@ Feature FEAT-CUS-001: Tiếp nhận khách hàng mới
 **Đây là quan hệ logic.** Nếu Jira hiện đặt Story và Task cùng cấp, cả hai thuộc Epic; Task triển khai liên kết với Story bằng issue link. Không mặc định Task có thể làm con trực tiếp của Story. Làm rõ requirement, phân tích solution và review testability là hoạt động trên Epic, không tự động tạo Task riêng.
 
 Không bắt mọi Epic phải có nhiều Story hoặc mọi Story phải có nhiều Task. Chỉ phân rã khi giúp giao việc, review hoặc kiểm chứng rõ hơn.
+
+
+## Nguồn nội dung bổ sung trước phân rã
+
+Feature giữ [F01–F08](feature-specification-catalog.md) để xác định outcome/scope và Epic allocation. [Loại requirement và ID](requirement-types-identifiers-and-traceability.md) quy định canonical source, authority và trace; không cố định loại requirement vào một tầng backlog. [Mapping E/S→Q/D](catalog-check-model-mapping.md) dẫn tới các thao tác review. Task tiếp tục là tùy chọn; thêm catalog Feature/policy không làm phát sinh tầng ticket mới.
 
 
 ---

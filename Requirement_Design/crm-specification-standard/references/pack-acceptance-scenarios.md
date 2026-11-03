@@ -1,6 +1,6 @@
 # Kịch bản nghiệm thu bộ tài liệu
 
-Mã tài liệu: **CRM-PACK-ACCEPTANCE** · Gói CRM 1.2.0 · 02/11/2026
+Mã tài liệu: **CRM-PACK-ACCEPTANCE** · Gói CRM 1.3.1 · 03/11/2026
 
 **Mục đích:** Kiểm tính nhất quán của các tuyến đọc và quyết định.
 
@@ -60,6 +60,23 @@ Các scenario sau là walkthrough quy tắc, không là kết quả thử trên 
 | AT16 | Test hoặc approval cũ của build/revision khác | Không dùng làm evidence Pass cho output mới | Handoff → change control |
 
 **Cách chạy walkthrough:** đọc input và tuyến quy tắc; ghi observed decision, evidence là ref cụ thể, verdict và phần chưa kiểm. Structural validator chỉ kiểm refs/manifest/migration, không tự đánh giá 16 quyết định này. Pilot thực tế cần hồ sơ CRM đã xác định nguồn, đúng authority và cấu hình hệ thống thực tế; không dùng ví dụ thay thế.
+
+
+## Kịch bản bổ sung cho gói 1.3
+
+| ID | Tình huống | Kết quả bắt buộc | Tuyến đọc |
+|---|---|---|---|
+| AT17 | Critical/Major hoặc required checks chưa có policy được duyệt | Gate phụ thuộc chưa thể đạt; giữ missing authority/decision | Policy → gate |
+| AT18 | Business requirement bị gán BR; NFR bị ép chỉ ở Epic | BR giữ nghĩa Business Rule; dùng REQ/type và applies_to theo scope | ID/type guide |
+| AT19 | Outcome muốn giảm thời gian xử lý nhưng chưa có dữ liệu sau go-live | Tách product acceptance/benefit observation theo authority; không tự ghi benefits đạt | Feature catalog |
+| AT20 | E07 quyền phụ thuộc state và có API | Đọc D05 + D02 + D07 và xét Q01–Q07; không miễn Q01/Q05 | Mapping |
+| AT21 | 12/14 review đạt, 2 gap chặn | Báo review coverage và blocker; không báo sản phẩm 86% hoàn thành | Measurement |
+| AT22 | Không có item áp dụng, còn applicability Unknown, hoặc scope tăng trong kỳ | Zero denominator=N/A; Unknown hiện riêng; scope delta và mẫu số phải giải thích | Measurement |
+| AT23 | Task dùng chung, Story cancel nhưng requirement chưa loại khỏi scope | Không đếm effort lặp; giữ scope gap và cancel riêng; không tăng completion giả | Roll-up |
+| AT24 | SLA chưa duyệt hoặc review quá hạn | Báo elapsed age/clock; không tự gán SLA, không tự Approved | Policy → report |
+| AT25 | Gói có hướng dẫn pilot nhưng chưa có hồ sơ/người tham gia thật | Kết luận chưa pilot; không đánh dấu requirement handoff hoặc hook đã đạt | Pilot procedure |
+
+Dùng [pilot procedure](pilot-and-operational-validation.md) và [record](../assets/templates/pilot-review-record-template.md) khi có input thật. Structural checks không tự đánh giá các quyết định ngữ nghĩa này.
 
 
 ---

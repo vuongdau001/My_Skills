@@ -1,6 +1,6 @@
 # Mẫu Task triển khai
 
-Mã tài liệu: **TPL-IMPLEMENTATION-TASK-TEMPLATE** · Gói CRM 1.2.0 · 02/11/2026
+Mã tài liệu: **TPL-IMPLEMENTATION-TASK-TEMPLATE** · Gói CRM 1.3.1 · 03/11/2026
 
 **Mục đích:** Sao chép phần mẫu để tạo hồ sơ thực tế; không để trống rồi đánh dấu đạt.
 

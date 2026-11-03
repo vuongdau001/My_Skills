@@ -1,6 +1,6 @@
 # Mẫu bản ghi review
 
-Mã tài liệu: **TPL-REQUIREMENTS-REVIEW-RECORD-TEMPLATE** · Gói CRM 1.2.0 · 02/11/2026
+Mã tài liệu: **TPL-REQUIREMENTS-REVIEW-RECORD-TEMPLATE** · Gói CRM 1.3.1 · 03/11/2026
 
 **Mục đích:** Sao chép phần mẫu để tạo hồ sơ thực tế; không để trống rồi đánh dấu đạt.
 
@@ -36,6 +36,11 @@ Gate impact: cho bước nào, phần nào còn bị chặn
 | Phạm vi cụ thể | Tên rõ, không chỉ số | Áp dụng/N/A + reason | ID và mẫu số | Thao tác thực tế | Ref/version | Chưa kiểm/Không đạt/Đạt/N/A | Người xác nhận | Bước nào còn chặn |
 
 Full hay targeted review; phần chưa xét; summary findings; source conflicts; closure revision; PM decision khi cần. Verdict có giá trị cho target/revision đã xét, không tái sử dụng tự động sau delta. [Quy trình review](../../references/requirements-review-process-and-verdicts.md).
+
+
+## Policy và bước được phép kết luận
+
+Policy IDs/versions/effective scope; requirement/model IDs + kind; catalog item F/E/S/T; model applicability và trigger; phần scope chưa xét. Nếu thiếu policy bắt buộc, ghi missing decision/authority/gate impact; không chấm Đạt từ template đã đủ ô. [Mapping](../../references/catalog-check-model-mapping.md), [policy guide](../../references/project-policy-register.md).
 
 
 ---

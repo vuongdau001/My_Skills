@@ -1,6 +1,6 @@
 # Q02 — Đầy đủ ở mức yêu cầu và tập yêu cầu
 
-Mã tài liệu: **Q02** · Gói CRM 1.2.0 · 02/11/2026
+Mã tài liệu: **Q02** · Gói CRM 1.3.1 · 03/11/2026
 
 **Mục đích:** Thực hiện phép kiểm có thao tác, evidence và điều kiện kết luận.
 

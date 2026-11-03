@@ -1,6 +1,6 @@
 # Ví dụ phân rã Story và quyết định tạo Task
 
-Mã tài liệu: **EX-DECOMPOSITION** · Gói CRM 1.2.0 · 02/11/2026
+Mã tài liệu: **EX-DECOMPOSITION** · Gói CRM 1.3.1 · 03/11/2026
 
 **Mục đích:** So sánh Story trực tiếp, Task liên kết và Task dùng chung.
 

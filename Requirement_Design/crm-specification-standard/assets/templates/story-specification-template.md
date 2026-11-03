@@ -1,6 +1,6 @@
 # Mẫu hồ sơ Story
 
-Mã tài liệu: **TPL-STORY-SPECIFICATION-TEMPLATE** · Gói CRM 1.2.0 · 02/11/2026
+Mã tài liệu: **TPL-STORY-SPECIFICATION-TEMPLATE** · Gói CRM 1.3.1 · 03/11/2026
 
 **Mục đích:** Sao chép phần mẫu để tạo hồ sơ thực tế; không để trống rồi đánh dấu đạt.
 
@@ -59,6 +59,13 @@ Lựa chọn: checklist trực tiếp hoặc Task liên kết; lý do; owner đi
 ### Kết luận nhận việc và đóng Story
 
 DoR result + scope/revision + Dev/QA read-back + PM planning. Khi bàn giao QA: code/review/CI/build/env/smoke/evidence. Khi đóng: AC/coverage executed + defects/disposition + QA verdict + PM closure. Chưa có evidence thì để Chưa kiểm.
+
+
+## Policy, ID và trạng thái từng hạng mục
+
+Policy IDs/versions/effective scope; Pending policy + gate impact; source/requirement/model kind theo [ID guide](../../references/requirement-types-identifiers-and-traceability.md). Dùng [mapping](../../references/catalog-check-model-mapping.md) để chọn models/evidence.
+
+Bổ sung work signal (Chưa làm/Đang làm/Chờ review/Đã xác nhận), due và blocker vào mỗi E/S item record; verdict và evidence vẫn ghi riêng. Tổng hợp bằng [mẫu báo cáo](progress-report-template.md); không lấy % item Đạt làm % sản phẩm hoàn thành.
 
 
 ---

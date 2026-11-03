@@ -1,6 +1,6 @@
 # D02 — Vòng đời và chuyển trạng thái nghiệp vụ
 
-Mã tài liệu: **D02** · Gói CRM 1.2.0 · 02/11/2026
+Mã tài liệu: **D02** · Gói CRM 1.3.1 · 03/11/2026
 
 **Mục đích:** Xác định hồ sơ, inventory và cách kiểm đủ cho mô hình này.
 
@@ -28,7 +28,7 @@ Nếu thiếu input ghi **Chưa kiểm**; có gap/mâu thuẫn ghi **Không đ�
 
 | Transition ID | Từ state | Event / actor | Guard | Sang state | Output / side effect | Khi bị từ chối / N/A |
 |---|---|---|---|---|---|---|
-| TR-… | … | … | … | … | … | … |
+| MOD-CRM-NNN (kind: transition) | … | … | … | … | … | … |
 
 **Review đủ:**
 

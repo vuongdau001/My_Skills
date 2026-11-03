@@ -1,6 +1,6 @@
 # Bàn giao context cho AI và đặc tả hard gate
 
-Mã tài liệu: **CRM-HANDOFF** · Gói CRM 1.2.0 · 02/11/2026
+Mã tài liệu: **CRM-HANDOFF** · Gói CRM 1.3.1 · 03/11/2026
 
 **Mục đích:** Quy định đầu vào, evidence và điều kiện cho kiểm máy sau này.
 
@@ -84,6 +84,11 @@ Evidence record tối thiểu: target ID, selected scope, baseline/revision ho�
 AI/skill/API/MCP phải nhận scope action được cho phép trong phiên làm việc. Tài liệu này không tự cấp quyền post comment, tạo ticket, chuyển trạng thái hay merge. Khi được phép: đọc pinned source + Jira context; so revision; thực hiện action; đọc lại/đối soát; lưu receipt gồm actor/tool/action/target/revision/outcome. Khi kết quả chưa chắc do timeout, không retry mù. Không giả mạo PM approval, human review hay QA Pass.
 
 Approval/evidence đổi hoặc hết hiệu lực thì kiểm lại scope ảnh hưởng. Không tự nối một approval cũ vào content mới. Nếu service kiểm không sẵn sàng, không tự đi qua gate; dùng fallback chỉ khi policy/authority/evidence tương đương đã được phê duyệt. Đây là quy tắc vận hành mục tiêu, chưa xác nhận cấu hình thật.
+
+
+## Policy refs trong context và gate evidence
+
+Bổ sung policy IDs/versions/effective scope, requirement/model kind và các [ID/trace](requirement-types-identifiers-and-traceability.md) vào context bàn giao. [Policy register](project-policy-register.md) là nguồn định nghĩa checks/severity/risk/authority/clock. Service kiểm không được coi Pending/Proposed như Approved hoặc skipped check như Pass. Thay policy phải impact/review lại scope phụ thuộc; không dùng latest policy ngầm. Gói này cung cấp template và quy tắc, chưa tạo register đã phê duyệt trong repo CRM hoặc cấu hình hook thật.
 
 
 ---
