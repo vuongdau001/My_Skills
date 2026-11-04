@@ -34,7 +34,7 @@ class InstallationToolingTests(unittest.TestCase):
         return f
     def candidate(self):
         p=self.base/'candidate';shutil.copytree(PACK,p,ignore=shutil.ignore_patterns('__pycache__'))
-        f=p/'reference-manifest.json';m=json.loads(f.read_text());m['version']='1.5.1';f.write_text(json.dumps(m,ensure_ascii=False))
+        f=p/'reference-manifest.json';m=json.loads(f.read_text());m['version']='1.6.1';f.write_text(json.dumps(m,ensure_ascii=False))
         return p
     def test_dry_run_has_no_writes(self):
         result=self.cli('install','--agent','both');self.assertEqual(result['mode'],'dry-run');self.assertEqual(list(self.repo.iterdir()),[])
@@ -160,7 +160,7 @@ class InstallationToolingTests(unittest.TestCase):
         self.install();source=self.candidate();cfg=(self.repo/kit.CONFIG).read_bytes();artifact=self.artifact('features/a.md',{'schema_version':1,'artifact_id':'FEAT-CRM-001','kind':'Feature'});before=artifact.read_bytes()
         old=(self.repo/'.agents/skills/crm-spec-kit/reference-manifest.json').read_bytes()
         self.cli('update','--source',str(source));self.assertEqual((self.repo/'.agents/skills/crm-spec-kit/reference-manifest.json').read_bytes(),old)
-        r=self.cli('update','--source',str(source),'--apply');self.assertEqual(r['new_version'],'1.5.1');self.assertTrue((self.repo/r['backup']).is_dir())
+        r=self.cli('update','--source',str(source),'--apply');self.assertEqual(r['new_version'],'1.6.1');self.assertTrue((self.repo/r['backup']).is_dir())
         self.assertEqual((self.repo/kit.CONFIG).read_bytes(),cfg);self.assertEqual(artifact.read_bytes(),before)
     def test_update_refuses_local_changes(self):
         self.install();f=self.repo/'.agents/skills/crm-spec-kit/START-HERE.md';f.write_text(f.read_text()+'\nlocal edit\n')

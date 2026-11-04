@@ -1,9 +1,9 @@
 {
   "pack_id": "crm-specification-standard",
-  "version": "1.5.0",
-  "date": "2026-11-03",
+  "version": "1.6.0",
+  "date": "2026-11-04",
   "language": "vi",
-  "scope": "Self-contained CRM workflow kit: logical agent profiles, workflow contracts and reference standards; no runtime installation or external mutations",
+  "scope": "Self-contained CRM workflow kit with deterministic local installation adapters; no automatic runtime discovery or external mutations",
   "entries": [
     {
       "id": "CRM-ENTRY",
@@ -852,6 +852,30 @@
       "kind": "packaging",
       "title": "Package Line Ending Rules",
       "path": ".gitattributes"
+    },
+    {
+      "id": "CRM-BOOTSTRAP",
+      "kind": "installation-guide",
+      "title": "AI Tool Bootstrap",
+      "path": "BOOTSTRAP.md"
+    },
+    {
+      "id": "TPL-CODEX-ROUTER",
+      "kind": "installation-template",
+      "title": "Codex Optional Project Router",
+      "path": "assets/installation/codex-router.md"
+    },
+    {
+      "id": "TPL-SMOKE-PROMPT",
+      "kind": "installation-template",
+      "title": "Fresh Session Smoke Test Prompt",
+      "path": "assets/installation/smoke-test-prompt.md"
+    },
+    {
+      "id": "CRM-CODEX-TESTS",
+      "kind": "test-script",
+      "title": "Codex Bootstrap Compatibility Tests",
+      "path": "scripts/tests/test_codex_bootstrap.py"
     }
   ],
   "source_archive": "provenance/original-epic-story-standard-and-workflow-v1.1.zip",

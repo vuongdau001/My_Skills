@@ -1,6 +1,8 @@
 # Install and Operate CRM Spec Kit
 
-ID: **CRM-INSTALL** · CRM Workflow Kit 1.5.0 · 03/11/2026
+ID: **CRM-INSTALL** · CRM Workflow Kit 1.6.0 · 04/11/2026
+
+AI được đưa folder kit để tự cài đọc [BOOTSTRAP](BOOTSTRAP.md) trước. Nội dung/workflow dùng chung; filesystem adapters và router tùy chọn xử lý phần tích hợp tool.
 
 ## Packaging Contract
 
@@ -18,13 +20,25 @@ python3 scripts/kit.py install --repo <repo-root> --agent both --workstream p3 -
 python3 scripts/kit.py doctor --repo <repo-root>
 ```
 
-Lệnh đầu dry-run; lệnh thứ hai mới ghi. `<repo-root>` là argument lúc chạy, không ghi absolute path đó vào config/artifacts. Chọn `--agent antigravity`, `claude` hoặc `both`. Nếu chưa biết repo/spec_root/source thì agent hỏi phần thực sự thiếu; không giới hạn cứng số câu hỏi mà bỏ qua xung đột quyền hoặc scope.
+Lệnh đầu dry-run; lệnh thứ hai mới ghi. `<repo-root>` là argument lúc chạy, không ghi absolute path đó vào config/artifacts. Chọn `--agent codex`, `antigravity`, `claude` hoặc `both`. Mặc định vẫn antigravity; both vẫn Antigravity + Claude, không đổi semantics. Nếu chưa biết repo/spec_root/source thì agent hỏi phần thực sự thiếu sau khi khảo sát; không giới hạn cứng số câu hỏi mà bỏ qua xung đột quyền hoặc scope.
 
-Helper tạo package tại `.agents/skills/crm-spec-kit` và/hoặc `.claude/skills/crm-spec-kit`. Mặc định là **copy**, không tạo symlink. Package có .gitattributes giữ LF cho Markdown/JSON/Python và đánh dấu ZIP binary để receipt không lệch chỉ vì Git checkout đổi line ending; vẫn cần smoke test Windows native. Nếu repo đã có symlink nội bộ từ `.claude/skills` tới `.agents/skills`, helper resolve và chỉ cài một lần. Link trỏ ra ngoài repo bị từ chối. Mọi file của package được tìm từ `__file__`, không từ số tầng `../../vendor` hoặc thư mục làm việc.
+Helper tạo package tại `.agents/skills/crm-spec-kit` cho Codex/Antigravity và/hoặc `.claude/skills/crm-spec-kit` cho Claude. Codex và Antigravity dùng cùng một package, không tạo copy trùng. Mặc định là **copy**, không tạo symlink. Package có .gitattributes giữ LF cho Markdown/JSON/Python và đánh dấu ZIP binary để receipt không lệch chỉ vì Git checkout đổi line ending; vẫn cần smoke test Windows native. Nếu repo đã có symlink nội bộ từ `.claude/skills` tới `.agents/skills`, helper resolve và chỉ cài một lần. Link trỏ ra ngoài repo bị từ chối. Mọi file của package được tìm từ `__file__`, không từ số tầng `../../vendor` hoặc thư mục làm việc.
 
 Để chia sẻ kiểu “copy một folder”, copy **bản đã đóng gói** crm-spec-kit từ installation, gồm cả receipt, vào skills directory repo mới. Có thể chạy scripts/kit.py install ngay từ package đó để tạo config/scaffold; chỉ dùng slash command nếu công cụ đã nhận diện skill. Copy source nguyên bản crm-specification-standard vẫn dùng được bằng cách yêu cầu agent đọc SKILL/INSTALL, hoặc chạy bootstrap ở trên để sinh public package name.
 
-Không chạy install đè lên folder skill chưa có ownership receipt; nếu folder đã có cùng tên, dừng và yêu cầu kiểm tra/migration. Không tự di chuyển bản cài cũ hoặc sửa shared AGENTS/rules. Bản cài đã khác version phải dùng update.
+Không chạy install đè lên folder skill chưa có ownership receipt; nếu folder đã có cùng tên, dừng và yêu cầu kiểm tra/migration. Không tự di chuyển bản cài cũ hoặc sửa shared AGENTS/rules có sẵn. Bản cài đã khác version phải dùng update; không sửa trực tiếp installation 1.5 để gắn thêm code 1.6.
+
+## Codex và Root Router Tùy Chọn
+
+```text
+python3 scripts/kit.py install --repo <repo-root> --agent codex --workstream p3 --spec-root phase-3/spec --source SRC-FL=phase-3/function-list.md --with-router
+python3 scripts/kit.py install --repo <repo-root> --agent codex --workstream p3 --spec-root phase-3/spec --source SRC-FL=phase-3/function-list.md --with-router --apply
+python3 scripts/kit.py doctor --repo <repo-root> --agent codex
+```
+
+Không có --with-router thì không thay root instructions. Flag này chỉ dùng với --agent codex: root AGENTS.md chưa có thì tạo [router ngắn](assets/installation/codex-router.md) trong cùng operation/rollback của install; file có sẵn giữ nguyên, plan in `propose-router-addition` kèm snippet để agent/operator review. Không tự append/merge vào instructions có sẵn. Có exact snippet thì báo unchanged, không tự update nội dung repo khi kit thay template.
+
+AGENTS.override.md không rỗng được xét trước AGENTS.md; helper không tạo router vào file bị override che. Root instruction symlink hoặc path không phải file bị từ chối ở bước opt-in, không theo link để sửa. Router không được tạo vào path source/read_only. Có snippet chưa chứng minh instruction precedence, semantic compatibility hoặc runtime discovery đã đúng. Scope/policy cấp cao hơn vẫn áp dụng. Root router có thể được tool khác cũng đọc AGENTS nhận thấy; vì vậy đây là opt-in repo change cần đối chiếu, không cam kết vô hình với tool khác.
 
 ## Config and Scaffold
 
@@ -32,7 +46,7 @@ Mẫu nền: [project config blueprint](assets/installation/project-config.templ
 
 Scaffold: `00-project`, `features`, `epics`, `stories`, `tasks`, `reviews`, `baselines`, `reports`, `pilot`. Có thư mục tasks không có nghĩa phải tạo Task. Mỗi thư mục scaffold có marker .crm-spec-kit-keep để tồn tại sau git clone; marker không là requirement/policy/approval. Không sinh artifact nghiệp vụ giả để lấp thư mục.
 
-Scoped AGENTS/CLAUDE chỉ được tạo khi chưa có; file có sẵn được giữ và báo cần xem xét. Chúng hướng dẫn trong spec_root, không override instruction/policy cấp cao hơn. Không tự tạo file `.agents/rules` rồi tuyên bố mọi nền tảng sẽ nạp. Các thay đổi config để thêm workstream là cập nhật config kit có chủ đích; config fields/values cũ được giữ.
+Scoped AGENTS/CLAUDE chỉ được tạo khi chưa có; file có sẵn được giữ và báo cần xem xét. Chúng hướng dẫn trong spec_root, không override instruction/policy cấp cao hơn. Mọi adapter vẫn tạo hai scoped files như 1.5 để giữ tương thích; chỉ root router mới là Codex opt-in. Không tự tạo file `.agents/rules` rồi tuyên bố mọi nền tảng sẽ nạp. Các thay đổi config để thêm workstream là cập nhật config kit có chủ đích; config fields/values cũ được giữ.
 
 ```text
 python3 scripts/kit.py install --repo <repo-root> --workstream p4 --spec-root phase-4/spec --apply
@@ -42,9 +56,19 @@ Chạy lại install cho stream có sẵn không cần lặp --source/read-only.
 
 ## Doctor and Fresh-session Check
 
-Doctor kiểm config/boundaries/scaffold/sources, validator, package receipt/hash, copies giữa hai adapter và git dirty state. ERROR dẫn exit 1; WARN không tự làm structural health fail, nhưng `runtime_verified` luôn false vì filesystem presence không chứng minh runtime discovery. Kiểm package sạch không chứng minh authority hoặc requirement đúng.
+Doctor kiểm config/boundaries/scaffold/sources, validator, package receipt/hash và git dirty state. Không truyền --agent thì giữ audit cả hai physical copies như 1.5, gồm drift giữa copies và WARN cho adapter không có. Truyền --agent chỉ kiểm adapter(s) được chọn, không cảnh báo thiếu adapter không dùng; selected adapter thiếu là ERROR. Codex/Antigravity chỉ cần scoped AGENTS, Claude chỉ cần scoped CLAUDE; both kiểm cả hai. --agent codex còn báo tình trạng root router tùy chọn; router thiếu/chưa có exact snippet chỉ WARN để review, không tự kết luận instructions sai. Khi cần kiểm drift mọi copies, chạy doctor không --agent.
 
-Sau cài, mở phiên mới trên từng công cụ; xác nhận chỉ một public `crm-spec-kit`, gọi một function, hỏi agent báo package root/workstream/target. Lưu tool/version và observed evidence trong pilot. Đừng ghi discovery PASS từ việc `doctor` tìm thấy SKILL.md. Antigravity/Claude filesystem adapters đã được kiểm trên repo tạm; UI discovery và Windows native cần smoke test thật.
+ERROR dẫn exit 1; WARN không tự làm structural health fail, nhưng `runtime_verified` luôn false vì filesystem presence không chứng minh runtime discovery. Kiểm package sạch không chứng minh authority hoặc requirement đúng.
+
+Sau cài, mở phiên mới trên từng công cụ; xác nhận chỉ một public `crm-spec-kit`, gọi một function, hỏi agent báo package root/workstream/target/revision và mode discovery. Lưu tool/version và observed evidence trong pilot. Đừng ghi discovery PASS từ việc `doctor` tìm thấy SKILL.md hoặc một CLI tên codex có trong PATH. Filesystem adapters được kiểm trên repo tạm; UI discovery và Windows native cần smoke test thật.
+
+Sinh prompt chỉ đọc và evidence template từ package đã cài:
+
+```text
+python3 scripts/kit.py smoke-prompt crm-check-readiness --repo <repo-root> --agent codex --workstream p3 --target STORY-CRM-001 --target-kind Story --revision <current-revision>
+```
+
+Lệnh nhận một tool, function và explicit target/kind/revision, kiểm managed receipt và sinh [prompt](assets/installation/smoke-test-prompt.md); --format json trả prompt + evidence_template. Không chạy workflow, ghi artifact, mở chat hoặc sửa config. Mode chọn skill thật khác manual đọc SKILL theo path; template giữ runtime_verified=false/verdict Chưa kiểm cho tới khi người kiểm ghi evidence quan sát được. Prompt generation không cấp runtime verification hoặc authority approval.
 
 Source missing là WARN để workflow có thể ghi question và làm phần độc lập. Có file tồn tại không chứng minh source đầy đủ/nghiệp vụ đã xác nhận. Kit không tự giải nén ZIP hoặc chạy executable trong nguồn.
 
@@ -59,9 +83,9 @@ python3 scripts/kit.py context crm-review-specification --repo <repo-root> --wor
 
 Context mặc định gồm workflow, phần profile liên quan và các section protocol bắt buộc; config được in như dữ liệu, không approval. Tài nguyên chi tiết nằm ở available_references; thêm bằng --reference (entry ID hoặc path nội bộ). --full chỉ để so sánh/debug, không mặc định nạp mọi catalog. --format json cung cấp paths/hashes/character counts. Helper không tự chọn active workstream khi có nhiều stream, không tự đoán target/revision.
 
-Các lệnh đọc doctor/context/lint nhận --config <candidate-config.json> để audit migration mà không tạo config trong repo thật; đường dẫn trong config vẫn được kiểm theo --repo.
+Các lệnh đọc doctor/context/lint/smoke-prompt nhận --config <candidate-config.json> để audit migration mà không tạo config trong repo thật; đường dẫn trong config vẫn được kiểm theo --repo.
 
-Sau khi ghi artifact chạy lint; cuối run ghi Handoff theo template hiện có. Admin actions install/doctor/context/lint/next-id/update là helper, không thêm function nghiệp vụ vào bộ 13 function IDs.
+Sau khi ghi artifact chạy lint; cuối run ghi Handoff theo template hiện có. Admin actions install/doctor/context/lint/next-id/update/smoke-prompt là helper, không thêm function nghiệp vụ vào bộ 13 function IDs.
 
 ## Artifact Lint and IDs
 

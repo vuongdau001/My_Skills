@@ -29,6 +29,9 @@ DECISIONS = {'Pending','Proposed','Approved','Superseded'}
 STATUSES = {'Epic':{'todo','inprogress','done','cancel'},
             'Story':{'todo','inprogress','pending','resolved','done','cancel'},
             'Task':{'todo','inprogress','review','pending','resolved','done','cancel'}}
+AGENT_ROOTS = {'antigravity': '.agents', 'codex': '.agents', 'claude': '.claude'}
+ROUTER_START = '<!-- crm-spec-kit:router:start -->'
+ROUTER_END = '<!-- crm-spec-kit:router:end -->'
 
 class KitError(Exception):
     pass
@@ -210,12 +213,37 @@ def destinations(repo, agents):
     choices = ['antigravity','claude'] if agents == 'both' else [agents]
     result = []
     for choice in choices:
-        rel = ('.agents' if choice == 'antigravity' else '.claude') + '/skills/crm-spec-kit'
+        if choice not in AGENT_ROOTS:
+            raise KitError('Unknown agent: ' + str(choice))
+        rel = AGENT_ROOTS[choice] + '/skills/crm-spec-kit'
         path = relative(repo, rel)
         # resolve() deduplicates an existing internal .claude/skills -> .agents/skills link.
         if path not in [item[1] for item in result]:
             result.append((rel, path))
     return result
+
+
+def codex_router(repo):
+    """Plan a new router or suggest a snippet; never merge existing instructions."""
+    snippet = (KIT/'assets/installation/codex-router.md').read_text(encoding='utf-8')
+    for rel in ('AGENTS.override.md', 'AGENTS.md'):
+        raw = repo/rel
+        if raw.is_symlink():
+            raise KitError('Root instruction path is a symlink; inspect before router setup: '+rel)
+        path = relative(repo, rel)
+        if path.exists():
+            if not path.is_file():
+                raise KitError('Root instruction path is not a file: '+rel)
+            content = path.read_text(encoding='utf-8')
+            if rel == 'AGENTS.override.md' and not content.strip():
+                continue  # Codex skips empty instructions.
+            action = 'unchanged' if snippet in content else 'propose-router-addition'
+            plan = {'action':action, 'path':rel}
+            if action != 'unchanged':
+                plan['snippet'] = snippet
+                plan['reason'] = 'Existing effective instructions preserved; review this addition against repository rules.'
+            return plan, None
+    return {'action':'create-router', 'path':'AGENTS.md'}, (repo/'AGENTS.md', snippet)
 
 
 def atomic_json(path, value):
@@ -234,6 +262,8 @@ def install(args):
     repo = args.repo.resolve()
     if not repo.is_dir():
         raise KitError('--repo must be an existing directory')
+    if args.with_router and args.agent != 'codex':
+        raise KitError('--with-router is a Codex-only opt-in; other adapters keep their existing behavior')
     validate_package(KIT)
     cfgpath = relative(repo, CONFIG)
     original = cfgpath.read_bytes() if cfgpath.exists() else None
@@ -298,6 +328,15 @@ def install(args):
             planned.append({'action':action,'path':path.relative_to(repo).as_posix()})
         else:
             writes.append((path,text));planned.append({'action':'create-file','path':path.relative_to(repo).as_posix()})
+    if args.with_router:
+        router, addition = codex_router(repo)
+        planned.append(router)
+        if addition:
+            path, text = addition
+            protected = ws.get('read_only', []) + [s['path'] for s in ws.get('sources', [])]
+            if any(overlaps(path, relative(repo, raw)) for raw in protected):
+                raise KitError('Codex router overlaps a source/read_only path')
+            writes.append((path, text))
     config_changed = original is None or json.loads(original) != config
     if config_changed:
         planned.append({'action':'create-config' if original is None else 'add-workstream','path':CONFIG})
@@ -330,7 +369,9 @@ def install(args):
         for path in reversed(created_dirs):
             with contextlib.suppress(OSError):path.rmdir()
         raise
-    output['note']='No shared repository instructions changed. Runtime skill/rule discovery still requires a fresh-session smoke test.'
+    output['note']=('Existing shared instructions preserved; a missing root router is created only with --agent codex --with-router. '
+                    if args.with_router else 'No shared repository instructions changed. ')
+    output['note']+='Runtime skill/rule discovery still requires a fresh-session smoke test.'
     return output
 
 
@@ -344,11 +385,17 @@ def doctor(args):
     try:validate_package(KIT);add('INFO','kit-structure','Structural validator passed')
     except KitError as exc:add('ERROR','kit-structure',str(exc))
     receipts=[]
-    for rel in ('.agents/skills/crm-spec-kit','.claude/skills/crm-spec-kit'):
+    selected = getattr(args, 'agent', None)
+    try:
+        locations = [rel for rel, _ in destinations(repo, selected)] if selected else ['.agents/skills/crm-spec-kit','.claude/skills/crm-spec-kit']
+    except KitError as exc:
+        add('ERROR','adapter-integrity',str(exc))
+        return {'healthy':False,'runtime_verified':False,'checks':checks}
+    for rel in locations:
         try:
             path=relative(repo,rel)
             if not path.exists():
-                add('WARN','adapter-not-present',rel);continue
+                add('ERROR' if selected else 'WARN','adapter-not-present',rel);continue
             receipt=integrity(path);receipts.append(receipt['snapshot_sha256']);add('INFO','package-integrity',rel+' matches receipt')
             if not re.search(r'^name: crm-spec-kit$',(path/'SKILL.md').read_text(),re.M):
                 add('ERROR','adapter-name',rel)
@@ -359,11 +406,23 @@ def doctor(args):
         root=relative(repo,ws['spec_root'])
         for directory in DIRECTORIES:
             if not (root/directory).is_dir():add('ERROR','scaffold',ws['id']+': missing '+directory)
-        for file in ('AGENTS.md','CLAUDE.md'):
+        scoped = ('CLAUDE.md',) if selected == 'claude' else ('AGENTS.md',) if selected in {'codex','antigravity'} else ('AGENTS.md','CLAUDE.md')
+        for file in scoped:
             if not (root/file).is_file():add('WARN','scoped-instructions',ws['id']+': missing '+file)
             elif 'CRM' not in (root/file).read_text(encoding='utf-8'):add('WARN','existing-instructions',ws['id']+': review existing '+file+' for conflicts')
         for source in ws['sources']:
             if not relative(repo,source['path']).exists():add('WARN','source-missing',ws['id']+': '+source['id']+' '+source['path'])
+    if selected == 'codex':
+        try:
+            router, _ = codex_router(repo)
+            if router['action'] == 'create-router':
+                add('WARN','router-not-present','Optional root router absent; explicit skill invocation can still be used. See BOOTSTRAP.md.')
+            elif router['action'] == 'propose-router-addition':
+                add('WARN','router-review',router['path']+': no exact kit router snippet; inspect effective routing, not an automatic failure')
+            else:
+                add('INFO','router-present',router['path']+': kit router snippet present; semantic compatibility still requires review')
+        except (KitError, OSError) as exc:
+            add('WARN','router-review',str(exc))
     add('WARN','runtime-not-verified','Filesystem presence is not proof of skill/rule discovery. Run a fresh-session smoke test for each tool/version.')
     try:
         result=subprocess.run(['git','-C',str(repo),'status','--porcelain','--untracked-files=normal'],capture_output=True,text=True,check=False)
@@ -372,6 +431,31 @@ def doctor(args):
         else:add('WARN','git-not-verified','Repository is not a verified git working tree')
     except OSError:add('WARN','git-not-available','Git status not checked')
     return {'healthy':not any(c['level']=='ERROR' for c in checks),'runtime_verified':False,'checks':checks}
+
+
+def smoke_prompt(args):
+    """Generate a read-only fresh-session probe; do not execute it or claim discovery."""
+    if not args.target or not args.revision:
+        raise KitError('smoke-prompt requires a nonempty target and revision')
+    probe = argparse.Namespace(**(vars(args) | {'reference':[], 'full':False, 'format':'json'}))
+    bundle = context(probe)
+    rel, package = destinations(args.repo.resolve(), args.agent)[0]
+    receipt = integrity(package)
+    data = {'agent':args.agent, 'skill':'crm-spec-kit', 'package_root':rel,
+            'package_version':receipt['version'], 'package_snapshot_sha256':receipt['snapshot_sha256'],
+            'function':bundle['function'], 'profile':bundle['profile'],
+            'workstream':bundle['workstream']['id'], 'spec_root':bundle['workstream']['spec_root'],
+            'target':bundle['target'], 'target_kind':bundle['target_kind'], 'input_revision':bundle['input_revision']}
+    template = (KIT/'assets/installation/smoke-test-prompt.md').read_text(encoding='utf-8')
+    prompt = template.replace('{{CONTEXT_JSON}}',json_text(data).rstrip())
+    if args.agent == 'codex':
+        prompt = '$crm-spec-kit\n\n'+prompt
+    evidence = {'tool':args.agent,'tool_version':None,'observed_at':None,
+                'context':data,'observed_output':None,'target_hashes_before':{},'target_hashes_after':{},
+                'runtime_verified':False,'verdict':'Chưa kiểm',
+                'note':'Fill only from an observed fresh session. Prompt generation is not runtime discovery or approval.'}
+    result = {'prompt':prompt,'evidence_template':evidence,'runtime_verified':False}
+    return result if args.format == 'json' else prompt+'\n\n## Evidence template — chưa quan sát\n\n'+json_text(evidence)
 
 
 def section(text, title):
@@ -699,17 +783,24 @@ def operation_lock(repo):
 def parser():
     p=argparse.ArgumentParser(description=__doc__)
     sub=p.add_subparsers(dest='command',required=True)
-    for command in ['install','doctor','context','lint','next-id','update']:
+    for command in ['install','doctor','context','lint','next-id','update','smoke-prompt']:
         s=sub.add_parser(command);s.add_argument('--repo',type=Path,required=True)
-        if command in {'install','context','lint'}:s.add_argument('--workstream')
-        if command in {'doctor','context','lint'}:s.add_argument('--config',type=Path,help='Explicit read-only config for migration/audit; paths still resolve within --repo')
+        if command in {'install','context','lint','smoke-prompt'}:s.add_argument('--workstream')
+        if command in {'doctor','context','lint','smoke-prompt'}:s.add_argument('--config',type=Path,help='Explicit read-only config for migration/audit; paths still resolve within --repo')
         if command=='install':
-            s.add_argument('--agent',choices=['antigravity','claude','both'],default='antigravity')
+            s.add_argument('--agent',choices=[*AGENT_ROOTS,'both'],default='antigravity')
+            s.add_argument('--with-router',action='store_true',help='Codex only: create missing root AGENTS.md or print a proposed snippet without merging existing files')
             s.add_argument('--spec-root');s.add_argument('--input-root');s.add_argument('--title')
             s.add_argument('--source',action='append',default=[]);s.add_argument('--read-only',action='append',default=[]);s.add_argument('--apply',action='store_true')
         elif command=='context':
             s.add_argument('function');s.add_argument('--target');s.add_argument('--target-kind');s.add_argument('--revision')
             s.add_argument('--reference',action='append',default=[]);s.add_argument('--full',action='store_true');s.add_argument('--format',choices=['markdown','json'],default='markdown')
+        elif command=='doctor':
+            s.add_argument('--agent',choices=[*AGENT_ROOTS,'both'],help='Check selected adapters only; omitted preserves the legacy all-copy audit')
+        elif command=='smoke-prompt':
+            s.add_argument('function');s.add_argument('--agent',choices=list(AGENT_ROOTS),required=True)
+            s.add_argument('--target',required=True);s.add_argument('--target-kind',required=True);s.add_argument('--revision',required=True)
+            s.add_argument('--format',choices=['markdown','json'],default='markdown')
         elif command=='next-id':
             s.add_argument('prefix');s.add_argument('--reserve',action='store_true');s.add_argument('--owner');s.add_argument('--apply',action='store_true')
         elif command=='update':

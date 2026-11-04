@@ -1,11 +1,11 @@
 # Start Here
 
-ID: **CRM-START** · CRM Workflow Kit 1.5.0 · 03/11/2026
+ID: **CRM-START** · CRM Workflow Kit 1.6.0 · 04/11/2026
 
 
 ## Install or Check an Installation
 
-Đọc [INSTALL.md](INSTALL.md): helper tạo một package tự chứa cho Antigravity/Claude, config repo riêng, scaffold và scoped instructions khi chưa có. Bắt đầu bằng install dry-run → --apply → doctor → fresh-session smoke test. Teammate nhận repo đã commit: doctor và xác nhận discovery, không cần sửa lại binding trong skill.
+Được đưa folder kit để cài cho AI tool: đọc [BOOTSTRAP.md](BOOTSTRAP.md) trước. [INSTALL.md](INSTALL.md) mô tả helper tạo một package tự chứa cho Codex/Antigravity/Claude, config repo riêng, scaffold và scoped instructions khi chưa có. Codex dùng --agent codex; root router chỉ thêm khi chọn --with-router, instructions có sẵn được giữ. Bắt đầu bằng install dry-run → --apply → doctor --agent <tool> → smoke-prompt cho phiên mới. Teammate nhận repo đã commit: doctor và xác nhận discovery, không cần sửa lại binding trong skill.
 
 Có thể yêu cầu agent: “Đọc INSTALL.md trong kit và chuẩn bị cài vào repo này; cho tôi xem dry-run và các file sẽ tạo.” Lệnh quản trị không tự là slash command ở mọi nền tảng. Source kit dùng tên crm-specification-standard; installed skill dùng crm-spec-kit.
 
