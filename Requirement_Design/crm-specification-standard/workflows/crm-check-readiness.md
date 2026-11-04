@@ -24,7 +24,11 @@ Context chung: target/logical ID, selected scope, input revision/canonical locat
 
 Đọc target và refs trước khi chỉnh sửa. Đối soát scope/version với request, source/authority và previous records; hỏi lựa chọn khi có nhiều target hợp lý. Ghi input còn thiếu, phần bị chặn, owner nếu biết và next action. Tiếp tục phần độc lập; không tự điền expected behavior/policy để hoàn thiện đầu ra.
 
+Khi có meeting/chat/decision/assumption/constraint ảnh hưởng target, đọc [knowledge records](../references/knowledge-records-and-evidence.md), đối chiếu revision và dependency closure. Lấy nơi ghi từ artifact_paths trong context; [layout policy](../references/artifact-layout-and-migration.md) giữ tương thích config cũ. Chỉ ghi findings/check record; không đổi record nguồn để qua gate. Lint --gate kiểm record obligations, không thay toàn bộ review/DoR hoặc authority.
+
 ## Execution Steps
+
+Chạy helper lint --gate readiness --target <target-id> với đúng repo/workstream khi có config; ghi record_obligations, record_impacts và stale refs vào check record. Nếu không chạy được thì ghi phần chưa kiểm. Helper chỉ kiểm cấu trúc/declared record dependencies; các điều kiện DoR và authority bên dưới vẫn phải được xét riêng. Không sửa target/record nguồn để đóng findings trong workflow này.
 
 1. Mở canonical refs và xác nhận input revision đúng baseline scope; Task spike dùng brief/output/timebox phù hợp, không ép có solution biết trước.
 2. Chọn DoR Story hoặc Task; đối chiếu từng điều kiện với actual evidence, không dựa chỉ Jira todo hoặc label ready.

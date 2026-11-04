@@ -6,11 +6,13 @@ ID: **CRM-ARTIFACT-LINT** · CRM Workflow Kit 1.5.0 · 03/11/2026
 
 Cho helper kiểm được vocabulary/ID/links bằng dữ liệu có cấu trúc, không regex mọi câu văn rồi kết luận semantics. Mỗi artifact mới có tối đa một JSON block [theo mẫu](../assets/templates/artifact-metadata-template.md). File legacy chưa có block vẫn được audit explicit fields/links và được cảnh báo; không bắt rewrite dữ liệu cũ tự động.
 
-Metadata schema_version=1; kind là Feature/Epic/Story/Task/Review/Baseline/Report/Pilot/Project/Decision/Requirement/Model/TestCase/TestRun. artifact_id và defined_ids là các **định nghĩa** thuộc PREFIX-CRM-NNN; nhắc ID trong nội dung không thành definition. Cùng một ID trong artifact_id và defined_ids cùng file đếm một lần; hai file định nghĩa cùng ID là lỗi. Một file có thể chứa nhiều BR/AC, khai báo defined_ids rõ ràng.
+Metadata schema_version=1 tiếp tục được đọc. Schema 2 thêm Meeting/Assumption/Constraint và structured Decision records theo [knowledge records](knowledge-records-and-evidence.md). kind cũ là Feature/Epic/Story/Task/Review/Baseline/Report/Pilot/Project/Decision/Requirement/Model/TestCase/TestRun. artifact_id, defined_ids và IDs của records là definitions thuộc PREFIX-CRM-NNN; nhắc ID trong nội dung không thành definition. Cùng ID trong artifact_id/defined_ids cùng file đếm một lần; record lặp trong register hoặc hai file định nghĩa cùng ID là lỗi. Một file có thể chứa nhiều BR/AC với defined_ids, hoặc nhiều knowledge records với records.
 
-work_status chỉ dùng cho Epic/Story/Task với đúng status của từng loại. Feature chỉ ở tài liệu, không được tự nhận Jira status. review_verdict: Đạt/Không đạt/Chưa kiểm/N/A; N/A cần na_reason và authority/evidence vẫn do người review xác nhận. decision_state: Pending/Proposed/Approved/Superseded. Approval trong metadata chỉ là khai báo, lint không chứng nhận có thẩm quyền.
+work_status chỉ dùng cho Epic/Story/Task với đúng status của từng loại. Feature chỉ ở tài liệu, không được tự nhận Jira status. review_verdict: Đạt/Không đạt/Chưa kiểm/N/A; N/A cần na_reason và authority/evidence vẫn do người review xác nhận. decision_state: Pending/Proposed/Approved/Superseded/Rejected/Withdrawn. Approval trong metadata chỉ là khai báo, lint không chứng nhận có thẩm quyền.
 
 references chứa repo-relative-from-artifact links, giống Markdown links; kiểm file/anchor, chặn absolute/escaping paths. HTTP/HTTPS/mailto không được truy cập khi lint. Mọi dữ liệu này vẫn phải qua Q01–Q07/authority khi áp dụng.
+
+trace_links kiểm target ID có definition đúng file, relation, revision và optional content hash; evidence schema 2 cần revision/hash. Kind schema 1 Decision không bị ép field mới. --gate readiness/baseline tăng unresolved record obligations thành ERROR trong closure của --target; không --target là whole-workstream hiện hành. Structural checks vẫn rộng. Lint không tìm được mọi missing trace link, không đánh giá nội dung đúng hoặc chạy full DoR. Layout inference dùng artifact_paths và cả hai tên thư mục chuẩn, xem [layout](artifact-layout-and-migration.md).
 
 ## Controlled Fields and Legacy
 

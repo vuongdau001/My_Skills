@@ -26,7 +26,7 @@ class InstallationToolingTests(unittest.TestCase):
         p=subprocess.run([sys.executable,str(PACK/'scripts/kit.py'),*args,'--repo',str(self.repo)],capture_output=True,text=True)
         self.assertEqual(p.returncode,code,p.stdout+p.stderr)
         return json.loads(p.stdout if code!=2 else p.stderr)
-    def install(self,*args):return self.cli('install','--workstream','p3','--spec-root','phase-3/spec',*args,'--apply')
+    def install(self,*args):return self.cli('install','--workstream','p3','--spec-root','phase-3/spec','--layout','legacy',*args,'--apply')
     def hashes(self):return {p.relative_to(self.repo).as_posix():hashlib.sha256(p.read_bytes()).hexdigest() for p in self.repo.rglob('*') if p.is_file() and not p.is_symlink()}
     def artifact(self,name,record,body=''):
         f=self.repo/'phase-3/spec'/name;f.parent.mkdir(parents=True,exist_ok=True)
@@ -34,7 +34,7 @@ class InstallationToolingTests(unittest.TestCase):
         return f
     def candidate(self):
         p=self.base/'candidate';shutil.copytree(PACK,p,ignore=shutil.ignore_patterns('__pycache__'))
-        f=p/'reference-manifest.json';m=json.loads(f.read_text());m['version']='1.6.1';f.write_text(json.dumps(m,ensure_ascii=False))
+        f=p/'reference-manifest.json';m=json.loads(f.read_text());m['version']='1.7.2';f.write_text(json.dumps(m,ensure_ascii=False))
         return p
     def test_dry_run_has_no_writes(self):
         result=self.cli('install','--agent','both');self.assertEqual(result['mode'],'dry-run');self.assertEqual(list(self.repo.iterdir()),[])
@@ -54,7 +54,7 @@ class InstallationToolingTests(unittest.TestCase):
         result=subprocess.run([sys.executable,str(target/'scripts/kit.py'),'install','--repo',str(other),'--apply'],capture_output=True,text=True)
         self.assertEqual(result.returncode,0,result.stdout+result.stderr)
         self.assertTrue((other/kit.CONFIG).is_file())
-        self.assertTrue((other/'spec/features').is_dir())
+        self.assertTrue((other/'spec/01-features').is_dir())
         self.assertEqual(len(list((other/'.agents/skills').rglob('SKILL.md'))),1)
     def test_repeat_install_is_byte_identical(self):
         self.install('--agent','both');before=self.hashes();self.cli('install','--workstream','p3','--agent','both','--apply');self.assertEqual(self.hashes(),before)
@@ -81,7 +81,7 @@ class InstallationToolingTests(unittest.TestCase):
         outside=self.base/'outside';outside.mkdir();root=self.repo/'phase-3/spec';root.mkdir(parents=True)
         try:(root/'features').symlink_to(outside,target_is_directory=True)
         except OSError:self.skipTest('Symlink creation not available')
-        self.cli('install','--workstream','p3','--spec-root','phase-3/spec','--apply',code=2);self.assertEqual(list(outside.iterdir()),[])
+        self.cli('install','--workstream','p3','--spec-root','phase-3/spec','--layout','legacy','--apply',code=2);self.assertEqual(list(outside.iterdir()),[])
     def test_paths_and_readonly_boundaries(self):
         for root in ('../escape','/tmp/escape','C:/escape','.agents/spec'):
             self.cli('install','--spec-root',root,code=2)
@@ -113,7 +113,7 @@ class InstallationToolingTests(unittest.TestCase):
     def test_cross_stream_duplicate_definitions(self):
         self.install();self.cli('install','--workstream','p4','--spec-root','phase-4/spec','--apply')
         f=self.artifact('features/a.md',{'schema_version':1,'artifact_id':'FEAT-CRM-001','kind':'Feature'})
-        d=self.repo/'phase-4/spec/features/b.md';d.write_bytes(f.read_bytes())
+        d=self.repo/'phase-4/spec/01-features/b.md';d.write_bytes(f.read_bytes())
         r=self.cli('lint','--workstream','p3',code=1);self.assertTrue(any(x['code']=='duplicate-id' for x in r['issues']))
     def test_lint_links_ids_paths_and_legacy_verdict(self):
         self.install();self.artifact('features/a.md',{'schema_version':1,'artifact_id':'FEAT-CRM-01','kind':'Feature'},'\nVerdict: Đạt-một-phần\n[missing](no.md)\nPersonal: /Users/example/secret.md\n')
@@ -152,7 +152,7 @@ class InstallationToolingTests(unittest.TestCase):
         (self.repo/'.agents/crm-spec-kit-id-lock').mkdir();self.cli('next-id','FEAT','--reserve','--owner','test','--apply',code=2)
     def test_next_id_scans_all_streams(self):
         self.install();self.cli('install','--workstream','p4','--spec-root','phase-4/spec','--apply')
-        (self.repo/'phase-4/spec/features/a.md').write_text('Mention FEAT-CRM-099\n');self.assertEqual(self.cli('next-id','FEAT')['id'],'FEAT-CRM-100')
+        (self.repo/'phase-4/spec/01-features/a.md').write_text('Mention FEAT-CRM-099\n');self.assertEqual(self.cli('next-id','FEAT')['id'],'FEAT-CRM-100')
     def test_doctor_detects_tamper_and_copy_drift(self):
         self.install('--agent','both');f=self.repo/'.claude/skills/crm-spec-kit/START-HERE.md';f.write_text(f.read_text()+'\nchanged\n')
         r=self.cli('doctor',code=1);self.assertTrue(any(x['code']=='adapter-integrity' for x in r['checks']))
@@ -160,8 +160,60 @@ class InstallationToolingTests(unittest.TestCase):
         self.install();source=self.candidate();cfg=(self.repo/kit.CONFIG).read_bytes();artifact=self.artifact('features/a.md',{'schema_version':1,'artifact_id':'FEAT-CRM-001','kind':'Feature'});before=artifact.read_bytes()
         old=(self.repo/'.agents/skills/crm-spec-kit/reference-manifest.json').read_bytes()
         self.cli('update','--source',str(source));self.assertEqual((self.repo/'.agents/skills/crm-spec-kit/reference-manifest.json').read_bytes(),old)
-        r=self.cli('update','--source',str(source),'--apply');self.assertEqual(r['new_version'],'1.6.1');self.assertTrue((self.repo/r['backup']).is_dir())
+        r=self.cli('update','--source',str(source),'--apply');self.assertEqual(r['new_version'],'1.7.2');self.assertTrue((self.repo/r['backup']).is_dir())
         self.assertEqual((self.repo/kit.CONFIG).read_bytes(),cfg);self.assertEqual(artifact.read_bytes(),before)
+    def test_update_backup_not_discoverable_and_second_update_works(self):
+        self.install('--agent','both')
+        source=self.candidate()
+        for adapter in ('.agents','.claude'):
+            r=self.cli('update','--source',str(source),'--install-path',adapter+'/skills/crm-spec-kit','--apply')
+            self.assertTrue(r['backup'].startswith('.agents/crm-spec-kit-backups/'))
+            self.assertEqual(len(list((self.repo/adapter/'skills').glob('*/SKILL.md'))),1)
+            self.assertTrue((self.repo/r['backup']/kit.RECEIPT).is_file())
+        f=source/'references/ba-getting-started.md';f.write_text(f.read_text()+'\n<!-- next snapshot -->\n')
+        self.cli('update','--source',str(source),'--apply')
+        self.assertEqual(len(list((self.repo/'.agents/skills').glob('*/SKILL.md'))),1)
+
+    def test_backup_symlink_cannot_redirect_into_skills(self):
+        self.install()
+        (self.repo/'.agents/crm-spec-kit-backups').symlink_to('skills',target_is_directory=True)
+        before=self.hashes()
+        self.cli('update','--source',str(self.candidate()),'--apply',code=2)
+        self.assertEqual(self.hashes(),before)
+        self.assertEqual(len(list((self.repo/'.agents/skills').glob('*/SKILL.md'))),1)
+
+    def test_install_detects_content_change_with_identical_manifest(self):
+        self.install()
+        source=self.candidate()
+        (source/'reference-manifest.json').write_bytes((PACK/'reference-manifest.json').read_bytes())
+        f=source/'references/ba-getting-started.md';f.write_text(f.read_text()+'\n<!-- source change -->\n')
+        before=self.hashes()
+        p=subprocess.run([sys.executable,str(source/'scripts/kit.py'),'install','--repo',str(self.repo),'--workstream','p3','--apply'],capture_output=True,text=True)
+        self.assertEqual(p.returncode,2,p.stdout+p.stderr)
+        self.assertIn('use update',p.stderr)
+        self.assertEqual(self.hashes(),before)
+
+    def test_cross_workstream_sources_and_readonly_block_writes(self):
+        self.install('--read-only','protected','--source','SRC-INPUT=inputs')
+        for protected in ('protected','inputs'):
+            for field in ('--spec-root','--input-root'):
+                before=self.hashes()
+                args=['install','--workstream','p4','--spec-root','p4/spec']
+                if field=='--spec-root':args[-1]=protected+'/new-spec'
+                else:args.extend([field,protected+'/new-input'])
+                result=self.cli(*args,'--apply',code=2)
+                self.assertIn('overlaps',result['error'])
+                self.assertEqual(self.hashes(),before)
+                self.assertFalse((self.repo/protected/'new-spec').exists())
+
+    def test_lint_bad_controlled_types_reports_all_files(self):
+        self.install()
+        for i,(field,value) in enumerate([('review_verdict',[]),('decision_state',{}),('work_status',[])],1):
+            self.artifact(f'stories/{i}.md',dict(schema_version=1,artifact_id=f'STORY-CRM-{i:03}',kind='Story',**{field:value}))
+        result=self.cli('lint',code=1)
+        self.assertTrue({'review_verdict','decision_state','work_status'} <= {i['code'] for i in result['issues']})
+        self.assertEqual(len({i['path'] for i in result['issues']}),3)
+
     def test_update_refuses_local_changes(self):
         self.install();f=self.repo/'.agents/skills/crm-spec-kit/START-HERE.md';f.write_text(f.read_text()+'\nlocal edit\n')
         self.cli('update','--source',str(self.candidate()),'--apply',code=2)

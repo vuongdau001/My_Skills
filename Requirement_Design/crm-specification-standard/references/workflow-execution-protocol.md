@@ -13,6 +13,8 @@ Dùng cho mọi function và agent profile trong kit. Người dùng gọi `crm-
 4. Kiểm required inputs. Tiếp tục phần độc lập khi thiếu input; ghi missing item/authority/owner nếu biết và gate impact. Không invent policy, approval, expected behavior hoặc dữ liệu test.
 5. Thực hiện workflow; ghi output/handoff tại artifact hiện hành hoặc nơi user chỉ định. Không tạo competing spec và không tự tạo folder project mới khi chưa biết canonical location.
 
+Câu hỏi recap/status/next step dùng [chế độ hội thoại](conversational-status-and-next-step.md). Recap đã có observed result trong phiên được trả ngay; không bắt full workflow/context hoặc file output. Current status và next step cần đối soát nguồn phù hợp trước khi khẳng định trạng thái hiện hành. Câu hỏi trong nhiệm vụ đang chạy không tự hủy nhiệm vụ hoặc cấp thêm quyền; trả lời ngắn rồi tiếp tục công việc đã được giao.
+
 ## Work Context & Resume
 
 Context gồm project/artifact locations, target ID/kind và Jira mapping nếu có, selected scope, input revision/baseline refs, function/mục tiêu, policy versions/authority, quyền đọc/sửa được giao và open questions/findings. User chưa cho project refs thì ghi chưa xác định và tiếp tục phân tích độc lập hoặc hỏi phần chặn.
@@ -37,6 +39,8 @@ Tạo/cập nhật review/check/report record được phép theo nhiệm vụ, 
 ## Output & Handoff
 
 Mọi run ghi: function/profile; target/scope/input revision; artifacts được tạo/sửa/kiểm; thao tác và witness/evidence; findings/missing decisions + owner/due nếu có; kết quả kiểm scoped; approvals có thật và phần còn thiếu; receiver/next function/reason; actions chưa thực hiện. Ghi loại revision: input commit hoặc working revision, không bịa SHA cho draft.
+
+Độ sâu tỷ lệ với yêu cầu: recap có thể là một đoạn observed result; không ép toàn bộ fields thành form hoặc điền N/A dài dòng trong chat. Khi cần persistence, lưu checkpoint tối thiểu ở mốc có output đáng kể trong vùng ghi đã giao, dẫn source/revision thay vì tạo competing state. Status read-only không tự sửa artifact/checkpoint; dùng handoff/report riêng nếu target đang được pin hoặc baseline.
 
 Phân biệt bốn sự kiện: output đã chuẩn bị, review đã thực hiện, authority đã phê duyệt, hành động thực tế đã xác nhận. Checklist đầy không thay approval. Có approval chưa chứng minh Git đã merge; có merge chưa chứng minh đúng toàn scope được duyệt nếu chưa đối soát.
 

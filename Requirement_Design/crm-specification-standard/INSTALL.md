@@ -1,6 +1,6 @@
 # Install and Operate CRM Spec Kit
 
-ID: **CRM-INSTALL** · CRM Workflow Kit 1.6.0 · 04/11/2026
+ID: **CRM-INSTALL** · CRM Workflow Kit 1.7.2 · 04/11/2026
 
 AI được đưa folder kit để tự cài đọc [BOOTSTRAP](BOOTSTRAP.md) trước. Nội dung/workflow dùng chung; filesystem adapters và router tùy chọn xử lý phần tích hợp tool.
 
@@ -26,7 +26,7 @@ Helper tạo package tại `.agents/skills/crm-spec-kit` cho Codex/Antigravity v
 
 Để chia sẻ kiểu “copy một folder”, copy **bản đã đóng gói** crm-spec-kit từ installation, gồm cả receipt, vào skills directory repo mới. Có thể chạy scripts/kit.py install ngay từ package đó để tạo config/scaffold; chỉ dùng slash command nếu công cụ đã nhận diện skill. Copy source nguyên bản crm-specification-standard vẫn dùng được bằng cách yêu cầu agent đọc SKILL/INSTALL, hoặc chạy bootstrap ở trên để sinh public package name.
 
-Không chạy install đè lên folder skill chưa có ownership receipt; nếu folder đã có cùng tên, dừng và yêu cầu kiểm tra/migration. Không tự di chuyển bản cài cũ hoặc sửa shared AGENTS/rules có sẵn. Bản cài đã khác version phải dùng update; không sửa trực tiếp installation 1.5 để gắn thêm code 1.6.
+Không chạy install đè lên folder skill chưa có ownership receipt; nếu folder đã có cùng tên, dừng và yêu cầu kiểm tra/migration. Không tự di chuyển bản cài cũ hoặc sửa shared AGENTS/rules có sẵn. Bản cài khác nội dung đóng gói (kể cả cùng version/manifest) phải dùng update; không sửa trực tiếp installation 1.5 để gắn thêm code 1.6.
 
 ## Codex và Root Router Tùy Chọn
 
@@ -42,9 +42,9 @@ AGENTS.override.md không rỗng được xét trước AGENTS.md; helper không
 
 ## Config and Scaffold
 
-Mẫu nền: [project config blueprint](assets/installation/project-config.template.json). Mỗi workstream có id/title, spec_root, optional input_root, sources với id/path/use và read_only. Tất cả path là repo-relative POSIX; không `..`, absolute path hoặc symlink thoát repo. spec_root không được chồng tool dirs, source/read_only hoặc spec_root khác. Namespace hiện hành là CRM theo bộ chuẩn; không đổi ngầm theo tên domain.
+Mẫu nền: [project config blueprint](assets/installation/project-config.template.json). Mỗi workstream có id/title, spec_root, optional input_root, sources với id/path/use và read_only. Tất cả path là repo-relative POSIX; không `..`, absolute path hoặc symlink thoát repo. spec_root không được chồng tool dirs, source/read_only của bất kỳ workstream nào hoặc spec_root khác. input_root cũng phải tránh mọi source/read_only. Namespace hiện hành là CRM theo bộ chuẩn; không đổi ngầm theo tên domain.
 
-Scaffold: `00-project`, `features`, `epics`, `stories`, `tasks`, `reviews`, `baselines`, `reports`, `pilot`. Có thư mục tasks không có nghĩa phải tạo Task. Mỗi thư mục scaffold có marker .crm-spec-kit-keep để tồn tại sau git clone; marker không là requirement/policy/approval. Không sinh artifact nghiệp vụ giả để lấp thư mục.
+Scaffold mới mặc định numbered: `00-project`, `01-features`, `02-epics`, `03-stories`, `04-tasks`, `05-reviews`, `06-baselines`, `07-reports`, `08-pilot`. Project có các vùng 01-meetings/02-decisions/03-assumptions/04-constraints cho schema-2 records. Chọn --layout legacy khi cần tên cũ cho workstream mới. Workstream thiếu layout vẫn dùng tên cũ; install lại/update không tự migration hoặc thêm record_schema_version vào config cũ. Context trả artifact_paths; có thể override category paths có kiểm boundary/overlap. [Layout và migration](references/artifact-layout-and-migration.md) là quy ước canonical. Có thư mục tasks không có nghĩa phải tạo Task. Mỗi thư mục scaffold có marker .crm-spec-kit-keep để tồn tại sau git clone; không sinh artifact nghiệp vụ giả để lấp thư mục.
 
 Scoped AGENTS/CLAUDE chỉ được tạo khi chưa có; file có sẵn được giữ và báo cần xem xét. Chúng hướng dẫn trong spec_root, không override instruction/policy cấp cao hơn. Mọi adapter vẫn tạo hai scoped files như 1.5 để giữ tương thích; chỉ root router mới là Codex opt-in. Không tự tạo file `.agents/rules` rồi tuyên bố mọi nền tảng sẽ nạp. Các thay đổi config để thêm workstream là cập nhật config kit có chủ đích; config fields/values cũ được giữ.
 
@@ -110,7 +110,7 @@ python3 scripts/kit.py update --repo <repo-root> --source <trusted-new-kit-folde
 
 Có thể thêm --ref với full commit SHA để export kit subfolder từ một Git checkout local. Không fetch/clone mạng tự động; người vận hành chọn và lấy trusted release trước. Không chạy code/tests của candidate; dùng validator hiện tại kiểm candidate như dữ liệu. Nếu release cần schema/validator mới, dừng và kiểm migration riêng.
 
-Install/update --apply có operation lock theo checkout; lock tồn tại không được tự xóa. Update dry-run báo files/version; apply yêu cầu installation không drift, stage bản mới, validate rồi thay managed package bằng rename. Giữ backup sibling để đối chiếu/khôi phục; nếu swap lỗi thì restore. Không đụng config/spec artifacts, không tự cập nhật adapter copy khác; update copy còn lại bằng install-path tương ứng rồi doctor. Có backup cũ thì dừng để người dùng xử lý có chủ đích. Không tự commit/push.
+Install/update --apply có operation lock theo checkout; lock tồn tại không được tự xóa. Update dry-run báo files/version; apply yêu cầu installation không drift, stage bản mới, validate rồi thay managed package bằng rename. Giữ backup ngoài skills tại `.agents/crm-spec-kit-backups/` để đối chiếu/khôi phục; nếu swap lỗi thì restore. Không đụng config/spec artifacts, không tự cập nhật adapter copy khác; update copy còn lại bằng install-path tương ứng rồi doctor. Có backup trùng installation/snapshot thì dừng để người dùng xử lý có chủ đích. Không tự commit/push.
 
 ## Manual Mode
 
@@ -125,3 +125,5 @@ Không có Python: agent có thể đọc workflows và soạn/review theo check
 5. Review diff/backup, chuyển package và refs theo kế hoạch migration được giao. File có sẵn của repo không bị đổi bởi install.
 
 Bản triển khai này kiểm nguồn kit và repo tạm; repo crm-docs đang cài thử được đọc để đối chiếu, chưa bị migration/hoàn tác/commit bởi công cụ này.
+
+Backup update được giữ tại `.agents/crm-spec-kit-backups/<installation-key>-<old-snapshot>` ngoài các thư mục skills; dry-run trả đường dẫn backup trước khi ghi. Mỗi installation có key riêng để không đụng backup adapter khác. Helper từ chối ghi đè backup đã tồn tại và giữ receipt cũ để đối soát/rollback. Backup từ các phiên bản helper cũ có thể nằm cạnh skill; kiểm ownership và di chuyển ra ngoài skills trước runtime discovery, không xóa bản cũ chưa đối soát.

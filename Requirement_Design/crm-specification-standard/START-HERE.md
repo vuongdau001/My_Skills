@@ -1,13 +1,23 @@
 # Start Here
 
-ID: **CRM-START** · CRM Workflow Kit 1.6.0 · 04/11/2026
+ID: **CRM-START** · CRM Workflow Kit 1.7.2 · 04/11/2026
 
+
+## BA mới bắt đầu từ đây
+
+Đọc [BA Getting Started](references/ba-getting-started.md) nếu cần hiểu Feature/Epic/Story/Task liên hệ với BRD/SRS/Use Case thế nào hoặc chưa biết phân tích tới đâu là đủ. Guide đi qua một ví dụ Customer–Contact, cách chọn ranh giới Epic, Story/AC, phản ví dụ và bài tập tự làm. Sau đó chọn workflow dưới đây và mở catalog/template theo nhu cầu. Ví dụ đào tạo không là policy hoặc approval dự án.
 
 ## Install or Check an Installation
 
 Được đưa folder kit để cài cho AI tool: đọc [BOOTSTRAP.md](BOOTSTRAP.md) trước. [INSTALL.md](INSTALL.md) mô tả helper tạo một package tự chứa cho Codex/Antigravity/Claude, config repo riêng, scaffold và scoped instructions khi chưa có. Codex dùng --agent codex; root router chỉ thêm khi chọn --with-router, instructions có sẵn được giữ. Bắt đầu bằng install dry-run → --apply → doctor --agent <tool> → smoke-prompt cho phiên mới. Teammate nhận repo đã commit: doctor và xác nhận discovery, không cần sửa lại binding trong skill.
 
 Có thể yêu cầu agent: “Đọc INSTALL.md trong kit và chuẩn bị cài vào repo này; cho tôi xem dry-run và các file sẽ tạo.” Lệnh quản trị không tự là slash command ở mọi nền tảng. Source kit dùng tên crm-specification-standard; installed skill dùng crm-spec-kit.
+
+## Thư mục và hồ sơ trao đổi
+
+Workstream mới có thư mục 00-project, 01-features đến 08-pilot; config cũ tiếp tục dùng layout legacy. Xem [layout/migration](references/artifact-layout-and-migration.md). Khi nhận notes/chat, dùng crm-setup-project trên Project/workstream; khi chỉnh rule thuộc Epic, dùng crm-specify-epic và dẫn [Meeting/Decision/Assumption/Constraint records](references/knowledge-records-and-evidence.md). Không cần bốn slash commands mới.
+
+> Dùng crm-setup-project trên workstream p3 để tiếp nhận notes workshop này. Ghi đúng source/event type, chuẩn bị các Decision/Assumption/Constraint records và trace các Epic liên quan; phần chưa xác nhận giữ draft.
 
 ## Dùng kit lần đầu
 
@@ -20,6 +30,10 @@ Nếu biết chức năng, nêu ID cùng target/scope/refs:
 > Dùng crm-check-readiness trong crm-specification-standard để kiểm Story STORY-CRM-001 theo baseline được cung cấp. Chỉ ra evidence đã có, phần thiếu và người cần xác nhận.
 
 CRM Guide xác định context, nói ngắn function/profile/output dự kiến, rồi đọc đúng workflow. Nếu nhiều target hợp lý thì hỏi trước khi sửa. Không cần nhớ Q/D hoặc đường dẫn model; workflow và mapping dẫn tới các phần cần đọc.
+
+## Hỏi việc vừa làm, tiến độ và bước tiếp theo
+
+Có thể hỏi “Vừa làm gì xong?”, “Epic này đang tới đâu?” hoặc “Tôi nên làm gì tiếp?”. Kit dùng các [mode của crm-report-status](references/conversational-status-and-next-step.md): trả chat ngắn cho recap/status/next step, chỉ dùng full report khi cần tổng hợp. Current status đối soát nguồn hiện hành; next step nêu một việc ưu tiên, function/target/inputs và lý do. Hỏi status không tự tạo file hoặc mở scope hành động mới; checkpoint chỉ lưu khi cần bàn giao hoặc tại mốc authoring đã được giao.
 
 ## Chọn theo giai đoạn
 
@@ -79,7 +93,7 @@ Luồng là định hướng, không bắt chạy lại từ đầu. Có Epic hi
 | `crm-check-handoff` — Check Handoff | [Handoff check record scoped theo baseline/build, missing/stale evidence và next actions cho Dev/QA.](workflows/crm-check-handoff.md) | Quality Reviewer |
 | `crm-check-completion` — Check Completion | [Completion check record và evidence index, findings, missing authority và điều kiện còn thiếu để chốt.](workflows/crm-check-completion.md) | Quality Reviewer |
 | `crm-assess-change` — Assess Change | [Impact assessment, affected artifact/evidence list, missing decisions và correction/revalidation plan.](workflows/crm-assess-change.md) | Delivery Coordinator |
-| `crm-report-status` — Report Status | [Progress report tách readiness, delivery, acceptance và blocker, có snapshot/mẫu số/source refs.](workflows/crm-report-status.md) | Delivery Coordinator |
+| `crm-report-status` — Report Status | [Recap, current status, next step hoặc full progress report theo scope/evidence; không tự mutate trạng thái.](workflows/crm-report-status.md) | Delivery Coordinator |
 | `crm-run-pilot` — Run Pilot | [Pilot record hoặc kế hoạch + missing inputs nếu chưa thể chạy; observed results, findings và corrections có scope rõ.](workflows/crm-run-pilot.md) | Delivery Coordinator |
 
 ## Nhận và tiếp tục bàn giao
@@ -94,4 +108,4 @@ Cuối mỗi workflow đọc target/scope/revision, artifacts, findings/evidence
 
 Có một root skill cùng 5 profiles và 13 workflow guides. Chúng không tự khởi chạy multi-agent, không phụ thuộc BMAD runtime và không thực hiện Jira/Git/CI mutations. Files dự án và policy đã duyệt là inputs; kit không mang sẵn approval CRM. [Nguồn BMAD và CRM tailoring](provenance/bmad-inspiration-and-crm-tailoring.md) giải thích cách áp dụng tư tưởng.
 
-Chạy `python3 scripts/validate_reference_pack.py` để kiểm cấu trúc kit; xem [kết quả 1.5](provenance/pack-validation-report-v1.5.md). Kết quả này khác pilot hay test sản phẩm thực tế.
+Chạy `python3 scripts/validate_reference_pack.py` để kiểm cấu trúc kit; xem [kết quả 1.7.2](provenance/pack-validation-report-v1.7.2.md). Kết quả này khác pilot hay test sản phẩm thực tế.

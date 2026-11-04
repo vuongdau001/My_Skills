@@ -1,0 +1,99 @@
+# Meeting, Decision, Assumption và Constraint
+
+ID: CRM-KNOWLEDGE · CRM Workflow Kit 1.7.0 · 04/11/2026
+
+Đọc khi nhận notes/chat/email, ghi nhận lựa chọn hoặc assumption/constraint, review dependency, xét readiness hoặc baseline. Đây là hồ sơ workstream có thể dùng qua nhiều Feature/Epic/Story, không phải cấp ticket mới. Một public skill, 13 function giữ nguyên.
+
+## Nơi lưu và quyền ghi
+
+Dùng project path từ artifact_paths: 01-meetings, 02-decisions, 03-assumptions, 04-constraints bên dưới project. Meeting/Decision thường file riêng. Assumption/Constraint có thể file riêng hoặc từng record trong register; mỗi ID có một nơi định nghĩa hiện hành. Không sao chép statement chuẩn vào nhiều Epic để duy trì song song. Localized summaries phải dẫn ID/revision nguồn.
+
+crm-setup-project tiếp nhận nguồn và chuẩn bị records/register. define-feature/specify-epic/design-solution/prepare-stories có thể tạo/cập nhật record thuộc scope authoring đã giao. review/check chỉ ghi findings/record của mình; không đổi decision hay target đang kiểm. report-status tổng hợp obligations; assess-change lập impact khi có thay đổi sau baseline. Không tự gửi biên bản, tạo Jira hoặc cập nhật state dự án.
+
+## Phân biệt bốn loại
+
+| Kind / ID | Nội dung chuẩn | Lifecycle |
+|---|---|---|
+| Meeting / MTG-CRM-NNN | Sự kiện thực tế, source notes, participants, discussion/summary, decision refs, questions và action items | Draft / Confirmed / Amended |
+| Decision / DEC-CRM-NNN | Context, options, statement, rationale, consequences, authority, evidence và scope | Pending / Proposed / Approved / Superseded / Rejected / Withdrawn |
+| Assumption / ASM-CRM-NNN | Điều chưa chứng minh, basis, validation_method, owner/review_due, if_false, validation_result khi kiểm | Unverified / Validated / Invalidated / Retired |
+| Constraint / CST-CRM-NNN | Ràng buộc có nguồn, constraint_type, scope, authority, hiệu lực, verification_method | Proposed / Confirmed / Superseded / Retired |
+
+Meeting có event_type meeting/workshop/chat/email; ghi đúng loại xảy ra. Không biến trao đổi chat thành meeting có participants hoặc chữ ký giả. occurred_at dùng ISO datetime có timezone; Draft chưa biết thời điểm có thể null. Xác nhận biên bản chỉ xác nhận nội dung ghi nhận, không duyệt mọi Decision trong đó. Amended cần amendment_reason; giữ lịch sử gốc qua revision/source evidence.
+
+Action item có description, owner và due; unknown dùng null, không tự gán người/hạn. Có thể có local action locator. Action không tự là product Task; chỉ map sang TASK ID khi công việc đó được giao và cần quản lý riêng. Không tự đăng ticket hoặc gửi thông báo.
+
+Assumption Validated cần kết quả kiểm và evidence; approval chấp nhận rủi ro không làm statement thành fact. Nếu assumption sai, ghi Invalidated, tìm các consumer để đánh giá lại. Constraint phải có nguồn/authority; công nghệ đang cân nhắc thuộc solution option hoặc Proposed constraint, không tự là bắt buộc. Một rule/model data constraint có thể tiếp tục dùng BR/MOD; không tạo thêm CST trùng nghĩa chỉ để đủ loại.
+
+## Schema 2 và truy vết
+
+Metadata schema 1 vẫn được đọc cho hồ sơ cũ. Schema 2 thêm record cho artifact riêng, hoặc records cho register. Không migrate Decision schema 1 ngầm. Records dùng id/kind/revision/scope; artifact riêng lấy id/kind từ artifact_id/kind của metadata. record owner dùng string hoặc null khi chưa được phân công. revision độc lập ID.
+
+Ví dụ register, thay nội dung minh họa và cấp ID bằng next-id trước khi dùng:
+
+```crm-spec-kit
+{
+  "schema_version": 2,
+  "kind": "Project",
+  "references": [],
+  "records": [{
+    "id": "ASM-CRM-001", "kind": "Assumption", "revision": "r1",
+    "scope": "Scope thật cần điền", "owner": null,
+    "assumption_state": "Unverified", "statement": "Giả định cần kiểm",
+    "basis": "Căn cứ đang có", "validation_method": "Cách kiểm cần thực hiện",
+    "review_due": null, "if_false": "Ảnh hưởng nếu sai",
+    "evidence": [], "trace_links": []
+  }]
+}
+```
+
+Register record IDs tự được index là definitions; không cần khai lại ở defined_ids. Không định nghĩa cùng record nhiều lần. Mỗi record có thể có HTML anchor ổn định trong nội dung để dẫn tới đúng phần.
+
+trace_links có id/path/revision/relation; sha256 tùy chọn khi target có structured revision kiểm được. Path tương đối từ file chứa link, có thể kèm Markdown anchor, phải ở trong repo. Nếu target chỉ có revision trong prose, pin sha256 để kiểm nội dung. SHA pin cả file, nên thay record khác trong cùng register cũng làm evidence pin cũ stale. Không tạo hash vòng giữa hai file; dùng revision cho các trace links hai chiều, hash cho nguồn evidence.
+
+```json
+{
+  "trace_links": [{
+    "id": "DEC-CRM-001",
+    "path": "../00-project/02-decisions/DEC-CRM-001-contact-activation.md",
+    "revision": "r1",
+    "relation": "derived-from"
+  }]
+}
+```
+
+Đường dẫn ví dụ giả định file consumer trong 02-epics. Relation vocabulary: supports, derived-from, applies-to, supersedes, superseded-by, depends-on, resolves, parent, verifies. depends-on/derived-from/parent/resolves đi từ consumer tới input; supports/applies-to đi từ record tới consumer. Relation không thay kiểm chứng nội dung hoặc ma trận allocation.
+
+evidence là list objects path/revision/sha256; mỗi evidence cần SHA-256 nội dung nguồn. Evidence nên pin source notes/excerpt có quyền truy cập, không tự pin chính file đang khai record. HTTP/HTTPS không được fetch bởi helper: báo unverified, không là evidence đã đọc. Nguồn ngoài repo cần snapshot được phép lưu hoặc ghi thiếu access. Không nhúng dữ liệu riêng tư/secret vào record để tiện cho validator.
+
+Approved/Rejected Decision cần authority, decided_at có timezone và evidence. Confirmed/Amended Meeting, Validated/Invalidated Assumption và Confirmed Constraint cần evidence. Confirmed Constraint còn cần authority/effective_from; Decision cần context/options/rationale/consequences. authority là khai báo của tác giả; lint không chứng thực người đó hoặc approval.
+
+## Thay thế và nghĩa vụ còn mở
+
+Quyết định đảo ngược quan trọng: tạo DEC mới, giữ record cũ Superseded, nối superseded-by tới record mới; record mới dẫn supersedes tới record cũ. Không xóa lịch sử hoặc tái dùng số. Supersession graph không được vòng. Scope khác nhau cần ghi rõ; không tự kết luận hai statements trái nhau chỉ từ graph. Khi sửa nội dung đã được approve, tăng revision và giữ evidence lịch sử; không giữ approval cũ cho statement mới.
+
+Workflow khi nhận source mới: pin source → phân loại fact/question/decision/assumption/constraint → xác định authority và scope → lưu record chuẩn → liên kết consumer → author update theo quyền → review lại revision. Chat workshop cũ giữ BA-D* như source locators; khi tạo DEC mới phải map, không đổi tên/xóa lịch sử BA-D*.
+
+```text
+python3 scripts/kit.py lint --repo <repo-root> --workstream p3
+python3 scripts/kit.py lint --repo <repo-root> --workstream p3 --gate readiness --target STORY-CRM-001
+python3 scripts/kit.py lint --repo <repo-root> --workstream p3 --gate baseline --target EPIC-CRM-002
+```
+
+Default draft: record obligations chưa đóng là WARN, không chặn soạn draft; structural errors vẫn ERROR. Gate readiness/baseline: Assumption phải Validated, Decision phải Approved và Constraint phải Confirmed trong dependency closure của target. Superseded/Retired/Rejected/Withdrawn chỉ chặn nếu target còn phụ thuộc; không buộc mọi record lịch sử phải trở lại active. External/unverifiable revision trong closure chặn gate cho tới khi có evidence kiểm được. Không --target là kiểm obligations hiện hành của toàn workstream. Structural link/schema/duplicate errors vẫn được audit rộng, kể cả khi chọn target.
+
+Đây chỉ là phần kiểm record obligations, không toàn bộ DoR/approval/independent review. Graph chỉ thấy trace links được khai; missing links và applicability cần BA/reviewer xét. Nếu bỏ dependency phải có rationale/review thật; không xóa link để qua gate. Check/review không tự sửa record hoặc trạng thái target.
+
+Output lint có record_impacts (record/revision và affected_ids qua dependency graph), record_obligations còn mở và gate_scope. Khi record thay đổi, dùng impacted IDs để author đánh giá/review lại; tool không tự sửa consumers hoặc cập nhật approval. Whole-workstream output không phải danh sách mọi tác động ngoài những links đã khai.
+
+## Cơ sở thiết kế
+
+[Atlassian meeting notes](https://www.atlassian.com/software/confluence/templates/meeting-notes) hướng dẫn lưu participants, summary, decisions và action items. [Nygard ADR](https://www.cognitect.com/blog/2011/11/15/documenting-architecture-decisions) cung cấp cấu trúc context/decision/status/consequences và giữ record bị supersede; CRM mở rộng cách ghi này sang business decisions, không coi mọi DEC là architectural ADR. [NASA System Design Processes](https://www.nasa.gov/reference/4-0-system-design-processes/) nhấn mạnh capture rationale/assumptions và traceability; đây là nguồn tham khảo thiết kế, không áp policy NASA lên CRM.
+
+## Phân bổ dependency khi chỉ bàn giao một phần Epic
+
+Gate tính dependency theo graph: `parent` kéo các input của Epic xuống Story; `applies-to` gắn vào toàn Epic được hiểu là áp dụng cho các consumer con. Field `scope` là mô tả để review, không phải bộ lọc tự động. Ghi “import only” trong scope nhưng vẫn gắn Decision vào toàn Epic sẽ chặn cả Story nhập thủ công.
+
+Ví dụ giả định: Epic có hai Story nhập thủ công và import. Decision về xử lý batch lỗi chỉ liên kết `applies-to` Story import (hoặc requirement/model riêng của nhánh import mà Story đó `depends-on`). Story nhập thủ công vẫn giữ `parent` Epic. Decision về quyền truy cập chung liên kết Epic và được cả hai Story kế thừa. Ma trận allocation trong Epic chỉ rõ Decision nào chung, Decision nào riêng và rationale.
+
+Nếu consumer chưa tồn tại, giữ Decision ở trạng thái draft với scope mô tả và ghi allocation gap; chưa tuyên bố nhánh đó Ready. Khi tạo consumer, bổ sung typed links và review allocation trước gate. Không gắn vào Epic tạm rồi bỏ qua blocker bằng diễn giải scope. Không xóa dependency thực để vượt gate; thay đổi allocation đã baseline phải qua impact/change review. Lint chỉ xác minh graph/record obligations, không chứng minh allocation đã đầy đủ hoặc approval hợp lệ.

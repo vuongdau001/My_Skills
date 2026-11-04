@@ -5,6 +5,8 @@ ID: **TPL-WORK-CONTEXT** · CRM Workflow Kit 1.4.0 · 03/11/2026
 
 Dùng theo [protocol](../../references/workflow-execution-protocol.md). Có thể ghép vào hồ sơ hiện hành; đây là mẫu, không phải run/approval thật.
 
+Không bắt dùng đầy đủ cho câu hỏi status ngắn. Theo [chế độ hội thoại](../../references/conversational-status-and-next-step.md), chỉ lưu checkpoint khi cần bàn giao/lưu theo yêu cầu hoặc khi authoring đã được giao đạt mốc output đáng kể. Checkpoint tối thiểu: target/scope và revisions; artifact/source refs + snapshot khi có dữ liệu động; observed result/evidence; gaps; next action/function/lý do/inputs/điều kiện. Không chép toàn chat, không lưu active target toàn cục hoặc sửa baseline chỉ để ghi recap.
+
 ## Work Context
 
 | Field | Giá trị thực tế |

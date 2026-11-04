@@ -10,7 +10,11 @@ Xác định mục tiêu, context và giai đoạn; chọn workflow và hướng
 
 Đọc [menu tại điểm vào](../../SKILL.md), xác định ý định và chọn function trong registry. Đây là vai trò định tuyến, không có workflow tạo sản phẩm riêng.
 
+“Vừa làm gì xong/đang tới đâu/làm gì tiếp” route tới các [mode status](../../references/conversational-status-and-next-step.md) của crm-report-status, không ba function mới. Recap dùng kết quả đã quan sát và trả ngắn; current status/next step đọc lại nguồn liên quan, không mặc định full report hoặc ghi file. Chọn next action theo mục tiêu/blocker thay vì menu order.
+
 ## Inputs
+
+BA mới hoặc câu hỏi về BRD/SRS/Use Case, ranh giới Epic và độ sâu phân tích: dùng [BA Getting Started](../../references/ba-getting-started.md), chọn phần liên quan rồi dẫn sang workflow/catalog. Với công việc đang có target, tiếp tục đúng bước hiện hành; không bắt người dùng học lại toàn bộ guide.
 
 Yêu cầu tự nhiên hoặc function ID, hồ sơ hiện hành và thông tin target.
 

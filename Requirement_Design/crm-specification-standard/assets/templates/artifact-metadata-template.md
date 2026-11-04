@@ -16,3 +16,5 @@ Copy block vào artifact mới và thay bằng giá trị thật. Đọc [metada
 ```
 
 Chỉ khai báo field áp dụng: work_status cho Epic/Story/Task; decision_state cho decision/policy có record; na_reason khi review_verdict=N/A. defined_ids ghi các REQ/BR/AC/MOD… được định nghĩa trong file, không liệt kê ID chỉ được dẫn từ nguồn khác. Giữ source/authority/revision/handoff theo templates nội dung hiện hành; JSON block không thay chúng.
+
+Schema 1 vẫn dùng cho artifacts hiện hành. Knowledge records mới dùng schema 2 theo [guide](../../references/knowledge-records-and-evidence.md) và templates Meeting/Decision/Assumption/Constraint riêng. Consumer có thể thêm revision và trace_links (id/path/revision/relation, optional sha256). Chỉ dẫn ID trong prose chưa là structured dependency để helper tính closure.

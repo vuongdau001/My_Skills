@@ -24,8 +24,11 @@ Context chung: target/logical ID, selected scope, input revision/canonical locat
 
 Đọc target và refs trước khi chỉnh sửa. Đối soát scope/version với request, source/authority và previous records; hỏi lựa chọn khi có nhiều target hợp lý. Ghi input còn thiếu, phần bị chặn, owner nếu biết và next action. Tiếp tục phần độc lập; không tự điền expected behavior/policy để hoàn thiện đầu ra.
 
+Khi có meeting/chat/decision/assumption/constraint ảnh hưởng target, đọc [knowledge records](../references/knowledge-records-and-evidence.md), đối chiếu revision và dependency closure. Lấy nơi ghi từ artifact_paths trong context; [layout policy](../references/artifact-layout-and-migration.md) giữ tương thích config cũ. Chỉ author record trong scope đã giao; không suy discussion hoặc action item thành approval/product Task.
+
 ## Execution Steps
 
+0. Nếu có notes/chat/email, pin source evidence; phân loại record, chọn template, ghi scope/owner/gaps và liên kết consumer. Không tạo biên bản giả nếu chỉ có chat, không tự gửi notes.
 1. Kiểm nguồn hiện hành, phân biệt quy ước đã duyệt với đề xuất; tìm canonical locations trước khi tạo hồ sơ.
 2. Đối chiếu policy register guide để lập các nhóm applicability, owner và missing decisions; không tự đặt severity/SLA/check names.
 3. Ghi nguồn requirement, namespace ID, roles/reviewers/backup có thật và phạm vi quyền được giao.

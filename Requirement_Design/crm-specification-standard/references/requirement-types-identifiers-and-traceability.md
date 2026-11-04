@@ -35,6 +35,9 @@ Dùng dạng `PREFIX-CRM-NNN` (NNN là số có ít nhất ba chữ số; cấp 
 | AC | Acceptance criterion | Có scope/parent refs, điều kiện và expected result; liên requirement/model |
 | MOD | Model hoặc model item | Ghi kind: flow/state/transition/data/permission/UI/contract…; item có ID đầy đủ hoặc local ID dưới model ID |
 | DEC | Quyết định | Người quyết, nguồn, reason, version/scope bị ảnh hưởng |
+| MTG | Meeting/workshop/chat/email record | Ghi đúng event type; source evidence, participants và action items, không tự thành approval |
+| ASM | Assumption | Căn cứ, owner/cách xác minh, revision, kết quả và scope bị ảnh hưởng nếu sai |
+| CST | Constraint | Ràng buộc có source/authority, scope/hiệu lực và cách kiểm; không thay BR/MOD data constraints đã có |
 | BASE | Baseline manifest | Selected scope, refs/commit và approval; không dùng làm code SHA |
 | FEAT / EPIC / STORY / TASK | Logical work/scope object | Jira key là mapping riêng; Task chỉ khi cần |
 | TC / RUN | Test case / test run | TC liên AC/requirement; RUN pin testcase/build/config/environment |
@@ -46,6 +49,8 @@ Các mã F01/E01/S01/T01/Q01/D01 của **bộ chuẩn** là checklist IDs, khôn
 Quy tắc giữ ID cũ áp dụng cho hồ sơ dự án đã tồn tại hoặc snapshot lịch sử, không dùng làm lý do giữ mẫu hướng dẫn sai quy ước. Nếu gặp `TR-`, `DAT-`, `PM-`, `DR-`, `SCN-` trong nguồn cũ: khai báo kind tương ứng transition, data, permission, decision rule, scenario; không hiểu PM là Project Manager hay TR là Transition requirement. Không đổi ID dự án thật chỉ để khớp ví dụ mới; duy trì mapping khi cần chuyển đổi có kiểm soát.
 
 ## Record và quan hệ tối thiểu
+
+Meeting/Decision/Assumption/Constraint mới dùng [schema-2 knowledge records](knowledge-records-and-evidence.md). Giữ source locators cũ; register không tạo duplicate definitions. Thư mục dùng [layout policy](artifact-layout-and-migration.md), ID không đổi theo thứ tự folder hoặc parent.
 
 Mỗi requirement: ID/title, type, statement hoặc canonical ref, source/rationale, authority, applies_to, version/decision state, verification method và allocation refs. Mỗi model item: ID/kind/definition + parent model revision + source requirement/rule. Mỗi allocation: source ID/revision → target ID/revision + nghĩa quan hệ (refines/implements/verifies/applies-to) và selected scope.
 

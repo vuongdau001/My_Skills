@@ -1,6 +1,6 @@
 # Bootstrap CRM Spec Kit cho AI tools
 
-ID: CRM-BOOTSTRAP · CRM Workflow Kit 1.6.0 · 04/11/2026
+ID: CRM-BOOTSTRAP · CRM Workflow Kit 1.7.2 · 04/11/2026
 
 Điểm vào khi người dùng đưa folder kit và yêu cầu cài vào một repo. AI khảo sát repo, chọn tham số và gọi helper; đường dẫn cài, copy/receipt, config/scaffold và update do helper thực hiện. Không tự dựng wrapper, sửa bản cài hoặc tạo bản nội dung riêng cho mỗi tool.
 
@@ -33,6 +33,8 @@ python3 scripts/kit.py doctor --repo <repo-root> --agent codex
 Chạy dry-run, xem plan và conflicts, rồi apply trong scope người dùng đã giao. Không yêu cầu approval lần nữa chỉ vì có dry-run nếu người dùng đã cho cài với các thay đổi đó; conflicts thật hoặc thay đổi ngoài scope cần xử lý riêng.
 
 Root router là tùy chọn riêng, không điều kiện bắt buộc để gọi skill. --with-router chỉ áp dụng Codex: root AGENTS.md chưa có thì tạo; instruction file có sẵn giữ nguyên và in snippet đề xuất, không tự merge. AGENTS.override.md có nội dung được xét trước vì có thể che AGENTS.md; symlink instruction cần kiểm riêng. Agent chỉ áp dụng snippet vào file có sẵn khi việc sửa instructions nằm trong quyền người dùng giao và đã đối chiếu quy tắc repo. Không copy nguyên persona DDD hoặc project phase vào router dùng lại.
+
+Workstream mới mặc định numbered layout; config cũ thiếu layout giữ legacy. Lấy artifact_paths từ context; không đổi folder/pilot khi update package. Nếu user muốn chuyển cấu trúc, dùng plan-layout chỉ đọc theo [layout guide](references/artifact-layout-and-migration.md). Knowledge records mới cần helper 1.7, xem [record guide](references/knowledge-records-and-evidence.md).
 
 ## Smoke test và handoff
 

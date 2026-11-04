@@ -2,15 +2,15 @@
 
 Mã tài liệu: **CRM-MEASUREMENT** · Gói CRM 1.3.1 · 03/11/2026
 
-**Đọc khi:** PM báo cáo, lập ready buffer hoặc kiểm scope đã bàn giao. **Đầu vào:** scope register/revision, E/S/F review records, baseline receipts, Jira snapshot và acceptance evidence. **Đầu ra:** [báo cáo tiến độ](../assets/templates/progress-report-template.md) có thời điểm, mẫu số, nguồn và gaps.
+**Đọc khi:** PM báo cáo, lập ready buffer hoặc kiểm scope đã bàn giao. **Đầu vào:** scope register/revision, E/S/F review records, baseline receipts, snapshot nguồn trạng thái do project chỉ định và acceptance evidence. **Đầu ra:** [báo cáo tiến độ](../assets/templates/progress-report-template.md) có thời điểm, mẫu số, nguồn và gaps.
 
 ## Đơn vị đo và dữ liệu nguồn
 
-Giữ riêng ba mặt: phân tích/thiết kế, triển khai, nghiệm thu. Không tạo một “% hoàn thành Feature” trộn ba mặt này. Tài liệu Git giữ scope/policy/baseline; trạng thái động lấy từ Jira cùng snapshot time. Thiếu access/Jira snapshot phải ghi Unknown, không dùng trạng thái cũ như hiện tại.
+Giữ riêng ba mặt: phân tích/thiết kế, triển khai, nghiệm thu. Không tạo một “% hoàn thành Feature” trộn ba mặt này. Tài liệu Git giữ scope/policy/baseline; trạng thái động lấy từ nguồn canonical do project chỉ định (Jira hoặc state/engine), cùng snapshot time. Thiếu access/snapshot phải ghi Unknown, không dùng trạng thái cũ như hiện tại.
 
 Scope unit là phần phạm vi có ID, outcome/in-out và Epic nhận trách nhiệm trong Feature allocation, có thể baseline riêng khi thật sự độc lập. Nó không phải issue type mới. Định nghĩa unit trước khi báo cáo; không tách nhỏ unit đã đạt để làm đẹp số. Nếu scope chưa phân rã đủ, báo phần chưa xác định thay vì tuyên bố đã bao phủ toàn Feature. [Mẫu Feature](../assets/templates/feature-specification-template.md).
 
-Readiness record theo từng E01–E16/S01–S12 áp dụng: target + selected scope + revision + item ID/tên + work signal + applicability + review verdict + output/evidence + owner/reviewer + due/blocker. Work signal Chưa làm/Đang làm/Chờ review/Đã xác nhận khác verdict Chưa kiểm/Không đạt/Đạt/N/A. Đã xác nhận phải có verdict/revision/evidence hợp lệ, không suy từ status Jira.
+Readiness record theo từng E01–E16/S01–S12 áp dụng: target + selected scope + revision + item ID/tên + work signal + applicability + review verdict + output/evidence + owner/reviewer + due/blocker. Work signal Chưa làm/Đang làm/Chờ review/Đã xác nhận khác verdict Chưa kiểm/Không đạt/Đạt/N/A. Đã xác nhận phải có verdict/revision/evidence hợp lệ, không suy từ status nguồn động.
 
 ## Chỉ số và cách tính
 
@@ -25,7 +25,7 @@ Readiness record theo từng E01–E16/S01–S12 áp dụng: target + selected s
 | Review age / blocker age | Review age = snapshot − lúc gửi đủ input để review; blocker age = snapshot − lúc blocker mở | Mặc định báo elapsed giờ liên tục và timestamp/timezone. Nếu POL-REVIEW/BLOCKER chọn working clock thì dùng calendar đã duyệt, ghi rõ. Chưa có threshold không gán overdue màu đỏ giả |
 | Acceptance coverage | Số AC Epic/Feature áp dụng đã kiểm đạt / tổng AC áp dụng của scope revision, kèm unknown và evidence build | Chỉ là coverage acceptance; Feature Accepted còn cần Business quyết định và full scope, không tự suy từ tỷ lệ |
 
-Status Jira và evidence không khớp thì báo discrepancy, không tự sửa ticket hay tính là đã đạt. Unknown scope/applicability/estimate phải hiển thị cạnh chỉ số, không lặng lẽ bỏ khỏi mẫu số. Evidence bị thay revision invalidate thì chuyển về chưa xác nhận cho revision mới.
+Status từ nguồn canonical và evidence không khớp thì báo discrepancy, không tự sửa ticket hay tính là đã đạt. Unknown scope/applicability/estimate phải hiển thị cạnh chỉ số, không lặng lẽ bỏ khỏi mẫu số. Evidence bị thay revision invalidate thì chuyển về chưa xác nhận cho revision mới.
 
 ## Quy tắc tổng hợp lên Feature
 

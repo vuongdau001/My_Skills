@@ -4,9 +4,11 @@ Mã tài liệu: **TPL-PROGRESS** · Gói CRM 1.3.1 · 03/11/2026
 
 Dùng [quy tắc đo/tổng hợp](../../references/progress-measurement-and-feature-rollup.md). Đây là mẫu, không phải báo cáo có dữ liệu thật.
 
+Mẫu này dành cho Full report. Recap/Current status/Next step có thể trả chat ngắn theo [hướng dẫn hội thoại](../../references/conversational-status-and-next-step.md), không bắt tạo file hoặc điền các mục chưa liên quan. Story/Task status chỉ dùng scope và nguồn tương ứng, không tự roll up Feature hoặc tự cập nhật state.
+
 ## Phạm vi báo cáo
 
-Project/Feature IDs; scope revision; snapshot date/time/timezone; Jira/query snapshot refs; Git baseline/manifest refs; policy versions (clock, SLA, severity/risk); người lập/xác minh; dữ liệu chưa lấy được. So sánh kỳ trước với cùng scope hoặc giải thích change.
+Project/Feature IDs; scope revision; snapshot date/time/timezone; Canonical status source/query snapshot refs (Jira hoặc state/engine theo project); Git baseline/manifest refs; policy versions (clock, SLA, severity/risk); người lập/xác minh; dữ liệu chưa lấy được. So sánh kỳ trước với cùng scope hoặc giải thích change.
 
 ## Phân tích/thiết kế theo hạng mục
 

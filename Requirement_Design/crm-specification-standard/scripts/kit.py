@@ -22,10 +22,10 @@ sys.dont_write_bytecode = True
 KIT = Path(__file__).resolve().parents[1]
 CONFIG = '.agents/crm-spec-kit.json'
 RECEIPT = 'crm-spec-kit-installation.json'
-DIRECTORIES = ['00-project', 'features', 'epics', 'stories', 'tasks', 'reviews', 'baselines', 'reports', 'pilot']
-PREFIXES = {'FEAT','EPIC','STORY','TASK','REQ','BR','AC','MOD','DEC','BASE','TC','RUN','Q'}
+DIRECTORIES = ['00-project', 'features', 'epics', 'stories', 'tasks', 'reviews', 'baselines', 'reports', 'pilot']  # Legacy API; scaffold resolves artifact_paths.
+PREFIXES = {'FEAT','EPIC','STORY','TASK','REQ','BR','AC','MOD','DEC','BASE','TC','RUN','Q','MTG','ASM','CST'}
 VERDICTS = {'Đạt','Không đạt','Chưa kiểm','N/A'}
-DECISIONS = {'Pending','Proposed','Approved','Superseded'}
+DECISIONS = {'Pending','Proposed','Approved','Superseded','Rejected','Withdrawn'}
 STATUSES = {'Epic':{'todo','inprogress','done','cancel'},
             'Story':{'todo','inprogress','pending','resolved','done','cancel'},
             'Task':{'todo','inprogress','review','pending','resolved','done','cancel'}}
@@ -35,6 +35,26 @@ ROUTER_END = '<!-- crm-spec-kit:router:end -->'
 
 class KitError(Exception):
     pass
+
+
+def support(name):
+    spec = importlib.util.spec_from_file_location('crm_' + name, KIT / 'scripts' / ('kit_' + name + '.py'))
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+    return module
+
+
+def artifact_paths(ws):
+    return support('layout').artifact_paths(ws, KitError)
+
+
+def scaffold(ws):
+    paths = artifact_paths(ws)
+    result = list(paths.values())
+    if ws.get('record_schema_version') == 2:
+        result += [paths['project'] + '/' + name for name in
+                   ('01-meetings','02-decisions','03-assumptions','04-constraints')]
+    return result
 
 
 def now():
@@ -89,6 +109,14 @@ def config_check(repo, config):
             raise KitError('Invalid or duplicate workstream id')
         ids.add(ws['id'])
         spec = relative(repo, ws.get('spec_root'))
+        if ws.get('record_schema_version', 1) not in (1, 2):
+            raise KitError('Unsupported record_schema_version')
+        for raw in artifact_paths(ws).values():
+            relative(spec, raw)
+            if any(part.startswith('.') for part in Path(raw).parts):
+                raise KitError('Artifact paths cannot use hidden/tool directories')
+            if any((spec/Path(*Path(raw).parts[:i])).is_symlink() for i in range(1,len(Path(raw).parts)+1)):
+                raise KitError('Artifact category path is a symlink; inspect before scaffold')
         if any(overlaps(spec, relative(repo, part)) for part in ('.git','.agents','.claude')):
             raise KitError('spec_root overlaps tool/config directories')
         if any(overlaps(spec, old) for old in roots):
@@ -115,7 +143,20 @@ def config_check(repo, config):
                 raise KitError('input_root overlaps tool/config directories')
             if overlaps(inp, spec) or any(overlaps(inp, relative(repo, raw)) for raw in readonly):
                 raise KitError('input_root overlaps spec_root/read_only')
+    # Protection applies across streams, including future input/scaffold roots.
+    writes = [relative(repo, ws[key]) for ws in streams for key in ('spec_root','input_root') if ws.get(key)]
+    check_write_boundaries(repo, config, writes)
     return config
+
+
+def check_write_boundaries(repo, config, writes):
+    for ws in config['workstreams']:
+        protected = ws.get('read_only', []) + [source['path'] for source in ws.get('sources', [])]
+        for raw in protected:
+            path = relative(repo, raw)
+            for write in writes:
+                if overlaps(write, path):
+                    raise KitError(f'Write path {write.relative_to(repo)} overlaps source/read_only {raw} in workstream {ws["id"]}')
 
 
 def load_config(repo, override=None):
@@ -273,6 +314,8 @@ def install(args):
     wsid = args.workstream or (config['workstreams'][0]['id'] if len(config['workstreams']) == 1 else 'default')
     existing = next((w for w in config['workstreams'] if w['id']==wsid), None)
     if existing:
+        if args.layout and args.layout != existing.get('layout', 'legacy'):
+            raise KitError('Existing layout preserved; use plan-layout before an explicit migration')
         if args.title and args.title != existing.get('title'):
             raise KitError('Existing title differs; edit repo-owned config explicitly')
         if args.spec_root and args.spec_root != existing['spec_root']:
@@ -289,20 +332,21 @@ def install(args):
             if not sep:
                 raise KitError('--source expects SRC-ID=repo/relative/path')
             sources.append({'id':sid,'path':path,'use':''})
-        ws={'id':wsid,'title':args.title or wsid,'spec_root':args.spec_root or 'spec','sources':sources,'read_only':args.read_only}
+        ws={'id':wsid,'title':args.title or wsid,'spec_root':args.spec_root or 'spec','sources':sources,'read_only':args.read_only,
+            'layout':args.layout or 'numbered','record_schema_version':2}
         if args.input_root:
             ws['input_root']=args.input_root
         config['workstreams'].append(ws)
     config_check(repo, config)
     specroot = relative(repo, ws['spec_root'])
-    planned, packages, writes, dirs = [], [], [], [specroot] + [specroot / d for d in DIRECTORIES]
+    planned, packages, writes, dirs = [], [], [], [specroot] + [relative(specroot, d) for d in scaffold(ws)]
     if ws.get('input_root'):
         dirs.append(relative(repo, ws['input_root']))
     for rel, target in destinations(repo, args.agent):
         if target.exists():
-            integrity(target)
-            if (target/'reference-manifest.json').read_bytes() != (KIT/'reference-manifest.json').read_bytes():
-                raise KitError('Installed version differs; use update, not install')
+            receipt = integrity(target)
+            if receipt['files'] != snapshot(installed_files(KIT))[0]:
+                raise KitError('Installed package content differs; use update, not install')
             planned.append({'action':'unchanged','path':rel})
         else:
             packages.append(target); planned.append({'action':'create-package','path':rel})
@@ -340,7 +384,8 @@ def install(args):
     config_changed = original is None or json.loads(original) != config
     if config_changed:
         planned.append({'action':'create-config' if original is None else 'add-workstream','path':CONFIG})
-    output={'mode':'apply' if args.apply else 'dry-run','workstream':wsid,'plan':planned}
+    check_write_boundaries(repo,config,dirs + packages + [path for path,_ in writes] + ([cfgpath] if config_changed else []))
+    output={'mode':'apply' if args.apply else 'dry-run','workstream':wsid,'artifact_paths':artifact_paths(ws),'plan':planned}
     if not args.apply:
         return output
     created_files, created_dirs, created_packages=[] ,[],[]
@@ -404,7 +449,7 @@ def doctor(args):
     if len(set(receipts))>1:add('ERROR','adapter-drift','Installed copies differ')
     for ws in config['workstreams']:
         root=relative(repo,ws['spec_root'])
-        for directory in DIRECTORIES:
+        for directory in scaffold(ws):
             if not (root/directory).is_dir():add('ERROR','scaffold',ws['id']+': missing '+directory)
         scoped = ('CLAUDE.md',) if selected == 'claude' else ('AGENTS.md',) if selected in {'codex','antigravity'} else ('AGENTS.md','CLAUDE.md')
         for file in scoped:
@@ -493,7 +538,7 @@ def context(args):
     for path in dict.fromkeys(chosen):
         if path not in existing:include(path)
     sources=[dict(s,exists=relative(repo,s['path']).exists()) for s in ws['sources']]
-    result={'function':function['id'],'profile':agent['title'],'workstream':dict(ws,sources=sources),
+    result={'function':function['id'],'profile':agent['title'],'workstream':dict(ws,sources=sources,artifact_paths=artifact_paths(ws)),
             'target':args.target,'target_kind':args.target_kind,'input_revision':args.revision,
             'missing_context':[name for name,value in [('target',args.target),('input_revision',args.revision)] if not value],
             'files':files,'available_references':resources,'characters':sum(f['characters'] for f in files),
@@ -508,7 +553,7 @@ def metadata(text):
     if not matches:return None
     try:value=json.loads(matches[0])
     except ValueError as exc:raise KitError('Invalid crm-spec-kit metadata JSON') from exc
-    if not isinstance(value,dict) or value.get('schema_version')!=1:raise KitError('Artifact metadata requires schema_version=1')
+    if not isinstance(value,dict) or value.get('schema_version') not in (1,2):raise KitError('Artifact metadata requires schema_version=1 or 2')
     return value
 
 
@@ -576,25 +621,32 @@ def lint(args):
     repo=args.repo.resolve();cfg=load_config(repo,args.config);ws=select_stream(cfg,args.workstream);root=relative(repo,ws['spec_root']);issues=[];definitions={};refs=[]
     def issue(level,code,path,message):issues.append({'level':level,'code':code,'path':path,'message':message})
     if not root.is_dir():raise KitError('spec_root is missing; run install --apply')
-    docs={p:p.read_text(encoding='utf-8') for p in root.rglob('*.md') if p.is_file() and not p.is_symlink()}
+    docs={p:p.read_text(encoding='utf-8') for p in root.rglob('*.md') if p.is_file() and not p.is_symlink() and p.resolve().is_relative_to(root)}
+    record_support=support('records')
+    dirs=artifact_paths(ws)
+    kind_dirs=[(dirs[key],kind) for key,kind in [('features','Feature'),('epics','Epic'),('stories','Story'),('tasks','Task')]]
+    # Audit both known spellings even during a mixed-layout migration.
+    kind_dirs += [(d,kind) for d,kind in [('features','Feature'),('epics','Epic'),('stories','Story'),('tasks','Task'),
+                                          ('01-features','Feature'),('02-epics','Epic'),('03-stories','Story'),('04-tasks','Task')]]
     for path,text in docs.items():
         name=path.relative_to(repo).as_posix()
         try:meta=metadata(text)
         except KitError as exc:issue('ERROR','metadata',name,str(exc));meta=None
         visible=without_fences(text)
-        inferred_kind=next((kind for directory,kind in [('features','Feature'),('epics','Epic'),('stories','Story'),('tasks','Task')] if path.is_relative_to(root/directory)),None)
+        inferred_kind=next((kind for directory,kind in kind_dirs if path.is_relative_to(root/directory)),None)
         kind=meta.get('kind') if meta else inferred_kind
         if meta:
-            if kind not in {'Feature','Epic','Story','Task','Review','Baseline','Report','Pilot','Project','Decision','Requirement','Model','TestCase','TestRun'}:issue('ERROR','kind',name,'Unknown metadata kind')
+            if not isinstance(kind,str) or kind not in {'Feature','Epic','Story','Task','Review','Baseline','Report','Pilot','Project','Decision','Requirement','Model','TestCase','TestRun','Meeting','Assumption','Constraint'}:issue('ERROR','kind',name,'Unknown metadata kind')
             for field,allowed in [('review_verdict',VERDICTS),('decision_state',DECISIONS)]:
-                if field in meta and meta[field] not in allowed:issue('ERROR',field,name,'Invalid controlled value')
+                if field in meta and (not isinstance(meta[field],str) or meta[field] not in allowed):issue('ERROR',field,name,'Invalid controlled value')
             if 'review_verdict' in meta and meta['review_verdict']=='N/A' and not meta.get('na_reason'):issue('ERROR','na-reason',name,'N/A requires na_reason; authority still needs human evidence')
             if 'work_status' in meta:
-                if kind not in STATUSES:issue('ERROR','work_status',name,'No work_status vocabulary for this kind; Feature is doc-only')
-                elif meta['work_status'] not in STATUSES[kind]:issue('ERROR','work_status',name,'Status invalid for artifact kind')
+                if not isinstance(kind,str) or kind not in STATUSES:issue('ERROR','work_status',name,'No work_status vocabulary for this kind; Feature is doc-only')
+                elif not isinstance(meta['work_status'],str) or meta['work_status'] not in STATUSES[kind]:issue('ERROR','work_status',name,'Status invalid for artifact kind')
             ids=meta.get('defined_ids',[])
             if not isinstance(ids,list) or not all(isinstance(x,str) for x in ids):issue('ERROR','defined_ids',name,'Expected string list');ids=[]
             ids=list(ids)
+            ids += record_support.defined_ids(meta)
             if 'artifact_id' in meta:
                 if not isinstance(meta['artifact_id'],str):issue('ERROR','artifact_id',name,'Expected string ID')
                 else:ids.append(meta['artifact_id'])
@@ -604,7 +656,7 @@ def lint(args):
             references=meta.get('references',[])
             if not isinstance(references,list) or not all(isinstance(x,str) for x in references):issue('ERROR','references',name,'Expected relative-link string list');references=[]
             refs.extend((path,href) for href in references)
-        elif path.is_relative_to(root/'features') or path.is_relative_to(root/'epics') or path.is_relative_to(root/'stories') or path.is_relative_to(root/'tasks'):
+        elif inferred_kind:
             issue('WARN','legacy-metadata',name,'No structured metadata; only explicit fields/links audited')
         if not meta:
             for value in legacy_definitions(text):definitions.setdefault(value,set()).add(name)
@@ -643,6 +695,7 @@ def lint(args):
             values = record.get('defined_ids', [])
             values = values if isinstance(values, list) else []
             values = values + [record.get('artifact_id')]
+            values += record_support.defined_ids(record)
             for value in {x for x in values if isinstance(x, str) and re.fullmatch(id_pattern(), x)}:
                 definitions.setdefault(value, set()).add(file.relative_to(repo).as_posix())
     for value,locations in definitions.items():
@@ -659,13 +712,18 @@ def lint(args):
         if parsed.fragment and target.suffix=='.md':
             mod=load_validator();anchors,_=mod.anchors(target.read_text(encoding='utf-8'))
             if unquote(parsed.fragment) not in anchors:issue('ERROR','broken-anchor',name,href)
+    record_result=record_support.audit(globals(), repo, cfg, ws, docs, definitions, issue, args)
     return {'workstream':ws['id'],'files':len(docs),'definitions':len(definitions),'issues':issues,
-            'valid':not any(i['level']=='ERROR' for i in issues),'semantic_approval':False}
+            'valid':not any(i['level']=='ERROR' for i in issues),'semantic_approval':False,**record_result}
 
 
 def load_validator():
     spec=importlib.util.spec_from_file_location('crm_validator',KIT/'scripts/validate_reference_pack.py')
     module=importlib.util.module_from_spec(spec);spec.loader.exec_module(module);return module
+
+
+def plan_layout(args):
+    return support('layout').plan(globals(), args)
 
 
 def all_used_ids(repo,cfg):
@@ -727,7 +785,7 @@ def update_source(source, ref):
 
 
 def update(args):
-    repo=args.repo.resolve();load_config(repo)
+    repo=args.repo.resolve();config=load_config(repo)
     target=relative(repo,args.install_path)
     if KIT==target or KIT.is_relative_to(target):raise KitError('Run update using a separate source kit helper, not from inside the installation being replaced')
     old=integrity(target)
@@ -737,11 +795,19 @@ def update(args):
         changed=sorted(set(hashes)^set(old['files']) | {k for k in hashes.keys()&old['files'].keys() if hashes[k]!=old['files'][k]})
         result={'mode':'apply' if args.apply else 'dry-run','old_version':old['version'],
                 'new_version':read_json(source/'reference-manifest.json')['version'],'changed_files':changed,'ref':args.ref,'snapshot_sha256':overall}
+        # Retain backups outside every adapter's skills discovery directory.
+        key=hashlib.sha256(target.relative_to(repo).as_posix().encode()).hexdigest()[:12]
+        if (repo/'.agents/crm-spec-kit-backups').is_symlink():raise KitError('Backup path is a symlink')
+        backup_root=relative(repo,'.agents/crm-spec-kit-backups')
+        backup=relative(repo,f'.agents/crm-spec-kit-backups/{key}-{old["snapshot_sha256"][:12]}')
+        check_write_boundaries(repo,config,[target,backup])
+        if backup_root.is_symlink() or backup.is_symlink():raise KitError('Backup path is a symlink')
+        result['backup']=backup.relative_to(repo).as_posix()
         if not args.apply or not changed:return result
         # Candidate is treated as data. Never run candidate tests/scripts as part of update.
-        backup=target.parent/(target.name+'.crm-spec-kit-backup')
         if backup.exists():raise KitError('Previous backup exists; inspect it before another update')
-        with tempfile.TemporaryDirectory(prefix='.crm-spec-kit-stage-',dir=target.parent) as temp:
+        backup_root.mkdir(parents=True,exist_ok=True)
+        with tempfile.TemporaryDirectory(prefix='.crm-spec-kit-stage-',dir=backup_root) as temp:
             stage=Path(temp)/'package';stage.mkdir()
             receipt=write_package(source,stage)
             receipt['source_commit']=args.ref
@@ -783,15 +849,21 @@ def operation_lock(repo):
 def parser():
     p=argparse.ArgumentParser(description=__doc__)
     sub=p.add_subparsers(dest='command',required=True)
-    for command in ['install','doctor','context','lint','next-id','update','smoke-prompt']:
+    for command in ['install','doctor','context','lint','next-id','update','smoke-prompt','plan-layout']:
         s=sub.add_parser(command);s.add_argument('--repo',type=Path,required=True)
-        if command in {'install','context','lint','smoke-prompt'}:s.add_argument('--workstream')
-        if command in {'doctor','context','lint','smoke-prompt'}:s.add_argument('--config',type=Path,help='Explicit read-only config for migration/audit; paths still resolve within --repo')
+        if command in {'install','context','lint','smoke-prompt','plan-layout'}:s.add_argument('--workstream')
+        if command in {'doctor','context','lint','smoke-prompt','plan-layout'}:s.add_argument('--config',type=Path,help='Explicit read-only config for migration/audit; paths still resolve within --repo')
         if command=='install':
             s.add_argument('--agent',choices=[*AGENT_ROOTS,'both'],default='antigravity')
             s.add_argument('--with-router',action='store_true',help='Codex only: create missing root AGENTS.md or print a proposed snippet without merging existing files')
             s.add_argument('--spec-root');s.add_argument('--input-root');s.add_argument('--title')
+            s.add_argument('--layout',choices=['legacy','numbered'],help='New workstream defaults to numbered; existing configs are preserved')
             s.add_argument('--source',action='append',default=[]);s.add_argument('--read-only',action='append',default=[]);s.add_argument('--apply',action='store_true')
+        elif command=='plan-layout':
+            s.add_argument('--to',choices=['legacy','numbered'],default='numbered')
+        elif command=='lint':
+            s.add_argument('--gate',choices=['draft','readiness','baseline'],default='draft')
+            s.add_argument('--target',help='Limit record-obligation gate checks to the dependency closure of this defined ID')
         elif command=='context':
             s.add_argument('function');s.add_argument('--target');s.add_argument('--target-kind');s.add_argument('--revision')
             s.add_argument('--reference',action='append',default=[]);s.add_argument('--full',action='store_true');s.add_argument('--format',choices=['markdown','json'],default='markdown')

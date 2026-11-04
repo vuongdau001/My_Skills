@@ -1,6 +1,6 @@
 {
   "pack_id": "crm-specification-standard",
-  "version": "1.6.0",
+  "version": "1.7.2",
   "date": "2026-11-04",
   "language": "vi",
   "scope": "Self-contained CRM workflow kit with deterministic local installation adapters; no automatic runtime discovery or external mutations",
@@ -764,6 +764,12 @@
       "path": "START-HERE.md"
     },
     {
+      "id": "CRM-BA-START",
+      "kind": "onboarding",
+      "title": "BA Getting Started — từ nhu cầu đến phần việc có thể bàn giao",
+      "path": "references/ba-getting-started.md"
+    },
+    {
       "id": "CRM-BMAD-TAILORING",
       "kind": "provenance",
       "title": "BMAD Inspiration and CRM Tailoring",
@@ -876,6 +882,66 @@
       "kind": "test-script",
       "title": "Codex Bootstrap Compatibility Tests",
       "path": "scripts/tests/test_codex_bootstrap.py"
+    },
+    {
+      "id": "CRM-LAYOUT",
+      "kind": "reference",
+      "title": "Thứ tự thư mục và chuyển layout",
+      "path": "references/artifact-layout-and-migration.md"
+    },
+    {
+      "id": "CRM-KNOWLEDGE",
+      "kind": "reference",
+      "title": "Meeting, Decision, Assumption và Constraint",
+      "path": "references/knowledge-records-and-evidence.md"
+    },
+    {
+      "id": "TPL-MEETING",
+      "kind": "template",
+      "title": "Meeting Record Template",
+      "path": "assets/templates/meeting-record-template.md"
+    },
+    {
+      "id": "TPL-DECISION",
+      "kind": "template",
+      "title": "Decision Record Template",
+      "path": "assets/templates/decision-record-template.md"
+    },
+    {
+      "id": "TPL-ASSUMPTION",
+      "kind": "template",
+      "title": "Assumption Record Template",
+      "path": "assets/templates/assumption-record-template.md"
+    },
+    {
+      "id": "TPL-CONSTRAINT",
+      "kind": "template",
+      "title": "Constraint Record Template",
+      "path": "assets/templates/constraint-record-template.md"
+    },
+    {
+      "id": "CRM-VALIDATION-V17",
+      "kind": "provenance",
+      "title": "Layout and Knowledge Records Validation Report 1.7",
+      "path": "provenance/pack-validation-report-v1.7.md"
+    },
+    {
+      "id": "CRM-CONVERSATIONAL-STATUS",
+      "kind": "reference",
+      "title": "Trả lời việc vừa làm, trạng thái hiện tại và bước tiếp theo",
+      "path": "references/conversational-status-and-next-step.md"
+    },
+    {
+      "id": "CRM-VALIDATION-V171",
+      "kind": "provenance",
+      "title": "Conversational Status Validation Report 1.7.1",
+      "path": "provenance/pack-validation-report-v1.7.1.md"
+    },
+    {
+      "id": "CRM-VALIDATION-V172",
+      "kind": "reference",
+      "title": "Báo cáo kiểm chứng kit 1.7.2",
+      "path": "provenance/pack-validation-report-v1.7.2.md"
     }
   ],
   "source_archive": "provenance/original-epic-story-standard-and-workflow-v1.1.zip",
@@ -1888,10 +1954,16 @@
       "references": [
         "references/project-policy-register.md",
         "references/requirement-types-identifiers-and-traceability.md",
-        "references/crm-project-rules.md"
+        "references/crm-project-rules.md",
+        "references/artifact-layout-and-migration.md",
+        "references/knowledge-records-and-evidence.md"
       ],
       "templates": [
-        "assets/templates/project-policy-register-template.md"
+        "assets/templates/project-policy-register-template.md",
+        "assets/templates/meeting-record-template.md",
+        "assets/templates/decision-record-template.md",
+        "assets/templates/assumption-record-template.md",
+        "assets/templates/constraint-record-template.md"
       ],
       "next_functions": [
         "crm-define-feature"
@@ -1910,10 +1982,16 @@
       "references": [
         "references/feature-specification-catalog.md",
         "references/requirement-types-identifiers-and-traceability.md",
-        "references/readiness-completion-and-approval-gates.md"
+        "references/readiness-completion-and-approval-gates.md",
+        "references/artifact-layout-and-migration.md",
+        "references/knowledge-records-and-evidence.md"
       ],
       "templates": [
-        "assets/templates/feature-specification-template.md"
+        "assets/templates/feature-specification-template.md",
+        "assets/templates/meeting-record-template.md",
+        "assets/templates/decision-record-template.md",
+        "assets/templates/assumption-record-template.md",
+        "assets/templates/constraint-record-template.md"
       ],
       "next_functions": [
         "crm-specify-epic",
@@ -1933,10 +2011,16 @@
       "references": [
         "references/epic-specification-catalog.md",
         "references/catalog-check-model-mapping.md",
-        "references/coverage-inventories-and-traceability.md"
+        "references/coverage-inventories-and-traceability.md",
+        "references/artifact-layout-and-migration.md",
+        "references/knowledge-records-and-evidence.md"
       ],
       "templates": [
-        "assets/templates/epic-specification-template.md"
+        "assets/templates/epic-specification-template.md",
+        "assets/templates/meeting-record-template.md",
+        "assets/templates/decision-record-template.md",
+        "assets/templates/assumption-record-template.md",
+        "assets/templates/constraint-record-template.md"
       ],
       "next_functions": [
         "crm-design-solution",
@@ -1958,9 +2042,16 @@
         "references/models/solution-and-story-decomposition.md",
         "references/models/api-and-integration-contracts.md",
         "references/catalog-check-model-mapping.md",
-        "references/checks/feasibility-and-handoff-readiness.md"
+        "references/checks/feasibility-and-handoff-readiness.md",
+        "references/artifact-layout-and-migration.md",
+        "references/knowledge-records-and-evidence.md"
       ],
-      "templates": [],
+      "templates": [
+        "assets/templates/meeting-record-template.md",
+        "assets/templates/decision-record-template.md",
+        "assets/templates/assumption-record-template.md",
+        "assets/templates/constraint-record-template.md"
+      ],
       "next_functions": [
         "crm-prepare-stories",
         "crm-review-specification"
@@ -1982,11 +2073,17 @@
         "references/backlog-hierarchy-and-decomposition.md",
         "references/story-specification-catalog.md",
         "references/task-planning-and-completion.md",
-        "references/catalog-check-model-mapping.md"
+        "references/catalog-check-model-mapping.md",
+        "references/artifact-layout-and-migration.md",
+        "references/knowledge-records-and-evidence.md"
       ],
       "templates": [
         "assets/templates/story-specification-template.md",
-        "assets/templates/implementation-task-template.md"
+        "assets/templates/implementation-task-template.md",
+        "assets/templates/meeting-record-template.md",
+        "assets/templates/decision-record-template.md",
+        "assets/templates/assumption-record-template.md",
+        "assets/templates/constraint-record-template.md"
       ],
       "next_functions": [
         "crm-review-specification",
@@ -2013,7 +2110,9 @@
         "references/task-planning-and-completion.md",
         "references/feature-specification-catalog.md",
         "references/epic-specification-catalog.md",
-        "references/story-specification-catalog.md"
+        "references/story-specification-catalog.md",
+        "references/artifact-layout-and-migration.md",
+        "references/knowledge-records-and-evidence.md"
       ],
       "templates": [
         "assets/templates/requirements-review-record-template.md"
@@ -2040,7 +2139,9 @@
         "references/baseline-and-change-control.md",
         "references/readiness-completion-and-approval-gates.md",
         "references/project-policy-register.md",
-        "references/ai-handoff-and-hard-gates.md"
+        "references/ai-handoff-and-hard-gates.md",
+        "references/artifact-layout-and-migration.md",
+        "references/knowledge-records-and-evidence.md"
       ],
       "templates": [],
       "next_functions": [
@@ -2063,7 +2164,9 @@
         "references/readiness-completion-and-approval-gates.md",
         "references/story-specification-catalog.md",
         "references/task-planning-and-completion.md",
-        "references/project-policy-register.md"
+        "references/project-policy-register.md",
+        "references/artifact-layout-and-migration.md",
+        "references/knowledge-records-and-evidence.md"
       ],
       "templates": [
         "assets/templates/requirements-review-record-template.md"
@@ -2088,7 +2191,9 @@
         "references/readiness-completion-and-approval-gates.md",
         "references/ai-handoff-and-hard-gates.md",
         "references/project-policy-register.md",
-        "references/jira-status-and-progress-reporting.md"
+        "references/jira-status-and-progress-reporting.md",
+        "references/artifact-layout-and-migration.md",
+        "references/knowledge-records-and-evidence.md"
       ],
       "templates": [
         "assets/templates/requirements-review-record-template.md"
@@ -2115,7 +2220,9 @@
         "references/readiness-completion-and-approval-gates.md",
         "references/task-planning-and-completion.md",
         "references/feature-specification-catalog.md",
-        "references/project-policy-register.md"
+        "references/project-policy-register.md",
+        "references/artifact-layout-and-migration.md",
+        "references/knowledge-records-and-evidence.md"
       ],
       "templates": [
         "assets/templates/requirements-review-record-template.md"
@@ -2144,7 +2251,9 @@
         "references/baseline-and-change-control.md",
         "references/requirement-types-identifiers-and-traceability.md",
         "references/checks/traceability-and-versioning.md",
-        "references/project-policy-register.md"
+        "references/project-policy-register.md",
+        "references/artifact-layout-and-migration.md",
+        "references/knowledge-records-and-evidence.md"
       ],
       "templates": [],
       "next_functions": [
@@ -2159,24 +2268,36 @@
     {
       "id": "crm-report-status",
       "title": "Report Status",
-      "description": "Progress report tách readiness, delivery, acceptance và blocker, có snapshot/mẫu số/source refs.",
+      "description": "Recap, current status, next step hoặc full progress report theo scope/evidence; mặc định trả chat, không tự mutate trạng thái.",
       "agent": "crm-delivery-coordinator",
       "workflow": "workflows/crm-report-status.md",
       "supported_targets": [
         "Project",
         "Feature",
-        "Epic"
+        "Epic",
+        "Story",
+        "Task"
       ],
       "references": [
         "references/progress-measurement-and-feature-rollup.md",
         "references/jira-status-and-progress-reporting.md",
-        "references/project-policy-register.md"
+        "references/project-policy-register.md",
+        "references/artifact-layout-and-migration.md",
+        "references/knowledge-records-and-evidence.md",
+        "references/conversational-status-and-next-step.md"
       ],
       "templates": [
         "assets/templates/progress-report-template.md"
       ],
       "next_functions": [
+        "crm-setup-project",
+        "crm-define-feature",
+        "crm-specify-epic",
+        "crm-design-solution",
+        "crm-prepare-stories",
         "crm-review-specification",
+        "crm-prepare-baseline",
+        "crm-check-readiness",
         "crm-assess-change"
       ],
       "write_scope": "report-only"
@@ -2195,7 +2316,9 @@
       "references": [
         "references/pilot-and-operational-validation.md",
         "references/pack-acceptance-scenarios.md",
-        "references/workflow-execution-protocol.md"
+        "references/workflow-execution-protocol.md",
+        "references/artifact-layout-and-migration.md",
+        "references/knowledge-records-and-evidence.md"
       ],
       "templates": [
         "assets/templates/pilot-review-record-template.md"
