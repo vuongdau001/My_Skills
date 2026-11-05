@@ -19,6 +19,10 @@ Unknown dùng level=null, không đổi thành 0. Applicability là applies/na/u
 
 Mức 2/3 không cho phép blocker category=content. Approval hoặc delivery blocker có thể tồn tại dù nội dung đã rõ; vẫn báo gate=blocked. Không có blocker chỉ cho gate=not_assessed, tuyệt đối không tự Ready. Reviewer/authority là khai báo cần kiểm chứng qua workflow; helper chỉ kiểm byte/hash, không xác thực người ký hoặc tính đúng của lời khai.
 
+## Prototype và E08
+
+Khi workstream bật `prototype_gate`, helper đối chiếu scope E08 với [bundle và walkthrough](prototype-workflow-and-epic-gate.md). Thiếu hoặc stale evidence tạo delivery blocker và giới hạn điểm hiệu lực E08 ở mức 1. E08 N/A thiếu evidence có applicability hiệu lực Unknown. Điểm đề xuất được giữ để đối chiếu. Mức 3 vẫn cần các điều kiện reviewer và Q01–Q07 ở trên. Story dùng S07 để review refs theo scope Story.
+
 ## Cách tính và các đơn vị
 
 Policy cố định crm-definition-v2, equal weights: D=100×sum(level)/(3×N), N là số đơn vị applies. Với level Unknown: cận dưới đóng góp 0, cận trên đóng góp 3. Đây là khoảng điểm trên inventory đã biết, không phải khoảng tin cậy thống kê hay % requirement đúng/effort/value. N=0 cho null, không 100%. Báo thêm assessed/N, confirmed/N, presence, N/A, Unknown, blockers và scope revision.

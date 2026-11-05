@@ -1,7 +1,9 @@
 # Start Here
 
-ID: **CRM-START** · CRM Workflow Kit 1.11.0 · 05/11/2026
+ID: **CRM-START** · CRM Workflow Kit 1.12.1 · 05/11/2026
 
+
+Khi scope có UI, tìm mockup hiện có trước khi specify. Hỏi người dùng mẫu và chỉ dẫn, sau đó tái dùng hoặc tạo bundle khi scope đủ rõ. Dùng [quy trình Prototype](references/prototype-workflow-and-epic-gate.md) để walkthrough và bàn giao.
 
 ## Standard viết artifact dùng chung
 
@@ -21,7 +23,7 @@ Có thể yêu cầu agent: “Đọc INSTALL.md trong kit và chuẩn bị cài
 
 ## Thư mục và hồ sơ trao đổi
 
-Workstream mới có thư mục 00-project, 01-features đến 08-pilot; config cũ tiếp tục dùng layout legacy. Xem [layout/migration](references/artifact-layout-and-migration.md). Khi nhận notes/chat, dùng crm-setup-project trên Project/workstream; khi chỉnh rule thuộc Epic, dùng crm-specify-epic và dẫn [Meeting/Decision/Assumption/Constraint records](references/knowledge-records-and-evidence.md). Không cần bốn slash commands mới.
+Workstream mới có thư mục 00-project, 01-features đến 09-prototypes; config cũ tiếp tục dùng layout legacy. Xem [layout/migration](references/artifact-layout-and-migration.md). Khi nhận notes/chat, dùng crm-setup-project trên Project/workstream; khi chỉnh rule thuộc Epic, dùng crm-specify-epic và dẫn [Meeting/Decision/Assumption/Constraint records](references/knowledge-records-and-evidence.md). Không cần bốn slash commands mới.
 
 > Dùng crm-setup-project trên workstream p3 để tiếp nhận notes workshop này. Ghi đúng source/event type, chuẩn bị các Decision/Assumption/Constraint records và trace các Epic liên quan; phần chưa xác nhận giữ draft.
 
@@ -114,7 +116,7 @@ Cuối mỗi workflow đọc target/scope/revision, artifacts, findings/evidence
 
 Có một root skill cùng 5 profiles và 13 workflow guides. Chúng không tự khởi chạy multi-agent, không phụ thuộc BMAD runtime và không thực hiện Jira/Git/CI mutations. Files dự án và policy đã duyệt là inputs; kit không mang sẵn approval CRM. [Nguồn BMAD và CRM tailoring](provenance/bmad-inspiration-and-crm-tailoring.md) giải thích cách áp dụng tư tưởng.
 
-Chạy `python3 scripts/validate_reference_pack.py` để kiểm cấu trúc kit; xem [kết quả 1.11.0](provenance/pack-validation-report-v1.11.0.md). Kết quả này khác pilot hay test sản phẩm thực tế.
+Chạy `python3 scripts/validate_reference_pack.py` để kiểm cấu trúc kit; xem [kết quả 1.12.1](provenance/pack-validation-report-v1.12.1.md). Kết quả này khác pilot hay test sản phẩm thực tế.
 
 ## Muốn biết requirement đã rõ tới đâu?
 

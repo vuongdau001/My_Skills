@@ -30,6 +30,8 @@ Khi có meeting/chat/decision/assumption/constraint ảnh hưởng target, đọ
 
 ## Execution Steps
 
+Trước khi chuẩn bị Story thực thi, mở baseline đúng commit và kiểm Prototype/biên bản N/A đã được pin cho scope Epic. Với Story có UI, mang Screen ID, Scenario ID, entrypoint, BR/AC/contract và revision vào Story. Story candidate vẫn có thể dùng để thiết kế trong Epic. Xem [standard Prototype](../references/prototype-workflow-and-epic-gate.md).
+
 1. Nếu target là Epic, tách outcome theo hành vi, phân bổ BR/model/AC; nếu target là Story/Task, tập trung brief/kế hoạch trong scope được giao.
 2. Với Story breakdown/draft, dùng INVEST/Example Mapping làm rõ rules/examples/questions; không chia Story mặc định theo frontend/backend/test. Nếu chỉ chuẩn bị Task, dùng SMART/T01–T08 và giữ Story source làm input.
 3. Khi chuẩn bị Story, dùng S01–S12 bằng subset/delta có refs đúng revision; candidates trước baseline chưa bịa commit sau merge. Task-only request chỉ hoàn thiện brief T01–T08, không bắt viết lại Story hoặc tạo Story mới.

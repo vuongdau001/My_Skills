@@ -30,6 +30,8 @@ Khi có meeting/chat/decision/assumption/constraint ảnh hưởng target, đọ
 
 ## Execution Steps
 
+Ở intake, tìm Prototype/mockup trong Work Context và các vị trí người dùng chỉ định mà bạn có quyền đọc. Nhắc người dùng cung cấp chỉ dẫn, mẫu, link hoặc ví dụ dữ liệu cho Prototype. Ghi candidate/revision và input còn thiếu trong Work Context. Xem [standard Prototype](../references/prototype-workflow-and-epic-gate.md).
+
 0. Nếu có notes/chat/email, pin source evidence; phân loại record, chọn template, ghi scope/owner/gaps và liên kết consumer. Không tạo biên bản giả nếu chỉ có chat, không tự gửi notes.
 1. Kiểm nguồn hiện hành, phân biệt quy ước đã duyệt với đề xuất; tìm canonical locations trước khi tạo hồ sơ.
 2. Đối chiếu policy register guide để lập các nhóm applicability, owner và missing decisions; không tự đặt severity/SLA/check names.

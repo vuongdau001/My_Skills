@@ -44,7 +44,7 @@ Lập ma trận actor × action × state × field/context, cùng ví dụ/negati
 
 ## E08 — UI/UX và trạng thái tương tác
 
-Dẫn screen/UI contract, field/action/state inventory, hoặc N/A có reason/authority. Mockup chưa tự là contract đã ký.
+Dẫn Screen/Scenario IDs, UI contract, inventory và binding tới Prototype/walkthrough đúng selected scope. Ghi N/A có reason, contract và người xác nhận khi scope không tác động UI. Xem [mẫu bundle](prototype-bundle-template.md).
 
 ## E09 — API và tích hợp
 

@@ -28,6 +28,8 @@ Khi có meeting/chat/decision/assumption/constraint ảnh hưởng target, đọ
 
 ## Execution Steps
 
+Với Story UI, kiểm đúng Prototype và walkthrough trong baseline đã xác nhận, đối chiếu Screen/Scenario IDs và BR/AC với scope Story. Nếu thiếu hoặc stale, ghi DoR bị chặn và chuyển lại author/baseline theo impact. Khi scope không có UI, dùng disposition và contract từ baseline. Xem [standard Prototype](../references/prototype-workflow-and-epic-gate.md).
+
 Chạy helper lint --gate readiness --target <target-id> với đúng repo/workstream khi có config; ghi record_obligations, record_impacts và stale refs vào check record. Nếu không chạy được thì ghi phần chưa kiểm. Helper chỉ kiểm cấu trúc/declared record dependencies; các điều kiện DoR và authority bên dưới vẫn phải được xét riêng. Không sửa target/record nguồn để đóng findings trong workflow này.
 
 1. Mở canonical refs và xác nhận input revision đúng baseline scope; Task spike dùng brief/output/timebox phù hợp, không ép có solution biết trước.

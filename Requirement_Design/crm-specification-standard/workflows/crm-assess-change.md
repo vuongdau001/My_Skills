@@ -28,6 +28,8 @@ Khi có meeting/chat/decision/assumption/constraint ảnh hưởng target, đọ
 
 ## Execution Steps
 
+Kiểm hai chiều từ delta Epic/Story đến Prototype và từ thay đổi Prototype đến Epic/Story. Xác định Screen/Scenario, fixtures, BR/AC, contracts, walkthrough và baseline pins cần cập nhật. Lập plan author/review lại cho phần bị ảnh hưởng. Xem [standard Prototype](../references/prototype-workflow-and-epic-gate.md).
+
 1. Mô tả proposed delta, phân biệt thay what/constraint với cách triển khai; chưa áp dụng vào canonical baseline.
 2. Đi theo trace từ requirement/BR/contract/policy tới models/Stories/Tasks/tests/acceptance, tìm scope và evidence bị ảnh hưởng.
 3. Phối hợp góc nhìn BA/Dev/QA để ghi tác động behavior, quyền/data/state, feasibility, effort/capacity/mốc và acceptance; không giả sign-off.

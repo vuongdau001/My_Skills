@@ -30,6 +30,8 @@ Khi có meeting/chat/decision/assumption/constraint ảnh hưởng target, đọ
 
 ## Execution Steps
 
+Với Epic có UI delta, walkthrough entrypoint của bundle đúng revision theo các scenario đã phân bổ. Đối chiếu E08/D06, BR/AC, quyền và Command/Query. Ghi observed results, findings, reviewer và SHA pins trong reviews. Với backend không UI delta, review evidence N/A. Chuyển findings cho author xử lý trong bước riêng. Xem [standard Prototype](../references/prototype-workflow-and-epic-gate.md).
+
 1. Ghi review scope và input revision trước khi đọc chi tiết; focused request giữ đúng check/model được giao.
 2. Full Feature/Epic/Story xét catalog áp dụng và Q01–Q07; Task xét T01–T08/SMART. Dùng mapping để đọc đúng model thay vì nạp tất cả.
 3. Thực hiện các bước kiểm trong Q/model; inventory và counterexample phải có dữ liệu cụ thể, không chỉ tick tiêu đề.

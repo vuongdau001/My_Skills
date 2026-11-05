@@ -11,7 +11,7 @@ import unittest
 sys.dont_write_bytecode = True
 PACK = Path(__file__).resolve().parents[2]
 TOOL = PACK/'scripts/kit.py'
-NUMBERED = ['00-project','01-features','02-epics','03-stories','04-tasks','05-reviews','06-baselines','07-reports','08-pilot']
+NUMBERED = ['00-project','01-features','02-epics','03-stories','04-tasks','05-reviews','06-baselines','07-reports','08-pilot','09-prototypes']
 LEGACY = ['00-project','features','epics','stories','tasks','reviews','baselines','reports','pilot']
 
 

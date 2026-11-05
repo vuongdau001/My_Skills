@@ -40,6 +40,8 @@ Ví dụ: đã chốt khung “Tiếp nhận khách hàng” thì có thể tạ
 
 ### Phạm vi của một baseline
 
+Với scope có tác động UI, package pin bundle Prototype theo hành trình, walkthrough và allocation Story. Với scope backend không tác động UI, package pin review N/A có lý do và contract. Kiểm [gate Prototype](prototype-workflow-and-epic-gate.md) trước khi trình PM.
+
 Mỗi baseline đầu vào triển khai phải ghi rõ:
 
 1. Feature ID và Epic liên quan.

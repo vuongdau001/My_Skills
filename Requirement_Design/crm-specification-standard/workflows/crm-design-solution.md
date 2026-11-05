@@ -28,6 +28,8 @@ Khi có meeting/chat/decision/assumption/constraint ảnh hưởng target, đọ
 
 ## Execution Steps
 
+Sau khi Epic đủ rõ cho scope UI đã chọn, tạo bundle chạy được theo hành trình trong category prototypes của Work Context. Bàn giao từ chính bundle này. Ưu tiên tái dùng file nguồn phù hợp và ghi phần đã giữ hoặc thay đổi. Khi nguồn không dùng được, tạo từ BR/AC, UI contract và Story candidates. Xác nhận với người dùng phần chỉ dẫn/mẫu còn thiếu trước khi hoàn thiện nhánh bị ảnh hưởng. Chỉ ghi HTML/CSS/JS và fixture giả trong category prototypes khi được giao author. Xem [standard Prototype](../references/prototype-workflow-and-epic-gate.md).
+
 1. Đọc yêu cầu và hiện trạng, phân biệt observed behavior với intended behavior; ghi code/contract revisions đã xem.
 2. Xác định current→delta, components, interfaces, data/permission/state effects và lựa chọn/rationale.
 3. Theo D07/D10 và models liên quan làm rõ contract, failure/timeout/retry/concurrency khi áp dụng; không tự đặt business threshold.

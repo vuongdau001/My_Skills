@@ -30,6 +30,8 @@ Khi có meeting/chat/decision/assumption/constraint ảnh hưởng target, đọ
 
 ## Execution Steps
 
+Trước khi viết E08, đọc candidate Prototype/mockup đã có và hỏi người dùng mẫu hoặc chỉ dẫn còn thiếu. So màn hình, trạng thái và quyền với rule/contract. Ghi gap/decision khi hai nguồn khác nhau. Chuyển sang crm-design-solution để hoàn thiện Prototype sau khi scope và expected behavior đủ rõ. Xem [standard Prototype](../references/prototype-workflow-and-epic-gate.md).
+
 1. Chốt scope chọn và source/actor register; rà E01–E16 applicability, chưa biết không ghi N/A.
 2. Theo mapping chọn models cần làm rõ; dựng inventory flow/state/rule/data/permission/edge cùng expected results.
 3. Đối chiếu source và authority cho các rule; đọc lại bằng ví dụ và counterexample, ghi conflict/question thay vì tự quyết.

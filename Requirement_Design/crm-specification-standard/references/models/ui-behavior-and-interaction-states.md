@@ -22,7 +22,7 @@ Nếu thiếu input ghi **Chưa kiểm**; có gap/mâu thuẫn ghi **Không đ�
 
 ### D06. UI/UX và quan hệ với contract
 
-**Khi dùng:** có màn hình/tương tác người dùng bị thay đổi.
+**Khi dùng:** có màn hình/tương tác người dùng bị thay đổi. Dùng [quy trình Prototype](../prototype-workflow-and-epic-gate.md) để chọn candidate, tái dùng file và walkthrough bundle đã pin.
 
 **Trường tối thiểu:** screen/version, entry/navigation, field/action, visibility/editability, success/error/empty/loading/disabled states; copy/validation và accessibility/usability criteria liên quan.
 

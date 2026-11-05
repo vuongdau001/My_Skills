@@ -32,6 +32,8 @@ Khi có meeting/chat/decision/assumption/constraint ảnh hưởng target, đọ
 
 ## Execution Steps
 
+Khi báo mức hoàn thiện Epic có UI, dùng E08 và evidence Prototype theo scope. Nêu Prototype/biên bản nào thiếu hoặc stale và phân biệt điểm đề xuất, điểm hiệu lực và gate DoR. Xem [standard Prototype](../references/prototype-workflow-and-epic-gate.md).
+
 Chọn mode trước. Recap: trả delta đã quan sát, kiểm chứng và giới hạn. Current status: đọc lại canonical revision + state/evidence source project chỉ định; báo discrepancy/Unknown. Next step: chọn một bước chính theo mục tiêu/blocker/dependency, nêu function/target/inputs/điều kiện và lý do. Ba mode ngắn không cần mọi bước tổng hợp số liệu bên dưới. Hỏi status không tự mở scope mới; nếu đang có nhiệm vụ đã được giao thì trả lời rồi tiếp tục phần được phép.
 
 Full report thực hiện các bước:

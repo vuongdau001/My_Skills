@@ -36,7 +36,7 @@ Dùng [context/handoff template](../assets/templates/work-context-and-handoff-te
 | report | Report/snapshot derivation và discrepancies | Không sửa Jira status hoặc lấp unknown bằng dữ liệu suy đoán |
 | run-pilot | Pilot record/observations trong quyền được giao | Negative cases dùng bản sao; không thao tác phá dữ liệu thật |
 
-Tạo/cập nhật review/check/report record được phép theo nhiệm vụ, kể cả khi target chỉ đọc. Nếu record nằm trong cùng file target, chỉ sửa section record được giao, giữ nguyên nội dung đang đánh giá; nếu không tách được an toàn thì trả record riêng. Read-only request trả kết quả trong chat. Không tự commit/merge/publish/post comment/tạo ticket. Bộ kit không tự viết product code hoặc chạy runtime test; có thể đọc evidence/code theo quyền đã giao.
+Tạo/cập nhật review/check/report record được phép theo nhiệm vụ, kể cả khi target chỉ đọc. Nếu record nằm trong cùng file target, chỉ sửa section record được giao, giữ nguyên nội dung đang đánh giá; nếu không tách được an toàn thì trả record riêng. Read-only request trả kết quả trong chat. Không tự commit/merge/publish/post comment/tạo ticket. Bộ kit có thể đọc evidence/code theo quyền đã giao. Với Prototype, workflow tác giả được giao có thể ghi bundle HTML/CSS/JS trong category prototypes. Workflow review có thể walkthrough bundle được chọn trong browser và chỉ ghi findings/evidence. Product code và QA runtime tests thuộc tuyến triển khai riêng.
 
 ## Artifact Writing
 

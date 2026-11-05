@@ -28,6 +28,8 @@ Khi có meeting/chat/decision/assumption/constraint ảnh hưởng target, đọ
 
 ## Execution Steps
 
+Prototype là điều kiện bắt buộc để bàn giao scope có UI. Pin Epic, bundle manifest và walkthrough hiện hành trong baseline package. Với scope không tác động UI, pin review N/A cùng lý do và contract. Thiếu evidence hoặc scope khác allocation thì giữ gate bị chặn. Xem [standard Prototype](../references/prototype-workflow-and-epic-gate.md).
+
 Chạy helper lint --gate baseline --target <target-id> với repo/workstream đã chọn cho selected scope. Record obligations hoặc stale evidence còn mở phải vào gap list; không tạo receipt từ lint PASS. Full baseline manifest, review và authority vẫn theo các bước bên dưới. Nếu scope gồm nhiều target độc lập, kiểm từng target hoặc whole workstream có ghi rõ phạm vi.
 
 1. Lập danh sách đúng bộ yêu cầu + models/contracts/solution + Story manifest cho scope chọn, cùng shared requirements/policy versions.

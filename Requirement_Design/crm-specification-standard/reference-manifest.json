@@ -1,6 +1,6 @@
 {
   "pack_id": "crm-specification-standard",
-  "version": "1.11.0",
+  "version": "1.12.1",
   "date": "2026-11-05",
   "language": "vi",
   "scope": "Self-contained CRM workflow kit with deterministic local installation adapters; no automatic runtime discovery or external mutations",
@@ -996,6 +996,48 @@
       "kind": "test-script",
       "title": "Artifact Writing Context and Metadata Compatibility Tests",
       "path": "scripts/tests/test_artifact_writing.py"
+    },
+    {
+      "id": "CRM-PROTOTYPE",
+      "kind": "reference",
+      "title": "Prototype trong quy trình Epic",
+      "path": "references/prototype-workflow-and-epic-gate.md"
+    },
+    {
+      "id": "TPL-PROTOTYPE-BUNDLE",
+      "kind": "template",
+      "title": "Mẫu bundle Prototype",
+      "path": "assets/templates/prototype-bundle-template.md"
+    },
+    {
+      "id": "TPL-PROTOTYPE-WALKTHROUGH",
+      "kind": "template",
+      "title": "Mẫu biên bản walkthrough Prototype",
+      "path": "assets/templates/prototype-walkthrough-template.md"
+    },
+    {
+      "id": "CRM-VALIDATION-V112",
+      "kind": "provenance",
+      "title": "Kiểm chứng CRM Workflow Kit 1.12.0",
+      "path": "provenance/pack-validation-report-v1.12.0.md"
+    },
+    {
+      "id": "CRM-VALIDATION-V1121",
+      "kind": "provenance",
+      "title": "Kiểm chứng CRM Workflow Kit 1.12.1",
+      "path": "provenance/pack-validation-report-v1.12.1.md"
+    },
+    {
+      "id": "TOOL-PROTOTYPE",
+      "kind": "script",
+      "title": "Prototype baseline evidence checker",
+      "path": "scripts/kit_prototypes.py"
+    },
+    {
+      "id": "TOOL-PROTOTYPE-TEST",
+      "kind": "test-script",
+      "title": "Prototype evidence and scoring regression tests",
+      "path": "scripts/tests/test_prototypes.py"
     }
   ],
   "source_archive": "provenance/original-epic-story-standard-and-workflow-v1.1.zip",
@@ -2012,7 +2054,8 @@
         "references/artifact-layout-and-migration.md",
         "references/knowledge-records-and-evidence.md",
         "references/artifact-writing-standard.md",
-        "references/source-scope-and-decomposition-checkpoint.md"
+        "references/source-scope-and-decomposition-checkpoint.md",
+        "references/prototype-workflow-and-epic-gate.md"
       ],
       "templates": [
         "assets/templates/project-policy-register-template.md",
@@ -2074,7 +2117,8 @@
         "references/artifact-layout-and-migration.md",
         "references/knowledge-records-and-evidence.md",
         "references/artifact-writing-standard.md",
-        "references/source-scope-and-decomposition-checkpoint.md"
+        "references/source-scope-and-decomposition-checkpoint.md",
+        "references/prototype-workflow-and-epic-gate.md"
       ],
       "templates": [
         "assets/templates/epic-specification-template.md",
@@ -2106,14 +2150,16 @@
         "references/checks/feasibility-and-handoff-readiness.md",
         "references/artifact-layout-and-migration.md",
         "references/knowledge-records-and-evidence.md",
-        "references/artifact-writing-standard.md"
+        "references/artifact-writing-standard.md",
+        "references/prototype-workflow-and-epic-gate.md"
       ],
       "templates": [
         "assets/templates/meeting-record-template.md",
         "assets/templates/decision-record-template.md",
         "assets/templates/assumption-record-template.md",
         "assets/templates/constraint-record-template.md",
-        "assets/templates/artifact-document-template.md"
+        "assets/templates/artifact-document-template.md",
+        "assets/templates/prototype-bundle-template.md"
       ],
       "next_functions": [
         "crm-prepare-stories",
@@ -2140,7 +2186,8 @@
         "references/artifact-layout-and-migration.md",
         "references/knowledge-records-and-evidence.md",
         "references/artifact-writing-standard.md",
-        "references/source-scope-and-decomposition-checkpoint.md"
+        "references/source-scope-and-decomposition-checkpoint.md",
+        "references/prototype-workflow-and-epic-gate.md"
       ],
       "templates": [
         "assets/templates/story-specification-template.md",
@@ -2180,11 +2227,13 @@
         "references/knowledge-records-and-evidence.md",
         "references/definition-maturity-scoring.md",
         "references/artifact-writing-standard.md",
-        "references/source-scope-and-decomposition-checkpoint.md"
+        "references/source-scope-and-decomposition-checkpoint.md",
+        "references/prototype-workflow-and-epic-gate.md"
       ],
       "templates": [
         "assets/templates/requirements-review-record-template.md",
-        "assets/templates/definition-assessment-template.md"
+        "assets/templates/definition-assessment-template.md",
+        "assets/templates/prototype-walkthrough-template.md"
       ],
       "next_functions": [
         "crm-specify-epic",
@@ -2211,10 +2260,12 @@
         "references/ai-handoff-and-hard-gates.md",
         "references/artifact-layout-and-migration.md",
         "references/knowledge-records-and-evidence.md",
-        "references/artifact-writing-standard.md"
+        "references/artifact-writing-standard.md",
+        "references/prototype-workflow-and-epic-gate.md"
       ],
       "templates": [
-        "assets/templates/artifact-document-template.md"
+        "assets/templates/artifact-document-template.md",
+        "assets/templates/prototype-walkthrough-template.md"
       ],
       "next_functions": [
         "crm-review-specification",
@@ -2239,7 +2290,8 @@
         "references/project-policy-register.md",
         "references/artifact-layout-and-migration.md",
         "references/knowledge-records-and-evidence.md",
-        "references/artifact-writing-standard.md"
+        "references/artifact-writing-standard.md",
+        "references/prototype-workflow-and-epic-gate.md"
       ],
       "templates": [
         "assets/templates/requirements-review-record-template.md"
@@ -2329,7 +2381,8 @@
         "references/project-policy-register.md",
         "references/artifact-layout-and-migration.md",
         "references/knowledge-records-and-evidence.md",
-        "references/artifact-writing-standard.md"
+        "references/artifact-writing-standard.md",
+        "references/prototype-workflow-and-epic-gate.md"
       ],
       "templates": [
         "assets/templates/artifact-document-template.md"
@@ -2365,7 +2418,8 @@
         "references/conversational-status-and-next-step.md",
         "references/definition-maturity-scoring.md",
         "references/artifact-writing-standard.md",
-        "references/source-scope-and-decomposition-checkpoint.md"
+        "references/source-scope-and-decomposition-checkpoint.md",
+        "references/prototype-workflow-and-epic-gate.md"
       ],
       "templates": [
         "assets/templates/progress-report-template.md",

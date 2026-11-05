@@ -6,9 +6,9 @@ import os
 import re
 from urllib.parse import unquote, urlsplit
 
-KEYS = ('project','features','epics','stories','tasks','reviews','baselines','reports','pilot')
-LEGACY = dict(zip(KEYS, ('00-project','features','epics','stories','tasks','reviews','baselines','reports','pilot')))
-NUMBERED = dict(zip(KEYS, ('00-project','01-features','02-epics','03-stories','04-tasks','05-reviews','06-baselines','07-reports','08-pilot')))
+KEYS = ('project','features','epics','stories','tasks','reviews','baselines','reports','pilot','prototypes')
+LEGACY = dict(zip(KEYS, ('00-project','features','epics','stories','tasks','reviews','baselines','reports','pilot','prototypes')))
+NUMBERED = dict(zip(KEYS, ('00-project','01-features','02-epics','03-stories','04-tasks','05-reviews','06-baselines','07-reports','08-pilot','09-prototypes')))
 
 
 def artifact_paths(ws, error=ValueError):
@@ -19,6 +19,8 @@ def artifact_paths(ws, error=ValueError):
     overrides = ws.get('artifact_paths', {})
     if not isinstance(overrides, dict) or set(overrides) - set(KEYS):
         raise error('artifact_paths must map known artifact categories to relative directories')
+    if not ws.get('prototype_gate') and 'prototypes' not in overrides:
+        result.pop('prototypes')
     result.update(overrides)
     paths = []
     for raw in result.values():
@@ -45,7 +47,9 @@ def plan(api, args):
     new = artifact_paths(candidate, api['KitError'])
     moves, mapping, blockers, historical = [], {}, [], []
     for key in KEYS:
-        src, dst = root / old[key], root / new[key]
+        if key not in old:
+            continue
+        src, dst = root / old[key], root / new.get(key, old[key])
         if src == dst:
             continue
         src_rel, dst_rel = src.relative_to(repo).as_posix(), dst.relative_to(repo).as_posix()

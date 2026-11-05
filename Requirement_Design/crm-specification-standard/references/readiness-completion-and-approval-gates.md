@@ -75,6 +75,7 @@ Khóa một phần Feature để làm trước không được báo thành hoàn
 
 - [ ] Bộ hồ sơ tại mục [Bộ hồ sơ phải review và merge trước khi tạo Story](baseline-and-change-control.md#workflow-5) đã đủ cho phần được chọn.
 - [ ] Đã review các hạng mục E01–E16 của [chuẩn đặc tả](epic-specification-catalog.md); phần áp dụng có output/verdict, N/A có lý do và người xác nhận.
+- [ ] [Prototype](prototype-workflow-and-epic-gate.md) chạy được và walkthrough Đạt đúng scope/revision nếu có tác động UI, hoặc review N/A có evidence nếu scope không tác động UI.
 - [ ] Không còn câu hỏi chặn, bao gồm các rule dùng chung có tác động.
 - [ ] Business/BA xác nhận nội dung; Dev/TL xác nhận solution; QA xác nhận testability theo applicability.
 - [ ] Story candidates có outcome, BR/AC, scope, dependency và estimate; đã review cách chia.
@@ -122,7 +123,7 @@ Nếu Feature chỉ có một Epic và đủ cùng phạm vi, có thể dùng m�
 - [ ] Story liên kết đúng Epic, Feature và baseline ID/commit.
 - [ ] Các hạng mục S01–S12 của [Catalog Story](story-specification-catalog.md) có nội dung cụ thể hoặc ref hợp lệ; không sao chép làm lệch baseline Epic.
 - [ ] Outcome, trong/ngoài scope rõ; BR/AC và ví dụ có expected result.
-- [ ] Solution/contract/UI/data refs phù hợp phạm vi, còn hiệu lực.
+- [ ] Solution/contract/UI/data refs phù hợp phạm vi, còn hiệu lực. Với Story UI, mở Prototype/walkthrough đã pin trong baseline và kiểm Screen/Scenario IDs theo scope Story.
 - [ ] Dev và QA đã đọc, hiểu khớp; không còn câu hỏi chặn.
 - [ ] Dependency phải có trước khi bắt đầu đã sẵn sàng; dependency cho bước sau có cam kết/kế hoạch rõ và không chặn công việc đang nhận.
 - [ ] Có dữ liệu/môi trường/quyền cần cho bước thực hiện; điều kiện kiểm thử phía sau có owner và lịch sẵn sàng.

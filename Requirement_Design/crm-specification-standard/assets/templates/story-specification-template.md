@@ -34,6 +34,8 @@ Subset và delta của data/validation/permission; không bỏ control chung đ�
 
 ## S07 — UI/API và solution
 
+Với Story có UI, dẫn Screen ID, Scenario ID, entrypoint và walkthrough từ đúng baseline Epic. Ghi BR/AC/contract áp dụng cho từng scenario.
+
 Screen/query/contract/solution refs hiện hành; ranh giới implementation. Chưa có contract thì ghi gap.
 
 ## S08 — Edge cases và kiểm soát

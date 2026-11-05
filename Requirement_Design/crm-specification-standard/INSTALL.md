@@ -1,6 +1,6 @@
 # Install and Operate CRM Spec Kit
 
-ID: **CRM-INSTALL** · CRM Workflow Kit 1.11.0 · 05/11/2026
+ID: **CRM-INSTALL** · CRM Workflow Kit 1.12.1 · 05/11/2026
 
 AI được đưa folder kit để tự cài đọc [BOOTSTRAP](BOOTSTRAP.md) trước. Nội dung/workflow dùng chung; filesystem adapters và router tùy chọn xử lý phần tích hợp tool.
 
@@ -44,7 +44,7 @@ AGENTS.override.md không rỗng được xét trước AGENTS.md; helper không
 
 Mẫu nền: [project config blueprint](assets/installation/project-config.template.json). Mỗi workstream có id/title, spec_root, optional input_root, sources với id/path/use và read_only. Tất cả path là repo-relative POSIX; không `..`, absolute path hoặc symlink thoát repo. spec_root không được chồng tool dirs, source/read_only của bất kỳ workstream nào hoặc spec_root khác. input_root cũng phải tránh mọi source/read_only. Namespace hiện hành là CRM theo bộ chuẩn; không đổi ngầm theo tên domain.
 
-Scaffold mới mặc định numbered: `00-project`, `01-features`, `02-epics`, `03-stories`, `04-tasks`, `05-reviews`, `06-baselines`, `07-reports`, `08-pilot`. Project có các vùng 01-meetings/02-decisions/03-assumptions/04-constraints cho schema-2 records. Chọn --layout legacy khi cần tên cũ cho workstream mới. Workstream thiếu layout vẫn dùng tên cũ; install lại/update không tự migration hoặc thêm record_schema_version vào config cũ. Context trả artifact_paths; có thể override category paths có kiểm boundary/overlap. [Layout và migration](references/artifact-layout-and-migration.md) là quy ước canonical. Có thư mục tasks không có nghĩa phải tạo Task. Mỗi thư mục scaffold có marker .crm-spec-kit-keep để tồn tại sau git clone; không sinh artifact nghiệp vụ giả để lấp thư mục.
+Scaffold mới mặc định numbered: `00-project`, `01-features`, `02-epics`, `03-stories`, `04-tasks`, `05-reviews`, `06-baselines`, `07-reports`, `08-pilot`, `09-prototypes`. Workstream mới bật `prototype_gate: true`. Workstream cũ có thể thêm field này trong config và chạy lại install --apply để tạo category Prototype. Xem [quy trình Prototype](references/prototype-workflow-and-epic-gate.md). Project có các vùng 01-meetings/02-decisions/03-assumptions/04-constraints cho schema-2 records. Chọn --layout legacy khi cần tên cũ cho workstream mới. Workstream thiếu layout vẫn dùng tên cũ; install lại/update không tự migration hoặc thêm record_schema_version vào config cũ. Context trả artifact_paths; có thể override category paths có kiểm boundary/overlap. [Layout và migration](references/artifact-layout-and-migration.md) là quy ước canonical. Có thư mục tasks không có nghĩa phải tạo Task. Mỗi thư mục scaffold có marker .crm-spec-kit-keep để tồn tại sau git clone; không sinh artifact nghiệp vụ giả để lấp thư mục.
 
 Scoped AGENTS/CLAUDE chỉ được tạo khi chưa có; file có sẵn được giữ và báo cần xem xét. Chúng hướng dẫn trong spec_root, không override instruction/policy cấp cao hơn. Mọi adapter vẫn tạo hai scoped files như 1.5 để giữ tương thích; chỉ root router mới là Codex opt-in. Không tự tạo file `.agents/rules` rồi tuyên bố mọi nền tảng sẽ nạp. Các thay đổi config để thêm workstream là cập nhật config kit có chủ đích; config fields/values cũ được giữ.
 

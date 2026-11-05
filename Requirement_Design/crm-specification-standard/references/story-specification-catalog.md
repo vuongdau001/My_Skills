@@ -21,7 +21,7 @@ Story có mức chi tiết đủ để Dev/QA triển khai, không phải SRS vi
 | <a id="s04"></a>S04 | Flow được chọn | Step IDs từ Epic, alternate/exception trong scope và delta | Không phải suy đoán bước giữa; nhánh kết thúc/phản hồi rõ |
 | <a id="s05"></a>S05 | Rule/state/decision subset | BR IDs, transition/decision rule IDs, expected illegal/denied behavior | Quy tắc chung đủ rõ, không tạo biến thể mâu thuẫn Epic; N/A có lý do |
 | <a id="s06"></a>S06 | Data và quyền | Fields/schema/normalization/validation, actor-resource constraints liên quan | Biết positive/negative/boundary và quyền truy cập thực tế |
-| <a id="s07"></a>S07 | UI/API/contract/solution | Version refs và delta: request/response, error, state changes, side effects | Có đủ contract để code/test, gồm lỗi/đồng thời khi áp dụng |
+| <a id="s07"></a>S07 | UI/API/contract/solution | Version refs và delta: request/response, error, state changes, side effects | Có đủ contract để code/test, gồm lỗi/đồng thời khi áp dụng. Story UI dẫn Screen/Scenario IDs và walkthrough theo [baseline Prototype](prototype-workflow-and-epic-gate.md). |
 | <a id="s08"></a>S08 | Edge/NFR/transition impact | Selected cases/controls, thresholds và cách kiểm; chỉ rõ N/A | Không bỏ case bắt buộc vì đang chia Story nhỏ |
 | <a id="s09"></a>S09 | AC và ví dụ | AC IDs gắn input/action/expected result, trace BR/model/case | Mọi AC có cách kiểm chứng; không dùng “đúng theo yêu cầu” làm AC |
 | <a id="s10"></a>S10 | Verification approach | Test conditions theo rủi ro, test data/environment, oracle và evidence cần | QA xác nhận expected result độc lập; chưa cần mọi script đã viết |

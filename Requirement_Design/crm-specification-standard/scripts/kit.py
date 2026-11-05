@@ -22,7 +22,7 @@ sys.dont_write_bytecode = True
 KIT = Path(__file__).resolve().parents[1]
 CONFIG = '.agents/crm-spec-kit.json'
 RECEIPT = 'crm-spec-kit-installation.json'
-DIRECTORIES = ['00-project', 'features', 'epics', 'stories', 'tasks', 'reviews', 'baselines', 'reports', 'pilot']  # Legacy API; scaffold resolves artifact_paths.
+DIRECTORIES = ['00-project', 'features', 'epics', 'stories', 'tasks', 'reviews', 'baselines', 'reports', 'pilot', 'prototypes']  # Legacy API; scaffold resolves artifact_paths.
 PREFIXES = {'FEAT','EPIC','STORY','TASK','REQ','BR','AC','MOD','DEC','BASE','TC','RUN','Q','MTG','ASM','CST'}
 VERDICTS = {'Đạt','Không đạt','Chưa kiểm','N/A'}
 DECISIONS = {'Pending','Proposed','Approved','Superseded','Rejected','Withdrawn'}
@@ -111,6 +111,8 @@ def config_check(repo, config):
         spec = relative(repo, ws.get('spec_root'))
         if ws.get('record_schema_version', 1) not in (1, 2):
             raise KitError('Unsupported record_schema_version')
+        if 'prototype_gate' in ws and not isinstance(ws['prototype_gate'], bool):
+            raise KitError('prototype_gate must be a boolean')
         for raw in artifact_paths(ws).values():
             relative(spec, raw)
             if any(part.startswith('.') for part in Path(raw).parts):
@@ -333,7 +335,7 @@ def install(args):
                 raise KitError('--source expects SRC-ID=repo/relative/path')
             sources.append({'id':sid,'path':path,'use':''})
         ws={'id':wsid,'title':args.title or wsid,'spec_root':args.spec_root or 'spec','sources':sources,'read_only':args.read_only,
-            'layout':args.layout or 'numbered','record_schema_version':2}
+            'layout':args.layout or 'numbered','record_schema_version':2,'prototype_gate':True}
         if args.input_root:
             ws['input_root']=args.input_root
         config['workstreams'].append(ws)
@@ -532,6 +534,9 @@ def context(args):
     scope_checkpoint='references/source-scope-and-decomposition-checkpoint.md'
     if scope_checkpoint in function['references']:
         include(scope_checkpoint)
+    prototype_standard='references/prototype-workflow-and-epic-gate.md'
+    if prototype_standard in function['references']:
+        include(prototype_standard)
     chosen=list(resources) if args.full else []
     entries={e['id']:e['path'] for e in manifest['entries']}
     for ref in args.reference:
@@ -717,6 +722,7 @@ def lint(args):
             mod=load_validator();anchors,_=mod.anchors(target.read_text(encoding='utf-8'))
             if unquote(parsed.fragment) not in anchors:issue('ERROR','broken-anchor',name,href)
     record_result=record_support.audit(globals(), repo, cfg, ws, docs, definitions, issue, args)
+    support('prototypes').audit(globals(), repo, root, ws, dirs, docs, record_result['gate_scope'], issue)
     return {'workstream':ws['id'],'files':len(docs),'definitions':len(definitions),'issues':issues,
             'valid':not any(i['level']=='ERROR' for i in issues),'semantic_approval':False,**record_result}
 
@@ -878,7 +884,7 @@ def parser():
             s.add_argument('--to',choices=['legacy','numbered'],default='numbered')
         elif command=='lint':
             s.add_argument('--gate',choices=['draft','readiness','baseline'],default='draft')
-            s.add_argument('--target',help='Limit record-obligation gate checks to the dependency closure of this defined ID')
+            s.add_argument('--target',help='Limit gate evidence checks to this defined ID and its dependency closure')
         elif command=='context':
             s.add_argument('function');s.add_argument('--target');s.add_argument('--target-kind');s.add_argument('--revision')
             s.add_argument('--reference',action='append',default=[]);s.add_argument('--full',action='store_true');s.add_argument('--format',choices=['markdown','json'],default='markdown')

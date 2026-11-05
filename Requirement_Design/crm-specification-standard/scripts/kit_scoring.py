@@ -84,7 +84,7 @@ def run(api, args):
     seen=set(); revisions={}; outputs=[]; selected=[]; blocker_defs={}; dependency_cache={}
     for original in targets:
         t=copy.deepcopy(original)
-        identity(t)
+        artifact = identity(t)
         key=(t['id'],t['scope'])
         require(key not in seen,'Duplicate target/scope; do not silently deduplicate')
         seen.add(key)
@@ -134,6 +134,23 @@ def run(api, args):
                         require(isinstance(check,dict) and check.get('verdict') in ('Đạt','N/A') and string(check.get('rationale')),label+': unresolved quality check; not confirmed level 3')
         for i in items:
             i['declared_level']=i['level']
+        t['_declared_items'] = copy.deepcopy(items)
+        t['_prototype_blocker'] = None
+        if ws.get('prototype_gate') and t['kind'] == 'Epic':
+            e08 = next(i for i in items if i['id'] == 'E08')
+            try:
+                meta = api['metadata'](artifact.read_text(encoding='utf-8'))
+                state = api['support']('prototypes').validate(api, root, api['artifact_paths'](ws), artifact, meta, t['scope'])
+                expected_app = 'na' if state == 'not_applicable' else 'applies'
+                require(e08['applicability'] == expected_app, 'E08 applicability must agree with the reviewed Prototype evidence')
+            except (error, OSError, UnicodeError) as exc:
+                blocker = dict(id='PROTOTYPE:'+t['id']+':'+t['scope'], reason=str(exc), category='delivery')
+                t['_prototype_blocker'] = blocker
+                e08['blockers'].append(blocker)
+                if e08['applicability'] == 'na':
+                    e08['applicability'] = 'unknown'
+                if e08['level'] is not None:
+                    e08['level'] = min(e08['level'], 1)
         dependency=api['support']('score_dependencies').integrate(api,args,t,require,evidence,dependency_cache)
         t['_dependency_check']=dependency
         chosen=[i for i in items if not args.item or i['id']==args.item]
@@ -156,12 +173,14 @@ def run(api, args):
                     blockers=list(blockers.values()),gate='blocked' if blockers else 'not_assessed')
     for t,items in selected:
         summary=summarize(items)
-        if t['_dependency_check']['blockers']:
+        if t['_dependency_check']['blockers'] or t['_prototype_blocker']:
             summary['gate']='blocked'
+        if t['_prototype_blocker'] and args.item and args.item != 'E08':
+            summary['blockers'].append(t['_prototype_blocker'])
         if t['_dependency_check']['impact_allocation_unknown']:
             summary['definition_index']=None
         outputs.append(dict(id=t['id'],kind=t['kind'],scope=t['scope'],revision=t['revision'],sha256=t['sha256'],
-                            declared_summary=summarize([dict(i,level=i['declared_level']) for i in items]),summary=summary,items=items,dependency_check=t['_dependency_check'],focused=bool(args.item)))
+                            declared_summary=summarize([i for i in t['_declared_items'] if not args.item or i['id'] == args.item]),summary=summary,items=items,dependency_check=t['_dependency_check'],focused=bool(args.item)))
     # Distinct ledgers: catalog obligations are not requirements, nor business value.
     catalog=[i for t,rows in selected if t['kind']!='Requirement' for i in rows]
     req=[i for t,rows in selected if t['kind']=='Requirement' for i in rows]
@@ -172,7 +191,7 @@ def run(api, args):
                 dependency_policy='Current typed ASM/DEC/CST closure checked and pinned; unresolved mapped items capped at 1; unmapped impact suppresses index',
                 note='Equal-weight ordinal definition index, not percent correct/effort/value. Unknown applicability suppresses index. Bounds cover known applicable inventory only. No gate/approval granted; evidence hashes validate bytes, not truth or reviewer authority. Inventory completeness is a declaration, not a discovered fact. No source artifacts modified; --output explicitly saves a new report.')
     for name,kind in [('catalog_obligations',False),('canonical_requirements',True)]:
-        if any(t['_dependency_check']['blockers'] for t,_ in selected if (t['kind']=='Requirement')==kind):
+        if any(t['_dependency_check']['blockers'] or t['_prototype_blocker'] for t,_ in selected if (t['kind']=='Requirement')==kind):
             result['rollup'][name]['gate']='blocked'
     for name,kind in [('catalog_obligations',False),('canonical_requirements',True)]:
         if any(t['_dependency_check']['impact_allocation_unknown'] for t,_ in selected if (t['kind']=='Requirement')==kind):
