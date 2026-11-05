@@ -147,3 +147,7 @@ Không lấy “AI review đạt” hoặc đủ số section làm gate duy nh�
 ---
 
 **Liên quan:** [Điểm vào gói](../SKILL.md) · [Review và verdict](requirements-review-process-and-verdicts.md) · [Nguồn và cách điều chỉnh](standards-and-crm-tailoring.md).
+
+## Record mức hoàn thiện tùy yêu cầu
+
+[Scoring guideline](definition-maturity-scoring.md) bổ sung chỉ số mức hoàn thiện phân tích 0–3 có evidence khi user yêu cầu. Đây là record riêng, không thêm review verdict hoặc bù trừ Q01–Q07; full/targeted review và hard gates ở trên giữ nguyên. Mức 3 cần review evidence, không tự nâng AI self-check; tính arithmetic không là semantic approval.

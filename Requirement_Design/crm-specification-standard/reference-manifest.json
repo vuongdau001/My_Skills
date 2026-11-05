@@ -1,7 +1,7 @@
 {
   "pack_id": "crm-specification-standard",
-  "version": "1.7.2",
-  "date": "2026-11-04",
+  "version": "1.9.0",
+  "date": "2026-11-05",
   "language": "vi",
   "scope": "Self-contained CRM workflow kit with deterministic local installation adapters; no automatic runtime discovery or external mutations",
   "entries": [
@@ -942,6 +942,30 @@
       "kind": "reference",
       "title": "Báo cáo kiểm chứng kit 1.7.2",
       "path": "provenance/pack-validation-report-v1.7.2.md"
+    },
+    {
+      "id": "CRM-SCORING",
+      "kind": "reference",
+      "title": "Đánh giá mức hoàn thiện phân tích và CLI score",
+      "path": "references/definition-maturity-scoring.md"
+    },
+    {
+      "id": "TEMPLATE-DEFINITION-ASSESSMENT",
+      "kind": "template",
+      "title": "Mẫu chuẩn bị assessment định lượng",
+      "path": "assets/templates/definition-assessment-template.md"
+    },
+    {
+      "id": "CRM-VALIDATION-V18",
+      "kind": "reference",
+      "title": "Báo cáo kiểm chứng kit 1.8.0",
+      "path": "provenance/pack-validation-report-v1.8.0.md"
+    },
+    {
+      "id": "CRM-VALIDATION-V19",
+      "kind": "reference",
+      "title": "Báo cáo kiểm chứng dependency scoring 1.9.0",
+      "path": "provenance/pack-validation-report-v1.9.0.md"
     }
   ],
   "source_archive": "provenance/original-epic-story-standard-and-workflow-v1.1.zip",
@@ -2112,10 +2136,12 @@
         "references/epic-specification-catalog.md",
         "references/story-specification-catalog.md",
         "references/artifact-layout-and-migration.md",
-        "references/knowledge-records-and-evidence.md"
+        "references/knowledge-records-and-evidence.md",
+        "references/definition-maturity-scoring.md"
       ],
       "templates": [
-        "assets/templates/requirements-review-record-template.md"
+        "assets/templates/requirements-review-record-template.md",
+        "assets/templates/definition-assessment-template.md"
       ],
       "next_functions": [
         "crm-specify-epic",
@@ -2284,10 +2310,12 @@
         "references/project-policy-register.md",
         "references/artifact-layout-and-migration.md",
         "references/knowledge-records-and-evidence.md",
-        "references/conversational-status-and-next-step.md"
+        "references/conversational-status-and-next-step.md",
+        "references/definition-maturity-scoring.md"
       ],
       "templates": [
-        "assets/templates/progress-report-template.md"
+        "assets/templates/progress-report-template.md",
+        "assets/templates/definition-assessment-template.md"
       ],
       "next_functions": [
         "crm-setup-project",

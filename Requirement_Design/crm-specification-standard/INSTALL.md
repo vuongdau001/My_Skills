@@ -1,6 +1,6 @@
 # Install and Operate CRM Spec Kit
 
-ID: **CRM-INSTALL** · CRM Workflow Kit 1.7.2 · 04/11/2026
+ID: **CRM-INSTALL** · CRM Workflow Kit 1.9.0 · 04/11/2026
 
 AI được đưa folder kit để tự cài đọc [BOOTSTRAP](BOOTSTRAP.md) trước. Nội dung/workflow dùng chung; filesystem adapters và router tùy chọn xử lý phần tích hợp tool.
 
@@ -127,3 +127,7 @@ Không có Python: agent có thể đọc workflows và soạn/review theo check
 Bản triển khai này kiểm nguồn kit và repo tạm; repo crm-docs đang cài thử được đọc để đối chiếu, chưa bị migration/hoàn tác/commit bởi công cụ này.
 
 Backup update được giữ tại `.agents/crm-spec-kit-backups/<installation-key>-<old-snapshot>` ngoài các thư mục skills; dry-run trả đường dẫn backup trước khi ghi. Mỗi installation có key riêng để không đụng backup adapter khác. Helper từ chối ghi đè backup đã tồn tại và giữ receipt cũ để đối soát/rollback. Backup từ các phiên bản helper cũ có thể nằm cạnh skill; kiểm ownership và di chuyển ra ngoài skills trước runtime discovery, không xóa bản cũ chưa đối soát.
+
+## Definition Maturity Scoring
+
+Đọc [scoring guideline](references/definition-maturity-scoring.md) cho schema/rubric/evidence. Lệnh `score --init` tạo JSON Unknown trên stdout; `score --assessment <repo-relative-json>` tính điểm. `--target <ID>` lọc Epic/Story/Feature/requirement; `--scope <scope>` chọn lát cắt; `--item E07` hoặc S09 tính riêng mục trong target; `--format markdown` in báo cáo. Không có --target thì tổng hợp inventory, tách catalog obligations và canonical requirements. Mặc định không ghi file; --output lưu báo cáo Markdown mới trong reports, không tự chấm semantics. Thay source/target/evidence phải reassess, không refresh hash để giữ điểm. Không tạo Ready hoặc approval dù điểm 100.

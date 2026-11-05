@@ -48,6 +48,10 @@ Full report thực hiện các bước:
 - [Policy dự án: khai báo, phê duyệt và áp dụng vào gate](../references/project-policy-register.md)
 - [Trả lời status ngắn, next step và checkpoint](../references/conversational-status-and-next-step.md)
 
+## Đánh giá định lượng khi được yêu cầu
+
+Đọc [definition scoring guideline](../references/definition-maturity-scoring.md) và dùng [assessment template](../assets/templates/definition-assessment-template.md). Ghi record riêng pin target/scope/revision/evidence; không sửa target đang kiểm. Có thể chấm một hạng mục hoặc toàn catalog; focused score không nâng thành full score. Helper score chỉ tính rubric đã ghi, không chứng nhận semantics, reviewer authority hay Ready. AI self-check không tự xác nhận mức 3. Tổng hợp giữ riêng catalog obligations và canonical requirement IDs, hiện Unknown/N/A/blockers và scope inventory chưa đầy đủ; không báo % requirement đúng hoặc % sản phẩm hoàn thành.
+
 ## Outputs
 
 Trả lời chat ngắn cho Recap/Current status/Next step; Full report tách readiness, delivery, acceptance và blocker, có snapshot/mẫu số/source refs. Không tự sinh file chỉ vì được hỏi status.

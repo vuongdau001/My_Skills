@@ -37,3 +37,7 @@ Liên kết Feature/Epic/Story/rule bị ảnh hưởng bằng trace_links. Ghi 
 ## Dùng trong register
 
 Có thể chuyển object record thành một phần tử records trong metadata Project schema 2, bổ sung id và kind vào phần tử; không giữ đồng thời hai nơi định nghĩa ID. Giữ anchor ổn định nếu người dùng cần link tới record cụ thể.
+
+## Kết quả xử lý
+
+Validated: ghi validation_result, owner và evidence kiểm chứng đúng statement trong scope; không bắt tạo Decision. Invalidated: ghi kết quả sai và affected consumers, cần refinement/impact. Retired: nêu vì sao không còn dùng và disposition dependency; không phải đã chứng minh đúng. Nếu cần chọn policy/phương án, tạo DEC ID riêng, giữ ASM/history. Chấp nhận rủi ro không làm ASM Validated. Xem [lifecycle chi tiết](../../references/knowledge-records-and-evidence.md#giải-quyết-assumption-và-phân-biệt-decision--19).

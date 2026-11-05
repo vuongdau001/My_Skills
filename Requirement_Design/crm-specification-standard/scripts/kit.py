@@ -722,6 +722,10 @@ def load_validator():
     module=importlib.util.module_from_spec(spec);spec.loader.exec_module(module);return module
 
 
+def score(args):
+    return support('scoring').run(globals(),args)
+
+
 def plan_layout(args):
     return support('layout').plan(globals(), args)
 
@@ -849,16 +853,23 @@ def operation_lock(repo):
 def parser():
     p=argparse.ArgumentParser(description=__doc__)
     sub=p.add_subparsers(dest='command',required=True)
-    for command in ['install','doctor','context','lint','next-id','update','smoke-prompt','plan-layout']:
+    for command in ['install','doctor','context','lint','next-id','update','smoke-prompt','plan-layout','score']:
         s=sub.add_parser(command);s.add_argument('--repo',type=Path,required=True)
-        if command in {'install','context','lint','smoke-prompt','plan-layout'}:s.add_argument('--workstream')
-        if command in {'doctor','context','lint','smoke-prompt','plan-layout'}:s.add_argument('--config',type=Path,help='Explicit read-only config for migration/audit; paths still resolve within --repo')
+        if command in {'install','context','lint','smoke-prompt','plan-layout','score'}:s.add_argument('--workstream')
+        if command in {'doctor','context','lint','smoke-prompt','plan-layout','score'}:s.add_argument('--config',type=Path,help='Explicit read-only config for migration/audit; paths still resolve within --repo')
         if command=='install':
             s.add_argument('--agent',choices=[*AGENT_ROOTS,'both'],default='antigravity')
             s.add_argument('--with-router',action='store_true',help='Codex only: create missing root AGENTS.md or print a proposed snippet without merging existing files')
             s.add_argument('--spec-root');s.add_argument('--input-root');s.add_argument('--title')
             s.add_argument('--layout',choices=['legacy','numbered'],help='New workstream defaults to numbered; existing configs are preserved')
             s.add_argument('--source',action='append',default=[]);s.add_argument('--read-only',action='append',default=[]);s.add_argument('--apply',action='store_true')
+        elif command=='score':
+            s.add_argument('--assessment',help='Repo-relative JSON assessment inventory')
+            s.add_argument('--output',help='Explicitly save Markdown report to a new file under workstream reports; never overwrite')
+            s.add_argument('--target');s.add_argument('--scope');s.add_argument('--item')
+            s.add_argument('--init',action='store_true',help='Emit unknown full-catalog assessment JSON to stdout; no writes')
+            s.add_argument('--artifact');s.add_argument('--kind',choices=['Feature','Epic','Story','Requirement']);s.add_argument('--revision')
+            s.add_argument('--format',choices=['json','markdown'],default='json')
         elif command=='plan-layout':
             s.add_argument('--to',choices=['legacy','numbered'],default='numbered')
         elif command=='lint':

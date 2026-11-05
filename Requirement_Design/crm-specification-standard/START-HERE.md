@@ -1,6 +1,6 @@
 # Start Here
 
-ID: **CRM-START** · CRM Workflow Kit 1.7.2 · 04/11/2026
+ID: **CRM-START** · CRM Workflow Kit 1.9.0 · 04/11/2026
 
 
 ## BA mới bắt đầu từ đây
@@ -108,4 +108,8 @@ Cuối mỗi workflow đọc target/scope/revision, artifacts, findings/evidence
 
 Có một root skill cùng 5 profiles và 13 workflow guides. Chúng không tự khởi chạy multi-agent, không phụ thuộc BMAD runtime và không thực hiện Jira/Git/CI mutations. Files dự án và policy đã duyệt là inputs; kit không mang sẵn approval CRM. [Nguồn BMAD và CRM tailoring](provenance/bmad-inspiration-and-crm-tailoring.md) giải thích cách áp dụng tư tưởng.
 
-Chạy `python3 scripts/validate_reference_pack.py` để kiểm cấu trúc kit; xem [kết quả 1.7.2](provenance/pack-validation-report-v1.7.2.md). Kết quả này khác pilot hay test sản phẩm thực tế.
+Chạy `python3 scripts/validate_reference_pack.py` để kiểm cấu trúc kit; xem [kết quả 1.9.0](provenance/pack-validation-report-v1.9.0.md). Kết quả này khác pilot hay test sản phẩm thực tế.
+
+## Muốn biết requirement đã rõ tới đâu?
+
+Dùng [scoring guideline](references/definition-maturity-scoring.md) và [assessment template](assets/templates/definition-assessment-template.md). Bắt đầu bằng một Epic/Story có scope/revision; tạo Unknown inventory bằng helper score --init; review nội dung và evidence trước tính. Có thể tính một target, một E/S item hoặc toàn inventory. Points chỉ phục vụ refinement/status, không thay gate.

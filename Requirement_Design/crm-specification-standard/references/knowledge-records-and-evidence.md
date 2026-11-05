@@ -97,3 +97,17 @@ Gate tính dependency theo graph: `parent` kéo các input của Epic xuống St
 Ví dụ giả định: Epic có hai Story nhập thủ công và import. Decision về xử lý batch lỗi chỉ liên kết `applies-to` Story import (hoặc requirement/model riêng của nhánh import mà Story đó `depends-on`). Story nhập thủ công vẫn giữ `parent` Epic. Decision về quyền truy cập chung liên kết Epic và được cả hai Story kế thừa. Ma trận allocation trong Epic chỉ rõ Decision nào chung, Decision nào riêng và rationale.
 
 Nếu consumer chưa tồn tại, giữ Decision ở trạng thái draft với scope mô tả và ghi allocation gap; chưa tuyên bố nhánh đó Ready. Khi tạo consumer, bổ sung typed links và review allocation trước gate. Không gắn vào Epic tạm rồi bỏ qua blocker bằng diễn giải scope. Không xóa dependency thực để vượt gate; thay đổi allocation đã baseline phải qua impact/change review. Lint chỉ xác minh graph/record obligations, không chứng minh allocation đã đầy đủ hoặc approval hợp lệ.
+
+## Giải quyết Assumption và phân biệt Decision — 1.9
+
+Assumption hỏi “điều gì đang được tin là đúng nhưng chưa chứng minh?”. Decision hỏi “authority đã chọn phương án/quy tắc nào?”. Không đổi kind hoặc tái sử dụng ASM ID thành DEC. Khi phát biểu về hiện trạng được kiểm chứng đúng, giữ ASM và chuyển Validated, ghi validation_result/owner/evidence. Nếu sai: Invalidated, tìm consumers và rework. Nếu không còn sử dụng làm giả định: Retired kèm lý do; phải xử lý dependency thực, không tự đóng blocker chỉ bằng trạng thái Retired.
+
+Quy trình: ghi statement/basis/scope/if_false → giao cách kiểm và owner/due thực tế → liên kết consumer → kiểm chứng hoặc xin lựa chọn nghiệp vụ đúng authority → ghi result/evidence/revision → tác giả sửa requirement/model/AC/contract bị ảnh hưởng → review và tính lại score/gate. Review/check chỉ đề nghị correction, không tự đổi nguồn đang kiểm.
+
+Ví dụ A: giả định “API hiện hữu kiểm được quyền từng Customer”. TL kiểm contract/run có evidence; đúng thì ASM Validated, không bắt tạo DEC. Sai thì ASM Invalidated; có thể cần DEC riêng để chọn thay API hoặc bổ sung capability.
+
+Ví dụ B: giả định “chỉ Customer Active được gắn Contact” thực chất còn là lựa chọn policy. Business chọn rule thì tạo DEC riêng với options/rationale/consequences/authority/evidence. ASM ban đầu có thể Retired khi không còn làm cơ sở giả định; giữ lịch sử. Nếu DEC vẫn derived-from/depends-on/resolves ASM chưa Validated thì closure vẫn chặn: không dùng relation dependency cho một liên kết chỉ mang nghĩa lịch sử. Dẫn lịch sử bằng prose/Markdown/references và giữ evidence; review lại graph trước khi bỏ dependency. Không bỏ link khi nội dung vẫn thực sự dựa vào giả định.
+
+Decision chấp nhận rủi ro không chứng minh assumption đúng. Approval không thay validation_result; kit chưa hỗ trợ exception/waiver tự miễn ASM ở gate. ASM sai hoặc Retired mà consumer vẫn dựa vào nó vẫn chặn. Validated không tự nâng điểm consumer lên mức 3; cần reassess/review đúng revision.
+
+Score policy v2 tự đối chiếu graph hiện hành và yêu cầu pin record dependencies; xem [scoring guideline](definition-maturity-scoring.md). Tool không phát hiện mọi assumption trong prose hoặc missing links; reviewer phải đối soát inventory ngoài graph, ghi blocker thủ công nếu cần. Không tạo hàng loạt ASM/DEC từ câu hỏi chỉ để đủ loại record.

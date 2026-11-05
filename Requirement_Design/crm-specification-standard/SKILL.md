@@ -5,15 +5,19 @@ description: "Vận hành yêu cầu và backlog CRM theo workflow: làm rõ Fea
 
 # CRM Workflow Kit
 
-Phiên bản **1.7.2**. Một root skill, các agent profiles logic và workflows tự chứa. Người mới đọc [Start Here](START-HERE.md). Nguồn kit tên crm-specification-standard; helper đóng gói bản cài một root skill tên crm-spec-kit. Các function IDs bên dưới vẫn là workflow nội bộ, không phải 13 slash commands riêng.
+Phiên bản **1.9.0**. Một root skill, các agent profiles logic và workflows tự chứa. Người mới đọc [Start Here](START-HERE.md). Nguồn kit tên crm-specification-standard; helper đóng gói bản cài một root skill tên crm-spec-kit. Các function IDs bên dưới vẫn là workflow nội bộ, không phải 13 slash commands riêng.
 
 ## Installation and Admin Requests
 
-Khi user đưa folder kit và muốn cài cho một AI tool, bắt đầu bằng [BOOTSTRAP.md](BOOTSTRAP.md); agent khảo sát/chọn tham số, helper thực hiện cài. Đọc [INSTALL.md](INSTALL.md) khi cần install/doctor/context/lint/next-id/update/smoke-prompt/plan-layout hoặc config/scaffold chưa có. Dùng Python 3.11+ stdlib helper tại `scripts/kit.py`; package root lấy từ vị trí script, không đoán ../../vendor. Install/update dry-run trước, chỉ --apply trong phạm vi được giao. Codex có --agent codex và router project tùy chọn --with-router; giữ instructions có sẵn. Không sửa global AGENTS/rules, không auto commit/push, không coi filesystem doctor hoặc smoke prompt là runtime discovery proof.
+Khi user đưa folder kit và muốn cài cho một AI tool, bắt đầu bằng [BOOTSTRAP.md](BOOTSTRAP.md); agent khảo sát/chọn tham số, helper thực hiện cài. Đọc [INSTALL.md](INSTALL.md) khi cần install/doctor/context/lint/next-id/update/smoke-prompt/plan-layout/score hoặc config/scaffold chưa có. Dùng Python 3.11+ stdlib helper tại `scripts/kit.py`; package root lấy từ vị trí script, không đoán ../../vendor. Install/update dry-run trước, chỉ --apply trong phạm vi được giao. Codex có --agent codex và router project tùy chọn --with-router; giữ instructions có sẵn. Không sửa global AGENTS/rules, không auto commit/push, không coi filesystem doctor hoặc smoke prompt là runtime discovery proof.
 
 ## Route the Request
 
 Khi người dùng cần onboarding BA, mapping BRD/SRS/Use Case hoặc cách phân rã phù hợp, đọc [BA Getting Started](references/ba-getting-started.md). Đây là guide học và thực hành; chỉ nạp khi cần, không thay catalogs/gates hoặc tạo thêm function.
+
+Khi cần xử lý Assumption/Decision, đọc [knowledge records](references/knowledge-records-and-evidence.md); ASM Validated không bắt chuyển DEC, risk acceptance không thay validation. Score v2 tự audit/pin record closure và yêu cầu allocation ảnh hưởng.
+
+Khi cần điểm Story/Epic/Feature, từng mục E/S hoặc canonical requirement, đọc [definition maturity scoring](references/definition-maturity-scoring.md). Dùng crm-review-specification để lập assessment record có scope/revision/evidence; helper `score` tính bằng policy cố định, crm-report-status tổng hợp hai ledger catalog/requirements. Có thể lọc --target/--scope/--item; không suy điểm từ heading, không tự thêm workflow/slash command hoặc nâng gate bằng điểm. Thiếu assessment thì dùng --init để tạo Unknown inventory rồi đánh giá nội dung. Helper mặc định in stdout; --output lưu report Markdown mới trong reports, không sửa spec.
 
 Các câu “vừa làm gì xong/đang tới đâu/làm gì tiếp” dùng các [chế độ status ngắn](references/conversational-status-and-next-step.md) của crm-report-status. Recap chỉ dựa observed result đã có có thể trả ngay trong chat; cần current status hoặc next step thì đối soát nguồn/context phù hợp, không bắt full report hay tạo file cho mỗi câu hỏi.
 
@@ -58,6 +62,6 @@ Workstream mới dùng thư mục đánh số; config cũ giữ legacy. Khi ch�
 
 ## Registry & Verification
 
-[Manifest](reference-manifest.json) nối function → profile → workflow → refs/templates. [Nguồn và tailoring](references/standards-and-crm-tailoring.md), [BMAD inspiration](provenance/bmad-inspiration-and-crm-tailoring.md), [acceptance scenarios](references/pack-acceptance-scenarios.md) và [report 1.7.2](provenance/pack-validation-report-v1.7.2.md) phục vụ đối chiếu.
+[Manifest](reference-manifest.json) nối function → profile → workflow → refs/templates. [Nguồn và tailoring](references/standards-and-crm-tailoring.md), [BMAD inspiration](provenance/bmad-inspiration-and-crm-tailoring.md), [acceptance scenarios](references/pack-acceptance-scenarios.md) và [report 1.9.0](provenance/pack-validation-report-v1.9.0.md) phục vụ đối chiếu.
 
 Chạy `python3 scripts/validate_reference_pack.py` từ folder này hoặc gọi bằng đường dẫn script. Validator kiểm cấu trúc/refs/registry/migration, không cấp DoR/DoD approval hoặc chứng minh phần mềm đạt.

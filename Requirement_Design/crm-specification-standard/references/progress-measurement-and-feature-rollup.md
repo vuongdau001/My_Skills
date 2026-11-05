@@ -51,3 +51,7 @@ Feature có 3 scope units được định nghĩa: manual đã baseline đầy �
 PM/BA đối soát scope/version/mẫu số; Dev/QA xác nhận evidence và blockers phần mình. Thử truy ngược mỗi số tới danh sách ID; so với kỳ trước; kiểm không đếm lặp/cancel/unknown. Đạt khi số tái tính được và ý nghĩa đúng; thiếu nguồn ghi chưa xác minh, có mismatch ghi finding. Báo cáo không tự cấp quyền chuyển gate.
 
 Liên quan: [Jira/status](jira-status-and-progress-reporting.md), [policy/clock/escalation](project-policy-register.md), [gate](readiness-completion-and-approval-gates.md).
+
+## Chỉ số hoàn thiện phân tích tùy mục đích
+
+Khi user cần mức độ đã rõ trước khi review hoàn tất, dùng [definition maturity scoring](definition-maturity-scoring.md). Chỉ số ordinal 0–3 không thay review coverage hoặc verdict. Rollup catalog và canonical requirements tách ledger, không trung bình phần trăm Epic để gọi % hoàn thành dự án. Scope/revision/mẫu số, Unknown/N/A và blockers luôn đi cùng số. Không tự áp ngưỡng Ready.
