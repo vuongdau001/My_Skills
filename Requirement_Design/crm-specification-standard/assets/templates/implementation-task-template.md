@@ -1,41 +1,47 @@
 # Mẫu Task triển khai
 
-Mã tài liệu: **TPL-IMPLEMENTATION-TASK-TEMPLATE** · Gói CRM 1.3.1 · 03/11/2026
+Mã tài liệu: **TPL-IMPLEMENTATION-TASK-TEMPLATE** · Gói CRM 1.10.0 · 05/11/2026
 
-**Mục đích:** Sao chép phần mẫu để tạo hồ sơ thực tế; không để trống rồi đánh dấu đạt.
+Áp dụng [standard viết artifact](../../references/artifact-writing-standard.md). Đây là mẫu; thay hướng dẫn bằng dữ liệu thực, giữ gap khi thiếu input. Không suy approval từ việc điền đủ mục.
 
-**Đọc khi:** Sau khi đọc catalog và các hướng dẫn áp dụng.
+Một đoạn nêu output của Task và giá trị với Story/Epic. ID/Jira mapping/revision ghi trong context ngắn; chưa có Jira giữ logical ID.
 
+Chỉ tạo khi có nhu cầu giao output thực tế; đọc [Task planning](../../references/task-planning-and-completion.md).
 
-## Hướng dẫn sử dụng
+## T01 — Mục đích và parent
 
-Đọc [Task planning và completion](../../references/task-planning-and-completion.md) trước. Chỉ copy phần hồ sơ dưới đây. Trạng thái ban đầu của brief là chưa kiểm; tiêu chí chưa có phải ghi gap, không đánh dấu đạt.
+Epic/Story được phục vụ, BR/AC hoặc đầu ra được giao.
 
-## Hồ sơ Task
+## T02 — Đầu ra và ranh giới
 
-| Hạng mục | Nội dung thực tế cần điền |
-|---|---|
-| Task ID / Jira key / revision | ID thực tế; chưa tạo Jira thì logical ID |
-| T01 — Liên kết và mục đích | Epic; Story được phục vụ; BR/AC hoặc đầu ra được giao |
-| T02 — Đầu ra và ranh giới | Artifact/kết quả, in/out scope; lý do cần Task thay vì checklist |
-| T03 — Đầu vào và phiên bản | Baseline + repo/commit/path/model/contract; environment/quyền |
-| T04 — Kế hoạch và constraint | Bước chính, giới hạn, phạm vi AI được phép hỗ trợ |
-| T05 — Dependency và bàn giao | Input cần trước khi bắt đầu; owner dependency; người nhận output |
-| T06 — Owner, reviewer, timebox | Người thực hiện/kiểm; estimate/capacity; mốc báo nếu vượt dự kiến |
-| T07 — Tiêu chí hoàn tất | Điều kiện + phép kiểm + expected result theo output |
-| T08 — Evidence và closure | PR/SHA/build/run/log áp dụng; reviewer + receiver + revision + thời điểm |
+Artifact/kết quả, in/out scope và vì sao cần Task thay vì checklist.
 
-### Kiểm điều kiện bắt đầu và hoàn tất
+## T03 — Đầu vào và phiên bản
 
-| Bước/tiêu chí | Thao tác kiểm | Evidence/ref + revision | Verdict | Reviewer | Gap/owner/due |
-|---|---|---|---|---|---|
-| DoR hoặc completion criterion thực tế | Cách kiểm đã làm | Ref thực tế, chưa có thì ghi thiếu | Chưa kiểm / Không đạt / Đạt / N/A có lý do | Người được giao | Hành động còn thiếu |
+Baseline/repo/commit/path/model/contract cùng environment/quyền thực có.
 
-### Kết quả bàn giao
+## T04 — Kế hoạch và constraint
 
-Output version; các tiêu chí đạt/chưa đạt; receiver acceptance; remaining work; impact tới Story; thay đổi cần trả về baseline. Không ghi Story Done từ kết quả Task.
+Các bước chính, giới hạn và phạm vi AI được phép hỗ trợ.
 
+## T05 — Dependency và bàn giao
 
----
+Input cần trước khi bắt đầu, người cung cấp và người nhận output.
 
-**Liên quan:** [Điểm vào gói](../../SKILL.md) · [Review và verdict](../../references/requirements-review-process-and-verdicts.md) · [Nguồn và cách điều chỉnh](../../references/standards-and-crm-tailoring.md).
+## T06 — Người thực hiện và timebox
+
+Owner/reviewer, estimate/capacity, mốc báo khi vượt dự kiến.
+
+## T07 — Tiêu chí hoàn tất
+
+Điều kiện → phép kiểm → expected result theo output.
+
+## T08 — Evidence và closure
+
+PR/SHA/build/run/log áp dụng; reviewer/receiver, revision và thời điểm thực.
+
+## Kiểm bắt đầu/hoàn tất và handoff
+
+Với từng tiêu chí, ghi thao tác kiểm, expected/observed, evidence/ref/revision, verdict/reviewer và gap/owner/due. Bảng chỉ làm index nếu nội dung dài.
+
+Ghi phiên bản output, tiêu chí đã/chưa đạt, receiver acceptance, việc còn lại và impact tới Story/baseline. Task Done không tự Story Done. Kết thúc bằng metadata Task hợp lệ.

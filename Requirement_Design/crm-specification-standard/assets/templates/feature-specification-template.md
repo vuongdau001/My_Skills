@@ -1,36 +1,45 @@
 # Mẫu hồ sơ Feature
 
-Mã tài liệu: **TPL-FEATURE** · Gói CRM 1.3.1 · 03/11/2026
+Mã tài liệu: **TPL-FEATURE** · Gói CRM 1.10.0 · 05/11/2026
 
-Đọc [Feature catalog F01–F08](../../references/feature-specification-catalog.md); copy vào repo dự án. Không thêm ticket Feature. Chỉ điền độ sâu cần cho bước hiện tại; mọi giả định/unknown giữ rõ trạng thái.
+Áp dụng [standard viết artifact](../../references/artifact-writing-standard.md). Đây là mẫu; thay hướng dẫn bằng dữ liệu thực, giữ gap khi thiếu input. Không suy approval từ việc điền đủ mục.
 
-## Định danh và bước đang xét
+Mở đầu bằng ID/tên Feature và một đoạn về năng lực, người nhận lợi ích. Dùng bảng hai cột cho revision, bước đang xét, sources, Business/BA/PM owners và policy/approval thực có.
 
-Feature ID/title; source refs; canonical repo/path/revision; Business authority; BA/PM owners; bước: giao làm rõ / chốt scope Epic / hoàn tất phân tích / nghiệm thu. Policy refs/versions; selected scope và phần chưa xét.
+Đọc [Feature catalog](../../references/feature-specification-catalog.md); giữ F01–F08. Chỉ soạn đến độ sâu của bước: giao làm rõ, chốt scope Epic, hoàn tất phân tích hoặc acceptance.
 
-| Hạng mục | Nội dung hoặc canonical ref/version | Owner/reviewer | Verdict + evidence | Câu hỏi chặn/owner/due |
-|---|---|---|---|---|
-| F01 — Nguồn và vấn đề | Nguồn, lý do | Người được giao | Chưa kiểm | Gap thực tế |
-| F02 — Outcome và cách đánh giá | Outcome + method + condition | Người được giao | Chưa kiểm | Gap thực tế |
-| F03 — Stakeholder và authority | Nhóm/đại diện/quyền quyết | Người được giao | Chưa kiểm | Gap thực tế |
-| F04 — Phạm vi và ranh giới | In/out/constraints | Người được giao | Chưa kiểm | Gap thực tế |
-| F05 — Requirement/control dùng chung | ID/version/applies-to | Người được giao | Chưa kiểm | Gap thực tế |
-| F06 — Phân bổ Epic và dependency | Allocation/commitment | Người được giao | Chưa kiểm | Gap thực tế |
-| F07 — Acceptance liên Epic | AC/expected/method | Người được giao | Chưa kiểm | Gap thực tế |
-| F08 — Quyết định, baseline, nghiệm thu | Scope/revision/approval/evidence | Người được giao | Chưa kiểm | Gap thực tế |
+## F01 — Nguồn và vấn đề
 
-## Outcome và acceptance
+Nêu ai gặp nhu cầu/vấn đề gì, source locator và rationale. Giữ source IDs; phân biệt nội dung nguồn với đề xuất.
 
-| Outcome ID/ref | Loại: acceptance sản phẩm hoặc lợi ích sau sử dụng | Điều kiện đạt/phương pháp | Baseline/target/đơn vị nếu định lượng | Population/window/data source | Owner/authority | Trạng thái quyết định/kết quả |
-|---|---|---|---|---|---|---|
-| Nguồn thực tế | Phân biệt rõ | Không tự đặt target | Pending nếu thiếu | Kế hoạch thu thập khi chưa đo | Người có quyền | Chưa quyết/chưa đo khác Không đạt |
+## F02 — Outcome và cách đánh giá
 
-## Scope allocation
+Mỗi outcome một mục: loại acceptance/lợi ích sau sử dụng, điều kiện quan sát, cách đánh giá, population/window, owner. KPI có baseline/target/unit nếu được chọn; thiếu thì ghi quyết định Pending.
 
-| Scope unit ID | Outcome/in-out ranh giới | Epic nhận trách nhiệm | Shared requirement refs | Dependency + owner | Baseline refs nếu đã có | Gap/change decision |
-|---|---|---|---|---|---|---|
-| ID ổn định trong Feature | Phạm vi cụ thể | Chưa phân bổ thì ghi gap | IDs/versions | Hai đầu và cam kết | Chưa có không coi đã baseline | Source/reason |
+## F03 — Bên liên quan và trách nhiệm xác nhận
 
-## Quyết định và kết luận
+Tách nhóm sử dụng khỏi người review/phê duyệt. Dùng bảng ngắn vai trò → trách nhiệm. Tên người, người thay thế và hạn chưa có thì ghi thiếu.
 
-Question/decision IDs; authority; ảnh hưởng scope/acceptance; owner/due; reviewed revision. Kết luận cho đúng bước, không tự coi Epic Done là Feature Accepted. Evidence runtime/build chỉ điền sau khi kiểm thật.
+## F04 — Phạm vi và ranh giới
+
+Tách nội dung trong phạm vi, capability phụ thuộc, ngoài phạm vi và điểm chưa quyết. Phạm vi soạn draft khác cam kết release.
+
+## F05 — Requirement và kiểm soát dùng chung
+
+Dẫn ID/revision của requirements, rule, NFR, data/permission/integration/transition. Giữ một nơi định nghĩa và phân bổ controls tới consumer thực sự áp dụng.
+
+## F06 — Phân bổ Epic và dependency
+
+Bảng tra scope unit → Epic/candidate → source/REQ. Giải thích overlap/split; ghi người cung cấp dependency, cam kết/capacity/mốc sơ bộ khi có. Chưa có thì giữ gap.
+
+## F07 — Tình huống nghiệm thu liên Epic
+
+Mỗi tình huống nêu điều kiện, hành vi và kết quả quan sát. Ghi cách kiểm và dependency; chưa coi các ví dụ là test đã thực thi.
+
+## F08 — Quyết định, baseline và bàn giao
+
+Liệt kê decision/question, authority và scope bị ảnh hưởng. Dẫn baseline/review/approval đúng revision nếu có; ghi receiver và bước tiếp. Epic Done chưa tự Feature Accepted.
+
+## Theo dõi review của từng mục
+
+Dùng index ngắn Item → output/revision → work signal/verdict. Với mỗi mục cần giải thích dài, ghi riêng applicability/reason, reviewer/authority, evidence và gap/owner/due. Work signal không thay verdict. Kết thúc artifact bằng metadata đúng loại, không copy phần hướng dẫn template như nội dung đã đạt.

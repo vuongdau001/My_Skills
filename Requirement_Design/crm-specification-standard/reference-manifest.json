@@ -1,6 +1,6 @@
 {
   "pack_id": "crm-specification-standard",
-  "version": "1.9.0",
+  "version": "1.10.0",
   "date": "2026-11-05",
   "language": "vi",
   "scope": "Self-contained CRM workflow kit with deterministic local installation adapters; no automatic runtime discovery or external mutations",
@@ -966,6 +966,30 @@
       "kind": "reference",
       "title": "Báo cáo kiểm chứng dependency scoring 1.9.0",
       "path": "provenance/pack-validation-report-v1.9.0.md"
+    },
+    {
+      "id": "CRM-ARTIFACT-WRITING",
+      "kind": "reference",
+      "title": "Standard viết và trình bày mọi artifact CRM",
+      "path": "references/artifact-writing-standard.md"
+    },
+    {
+      "id": "TPL-ARTIFACT-DOCUMENT",
+      "kind": "template",
+      "title": "Mẫu artifact CRM dùng chung",
+      "path": "assets/templates/artifact-document-template.md"
+    },
+    {
+      "id": "CRM-VALIDATION-V110",
+      "kind": "reference",
+      "title": "Báo cáo kiểm chứng artifact writing standard 1.10.0",
+      "path": "provenance/pack-validation-report-v1.10.0.md"
+    },
+    {
+      "id": "CRM-ARTIFACT-WRITING-TESTS",
+      "kind": "test-script",
+      "title": "Artifact Writing Context and Metadata Compatibility Tests",
+      "path": "scripts/tests/test_artifact_writing.py"
     }
   ],
   "source_archive": "provenance/original-epic-story-standard-and-workflow-v1.1.zip",
@@ -1980,14 +2004,16 @@
         "references/requirement-types-identifiers-and-traceability.md",
         "references/crm-project-rules.md",
         "references/artifact-layout-and-migration.md",
-        "references/knowledge-records-and-evidence.md"
+        "references/knowledge-records-and-evidence.md",
+        "references/artifact-writing-standard.md"
       ],
       "templates": [
         "assets/templates/project-policy-register-template.md",
         "assets/templates/meeting-record-template.md",
         "assets/templates/decision-record-template.md",
         "assets/templates/assumption-record-template.md",
-        "assets/templates/constraint-record-template.md"
+        "assets/templates/constraint-record-template.md",
+        "assets/templates/artifact-document-template.md"
       ],
       "next_functions": [
         "crm-define-feature"
@@ -2008,7 +2034,8 @@
         "references/requirement-types-identifiers-and-traceability.md",
         "references/readiness-completion-and-approval-gates.md",
         "references/artifact-layout-and-migration.md",
-        "references/knowledge-records-and-evidence.md"
+        "references/knowledge-records-and-evidence.md",
+        "references/artifact-writing-standard.md"
       ],
       "templates": [
         "assets/templates/feature-specification-template.md",
@@ -2037,7 +2064,8 @@
         "references/catalog-check-model-mapping.md",
         "references/coverage-inventories-and-traceability.md",
         "references/artifact-layout-and-migration.md",
-        "references/knowledge-records-and-evidence.md"
+        "references/knowledge-records-and-evidence.md",
+        "references/artifact-writing-standard.md"
       ],
       "templates": [
         "assets/templates/epic-specification-template.md",
@@ -2068,13 +2096,15 @@
         "references/catalog-check-model-mapping.md",
         "references/checks/feasibility-and-handoff-readiness.md",
         "references/artifact-layout-and-migration.md",
-        "references/knowledge-records-and-evidence.md"
+        "references/knowledge-records-and-evidence.md",
+        "references/artifact-writing-standard.md"
       ],
       "templates": [
         "assets/templates/meeting-record-template.md",
         "assets/templates/decision-record-template.md",
         "assets/templates/assumption-record-template.md",
-        "assets/templates/constraint-record-template.md"
+        "assets/templates/constraint-record-template.md",
+        "assets/templates/artifact-document-template.md"
       ],
       "next_functions": [
         "crm-prepare-stories",
@@ -2099,7 +2129,8 @@
         "references/task-planning-and-completion.md",
         "references/catalog-check-model-mapping.md",
         "references/artifact-layout-and-migration.md",
-        "references/knowledge-records-and-evidence.md"
+        "references/knowledge-records-and-evidence.md",
+        "references/artifact-writing-standard.md"
       ],
       "templates": [
         "assets/templates/story-specification-template.md",
@@ -2137,7 +2168,8 @@
         "references/story-specification-catalog.md",
         "references/artifact-layout-and-migration.md",
         "references/knowledge-records-and-evidence.md",
-        "references/definition-maturity-scoring.md"
+        "references/definition-maturity-scoring.md",
+        "references/artifact-writing-standard.md"
       ],
       "templates": [
         "assets/templates/requirements-review-record-template.md",
@@ -2167,9 +2199,12 @@
         "references/project-policy-register.md",
         "references/ai-handoff-and-hard-gates.md",
         "references/artifact-layout-and-migration.md",
-        "references/knowledge-records-and-evidence.md"
+        "references/knowledge-records-and-evidence.md",
+        "references/artifact-writing-standard.md"
       ],
-      "templates": [],
+      "templates": [
+        "assets/templates/artifact-document-template.md"
+      ],
       "next_functions": [
         "crm-review-specification",
         "crm-check-readiness"
@@ -2192,7 +2227,8 @@
         "references/task-planning-and-completion.md",
         "references/project-policy-register.md",
         "references/artifact-layout-and-migration.md",
-        "references/knowledge-records-and-evidence.md"
+        "references/knowledge-records-and-evidence.md",
+        "references/artifact-writing-standard.md"
       ],
       "templates": [
         "assets/templates/requirements-review-record-template.md"
@@ -2219,7 +2255,8 @@
         "references/project-policy-register.md",
         "references/jira-status-and-progress-reporting.md",
         "references/artifact-layout-and-migration.md",
-        "references/knowledge-records-and-evidence.md"
+        "references/knowledge-records-and-evidence.md",
+        "references/artifact-writing-standard.md"
       ],
       "templates": [
         "assets/templates/requirements-review-record-template.md"
@@ -2248,7 +2285,8 @@
         "references/feature-specification-catalog.md",
         "references/project-policy-register.md",
         "references/artifact-layout-and-migration.md",
-        "references/knowledge-records-and-evidence.md"
+        "references/knowledge-records-and-evidence.md",
+        "references/artifact-writing-standard.md"
       ],
       "templates": [
         "assets/templates/requirements-review-record-template.md"
@@ -2279,9 +2317,12 @@
         "references/checks/traceability-and-versioning.md",
         "references/project-policy-register.md",
         "references/artifact-layout-and-migration.md",
-        "references/knowledge-records-and-evidence.md"
+        "references/knowledge-records-and-evidence.md",
+        "references/artifact-writing-standard.md"
       ],
-      "templates": [],
+      "templates": [
+        "assets/templates/artifact-document-template.md"
+      ],
       "next_functions": [
         "crm-define-feature",
         "crm-specify-epic",
@@ -2311,7 +2352,8 @@
         "references/artifact-layout-and-migration.md",
         "references/knowledge-records-and-evidence.md",
         "references/conversational-status-and-next-step.md",
-        "references/definition-maturity-scoring.md"
+        "references/definition-maturity-scoring.md",
+        "references/artifact-writing-standard.md"
       ],
       "templates": [
         "assets/templates/progress-report-template.md",
@@ -2346,7 +2388,8 @@
         "references/pack-acceptance-scenarios.md",
         "references/workflow-execution-protocol.md",
         "references/artifact-layout-and-migration.md",
-        "references/knowledge-records-and-evidence.md"
+        "references/knowledge-records-and-evidence.md",
+        "references/artifact-writing-standard.md"
       ],
       "templates": [
         "assets/templates/pilot-review-record-template.md"

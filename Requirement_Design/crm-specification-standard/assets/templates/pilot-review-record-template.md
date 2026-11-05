@@ -1,15 +1,28 @@
-# Mẫu ghi nhận pilot và quyết định áp dụng
+# Mẫu pilot và quyết định áp dụng
 
-Mã tài liệu: **TPL-PILOT** · Gói CRM 1.3.1 · 03/11/2026
+Mã tài liệu: **TPL-PILOT** · Gói CRM 1.10.0 · 05/11/2026
 
-Đọc [pilot procedure](../../references/pilot-and-operational-validation.md). Đây là mẫu; mọi kết quả chưa có evidence giữ Chưa kiểm.
+Áp dụng [standard viết artifact](../../references/artifact-writing-standard.md). Đây là mẫu; thay hướng dẫn bằng dữ liệu thực, giữ gap khi thiếu input. Không suy approval từ việc điền đủ mục.
 
-Pilot ID/date; mục tiêu và bước được kiểm; Feature/Epic/Story refs; selected scope/revision; nguồn/authority; participants/roles; policy refs/versions; quyền thao tác được cấp; môi trường thực hay bản sao; phần không kiểm.
+Nêu mục tiêu, bước cần kiểm và kết quả scoped nếu đã quan sát. Theo [pilot procedure](../../references/pilot-and-operational-validation.md); chưa có evidence giữ Chưa kiểm.
 
-| Scenario/bước | Input/version | Người thực hiện/reviewer | Expected decision + rule ref | Observed action/decision | Evidence | Verdict/finding | Correction/retest |
-|---|---|---|---|---|---|---|---|
-| Trường hợp thực tế | Context đúng version | Không giả authority | Tiêu chí trước khi thử | Chưa kiểm nếu chưa làm | Ref thật | Đạt/Không đạt/Chưa kiểm/N/A reason | Owner/due |
+## Bối cảnh thử
 
-Dữ liệu quan sát: thời gian tìm context/review, câu hỏi do thiếu input, rework, bước lặp; nguồn đo và clock. Ngưỡng chưa được chốt không tự biến thành SLA.
+Pilot ID/date; Feature/Epic/Story/target refs; scope/revision; nguồn/policy/version; participants/roles và quyền được cấp. Nêu môi trường thật/bản sao, phần không kiểm.
 
-Kết luận PM/authority: bước nào đủ evidence, scope/version áp dụng, findings chặn, phần chưa kiểm, corrections/owners/due và phạm vi cần thử lại. Pilot hồ sơ không đồng nghĩa hook Jira/CI đã được kiểm; Story Done cần evidence sản phẩm riêng.
+## Từng scenario
+
+Mỗi scenario một mục:
+
+- **Input/setup:** context/version, môi trường và người thực hiện/reviewer.
+- **Kết quả mong đợi:** decision/rule ref trước khi thử.
+- **Quan sát:** action/decision thực tế và evidence; chưa chạy thì ghi chưa kiểm.
+- **Kết luận:** verdict/finding scoped, owner/due và correction/retest.
+
+## Dữ liệu đo và giới hạn
+
+Thời gian tìm context/review, câu hỏi thiếu input, rework/bước lặp, nguồn đo và clock. Ngưỡng chưa chốt không tự là SLA.
+
+## Bàn giao PM/authority
+
+Ghi scope/version đủ evidence, findings chặn, phần chưa kiểm, corrections/owners/due và phạm vi thử lại. Pilot tài liệu chưa chứng minh hook Jira/CI hoặc sản phẩm; Story Done cần evidence sản phẩm riêng. Thêm metadata Pilot cuối file.

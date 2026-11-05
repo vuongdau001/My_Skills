@@ -1,81 +1,85 @@
 # Mẫu hồ sơ Epic
 
-Mã tài liệu: **TPL-EPIC-SPECIFICATION-TEMPLATE** · Gói CRM 1.3.1 · 03/11/2026
+Mã tài liệu: **TPL-EPIC-SPECIFICATION-TEMPLATE** · Gói CRM 1.10.0 · 05/11/2026
 
-**Mục đích:** Sao chép phần mẫu để tạo hồ sơ thực tế; không để trống rồi đánh dấu đạt.
+Áp dụng [standard viết artifact](../../references/artifact-writing-standard.md). Đây là mẫu; thay hướng dẫn bằng dữ liệu thực, giữ gap khi thiếu input. Không suy approval từ việc điền đủ mục.
 
-**Đọc khi:** Sau khi đọc catalog và các hướng dẫn áp dụng.
-
+ID/tên Epic và một đoạn về mục tiêu. Bảng context ngắn: Feature, selected scope, revision/baseline, sources, owners và bước hiện tại. Đọc [Epic catalog](../../references/epic-specification-catalog.md).
 
 <a id="spec-10"></a>
 
-## Mẫu cấu trúc hồ sơ để sử dụng
+## Cách dùng mẫu
 
+Giữ E01–E16 và điền sâu theo scope đang xét. Mỗi mục có nội dung hoặc ref đúng revision; có thể thêm mục con, không ép một dòng checklist thay toàn bộ model.
 
 <a id="spec-10-1"></a>
 
-### Epic specification
+## E01 — Bối cảnh, mục tiêu và phạm vi
 
-```text
-Epic ID / Jira key / Feature ref / revision
-E01 Context, goal, scope và Epic acceptance
-E02 Actors, glossary, entities và invariants
-E03 Business flows/use cases với IDs, main/alternate/exception
-E04 Lifecycle: state definitions + transition/command disposition
-E05 BR catalogue + decision rules/table
-E06 Data dictionary, validation, normalization và boundaries
-E07 Permission/data-scope matrix
-E08 UI/UX refs và states liên quan, hoặc N/A có lý do
-E09 API/integration/sequence refs, hoặc N/A có lý do
-E10 Exception/edge catalogue và expected outcomes
-E11 NFR/control và acceptance methods, hoặc N/A có lý do
-E12 Migration/operations impact, hoặc N/A có lý do
-E13 Solution/dependency/feasibility
-E14 Epic AC, planned coverage và test approach
-E15 Story candidates, allocation, dependencies và estimate
-E16 Questions/decisions/applicability/review + baseline manifest
-```
+Nêu outcome, selected scope, exclusions và acceptance toàn Epic; phân biệt scope hiện tại với các nhánh làm sau.
 
+## E02 — Actor, thuật ngữ và domain model
 
-## Applicability và review record của hồ sơ
+Định nghĩa object/identity và invariants; chỉ rõ authority/owner, không suy role label là quyền cụ thể.
 
-Đọc [Catalog Epic](../../references/epic-specification-catalog.md). Giữ các ID E01–E16; nội dung có thể là delta hoặc ref pinned, không buộc mỗi mục một file. Không điền giả định như quyết định đã xác nhận.
+## E03 — Luồng nghiệp vụ
 
-| Item ID + tên | Applicability/reason | Output ref + revision | Source/authority | Owner/reviewer | Verdict/evidence | Gap/owner/due |
-|---|---|---|---|---|---|---|
-| Hạng mục được xét | Áp dụng hoặc N/A có xác nhận | Nội dung cụ thể | Nguồn quyết định | Người chịu trách nhiệm | Chưa kiểm / Không đạt / Đạt / N/A | Phần cần xử lý |
+Index flow/use case; mỗi flow có trigger, main steps và các nhánh thay thế/ngoại lệ có kết quả hoặc question ID.
 
-### Context và phạm vi bàn giao
+## E04 — Trạng thái và chuyển trạng thái
 
-Target/logical ID/Jira key; Feature/Epic refs; selected scope/in-out; baseline ID + repo/commit/paths; áp dụng model/BR/AC IDs; delta so với parent; constraints/dependencies; nguồn/authority; chuyên môn review; PM decision đúng revision; version sau merge.
+Định nghĩa state và command disposition; tách guard tại thời điểm thao tác với invariant liên tục.
 
-### Questions và decisions
+## E05 — Business Rules
 
-| ID | Vấn đề/nguồn | Lựa chọn/tác động | Authority | Có chặn scope nào? | Owner/due | Decision/ref/revision |
-|---|---|---|---|---|---|---|
-| Câu hỏi thực tế | Điều chưa biết | Không tự chọn policy | Người được quyết | Phần bị ảnh hưởng | Người theo dõi | Pending cho tới khi có quyết định |
+Mỗi BR có statement/điều kiện/kết quả và REQ/decision/source refs. Bảng chỉ giữ index ngắn; rule dài dùng mục riêng.
 
-### Acceptance và verification
+## E06 — Dữ liệu và validation
 
-Dùng [mẫu AC và coverage](../../references/coverage-inventories-and-traceability.md#spec-7-1). Mỗi AC có source/conditions/action/expected/observation. Planned test condition khác test đã chạy. Sau triển khai bổ sung build/config/run/verdict, không ghi Pass trước evidence.
+Dictionary/type/boundary, normalization, null/default/uniqueness và fields bắt buộc; chưa biết thì ghi gap, không tự đặt schema.
 
+## E07 — Permission và data scope
 
-### Story manifest và readiness của Epic
+Lập ma trận actor × action × state × field/context, cùng ví dụ/negative case. Ghi allow/deny/visibility đã chốt và điểm còn thiếu.
 
-| Logical Story ID | Outcome / in-out scope | BR/model/AC allocation | Dependency/estimate | Owner dự kiến | Readiness/gap |
-|---|---|---|---|---|---|
-| Candidate thực tế | Hành vi kiểm chứng được | ID/ref pinned | Điều kiện + effort cơ sở | Người được giao | Evidence hoặc missing input |
+## E08 — UI/UX và trạng thái tương tác
 
-Mỗi nhóm requirement/solution/testability có owner, due, reviewed revision, blocker và evidence. Chọn phạm vi baseline, không gọi toàn Epic Done từ việc đủ điều kiện sinh Story.
+Dẫn screen/UI contract, field/action/state inventory, hoặc N/A có reason/authority. Mockup chưa tự là contract đã ký.
 
+## E09 — API và tích hợp
 
-## Policy, ID và trạng thái từng hạng mục
+Dẫn input/output, permission, error, sequence/consistency, retry/idempotency, read-back/freshness và side effects. Không đặt endpoint/DTO giả.
 
-Policy IDs/versions/effective scope; Pending policy + gate impact; source/requirement/model kind theo [ID guide](../../references/requirement-types-identifiers-and-traceability.md). Dùng [mapping](../../references/catalog-check-model-mapping.md) để chọn models/evidence.
+## E10 — Ngoại lệ và tình huống biên
 
-Bổ sung work signal (Chưa làm/Đang làm/Chờ review/Đã xác nhận), due và blocker vào mỗi E/S item record; verdict và evidence vẫn ghi riêng. Tổng hợp bằng [mẫu báo cáo](progress-report-template.md); không lấy % item Đạt làm % sản phẩm hoàn thành.
+Mỗi case có điều kiện, action, expected outcome và rule/gap; xét concurrency/partial failure/replay khi áp dụng.
 
+## E11 — NFR và yêu cầu kiểm soát
 
----
+Ghi workload/measurement/control, threshold nếu authority chọn, policy refs và acceptance method. Unknown chưa là N/A.
 
-**Liên quan:** [Điểm vào gói](../../SKILL.md) · [Review và verdict](../../references/requirements-review-process-and-verdicts.md) · [Nguồn và cách điều chỉnh](../../references/standards-and-crm-tailoring.md).
+## E12 — Migration và vận hành
+
+Ghi applicability, mapping/cutover/reconcile/restore và dữ liệu/owner cần; chưa khảo sát thì nêu thiếu input.
+
+## E13 — Solution, dependency và feasibility
+
+Nêu options/trade-offs/constraints, contract của hai đầu và evidence khả thi. Giữ solution/authority pending nếu chưa xác nhận.
+
+## E14 — AC và planned verification
+
+Mỗi AC dùng điều kiện → thao tác → kết quả → truy vết/gap. Ghi test condition/setup/observation; tách planned coverage khỏi TestRun thật.
+
+## E15 — Story candidates và allocation
+
+Mỗi candidate nhận outcome, selected BR/model/AC, dependency, sizing/owner khi có. Link + activation nếu cùng outcome không tự tách thành API/UI Stories. Chưa đủ gate thì giữ candidate.
+
+## E16 — Applicability, quyết định và baseline
+
+Tổng hợp scope/revision, questions/decisions, policy, review và manifest. Giữ mục áp dụng/Unknown/N/A có reason; chỉ dẫn approval/merge khi có evidence.
+
+## Review, kế hoạch và bàn giao
+
+Với từng item, giữ applicability/reason, output/revision, source/authority, owner/reviewer, work signal, verdict/evidence, gap/due và bước tiếp. Có thể dùng index ngắn rồi chi tiết từng item; không ép vào bảng bảy cột.
+
+Theo [coverage/AC](../../references/coverage-inventories-and-traceability.md#spec-7-1), nối scope → rule/model → AC → planned verification. Phân biệt analysis/solution/testability; thiếu input không được chấm Đạt. [Review/gate](../../references/requirements-review-process-and-verdicts.md) và PM manifest/baseline vẫn áp dụng trước tạo Story. Kết thúc bằng metadata đúng loại.

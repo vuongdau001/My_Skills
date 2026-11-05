@@ -43,6 +43,9 @@ Khi có meeting/chat/decision/assumption/constraint ảnh hưởng target, đọ
 
 ## Outputs
 
+Soạn output theo [standard viết artifact](../references/artifact-writing-standard.md), bao gồm review/check/report/handoff; giữ độ sâu theo mode và write boundary của function.
+
+
 Handoff check record scoped theo baseline/build, missing/stale evidence và next actions cho Dev/QA.
 
 Dùng [Work Context and Handoff Template](../assets/templates/work-context-and-handoff-template.md) để giữ function/target/revision, evidence, gaps, authority và receiver. Có thể ghi section trong hồ sơ hiện hành, không bắt file mới. **Write boundary:** chỉ ghi check record/evidence index; không sửa target, plan, code hoặc approval, không thay Jira state. Record cùng file chỉ sửa section record được giao, giữ target nguyên vẹn.

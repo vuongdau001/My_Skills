@@ -50,6 +50,9 @@ Khi có meeting/chat/decision/assumption/constraint ảnh hưởng target, đọ
 
 ## Outputs
 
+Soạn output theo [standard viết artifact](../references/artifact-writing-standard.md), bao gồm review/check/report/handoff; giữ độ sâu theo mode và write boundary của function.
+
+
 Review record, inventory/evidence refs, findings với witness, verdict scoped và correction/handoff actions.
 
 Dùng [Work Context and Handoff Template](../assets/templates/work-context-and-handoff-template.md) để giữ function/target/revision, evidence, gaps, authority và receiver. Có thể ghi section trong hồ sơ hiện hành, không bắt file mới. **Write boundary:** review record/findings và remediation suggestions; không tự sửa nguồn đang review.

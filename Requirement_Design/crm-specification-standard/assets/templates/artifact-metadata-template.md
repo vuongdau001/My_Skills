@@ -1,20 +1,29 @@
-# Artifact Metadata Template
+# Mẫu metadata artifact
 
-ID: **TPL-ARTIFACT-METADATA** · CRM Workflow Kit 1.5.0 · 03/11/2026
+ID: **TPL-ARTIFACT-METADATA** · CRM Workflow Kit 1.10.0 · 05/11/2026
 
-Copy block vào artifact mới và thay bằng giá trị thật. Đọc [metadata/lint guide](../../references/artifact-metadata-and-lint.md). Mẫu Feature chưa có review/approval, không phải output dự án đã đạt.
+Áp dụng [standard viết artifact](../../references/artifact-writing-standard.md). Đây là mẫu; thay hướng dẫn bằng dữ liệu thực, giữ gap khi thiếu input. Không suy approval từ việc điền đủ mục.
+
+Nội dung để người đọc nằm trước metadata: tiêu đề, ý chính, context, nội dung nghiệp vụ, gap và handoff. Thêm đúng một block cuối file; có thể thu gọn bằng details khi viewer hỗ trợ.
+
+Mẫu dưới minh họa Feature schema 1. Chọn đúng kind/schema, ID/revision và vocabulary. Không gán work_status cho Feature. Knowledge records mới dùng các template schema 2 riêng.
+
+artifact_id và defined_ids là definitions; references là links tương đối từ artifact. trace_links có ID/path/revision/relation để khai dependency; evidence schema 2 cần hash/revision đúng nguồn. ID trong ví dụ không là ID đã được cấp cho dự án.
+
+
+<details>
+<summary>Metadata mẫu — thay bằng giá trị thật</summary>
 
 ```crm-spec-kit
 {
   "schema_version": 1,
   "artifact_id": "FEAT-CRM-001",
   "kind": "Feature",
+  "revision": "draft-r1",
   "defined_ids": [],
   "review_verdict": "Chưa kiểm",
   "references": []
 }
 ```
 
-Chỉ khai báo field áp dụng: work_status cho Epic/Story/Task; decision_state cho decision/policy có record; na_reason khi review_verdict=N/A. defined_ids ghi các REQ/BR/AC/MOD… được định nghĩa trong file, không liệt kê ID chỉ được dẫn từ nguồn khác. Giữ source/authority/revision/handoff theo templates nội dung hiện hành; JSON block không thay chúng.
-
-Schema 1 vẫn dùng cho artifacts hiện hành. Knowledge records mới dùng schema 2 theo [guide](../../references/knowledge-records-and-evidence.md) và templates Meeting/Decision/Assumption/Constraint riêng. Consumer có thể thêm revision và trace_links (id/path/revision/relation, optional sha256). Chỉ dẫn ID trong prose chưa là structured dependency để helper tính closure.
+</details>

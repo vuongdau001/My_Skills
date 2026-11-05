@@ -14,6 +14,10 @@ references chứa repo-relative-from-artifact links, giống Markdown links; ki�
 
 trace_links kiểm target ID có definition đúng file, relation, revision và optional content hash; evidence schema 2 cần revision/hash. Kind schema 1 Decision không bị ép field mới. --gate readiness/baseline tăng unresolved record obligations thành ERROR trong closure của --target; không --target là whole-workstream hiện hành. Structural checks vẫn rộng. Lint không tìm được mọi missing trace link, không đánh giá nội dung đúng hoặc chạy full DoR. Layout inference dùng artifact_paths và cả hai tên thư mục chuẩn, xem [layout](artifact-layout-and-migration.md).
 
+## Presentation của Markdown
+
+Theo [standard viết artifact](artifact-writing-standard.md), Markdown mới đặt một metadata block cuối file; details/summary là tùy chọn, code fences không indent. Helper đọc block theo dữ liệu bất kể ở đầu hay cuối để giữ tương thích legacy. Không thêm HTML vào JSON/config/assessment; không thêm hard gate về độ dài câu/số cột. Lint kiểm cấu trúc, không chứng nhận readability hoặc semantics.
+
 ## Controlled Fields and Legacy
 
 Ngoài metadata, helper kiểm các dòng explicit `Status:`, `Decision state:`, `Verdict:` và các controlled columns/property rows tương ứng trong bảng Markdown đơn giản ngoài code fence. Reason sau verdict phải tách bằng khoảng trắng/dấu câu; `Đạt-một-phần` không phải Đạt. Không rà mọi từ Đạt trong prose/test examples như một verdict. Heading chính bắt đầu bằng ID, property “Feature ID” và cột “Definition ID”/typed ID được audit như definitions; cột chung “ID” có thể là tham chiếu, chỉ cảnh báo cần khai báo ownership, không tự coi là definition; trường hợp nhiều layout/escaped table phức tạp vẫn cần metadata hoặc human review. Với table/format legacy khác, báo chưa kiểm metadata nếu không có schema; đừng coi lint valid là chứng minh mọi ô Markdown đúng vocabulary.

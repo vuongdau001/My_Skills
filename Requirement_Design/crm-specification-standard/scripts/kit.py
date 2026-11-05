@@ -526,7 +526,8 @@ def context(args):
     profile=relative(KIT,agent['path']).read_text(encoding='utf-8')
     include(agent['path'],'\n\n'.join(section(profile,h) for h in ('Purpose','Authority & Permissions')))
     protocol='references/workflow-execution-protocol.md';body=(KIT/protocol).read_text(encoding='utf-8')
-    include(protocol,'\n\n'.join('## '+h+'\n'+section(body,h) for h in ('Work Context & Resume','Verbs & Write Boundaries','Review & Gate Semantics','Output & Handoff')))
+    include(protocol,'\n\n'.join('## '+h+'\n'+section(body,h) for h in ('Work Context & Resume','Verbs & Write Boundaries','Review & Gate Semantics','Artifact Writing','Output & Handoff')))
+    include('references/artifact-writing-standard.md')
     resources=function['references']+function['templates']
     chosen=list(resources) if args.full else []
     entries={e['id']:e['path'] for e in manifest['entries']}

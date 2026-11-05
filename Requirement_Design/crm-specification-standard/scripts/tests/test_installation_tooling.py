@@ -96,7 +96,7 @@ class InstallationToolingTests(unittest.TestCase):
         self.install('--source','SRC-FL=input/missing.md');r=self.cli('doctor');self.assertTrue(r['healthy']);self.assertTrue(any(c['code']=='source-missing' for c in r['checks']))
     def test_context_minimal_and_expanded(self):
         self.install();a=self.cli('context','crm-define-feature','--format','json');b=self.cli('context','crm-define-feature','--full','--format','json')
-        self.assertLess(a['characters'],b['characters']);self.assertEqual(len(a['files']),3);self.assertIn('target',a['missing_context'])
+        self.assertLess(a['characters'],b['characters']);self.assertIn('references/artifact-writing-standard.md',[f['path'] for f in a['files']]);self.assertIn('target',a['missing_context'])
         self.cli('context','crm-check-readiness','--target-kind','Feature','--format','json',code=2)
         c=self.cli('context','crm-review-specification','--reference','Q03','--format','json');self.assertTrue(any('cross-model-consistency' in f['path'] for f in c['files']))
     def test_lint_controlled_metadata(self):

@@ -1,8 +1,35 @@
-# Decision Record Template
+# Mẫu quyết định nghiệp vụ/kỹ thuật
 
-ID: TPL-DECISION · CRM Workflow Kit 1.7.0 · 04/11/2026
+ID: TPL-DECISION · CRM Workflow Kit 1.10.0 · 05/11/2026
 
-Đọc [quy tắc record/evidence](../../references/knowledge-records-and-evidence.md). Đây là mẫu draft minh họa, chưa là record dự án. Cấp ID thật bằng next-id; thay scope/nội dung bằng nguồn đã đọc, giữ null nếu chưa có người hoặc thời điểm. Không nâng trạng thái để lấp template.
+Áp dụng [standard viết artifact](../../references/artifact-writing-standard.md). Đây là mẫu; thay hướng dẫn bằng dữ liệu thực, giữ gap khi thiếu input. Không suy approval từ việc điền đủ mục.
+
+Đọc [knowledge records](../../references/knowledge-records-and-evidence.md). Cấp ID bằng next-id; giữ null nếu chưa có owner/thời điểm.
+
+
+## Nội dung cần quyết định
+
+Nêu một câu hỏi/lựa chọn rõ, scope/revision và context có nguồn. Tách nội dung đề xuất với quyết định authority đã chọn.
+
+## Phương án và đánh đổi
+
+Mỗi phương án có điều kiện, lợi ích/bất lợi. Ghi rationale và consequences của phương án được đề xuất/chọn; chưa chọn thì giữ Pending/Proposed.
+
+## Authority, evidence và ảnh hưởng
+
+Ghi owner, người có quyền, thời điểm quyết và evidence khi có thật. Approved/Rejected cần authority, decided_at có timezone và nguồn pin đúng revision. Liên kết requirement/Epic/Story áp dụng bằng trace_links.
+
+## Lịch sử và bước tiếp
+
+Khi thay quyết định: giữ record cũ Superseded, nối superseded-by; record mới nối supersedes, nêu scope/rationale. Không cấp lại ID hoặc sao approval cũ cho statement mới. Người soạn cập nhật consumers rồi review lại; reviewer không tự sửa target.
+
+## Nếu dùng register
+
+Đưa record vào records của metadata Project schema 2, bổ sung id/kind; không giữ đồng thời hai nơi định nghĩa. Dùng anchor ổn định khi cần dẫn mục.
+
+
+<details>
+<summary>Metadata mẫu — thay bằng giá trị thật</summary>
 
 ```crm-spec-kit
 {
@@ -28,14 +55,4 @@ ID: TPL-DECISION · CRM Workflow Kit 1.7.0 · 04/11/2026
 }
 ```
 
-## Nội dung và nguồn
-
-Ghi source locator/excerpt có quyền truy cập; tách fact, diễn giải, câu hỏi và quyết định. Evidence dùng path tương đối, revision và SHA-256 nguồn. Không đặt secret hoặc transcript riêng tư vào repo ngoài quyền đã có.
-
-## Scope và handoff
-
-Liên kết Feature/Epic/Story/rule bị ảnh hưởng bằng trace_links. Ghi receiver, missing authority/evidence và next function phù hợp. Sau thay đổi, tăng revision và review lại consumer; không tái dùng approval sai revision.
-
-## Lịch sử thay thế
-
-Nếu thay quyết định cũ, giữ old record Superseded với superseded-by; record mới dẫn supersedes và nêu rationale/scope. Approved cần authority, decided_at và evidence đúng revision, không tự xác nhận từ vai trò agent.
+</details>

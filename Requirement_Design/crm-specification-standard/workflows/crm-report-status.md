@@ -54,6 +54,9 @@ Full report thực hiện các bước:
 
 ## Outputs
 
+Soạn output theo [standard viết artifact](../references/artifact-writing-standard.md), bao gồm review/check/report/handoff; giữ độ sâu theo mode và write boundary của function.
+
+
 Trả lời chat ngắn cho Recap/Current status/Next step; Full report tách readiness, delivery, acceptance và blocker, có snapshot/mẫu số/source refs. Không tự sinh file chỉ vì được hỏi status.
 
 Dùng [Work Context and Handoff Template](../assets/templates/work-context-and-handoff-template.md) khi cần lưu theo yêu cầu/bàn giao hoặc trong scope authoring đã được giao tại mốc có output đáng kể. Checkpoint dẫn tới source/revision, không thành state/backlog mới; không sửa target đã pin để thêm recap. **Write boundary:** chat hoặc report được giao; không sửa status/source data để số liệu khớp mong muốn.

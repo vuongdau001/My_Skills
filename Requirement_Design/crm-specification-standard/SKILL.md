@@ -5,11 +5,15 @@ description: "Vận hành yêu cầu và backlog CRM theo workflow: làm rõ Fea
 
 # CRM Workflow Kit
 
-Phiên bản **1.9.0**. Một root skill, các agent profiles logic và workflows tự chứa. Người mới đọc [Start Here](START-HERE.md). Nguồn kit tên crm-specification-standard; helper đóng gói bản cài một root skill tên crm-spec-kit. Các function IDs bên dưới vẫn là workflow nội bộ, không phải 13 slash commands riêng.
+Phiên bản **1.10.0**. Một root skill, các agent profiles logic và workflows tự chứa. Người mới đọc [Start Here](START-HERE.md). Nguồn kit tên crm-specification-standard; helper đóng gói bản cài một root skill tên crm-spec-kit. Các function IDs bên dưới vẫn là workflow nội bộ, không phải 13 slash commands riêng.
 
 ## Installation and Admin Requests
 
 Khi user đưa folder kit và muốn cài cho một AI tool, bắt đầu bằng [BOOTSTRAP.md](BOOTSTRAP.md); agent khảo sát/chọn tham số, helper thực hiện cài. Đọc [INSTALL.md](INSTALL.md) khi cần install/doctor/context/lint/next-id/update/smoke-prompt/plan-layout/score hoặc config/scaffold chưa có. Dùng Python 3.11+ stdlib helper tại `scripts/kit.py`; package root lấy từ vị trí script, không đoán ../../vendor. Install/update dry-run trước, chỉ --apply trong phạm vi được giao. Codex có --agent codex và router project tùy chọn --with-router; giữ instructions có sẵn. Không sửa global AGENTS/rules, không auto commit/push, không coi filesystem doctor hoặc smoke prompt là runtime discovery proof.
+
+## Standard viết mọi artifact
+
+Mọi artifact soạn mới hoặc chỉnh sửa theo [standard viết artifact](references/artifact-writing-standard.md), không chỉ Feature/Epic hoặc một workstream. Context nạp standard chung; đọc nó trước khi tạo output. Giữ catalog/schema/ID/gate; không rewrite nguồn hoặc historical records chỉ vì update kit. JSON/config/assessment giữ hợp đồng máy đọc, báo cáo Markdown theo standard.
 
 ## Route the Request
 
@@ -62,6 +66,6 @@ Workstream mới dùng thư mục đánh số; config cũ giữ legacy. Khi ch�
 
 ## Registry & Verification
 
-[Manifest](reference-manifest.json) nối function → profile → workflow → refs/templates. [Nguồn và tailoring](references/standards-and-crm-tailoring.md), [BMAD inspiration](provenance/bmad-inspiration-and-crm-tailoring.md), [acceptance scenarios](references/pack-acceptance-scenarios.md) và [report 1.9.0](provenance/pack-validation-report-v1.9.0.md) phục vụ đối chiếu.
+[Manifest](reference-manifest.json) nối function → profile → workflow → refs/templates. [Nguồn và tailoring](references/standards-and-crm-tailoring.md), [BMAD inspiration](provenance/bmad-inspiration-and-crm-tailoring.md), [acceptance scenarios](references/pack-acceptance-scenarios.md) và [report 1.10.0](provenance/pack-validation-report-v1.10.0.md) phục vụ đối chiếu.
 
 Chạy `python3 scripts/validate_reference_pack.py` từ folder này hoặc gọi bằng đường dẫn script. Validator kiểm cấu trúc/refs/registry/migration, không cấp DoR/DoD approval hoặc chứng minh phần mềm đạt.

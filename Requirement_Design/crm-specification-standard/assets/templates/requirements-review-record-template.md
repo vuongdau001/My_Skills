@@ -1,48 +1,33 @@
-# Mẫu bản ghi review
+# Mẫu record review/check
 
-Mã tài liệu: **TPL-REQUIREMENTS-REVIEW-RECORD-TEMPLATE** · Gói CRM 1.3.1 · 03/11/2026
+Mã tài liệu: **TPL-REQUIREMENTS-REVIEW-RECORD-TEMPLATE** · Gói CRM 1.10.0 · 05/11/2026
 
-**Mục đích:** Sao chép phần mẫu để tạo hồ sơ thực tế; không để trống rồi đánh dấu đạt.
+Áp dụng [standard viết artifact](../../references/artifact-writing-standard.md). Đây là mẫu; thay hướng dẫn bằng dữ liệu thực, giữ gap khi thiếu input. Không suy approval từ việc điền đủ mục.
 
-**Đọc khi:** Sau khi đọc catalog và các hướng dẫn áp dụng.
-
+Mở bằng target/scope/revision và mục tiêu review. Nêu full/focused, checks/catalog/model áp dụng, phần chưa xét, người kiểm và mode author self-check/specialist/independent đúng thực tế.
 
 <a id="spec-3-13"></a>
 
-### Mẫu record review để member thực hiện nhất quán
+## Input và phạm vi kiểm
 
-```text
-Review target / selected scope / input revision:
-Nguồn/actor/authority đã rà:
-Model/requirement inventory version:
-Check IDs: Q01..Q07 và D01..D10 áp dụng
-Item ID / source ref / output ref:
-Thao tác kiểm đã làm / witness hoặc counterexample:
-Expected outcome / actual finding trong tài liệu:
-Verdict: Đạt | Không đạt | Chưa kiểm | N/A có lý do
-Finding ID / severity theo mức chặn / owner / due:
-Decision/correction ref / reviewer closure / reviewed revision:
-Inventory counts: total / disposed / unknown / missing verification mapping
-Gate impact: cho bước nào, phần nào còn bị chặn
-```
+Nguồn, actor/authority, inventory/model revision và target hashes; policy/version. Thiếu input/authority nêu rõ. Dùng F01–F08, E01–E16, S01–S12 hoặc T01–T08 đúng loại; full specification review xét Q01–Q07.
 
-**Phân biệt kết quả tài liệu với kết quả phần mềm:** trước code, reviewer ghi đối chiếu spec/model, không ghi test runtime Pass. Sau code, test reports/build/verdict là evidence khác. Mọi agent dùng gói này phải giữ ranh giới này; skill không được biến review checklist thành bằng chứng sản phẩm đã hoạt động.
+## Kết quả từng phép kiểm
 
+Index ngắn: item/check → verdict → finding/evidence. Với từng check dài, trình bày:
 
-## Bảng kết luận dùng được cho review toàn bộ hoặc một phần
+- **Điều kiện/phạm vi:** target, inventory và applicability; N/A có reason/authority.
+- **Cách kiểm đã làm:** thao tác, witness/counterexample và source locator.
+- **Expected/observed:** phân biệt kết quả mong đợi với điều đã thấy trong tài liệu/thực thi.
+- **Evidence và kết luận:** refs/revision, verdict scoped, reviewer.
+- **Finding:** ID, tác động/gate, owner/due; severity theo policy nếu đã chốt.
 
-| Target/revision | Check/model ID + tên | Applicability | Inventory/witness | Phép kiểm đã thực hiện | Finding/evidence | Verdict | Reviewer/authority | Gate impact |
-|---|---|---|---|---|---|---|---|---|
-| Phạm vi cụ thể | Tên rõ, không chỉ số | Áp dụng/N/A + reason | ID và mẫu số | Thao tác thực tế | Ref/version | Chưa kiểm/Không đạt/Đạt/N/A | Người xác nhận | Bước nào còn chặn |
+## Findings và closure
 
-Full hay targeted review; phần chưa xét; summary findings; source conflicts; closure revision; PM decision khi cần. Verdict có giá trị cho target/revision đã xét, không tái sử dụng tự động sau delta. [Quy trình review](../../references/requirements-review-process-and-verdicts.md).
+Mỗi finding một mục có counterexample, correction/decision ref, reviewer closure và revision kiểm lại. Giữ counts total/disposed/Unknown/missing verification theo inventory; không che unknown bằng N/A hoặc tỷ lệ trung bình.
 
+## Kết luận và bàn giao
 
-## Policy và bước được phép kết luận
+Ghi scope đã/chưa đủ điều kiện, thiếu approval nào và receiver/next action. Check/review không sửa target hoặc tự đóng ticket. [Review protocol](../../references/requirements-review-process-and-verdicts.md), [mapping](../../references/catalog-check-model-mapping.md) và [policy](../../references/project-policy-register.md) tiếp tục áp dụng.
 
-Policy IDs/versions/effective scope; requirement/model IDs + kind; catalog item F/E/S/T; model applicability và trigger; phần scope chưa xét. Nếu thiếu policy bắt buộc, ghi missing decision/authority/gate impact; không chấm Đạt từ template đã đủ ô. [Mapping](../../references/catalog-check-model-mapping.md), [policy guide](../../references/project-policy-register.md).
-
-
----
-
-**Liên quan:** [Điểm vào gói](../../SKILL.md) · [Review và verdict](../../references/requirements-review-process-and-verdicts.md) · [Nguồn và cách điều chỉnh](../../references/standards-and-crm-tailoring.md).
+Trước code, nhận xét spec/model khác runtime test Pass. Sau code, evidence cần đúng build/config/run. Metadata Review chỉ khai báo verdict, không chứng nhận authority.

@@ -1,6 +1,6 @@
 # Install and Operate CRM Spec Kit
 
-ID: **CRM-INSTALL** · CRM Workflow Kit 1.9.0 · 04/11/2026
+ID: **CRM-INSTALL** · CRM Workflow Kit 1.10.0 · 05/11/2026
 
 AI được đưa folder kit để tự cài đọc [BOOTSTRAP](BOOTSTRAP.md) trước. Nội dung/workflow dùng chung; filesystem adapters và router tùy chọn xử lý phần tích hợp tool.
 
@@ -81,7 +81,7 @@ python3 scripts/kit.py context crm-define-feature --repo <repo-root> --workstrea
 python3 scripts/kit.py context crm-review-specification --repo <repo-root> --workstream p3 --target STORY-CRM-001 --target-kind Story --revision <revision> --reference Q03 --reference D05
 ```
 
-Context mặc định gồm workflow, phần profile liên quan và các section protocol bắt buộc; config được in như dữ liệu, không approval. Tài nguyên chi tiết nằm ở available_references; thêm bằng --reference (entry ID hoặc path nội bộ). --full chỉ để so sánh/debug, không mặc định nạp mọi catalog. --format json cung cấp paths/hashes/character counts. Helper không tự chọn active workstream khi có nhiều stream, không tự đoán target/revision.
+Context mặc định gồm workflow, phần profile liên quan, các section protocol bắt buộc và standard viết artifact chung; config được in như dữ liệu, không approval. Tài nguyên chi tiết nằm ở available_references; thêm bằng --reference (entry ID hoặc path nội bộ). --full chỉ để so sánh/debug, không mặc định nạp mọi catalog. --format json cung cấp paths/hashes/character counts. Helper không tự chọn active workstream khi có nhiều stream, không tự đoán target/revision.
 
 Các lệnh đọc doctor/context/lint/smoke-prompt nhận --config <candidate-config.json> để audit migration mà không tạo config trong repo thật; đường dẫn trong config vẫn được kiểm theo --repo.
 
@@ -131,3 +131,7 @@ Backup update được giữ tại `.agents/crm-spec-kit-backups/<installation-k
 ## Definition Maturity Scoring
 
 Đọc [scoring guideline](references/definition-maturity-scoring.md) cho schema/rubric/evidence. Lệnh `score --init` tạo JSON Unknown trên stdout; `score --assessment <repo-relative-json>` tính điểm. `--target <ID>` lọc Epic/Story/Feature/requirement; `--scope <scope>` chọn lát cắt; `--item E07` hoặc S09 tính riêng mục trong target; `--format markdown` in báo cáo. Không có --target thì tổng hợp inventory, tách catalog obligations và canonical requirements. Mặc định không ghi file; --output lưu báo cáo Markdown mới trong reports, không tự chấm semantics. Thay source/target/evidence phải reassess, không refresh hash để giữ điểm. Không tạo Ready hoặc approval dù điểm 100.
+
+## Standard trình bày — 1.10
+
+[Standard viết artifact](references/artifact-writing-standard.md) được nạp cho cả 13 function. Update package không tự rewrite artifact hoặc scoped instructions có sẵn; tác giả áp dụng khi author/correction được giao, giữ revision/evidence lịch sử. Templates schema 2 và Markdown metadata footer vẫn đọc được bởi helper; JSON/config giữ schema gốc.

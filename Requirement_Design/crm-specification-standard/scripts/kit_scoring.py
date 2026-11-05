@@ -180,43 +180,67 @@ def run(api, args):
     if args.format=='json':
         require(not args.output,'--output requires --format markdown')
         return result
-    lines=['# Báo cáo mức hoàn thiện phân tích','',f'Policy: {POLICY}; workstream: {ws["id"]}; snapshot: {data["snapshot"]}',
-           '',f'Inventory: {inv["scope"]} / {inv["revision"]}; complete declared: {inv["complete"]} (not verified)', '', 'Người thực hiện/chế độ (khai báo): '+str(data.get('assessment_context','Chưa khai báo; không tự là independent review')), '']
-    lines.extend(['| Artifact | Scope | Điểm đề xuất | Điểm sau kiểm dependency | Đã đánh giá | Mức 3 | Gate |','|---|---|---|---|---|---|---|'])
+    lines=['# Báo cáo mức hoàn thiện phân tích','',
+           'Báo cáo tách điểm đề xuất với điểm hiệu lực sau kiểm dependency. Kết quả là chỉ số mức hoàn thiện trên phạm vi đã khai báo, không là % yêu cầu đúng hoặc % sản phẩm hoàn thành.',
+           '', '## Bối cảnh đánh giá', '',
+           f'- **Policy / workstream:** {POLICY} / {ws["id"]}.',
+           f'- **Snapshot:** {data["snapshot"]}.',
+           f'- **Inventory:** {inv["scope"]} / {inv["revision"]}.',
+           f'- **Khai báo đầy đủ:** {inv["complete"]}; chưa được tool xác minh.',
+           '- **Người thực hiện/chế độ (khai báo):** '+str(data.get('assessment_context','Chưa khai báo; không tự là independent review')), '',
+           '## Kết quả chính','']
+    lines.extend(['| Artifact | Điểm đề xuất | Điểm hiệu lực | Gate |','|---|---|---|---|'])
     def display_index(s):
         d=s['definition_index']
         return f'{d["lower"]}-{d["upper"]}/100' if d else 'Unknown/N/A'
     for out in outputs:
         s=out['summary']
-        lines.append('| '+' | '.join(str(x).replace('|','/').replace('\n',' ') for x in [out['id'],out['scope'],display_index(out['declared_summary']),display_index(s),f'{s["assessed"]}/{s["applicable"]}',s['confirmed'],s['gate']])+' |')
-    lines.extend(['','Điểm là chỉ số mức hoàn thiện trên inventory đã khai báo, không là % yêu cầu đúng hoặc % sản phẩm hoàn thành. Gate not_assessed không có nghĩa Ready. Mức 3 cần review evidence; record này không tự cấp approval.',''])
+        lines.append('| '+' | '.join(str(x).replace('|','/').replace('\n',' ') for x in [out['id'],display_index(out['declared_summary']),display_index(s),s['gate']])+' |')
+    lines.extend(['','Gate not_assessed không có nghĩa Ready. Mức 3 cần review evidence; record này không tự cấp approval.',''])
     for out in outputs:
         s=out['summary'];index=s['definition_index']
-        lines.extend([f'## {out["id"]} / {out["scope"]} / {out["revision"]}',
+        lines.extend([f'## {out["id"]}', '',
+            f'- **Phạm vi / revision:** {out["scope"]} / {out["revision"]}.',
             f'Chỉ số hiệu lực: {index["lower"]}-{index["upper"]}/100' if index else 'Chỉ số: Unknown/N/A — cần xác định applicability, inventory hoặc phạm vi ảnh hưởng dependency',
-            f'Assessed: {s["assessed"]}/{s["applicable"]}; confirmed: {s["confirmed"]}; applicability unknown: {s["applicability_unknown"]}; N/A: {s["na"]}; gate: {s["gate"]}',
-            '','| Hạng mục | Applicability | Mức đề xuất | Mức hiệu lực | Lý do |','|---|---|---|---|---|'])
+            '',f'- **Đã đánh giá:** {s["assessed"]}/{s["applicable"]}.',
+            f'- **Mức 3 / applicability Unknown / N/A:** {s["confirmed"]} / {s["applicability_unknown"]} / {s["na"]}.',
+            f'- **Gate:** {s["gate"]}.',
+            '','| Hạng mục | Applicability | Mức đề xuất | Mức hiệu lực |','|---|---|---|---|'])
         for i in out['items']:
             clean=lambda v:str(v).replace('|','/').replace('\n',' ')
-            lines.append('| '+' | '.join(map(clean,[i['id'],i['applicability'],i['declared_level'] if i['declared_level'] is not None else 'Unknown',i['level'] if i['level'] is not None else 'Unknown',i.get('rationale','')]))+' |')
+            lines.append('| '+' | '.join(map(clean,[i['id'],i['applicability'],i['declared_level'] if i['declared_level'] is not None else 'Unknown',i['level'] if i['level'] is not None else 'Unknown']))+' |')
         lines.extend(['','### Kiểm tra dependency ASM/DEC/CST',out['dependency_check']['coverage']])
         if not out['dependency_check']['records']:
             lines.append('Không tìm thấy ASM/DEC/CST trong typed dependency closure; không chứng minh đã hết giả định/câu hỏi. Cần kiểm queue/prose và allocation bằng review.')
         for r in out['dependency_check']['records']:
-            lines.append(f'- {r["id"]}: {r["kind"]} / {r["state"]} / {r["revision"]}; path: {r["path"]}; sha256: {r["sha256"]}')
-        for b in out['dependency_check']['blockers']:lines.append(f'Dependency blocker {b["id"]}: {b["reason"]}')
+            lines.append(f'- **{r["id"]}:** {r["kind"]}, {r["state"]}, revision {r["revision"]}.')
+        if out['dependency_check']['records']:
+            lines.extend(['','<details>','<summary>Nguồn và hash của record dependencies</summary>',''])
+            for r in out['dependency_check']['records']:
+                lines.extend([f'- {r["id"]}: {r["path"]}',f'  Revision: {r["revision"]}; SHA-256: {r["sha256"]}'])
+            lines.extend(['','</details>',''])
+        for b in out['dependency_check']['blockers']:lines.append(f'- **Dependency còn chặn — {b["id"]}:** {b["reason"]}')
         if out['dependency_check']['impact_allocation_unknown']:
-            lines.append('Action: map affected catalog items with reviewed rationale/evidence; no numeric credit while impact is unknown.')
+            lines.append('**Việc tiếp theo:** phân bổ ảnh hưởng tới catalog items, có rationale/review evidence. Chưa cấp chỉ số khi phạm vi ảnh hưởng còn Unknown.')
         lines.extend(['','### Evidence và bước xử lý tiếp'])
         for i in out['items']:
-            lines.append(f'- {i["id"]}: '+ ('; '.join(i.get('score_adjustments',[])) or i.get('rationale','') or 'Action: assess applicability/content and record rationale.'))
-            for e in i.get('evidence',[]):lines.append(f'  - Evidence: {e["path"]} / {e["revision"]} / {e["locator"]}; sha256: {e["sha256"]}')
-            for b in i.get('blockers',[]):lines.append(f'  - Action: resolve {b["id"]} ({b["category"]}): {b["reason"]}; reassess affected revision.')
-        for b in s['blockers']:lines.append(f'Blocker {b["id"]} ({b["category"]}): {b["reason"]}')
+            lines.extend(['',f'#### {i["id"]}', '', '**Lý do đánh giá:** '+(i.get('rationale','') or 'Cần xác định applicability/nội dung và ghi rationale.')])
+            for adjustment in i.get('score_adjustments',[]):lines.append('**Điều chỉnh điểm:** '+adjustment)
+            if i.get('evidence'):
+                lines.extend(['','<details>','<summary>Evidence và phiên bản</summary>',''])
+                for e in i['evidence']:lines.extend([f'- Nguồn: {e["path"]}',f'  Revision: {e["revision"]}; locator: {e["locator"]}',f'  SHA-256: {e["sha256"]}'])
+                lines.extend(['','</details>',''])
+            for b in i.get('blockers',[]):lines.append(f'- **Cần xử lý {b["id"]} ({b["category"]}):** {b["reason"]}; sau đó đánh giá lại revision bị ảnh hưởng.')
+        for b in s['blockers']:lines.append(f'- **Blocker {b["id"]} ({b["category"]}):** {b["reason"]}')
         lines.append('')
+    lines.extend(['## Tổng hợp theo ledger',''])
     for name,summary in result['rollup'].items():
-        lines.extend([f'Rollup {name}: applicable={summary["applicable"]}, confirmed={summary["confirmed"]}, definition_index={summary["definition_index"]}, gate={summary["gate"]}', ''])
-    lines.append(result['note'])
+        lines.extend([f'### {name}', '',f'- **Áp dụng / mức 3:** {summary["applicable"]} / {summary["confirmed"]}.',
+                      f'- **Chỉ số mức hoàn thiện:** {display_index(summary)}.',f'- **Gate:** {summary["gate"]}.',''])
+    lines.extend(['## Giới hạn kết luận','',
+                  'Chỉ số dùng thang thứ bậc với trọng số bằng nhau, không đo % đúng, effort hoặc giá trị. Applicability Unknown làm chỉ số chưa được cấp; khoảng điểm chỉ bao phủ inventory đã biết là áp dụng.', '',
+                  'Báo cáo không cấp gate hoặc approval. Hash chỉ xác minh byte, không chứng minh nội dung đúng hay reviewer có thẩm quyền. Tính đầy đủ của inventory là khai báo, không phải fact được tool tự phát hiện.', '',
+                  'Không sửa source artifacts. Chỉ lưu report mới khi có --output; không ghi đè kết quả cũ.'])
     report='\n'.join(lines)+'\n'
     if args.output:
         output=api['relative'](repo,args.output)
@@ -224,6 +248,6 @@ def run(api, args):
         require(output.is_relative_to(reports) and output.suffix=='.md','--output must be a new Markdown file inside configured reports directory')
         api['check_write_boundaries'](repo,cfg,[output])
         meta=dict(schema_version=1,kind='Report',review_verdict='Chưa kiểm',references=[os.path.relpath(api['relative'](repo,args.assessment),output.parent).replace(os.sep,'/')])
-        report=report.replace('\n\n','\n\n```crm-spec-kit\n'+json.dumps(meta,ensure_ascii=False,indent=2)+'\n```\n\n',1)
+        report+='\n<details>\n<summary>Metadata cho công cụ</summary>\n\n```crm-spec-kit\n'+json.dumps(meta,ensure_ascii=False,indent=2)+'\n```\n\n</details>\n'
         with output.open('x',encoding='utf-8') as f:f.write(report)
     return report

@@ -1,8 +1,31 @@
-# Meeting Record Template
+# Mẫu ghi nhận Meeting/chat/email
 
-ID: TPL-MEETING · CRM Workflow Kit 1.7.0 · 04/11/2026
+ID: TPL-MEETING · CRM Workflow Kit 1.10.0 · 05/11/2026
 
-Đọc [quy tắc record/evidence](../../references/knowledge-records-and-evidence.md). Đây là mẫu draft minh họa, chưa là record dự án. Cấp ID thật bằng next-id; thay scope/nội dung bằng nguồn đã đọc, giữ null nếu chưa có người hoặc thời điểm. Không nâng trạng thái để lấp template.
+Áp dụng [standard viết artifact](../../references/artifact-writing-standard.md). Đây là mẫu; thay hướng dẫn bằng dữ liệu thực, giữ gap khi thiếu input. Không suy approval từ việc điền đủ mục.
+
+Đọc [knowledge records](../../references/knowledge-records-and-evidence.md). Cấp ID bằng next-id; giữ null nếu chưa có owner/thời điểm.
+
+
+## Sự kiện và participants
+
+Ghi loại sự kiện thực (meeting/workshop/chat/email), thời điểm có timezone nếu biết, participants/roles và phạm vi. Draft chưa biết timestamp giữ null; không tạo cuộc họp hoặc chữ ký giả.
+
+## Nội dung đã ghi nhận
+
+Một đoạn tóm tắt, sau đó tách nguồn/facts, discussion và điểm chưa thống nhất. Dẫn excerpt/locator và SHA-256/revision trong evidence.
+
+## Decisions, questions và action items
+
+Dẫn DEC/Q/ASM/CST bằng ID/revision. Mỗi action có description/owner/due; unknown giữ null. Action chưa tự thành product Task. Confirmed biên bản chưa tự Approved mọi Decision.
+
+## Trạng thái xác nhận và bàn giao
+
+Draft/Confirmed/Amended theo evidence; Amended cần amendment_reason và giữ lịch sử. Nêu consumer bị ảnh hưởng, receiver và phần thiếu authority. Không gửi biên bản/tạo ticket tự động.
+
+
+<details>
+<summary>Metadata mẫu — thay bằng giá trị thật</summary>
 
 ```crm-spec-kit
 {
@@ -25,14 +48,4 @@ ID: TPL-MEETING · CRM Workflow Kit 1.7.0 · 04/11/2026
 }
 ```
 
-## Nội dung và nguồn
-
-Ghi source locator/excerpt có quyền truy cập; tách fact, diễn giải, câu hỏi và quyết định. Evidence dùng path tương đối, revision và SHA-256 nguồn. Không đặt secret hoặc transcript riêng tư vào repo ngoài quyền đã có.
-
-## Scope và handoff
-
-Liên kết Feature/Epic/Story/rule bị ảnh hưởng bằng trace_links. Ghi receiver, missing authority/evidence và next function phù hợp. Sau thay đổi, tăng revision và review lại consumer; không tái dùng approval sai revision.
-
-## Decisions, questions và action items
-
-Dẫn DEC/Q/ASM/CST bằng ID và revision. Mỗi action ghi description, owner và due; dùng null nếu chưa được giao. event_type phải đúng workshop/chat/email/meeting đã xảy ra. Confirmed biên bản không tự Approved các Decision.
+</details>

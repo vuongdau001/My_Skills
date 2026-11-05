@@ -1,21 +1,31 @@
 # Mẫu register policy dự án
 
-Mã tài liệu: **TPL-POLICY** · Gói CRM 1.3.1 · 03/11/2026
+Mã tài liệu: **TPL-POLICY** · Gói CRM 1.10.0 · 05/11/2026
 
-Đọc [hướng dẫn policy](../../references/project-policy-register.md). Copy vào repo dự án; đây là mẫu trống, không phải policy CRM đã duyệt. Dùng Pending cho quyết định chưa có, không tự điền ngưỡng. Các nhóm policy phải xét nằm trong hướng dẫn, không tạo bản thứ hai của định nghĩa tại đây.
+Áp dụng [standard viết artifact](../../references/artifact-writing-standard.md). Đây là mẫu; thay hướng dẫn bằng dữ liệu thực, giữ gap khi thiếu input. Không suy approval từ việc điền đủ mục.
 
-## Kiểm soát register
+Mở bằng mục đích, phạm vi và tình trạng hiệu lực chung. Ghi project/workstream, revision, owner/authority, nguồn tổ chức/hợp đồng, effective date và baseline nào dùng register.
 
-Project/scope; repo/path; revision; policy owner; ngày hiệu lực; nguồn tổ chức/hợp đồng; người duyệt; decision/approval refs. Baseline nào đang tham chiếu register? Nhóm nào còn Pending, chặn gate nào?
+Đọc [policy guide](../../references/project-policy-register.md); dùng các POL IDs chuẩn. Không lấy policy của kit/ví dụ làm policy dự án đã duyệt.
 
-| Policy ID + tên | Version/effective scope | Nội dung hoặc ref pinned | Phương pháp đánh giá/inputs | Authority + approval evidence | Decision state | Gate bị ảnh hưởng | Gap/owner/due |
-|---|---|---|---|---|---|---|---|
-| ID từ policy guide | Chưa chốt nếu chưa biết | Giá trị/định nghĩa/ranh giới cần quyết | Dữ liệu và phép kiểm | Không giả tên/ngày duyệt | Pending/Proposed/Approved/Superseded | Gate cụ thể | Việc cần quyết |
+## Danh mục tra policy
 
-## Chi tiết mỗi policy
+| Policy ID / tên | Scope và version | Trạng thái / record liên quan |
+|---|---|---|
+| ID thực từ guide | Phạm vi thực | Pending nếu thiếu quyết định |
 
-Mục đích; applicability; định nghĩa và ví dụ ở ranh giới; threshold nếu cần; cách tính/đơn vị/clock; input/output; owner; reviewer/authority; evidence; cách xử lý thiếu/failed/skipped; quyết định; hiệu lực; impact khi thay đổi. Trường không áp dụng cần reason/authority.
+## Chi tiết từng policy
 
-## Ngoại lệ nếu policy cho phép
+Mỗi policy một mục:
 
-Policy/version và điều khoản; scope/revision bị ảnh hưởng; lý do/tác động; biện pháp bù; điều kiện không được miễn; authority và decision ref; thời hạn; owner xem lại; gate result riêng. Chưa phê duyệt ngoại lệ thì không coi như đã được miễn.
+- **Mục đích/applicability:** nội dung điều chỉnh, định nghĩa và ví dụ ở ranh giới.
+- **Phương pháp:** input/output, cách tính, đơn vị/clock, threshold nếu được quyết.
+- **Trách nhiệm:** owner, reviewer/authority và ngày hiệu lực.
+- **Evidence/quyết định:** refs/version, trạng thái, cách xử lý thiếu/failed/skipped.
+- **Ảnh hưởng:** gate bị chặn và impact khi đổi; gap/owner/due.
+
+## Ngoại lệ khi policy cho phép
+
+Ghi điều khoản/version, scope/revision, lý do/tác động, compensating checks, điều kiện không được miễn, authority/decision, expiry và owner xem lại. Chưa duyệt thì chưa được coi đã miễn.
+
+Kết thúc bằng metadata Project/record phù hợp; chưa có approval vẫn giữ Pending.

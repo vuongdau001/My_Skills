@@ -203,6 +203,10 @@ class ScoringTests(unittest.TestCase):
         p=subprocess.run(command,capture_output=True,text=True);self.assertEqual(p.returncode,0,p.stderr)
         text=(self.repo/'spec/reports/score.md').read_text();self.assertEqual(text,p.stdout)
         self.assertIn('Evidence và bước xử lý tiếp',text);self.assertIn('Mức đề xuất | Mức hiệu lực',text)
+        meta=json.loads(text.split('```crm-spec-kit\n',1)[1].split('\n```',1)[0])
+        self.assertEqual(meta['kind'],'Report');self.assertEqual(meta['review_verdict'],'Chưa kiểm')
+        lint=subprocess.run([sys.executable,str(PACK/'scripts/kit.py'),'lint','--repo',str(self.repo),'--workstream','p3'],capture_output=True,text=True)
+        self.assertEqual(lint.returncode,0,lint.stdout+lint.stderr);self.assertTrue(json.loads(lint.stdout)['valid'])
         p=subprocess.run(command,capture_output=True,text=True);self.assertEqual(p.returncode,2);self.assertEqual((self.repo/'spec/reports/score.md').read_text(),text)
         command[-1]='spec/story.md';p=subprocess.run(command,capture_output=True,text=True);self.assertEqual(p.returncode,2)
 

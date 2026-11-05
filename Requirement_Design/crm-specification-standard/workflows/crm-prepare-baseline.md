@@ -46,6 +46,9 @@ Chạy helper lint --gate baseline --target <target-id> với repo/workstream đ
 
 ## Outputs
 
+Soạn output theo [standard viết artifact](../references/artifact-writing-standard.md), bao gồm review/check/report/handoff; giữ độ sâu theo mode và write boundary của function.
+
+
 PM review package/gap list và evidence index; baseline receipt chỉ khi commit/merge đã được xác nhận.
 
 Dùng [Work Context and Handoff Template](../assets/templates/work-context-and-handoff-template.md) để giữ function/target/revision, evidence, gaps, authority và receiver. Có thể ghi section trong hồ sơ hiện hành, không bắt file mới. **Write boundary:** chỉ artifacts trong phạm vi được giao; không product code/test hoặc external mutations.

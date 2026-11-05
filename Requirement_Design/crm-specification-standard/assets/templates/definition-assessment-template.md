@@ -1,10 +1,12 @@
 # Mẫu chuẩn bị assessment định lượng
 
-ID: TEMPLATE-DEFINITION-ASSESSMENT · CRM Workflow Kit 1.9.0
+ID: TEMPLATE-DEFINITION-ASSESSMENT · CRM Workflow Kit 1.10.0
+
+Áp dụng [standard viết artifact](../../references/artifact-writing-standard.md). JSON giữ schema gốc; báo cáo Markdown đọc kết quả chính trước, rationale/evidence chi tiết sau. Không bọc JSON assessment bằng HTML.
 
 Dùng cùng [scoring guideline](../../references/definition-maturity-scoring.md). Tạo JSON hợp lệ/pin hiện hành bằng score --init; không chép hash hoặc reviewer minh họa vào dự án thật.
 
-## Checklist authoring record
+## Thông tin cần có trong assessment
 
 - Root: snapshot có timezone; workstream; inventory scope/revision; complete=false nếu chưa xác định toàn phạm vi.
 - Target: id/kind/path/revision/sha256/scope do --init cấp từ artifact thật; không sửa target khi review.
@@ -31,6 +33,6 @@ Ví dụ một item mức 1, sau khi điền evidence thật theo schema:
 
 Mảng evidence rỗng ở ví dụ phải được điền trước khi tính; đây là illustration, không là assessment có thể dùng nguyên trạng. Khi xuất Markdown review record, dùng metadata kind Review của kit và dẫn JSON; JSON assessment riêng không phải artifact metadata schema mới.
 
-## Dependency snapshot v2 và report
+## Snapshot dependency và báo cáo
 
 Dùng --init của kit 1.9+ để lấy record_dependencies hiện hành; không tự tạo IDs/hash giả. Với record unresolved, map items cần cap, allocation.rationale/reviewer/evidence. items=null giữ Unknown impact và không cấp chỉ số. Sau thay đổi record/evidence, reassess snapshot mới; Validated không tự làm consumer lên 3. Báo cáo --format markdown có declared/effective/rationale/evidence và có thể --output tới file mới trong reports. Không ghi đè record cũ.

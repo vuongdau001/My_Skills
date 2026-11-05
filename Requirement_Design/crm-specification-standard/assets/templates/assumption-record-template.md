@@ -1,8 +1,37 @@
-# Assumption Record Template
+# Mẫu giả định cần kiểm chứng
 
-ID: TPL-ASSUMPTION · CRM Workflow Kit 1.7.0 · 04/11/2026
+ID: TPL-ASSUMPTION · CRM Workflow Kit 1.10.0 · 05/11/2026
 
-Đọc [quy tắc record/evidence](../../references/knowledge-records-and-evidence.md). Đây là mẫu draft minh họa, chưa là record dự án. Cấp ID thật bằng next-id; thay scope/nội dung bằng nguồn đã đọc, giữ null nếu chưa có người hoặc thời điểm. Không nâng trạng thái để lấp template.
+Áp dụng [standard viết artifact](../../references/artifact-writing-standard.md). Đây là mẫu; thay hướng dẫn bằng dữ liệu thực, giữ gap khi thiếu input. Không suy approval từ việc điền đủ mục.
+
+Đọc [knowledge records](../../references/knowledge-records-and-evidence.md). Cấp ID bằng next-id; giữ null nếu chưa có owner/thời điểm.
+
+
+## Giả định và căn cứ
+
+Một statement có scope; basis là căn cứ hiện có, chưa là fact. Ghi source locator và evidence pin revision/hash.
+
+## Kế hoạch kiểm chứng
+
+Validation method, người kiểm/owner, review_due và evidence cần thu; chưa gán người/hạn giữ null.
+
+## Nếu giả định sai
+
+Nêu if_false, consumer áp dụng và ảnh hưởng tới requirement/model/AC/contract. Khai trace_links đúng nhánh; chưa dùng prose scope để né dependency.
+
+## Kết quả và bàn giao
+
+Validated/Invalidated cần validation_result, owner và evidence đúng statement/scope. Giữ ASM khi kiểm chứng; không bắt tạo DEC. Retired phải nêu vì sao không còn dùng và xử lý dependency, không coi là chứng minh đúng. Cần chọn policy/phương án thì tạo DEC riêng và giữ history; risk acceptance không làm ASM Validated.
+
+Xem [lifecycle chi tiết](../../references/knowledge-records-and-evidence.md#giải-quyết-assumption-và-phân-biệt-decision--19). Ghi receiver và bước refinement/review lại.
+
+## Nếu dùng register
+
+Đưa record vào records của metadata Project schema 2, bổ sung id/kind; không giữ đồng thời hai nơi định nghĩa. Dùng anchor ổn định khi cần dẫn mục.
+
+
+<details>
+<summary>Metadata mẫu — thay bằng giá trị thật</summary>
 
 ```crm-spec-kit
 {
@@ -26,18 +55,4 @@ ID: TPL-ASSUMPTION · CRM Workflow Kit 1.7.0 · 04/11/2026
 }
 ```
 
-## Nội dung và nguồn
-
-Ghi source locator/excerpt có quyền truy cập; tách fact, diễn giải, câu hỏi và quyết định. Evidence dùng path tương đối, revision và SHA-256 nguồn. Không đặt secret hoặc transcript riêng tư vào repo ngoài quyền đã có.
-
-## Scope và handoff
-
-Liên kết Feature/Epic/Story/rule bị ảnh hưởng bằng trace_links. Ghi receiver, missing authority/evidence và next function phù hợp. Sau thay đổi, tăng revision và review lại consumer; không tái dùng approval sai revision.
-
-## Dùng trong register
-
-Có thể chuyển object record thành một phần tử records trong metadata Project schema 2, bổ sung id và kind vào phần tử; không giữ đồng thời hai nơi định nghĩa ID. Giữ anchor ổn định nếu người dùng cần link tới record cụ thể.
-
-## Kết quả xử lý
-
-Validated: ghi validation_result, owner và evidence kiểm chứng đúng statement trong scope; không bắt tạo Decision. Invalidated: ghi kết quả sai và affected consumers, cần refinement/impact. Retired: nêu vì sao không còn dùng và disposition dependency; không phải đã chứng minh đúng. Nếu cần chọn policy/phương án, tạo DEC ID riêng, giữ ASM/history. Chấp nhận rủi ro không làm ASM Validated. Xem [lifecycle chi tiết](../../references/knowledge-records-and-evidence.md#giải-quyết-assumption-và-phân-biệt-decision--19).
+</details>

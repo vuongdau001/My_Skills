@@ -36,6 +36,10 @@ Dùng [context/handoff template](../assets/templates/work-context-and-handoff-te
 
 Tạo/cập nhật review/check/report record được phép theo nhiệm vụ, kể cả khi target chỉ đọc. Nếu record nằm trong cùng file target, chỉ sửa section record được giao, giữ nguyên nội dung đang đánh giá; nếu không tách được an toàn thì trả record riêng. Read-only request trả kết quả trong chat. Không tự commit/merge/publish/post comment/tạo ticket. Bộ kit không tự viết product code hoặc chạy runtime test; có thể đọc evidence/code theo quyền đã giao.
 
+## Artifact Writing
+
+Áp dụng [standard viết artifact](artifact-writing-standard.md) cho mọi artifact/output do function soạn hoặc sửa. Context mặc định đã có toàn bộ standard; không cần yêu cầu user nhắc lại ở từng loại hồ sơ. Giữ catalog F/E/S/T và schema/IDs; trình bày ý chính trước, mỗi đoạn một ý, câu tiếng Việt đầy đủ. Dùng bảng để so sánh, danh sách cho bước, mục riêng cho rule/AC/question dài; tách source/proposal/gap/approval. Markdown mới có một metadata block cuối file, details là tùy chọn. JSON/config/assessment giữ schema; recap ngắn không bắt đủ form/file. Biên tập file đã pin cần lịch sử/revision và kiểm lại refs; review/check không sửa target. Readability không là semantic/gate approval.
+
 ## Output & Handoff
 
 Mọi run ghi: function/profile; target/scope/input revision; artifacts được tạo/sửa/kiểm; thao tác và witness/evidence; findings/missing decisions + owner/due nếu có; kết quả kiểm scoped; approvals có thật và phần còn thiếu; receiver/next function/reason; actions chưa thực hiện. Ghi loại revision: input commit hoặc working revision, không bịa SHA cho draft.
