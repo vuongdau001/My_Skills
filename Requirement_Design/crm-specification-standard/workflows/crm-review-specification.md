@@ -1,6 +1,6 @@
 # Review Specification
 
-ID: **crm-review-specification** · CRM Workflow Kit 1.4.0 · 03/11/2026
+ID: **crm-review-specification** · CRM Workflow Kit 1.11.0 · 05/11/2026
 
 Function: **`crm-review-specification`** · Agent: **[Quality Reviewer](../agents/profiles/crm-quality-reviewer.md)**  
 Supported targets: Feature, Epic, Story, Task  
@@ -21,6 +21,8 @@ Target/scope/revision, full hay focused review, source/authority, policy refs, a
 Context chung: target/logical ID, selected scope, input revision/canonical locations, policy refs/effective scope và quyền đọc/sửa. Sources chưa có thì ghi chưa xác định; không bịa commit/Jira key/actor hoặc evidence.
 
 ## Input Check
+
+Khi review scope/allocation, dùng [checkpoint nguồn scope](../references/source-scope-and-decomposition-checkpoint.md) để kiểm căn cứ gom/tách và giao thoa bằng witness cụ thể. Có đủ dòng mapping hoặc ít Epic hơn chưa chứng minh phân rã hợp lý. Chỉ ghi findings; focused review không mở rộng thành full audit ngoài nhiệm vụ.
 
 Đọc target và refs trước khi chỉnh sửa. Đối soát scope/version với request, source/authority và previous records; hỏi lựa chọn khi có nhiều target hợp lý. Ghi input còn thiếu, phần bị chặn, owner nếu biết và next action. Tiếp tục phần độc lập; không tự điền expected behavior/policy để hoàn thiện đầu ra.
 

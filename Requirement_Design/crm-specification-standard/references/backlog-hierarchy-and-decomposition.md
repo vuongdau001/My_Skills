@@ -9,6 +9,8 @@ Mã tài liệu: **CRM-DECOMPOSITION** · Gói CRM 1.3.1 · 03/11/2026
 
 ## Quyết định phân cấp
 
+Nếu đầu vào là inventory chức năng, WBS hoặc bảng estimation, áp dụng [checkpoint nguồn scope](source-scope-and-decomposition-checkpoint.md) để phân biệt đơn vị nguồn với đơn vị bàn giao, thử ranh giới nhóm và tìm phần giao thoa. Cùng tên object/file hoặc giảm số nhóm chưa đủ chứng minh allocation tốt hơn.
+
 **Đầu vào:** Feature scope/source, mô hình/acceptance Epic, constraints/dependency và khả năng thực hiện của team. **Đầu ra:** Story manifest có scope allocation; quyết định checklist/Task có lý do. **Review:** Business/BA + Dev/TL + QA; PM chốt manifest và kế hoạch.
 
 ```text

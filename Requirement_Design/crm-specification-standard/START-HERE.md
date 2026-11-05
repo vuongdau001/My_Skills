@@ -1,6 +1,6 @@
 # Start Here
 
-ID: **CRM-START** · CRM Workflow Kit 1.10.0 · 05/11/2026
+ID: **CRM-START** · CRM Workflow Kit 1.11.0 · 05/11/2026
 
 
 ## Standard viết artifact dùng chung
@@ -8,6 +8,8 @@ ID: **CRM-START** · CRM Workflow Kit 1.10.0 · 05/11/2026
 Đọc [standard viết artifact](references/artifact-writing-standard.md) khi soạn/sửa bất kỳ hồ sơ nào. Templates đã áp dụng cách viết này; loại chưa có mẫu riêng dùng [artifact chung](assets/templates/artifact-document-template.md). Đọc nghiệp vụ trước metadata, tách điều kiện/kết quả/gap và giữ nguyên evidence/approval semantics.
 
 ## BA mới bắt đầu từ đây
+
+Khi đầu vào là function list/WBS/estimation hoặc cần xem lại cách chia, áp dụng [checkpoint nguồn scope](references/source-scope-and-decomposition-checkpoint.md) trước khi đề nghị chốt allocation. Số dòng nguồn chưa là số Story hoặc mẫu số tiến độ.
 
 Đọc [BA Getting Started](references/ba-getting-started.md) nếu cần hiểu Feature/Epic/Story/Task liên hệ với BRD/SRS/Use Case thế nào hoặc chưa biết phân tích tới đâu là đủ. Guide đi qua một ví dụ Customer–Contact, cách chọn ranh giới Epic, Story/AC, phản ví dụ và bài tập tự làm. Sau đó chọn workflow dưới đây và mở catalog/template theo nhu cầu. Ví dụ đào tạo không là policy hoặc approval dự án.
 
@@ -112,7 +114,7 @@ Cuối mỗi workflow đọc target/scope/revision, artifacts, findings/evidence
 
 Có một root skill cùng 5 profiles và 13 workflow guides. Chúng không tự khởi chạy multi-agent, không phụ thuộc BMAD runtime và không thực hiện Jira/Git/CI mutations. Files dự án và policy đã duyệt là inputs; kit không mang sẵn approval CRM. [Nguồn BMAD và CRM tailoring](provenance/bmad-inspiration-and-crm-tailoring.md) giải thích cách áp dụng tư tưởng.
 
-Chạy `python3 scripts/validate_reference_pack.py` để kiểm cấu trúc kit; xem [kết quả 1.10.0](provenance/pack-validation-report-v1.10.0.md). Kết quả này khác pilot hay test sản phẩm thực tế.
+Chạy `python3 scripts/validate_reference_pack.py` để kiểm cấu trúc kit; xem [kết quả 1.11.0](provenance/pack-validation-report-v1.11.0.md). Kết quả này khác pilot hay test sản phẩm thực tế.
 
 ## Muốn biết requirement đã rõ tới đâu?
 

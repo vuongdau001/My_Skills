@@ -1,6 +1,6 @@
 # Report Status
 
-ID: **crm-report-status** · CRM Workflow Kit 1.7.1 · 04/11/2026
+ID: **crm-report-status** · CRM Workflow Kit 1.11.0 · 05/11/2026
 
 Function: **`crm-report-status`** · Agent: **[Delivery Coordinator](../agents/profiles/crm-delivery-coordinator.md)**  
 Supported targets: Project, Feature, Epic, Story, Task
@@ -23,6 +23,8 @@ Recap cần observed actions/results và output refs của run liên quan. Curre
 Context chung: target/logical ID, selected scope, input revision/canonical locations, policy refs/effective scope và quyền đọc/sửa. Sources chưa có thì ghi chưa xác định; không bịa commit/Jira key/actor hoặc evidence.
 
 ## Input Check
+
+Khi báo số từ function list/estimation hoặc allocation, áp dụng [checkpoint nguồn scope](../references/source-scope-and-decomposition-checkpoint.md): dẫn nguồn/đơn vị/revision và evidence review của allocation. Nếu chưa kiểm cách phân rã, nói rõ và giới hạn kết luận; không tự dùng dòng nguồn làm % hoàn thành. Status ngắn không tự audit/chia lại toàn scope hoặc sửa target.
 
 Đọc target và refs trước khi chỉnh sửa. Đối soát scope/version với request, source/authority và previous records; hỏi lựa chọn khi có nhiều target hợp lý. Ghi input còn thiếu, phần bị chặn, owner nếu biết và next action. Tiếp tục phần độc lập; không tự điền expected behavior/policy để hoàn thiện đầu ra.
 

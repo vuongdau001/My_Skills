@@ -1,11 +1,11 @@
 ---
 name: crm-specification-standard
-description: "Vận hành yêu cầu và backlog CRM theo workflow: làm rõ Feature/Epic/Story và solution, review đặc tả, chuẩn bị baseline, kiểm readiness/handoff/completion, đánh giá thay đổi, báo cáo tiến độ và đề xuất bước tiếp theo theo hồ sơ CRM. Dùng để soạn hồ sơ hoặc kiểm điều kiện bàn giao theo chuẩn CRM; không tự triển khai product code hoặc thao tác Jira/Git/CI."
+description: "Vận hành yêu cầu và backlog CRM theo workflow: tiếp nhận và phân rã scope từ function list/WBS/estimation, làm rõ Feature/Epic/Story và solution, review đặc tả, chuẩn bị baseline, kiểm readiness/handoff/completion, đánh giá thay đổi, báo cáo tiến độ và đề xuất bước tiếp theo theo hồ sơ CRM. Dùng để soạn hồ sơ hoặc kiểm điều kiện bàn giao theo chuẩn CRM; không tự triển khai product code hoặc thao tác Jira/Git/CI."
 ---
 
 # CRM Workflow Kit
 
-Phiên bản **1.10.0**. Một root skill, các agent profiles logic và workflows tự chứa. Người mới đọc [Start Here](START-HERE.md). Nguồn kit tên crm-specification-standard; helper đóng gói bản cài một root skill tên crm-spec-kit. Các function IDs bên dưới vẫn là workflow nội bộ, không phải 13 slash commands riêng.
+Phiên bản **1.11.0**. Một root skill, các agent profiles logic và workflows tự chứa. Người mới đọc [Start Here](START-HERE.md). Nguồn kit tên crm-specification-standard; helper đóng gói bản cài một root skill tên crm-spec-kit. Các function IDs bên dưới vẫn là workflow nội bộ, không phải 13 slash commands riêng.
 
 ## Installation and Admin Requests
 
@@ -17,7 +17,7 @@ Mọi artifact soạn mới hoặc chỉnh sửa theo [standard viết artifact]
 
 ## Route the Request
 
-Khi người dùng cần onboarding BA, mapping BRD/SRS/Use Case hoặc cách phân rã phù hợp, đọc [BA Getting Started](references/ba-getting-started.md). Đây là guide học và thực hành; chỉ nạp khi cần, không thay catalogs/gates hoặc tạo thêm function.
+Khi nhận function list/WBS/estimation/screen list, chia lại scope hoặc dùng allocation để báo tiến độ, áp dụng [checkpoint nguồn scope và cách phân rã](references/source-scope-and-decomposition-checkpoint.md). Không mặc định một dòng nguồn là một Epic/Story; kiểm căn cứ ranh giới và giao thoa theo độ sâu nhiệm vụ. Context của các function liên quan nạp checkpoint này mặc định. Khi cần onboarding BA, mapping BRD/SRS/Use Case hoặc giải thích cách chọn ranh giới, đọc thêm [BA Getting Started](references/ba-getting-started.md); guide không thay catalog/gate.
 
 Khi cần xử lý Assumption/Decision, đọc [knowledge records](references/knowledge-records-and-evidence.md); ASM Validated không bắt chuyển DEC, risk acceptance không thay validation. Score v2 tự audit/pin record closure và yêu cầu allocation ảnh hưởng.
 
@@ -66,6 +66,6 @@ Workstream mới dùng thư mục đánh số; config cũ giữ legacy. Khi ch�
 
 ## Registry & Verification
 
-[Manifest](reference-manifest.json) nối function → profile → workflow → refs/templates. [Nguồn và tailoring](references/standards-and-crm-tailoring.md), [BMAD inspiration](provenance/bmad-inspiration-and-crm-tailoring.md), [acceptance scenarios](references/pack-acceptance-scenarios.md) và [report 1.10.0](provenance/pack-validation-report-v1.10.0.md) phục vụ đối chiếu.
+[Manifest](reference-manifest.json) nối function → profile → workflow → refs/templates. [Nguồn và tailoring](references/standards-and-crm-tailoring.md), [BMAD inspiration](provenance/bmad-inspiration-and-crm-tailoring.md), [acceptance scenarios](references/pack-acceptance-scenarios.md) và [report 1.11.0](provenance/pack-validation-report-v1.11.0.md) phục vụ đối chiếu.
 
 Chạy `python3 scripts/validate_reference_pack.py` từ folder này hoặc gọi bằng đường dẫn script. Validator kiểm cấu trúc/refs/registry/migration, không cấp DoR/DoD approval hoặc chứng minh phần mềm đạt.

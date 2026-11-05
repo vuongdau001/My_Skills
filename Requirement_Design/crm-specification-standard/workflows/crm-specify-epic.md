@@ -1,6 +1,6 @@
 # Specify Epic
 
-ID: **crm-specify-epic** · CRM Workflow Kit 1.4.0 · 03/11/2026
+ID: **crm-specify-epic** · CRM Workflow Kit 1.11.0 · 05/11/2026
 
 Function: **`crm-specify-epic`** · Agent: **[Requirements Analyst](../agents/profiles/crm-requirements-analyst.md)**  
 Supported targets: Epic  
@@ -21,6 +21,8 @@ Feature/selected scope, Epic draft, source/authority, shared models/constraints 
 Context chung: target/logical ID, selected scope, input revision/canonical locations, policy refs/effective scope và quyền đọc/sửa. Sources chưa có thì ghi chưa xác định; không bịa commit/Jira key/actor hoặc evidence.
 
 ## Input Check
+
+Nếu scope Epic lấy từ function list hoặc đang đổi ranh giới, áp dụng [checkpoint nguồn scope](../references/source-scope-and-decomposition-checkpoint.md). Đối chiếu các fragment/rule dùng chung với Epic lân cận; ghi gap trước khi coi selected scope đủ rõ. Không cần phân rã lại toàn Feature khi chỉ sửa rule không ảnh hưởng allocation.
 
 Đọc target và refs trước khi chỉnh sửa. Đối soát scope/version với request, source/authority và previous records; hỏi lựa chọn khi có nhiều target hợp lý. Ghi input còn thiếu, phần bị chặn, owner nếu biết và next action. Tiếp tục phần độc lập; không tự điền expected behavior/policy để hoàn thiện đầu ra.
 

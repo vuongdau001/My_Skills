@@ -72,6 +72,8 @@ Prompt áp dụng, thay các chỗ trong ngoặc bằng dữ liệu thật:
 
 ### Bước B — Đặt Feature và chọn một phạm vi Epic
 
+Khi bắt đầu từ function list/WBS/estimation, áp dụng [checkpoint nguồn scope](source-scope-and-decomposition-checkpoint.md) trước khi dùng số dòng làm allocation hoặc báo tiến độ. Giữ nguyên nguồn; số dòng estimation, số Epic candidates và số Story đủ DoR là các thông tin khác nhau.
+
 Feature candidate EX-F1: “Quản lý Customer và Contact”. BA làm rõ vấn đề, người hưởng lợi, outcome, in/out scope và cách đánh giá. Không tự đặt KPI hoặc thời gian phản hồi để điền đủ ô. Dùng [Feature F01–F08](feature-specification-catalog.md) và `crm-define-feature`.
 
 Epic candidate EX-E1: “Quản lý liên kết Customer–Contact”. Phạm vi này có mô hình quan hệ, rules và acceptance chung. Hồ sơ Contact và lifecycle là dependencies cần chốt trách nhiệm; không tự nhận toàn bộ chúng vào Epic chỉ vì flow có sử dụng.

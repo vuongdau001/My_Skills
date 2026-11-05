@@ -1,6 +1,6 @@
 # Install and Operate CRM Spec Kit
 
-ID: **CRM-INSTALL** · CRM Workflow Kit 1.10.0 · 05/11/2026
+ID: **CRM-INSTALL** · CRM Workflow Kit 1.11.0 · 05/11/2026
 
 AI được đưa folder kit để tự cài đọc [BOOTSTRAP](BOOTSTRAP.md) trước. Nội dung/workflow dùng chung; filesystem adapters và router tùy chọn xử lý phần tích hợp tool.
 
@@ -81,7 +81,7 @@ python3 scripts/kit.py context crm-define-feature --repo <repo-root> --workstrea
 python3 scripts/kit.py context crm-review-specification --repo <repo-root> --workstream p3 --target STORY-CRM-001 --target-kind Story --revision <revision> --reference Q03 --reference D05
 ```
 
-Context mặc định gồm workflow, phần profile liên quan, các section protocol bắt buộc và standard viết artifact chung; config được in như dữ liệu, không approval. Tài nguyên chi tiết nằm ở available_references; thêm bằng --reference (entry ID hoặc path nội bộ). --full chỉ để so sánh/debug, không mặc định nạp mọi catalog. --format json cung cấp paths/hashes/character counts. Helper không tự chọn active workstream khi có nhiều stream, không tự đoán target/revision.
+Context mặc định gồm workflow, phần profile liên quan, các section protocol bắt buộc và standard viết artifact chung; các function setup/define-feature/specify-epic/prepare-stories/review-specification/report-status còn nạp checkpoint nguồn scope theo registry; config được in như dữ liệu, không approval. Tài nguyên chi tiết nằm ở available_references; thêm bằng --reference (entry ID hoặc path nội bộ). --full chỉ để so sánh/debug, không mặc định nạp mọi catalog. --format json cung cấp paths/hashes/character counts. Helper không tự chọn active workstream khi có nhiều stream, không tự đoán target/revision.
 
 Các lệnh đọc doctor/context/lint/smoke-prompt nhận --config <candidate-config.json> để audit migration mà không tạo config trong repo thật; đường dẫn trong config vẫn được kiểm theo --repo.
 
@@ -135,3 +135,7 @@ Backup update được giữ tại `.agents/crm-spec-kit-backups/<installation-k
 ## Standard trình bày — 1.10
 
 [Standard viết artifact](references/artifact-writing-standard.md) được nạp cho cả 13 function. Update package không tự rewrite artifact hoặc scoped instructions có sẵn; tác giả áp dụng khi author/correction được giao, giữ revision/evidence lịch sử. Templates schema 2 và Markdown metadata footer vẫn đọc được bởi helper; JSON/config giữ schema gốc.
+
+## Checkpoint nguồn scope — 1.11
+
+[Checkpoint nguồn scope và phân rã](references/source-scope-and-decomposition-checkpoint.md) được nạp mặc định cho sáu function liên quan. Trigger và độ sâu được quyết trong workflow: status ngắn chỉ đọc evidence hiện hành, không tự chia lại scope. `--reference CRM-SCOPE-CHECKPOINT` mở tài liệu từ các context khác khi áp dụng. Helper không phân tích semantic nội dung nguồn, không tự chọn số Feature/Epic hoặc chứng nhận allocation; lint giữ giới hạn structural/record obligations. Không thêm CLI/function, schema hoặc gate approval mới.

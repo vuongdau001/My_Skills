@@ -1,6 +1,6 @@
 # Define Feature
 
-ID: **crm-define-feature** · CRM Workflow Kit 1.4.0 · 03/11/2026
+ID: **crm-define-feature** · CRM Workflow Kit 1.11.0 · 05/11/2026
 
 Function: **`crm-define-feature`** · Agent: **[Requirements Analyst](../agents/profiles/crm-requirements-analyst.md)**  
 Supported targets: Feature  
@@ -21,6 +21,8 @@ Nhu cầu/Feature draft, sources, stakeholder/authority, scope/constraints và p
 Context chung: target/logical ID, selected scope, input revision/canonical locations, policy refs/effective scope và quyền đọc/sửa. Sources chưa có thì ghi chưa xác định; không bịa commit/Jira key/actor hoặc evidence.
 
 ## Input Check
+
+Trước khi đề nghị chốt F04/F06 hoặc sửa nhóm Epic, áp dụng [checkpoint nguồn scope](../references/source-scope-and-decomposition-checkpoint.md). Nêu outcome/model/acceptance làm căn cứ gom/tách và mapping/giao thoa; cùng màn hình, object hay file chưa đủ lý do. Thiếu đầu vào vẫn có thể soạn candidates, ghi phần chưa kiểm.
 
 Đọc target và refs trước khi chỉnh sửa. Đối soát scope/version với request, source/authority và previous records; hỏi lựa chọn khi có nhiều target hợp lý. Ghi input còn thiếu, phần bị chặn, owner nếu biết và next action. Tiếp tục phần độc lập; không tự điền expected behavior/policy để hoàn thiện đầu ra.
 

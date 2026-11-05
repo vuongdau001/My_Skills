@@ -33,6 +33,8 @@ Tuân project instructions về canonical locations. Chat, handoff và tracker l
 
 Không tạo một % hoàn thành chung khi thiếu scope/mẫu số/phương pháp. Phân biệt “Epic draft đã viết”, “spec đã review”, “baseline đã duyệt/merge”, “Story Ready”, “code triển khai” và “sản phẩm nghiệm thu”. Chỉ khẳng định tầng đã có evidence. Lợi ích sản phẩm không suy từ số artifact hoặc số test tooling.
 
+Khi status dùng function list/estimation hoặc allocation, áp dụng [checkpoint nguồn scope](source-scope-and-decomposition-checkpoint.md). Có thể báo số nguồn công bố cùng provenance và ghi cách phân rã chưa được review; không tự biến câu hỏi status thành một đợt chia lại toàn scope.
+
 ## Chọn next step theo điều kiện
 
 Chọn việc giúp tháo blocker hoặc tạo đầu ra có thể review tiếp theo, không lấy thứ tự danh sách function như lệnh phải chạy. Ưu tiên cụ thể trong scope; nếu chưa có dữ liệu để xếp ưu tiên thì nói căn cứ còn thiếu, không bịa capacity/deadline.

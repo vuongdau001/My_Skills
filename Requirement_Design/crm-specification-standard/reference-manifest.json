@@ -1,6 +1,6 @@
 {
   "pack_id": "crm-specification-standard",
-  "version": "1.10.0",
+  "version": "1.11.0",
   "date": "2026-11-05",
   "language": "vi",
   "scope": "Self-contained CRM workflow kit with deterministic local installation adapters; no automatic runtime discovery or external mutations",
@@ -28,6 +28,12 @@
       "kind": "reference",
       "title": "Phân cấp và phân rã Feature, Epic, Story, Task",
       "path": "references/backlog-hierarchy-and-decomposition.md"
+    },
+    {
+      "id": "CRM-SCOPE-CHECKPOINT",
+      "kind": "reference",
+      "title": "Checkpoint nguồn scope và cách phân rã",
+      "path": "references/source-scope-and-decomposition-checkpoint.md"
     },
     {
       "id": "CRM-BASELINE",
@@ -2005,7 +2011,8 @@
         "references/crm-project-rules.md",
         "references/artifact-layout-and-migration.md",
         "references/knowledge-records-and-evidence.md",
-        "references/artifact-writing-standard.md"
+        "references/artifact-writing-standard.md",
+        "references/source-scope-and-decomposition-checkpoint.md"
       ],
       "templates": [
         "assets/templates/project-policy-register-template.md",
@@ -2035,7 +2042,8 @@
         "references/readiness-completion-and-approval-gates.md",
         "references/artifact-layout-and-migration.md",
         "references/knowledge-records-and-evidence.md",
-        "references/artifact-writing-standard.md"
+        "references/artifact-writing-standard.md",
+        "references/source-scope-and-decomposition-checkpoint.md"
       ],
       "templates": [
         "assets/templates/feature-specification-template.md",
@@ -2065,7 +2073,8 @@
         "references/coverage-inventories-and-traceability.md",
         "references/artifact-layout-and-migration.md",
         "references/knowledge-records-and-evidence.md",
-        "references/artifact-writing-standard.md"
+        "references/artifact-writing-standard.md",
+        "references/source-scope-and-decomposition-checkpoint.md"
       ],
       "templates": [
         "assets/templates/epic-specification-template.md",
@@ -2130,7 +2139,8 @@
         "references/catalog-check-model-mapping.md",
         "references/artifact-layout-and-migration.md",
         "references/knowledge-records-and-evidence.md",
-        "references/artifact-writing-standard.md"
+        "references/artifact-writing-standard.md",
+        "references/source-scope-and-decomposition-checkpoint.md"
       ],
       "templates": [
         "assets/templates/story-specification-template.md",
@@ -2169,7 +2179,8 @@
         "references/artifact-layout-and-migration.md",
         "references/knowledge-records-and-evidence.md",
         "references/definition-maturity-scoring.md",
-        "references/artifact-writing-standard.md"
+        "references/artifact-writing-standard.md",
+        "references/source-scope-and-decomposition-checkpoint.md"
       ],
       "templates": [
         "assets/templates/requirements-review-record-template.md",
@@ -2353,7 +2364,8 @@
         "references/knowledge-records-and-evidence.md",
         "references/conversational-status-and-next-step.md",
         "references/definition-maturity-scoring.md",
-        "references/artifact-writing-standard.md"
+        "references/artifact-writing-standard.md",
+        "references/source-scope-and-decomposition-checkpoint.md"
       ],
       "templates": [
         "assets/templates/progress-report-template.md",

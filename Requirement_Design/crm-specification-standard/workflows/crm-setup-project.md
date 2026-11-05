@@ -1,6 +1,6 @@
 # Set Up Project
 
-ID: **crm-setup-project** · CRM Workflow Kit 1.4.0 · 03/11/2026
+ID: **crm-setup-project** · CRM Workflow Kit 1.11.0 · 05/11/2026
 
 Function: **`crm-setup-project`** · Agent: **[Delivery Coordinator](../agents/profiles/crm-delivery-coordinator.md)**  
 Supported targets: Project  
@@ -21,6 +21,8 @@ Nguồn dự án, constraints tổ chức/hợp đồng, roles/authority, repo/a
 Context chung: target/logical ID, selected scope, input revision/canonical locations, policy refs/effective scope và quyền đọc/sửa. Sources chưa có thì ghi chưa xác định; không bịa commit/Jira key/actor hoặc evidence.
 
 ## Input Check
+
+Khi tiếp nhận function list/WBS/estimation/screen list, dùng [checkpoint nguồn scope](../references/source-scope-and-decomposition-checkpoint.md): xác định đơn vị/mục đích nguồn, giữ counts có provenance và gaps. Chưa mặc định inventory nguồn là phân cấp Feature/Epic/Story đã được review.
 
 Đọc target và refs trước khi chỉnh sửa. Đối soát scope/version với request, source/authority và previous records; hỏi lựa chọn khi có nhiều target hợp lý. Ghi input còn thiếu, phần bị chặn, owner nếu biết và next action. Tiếp tục phần độc lập; không tự điền expected behavior/policy để hoàn thiện đầu ra.
 

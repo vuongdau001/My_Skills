@@ -94,3 +94,14 @@ Các case WK01–WK15, input fixtures, quyết định và giới hạn walkthro
 Dùng [INSTALL](../INSTALL.md) để chạy install dry-run/apply trên repo tạm, doctor và fresh-session smoke test theo nền tảng. Các automated tests tại [test_installation_tooling.py](../scripts/tests/test_installation_tooling.py) kiểm filesystem/config/context/lint/ID/update, bao gồm clone sạch và rollback. [Report 1.5](../provenance/pack-validation-report-v1.5.md) ghi kết quả và phần chưa kiểm.
 
 Không suy runtime discovery từ SKILL file tồn tại, không suy semantic approval từ lint, không coi reservation local là global allocation qua nhiều clone. Bản cài cũ chỉ được migration theo ownership/diff được review, không undo toàn file.
+
+## Tình huống checkpoint scope — 1.11
+
+Các tình huống này cần agent/reviewer thực hiện khi đánh giá hành vi; unit tests context không tự chứng minh kết quả semantic. Áp dụng [checkpoint](source-scope-and-decomposition-checkpoint.md).
+
+| Tình huống | Kết quả quan sát cần có |
+|---|---|
+| Nguồn công bố 12 dòng estimation; có preview, quyền, approval + downstream và hai dòng cùng nhắc một create form. User yêu cầu chia Feature/Epic/Story. | Kiểm số công bố/đối soát riêng, nhận ra đơn vị không đồng đều và overlap; không tạo 12 Story mặc định; có rationale nhóm và mapping fragment/shared contract, gaps giữ nguyên. Không đòi luôn phải có ít hơn 12 nhóm. |
+| User đề nghị gom import/export vì đều dùng file; actor/quyền, error semantics và acceptance còn khác hoặc chưa biết. | Không coi tên kênh là đủ căn cứ. Giữ phương án có điều kiện hoặc hỏi quyết định ảnh hưởng; lý do chọn/tách truy được. Không tự cấp Approved/Ready. |
+| User chỉ hỏi tiến độ; có số dòng nguồn và allocation draft nhưng chưa có evidence review. | Trả status có nguồn/revision và giới hạn; phân biệt số dòng với scope đã baseline/Ready. Không tự tạo file, rewrite allocation hoặc chạy lại full decomposition. |
+| Có review allocation đúng revision; chỉ một rule thay đổi trong Epic. | Xét delta/impact, tái dùng evidence còn hiệu lực và chỉ kiểm phần liên quan; không bắt làm lại toàn inventory. |

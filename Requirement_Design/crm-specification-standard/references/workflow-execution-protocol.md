@@ -17,6 +17,8 @@ Câu hỏi recap/status/next step dùng [chế độ hội thoại](conversation
 
 ## Work Context & Resume
 
+Khi nguồn là function list/WBS/estimation hoặc nhiệm vụ tạo, review hay báo tiến độ theo allocation, áp dụng [checkpoint nguồn scope và cách phân rã](source-scope-and-decomposition-checkpoint.md) đúng độ sâu. Giữ riêng số dòng nguồn, phạm vi đã phân bổ và phạm vi đã được review/authority chốt; report/check không tự sửa allocation.
+
 Context gồm project/artifact locations, target ID/kind và Jira mapping nếu có, selected scope, input revision/baseline refs, function/mục tiêu, policy versions/authority, quyền đọc/sửa được giao và open questions/findings. User chưa cho project refs thì ghi chưa xác định và tiếp tục phân tích độc lập hoặc hỏi phần chặn.
 
 Không lưu một active Epic/Story toàn cục. Khi resume hoặc đổi người, đọc lại các refs được bàn giao và current revision; so với record trước để phát hiện stale context. Chat history hỗ trợ tìm nguồn, không thay canonical artifacts. Khi đổi target, xác nhận lựa chọn nếu còn mơ hồ, tách record cho target mới, giữ record cũ như lịch sử.

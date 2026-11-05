@@ -17,6 +17,8 @@ Feature chỉ ở Git. Không tạo issue type hay status mới. Không bắt m�
 | <a id="f07"></a>F07 — Acceptance liên Epic | Điều kiện nghiệm thu sản phẩm, hành trình liên Epic, data/control chung, phương pháp kiểm | Có expected result/observation cho mỗi AC; luồng giao thoa được phân bổ kiểm; Epic Done không tự thay acceptance Feature | BA + QA / Business, TL phần kỹ thuật |
 | <a id="f08"></a>F08 — Quyết định, baseline và nghiệm thu | Revision/scope, policy refs, approvals, open questions, acceptance/evidence refs theo bước | Không có câu hỏi chặn bị giấu; decision đúng authority/revision; khi bàn giao đủ scope/evidence và Business acceptance | BA điều phối / PM + Business |
 
+Với F04/F06, dùng [checkpoint nguồn scope](source-scope-and-decomposition-checkpoint.md) khi tiếp nhận inventory hoặc thay allocation. Rationale cần dựa outcome/model/control/acceptance; mapping một owner chính trên mỗi dòng nguồn chưa chứng minh mọi fragment đã được bao phủ.
+
 ## Cách review theo bước, không đòi đầy đủ quá sớm
 
 1. **Cho phép làm rõ/phân rã:** F01–F04 có khung đủ giao việc, F06 có kế hoạch/owner, F08 ghi authority/questions. F05/F07 còn discovery được ghi rõ. Áp dụng DoR Feature hiện có; không tuyên bố đã đủ để code.

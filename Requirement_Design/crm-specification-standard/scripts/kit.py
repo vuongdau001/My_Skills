@@ -529,6 +529,9 @@ def context(args):
     include(protocol,'\n\n'.join('## '+h+'\n'+section(body,h) for h in ('Work Context & Resume','Verbs & Write Boundaries','Review & Gate Semantics','Artifact Writing','Output & Handoff')))
     include('references/artifact-writing-standard.md')
     resources=function['references']+function['templates']
+    scope_checkpoint='references/source-scope-and-decomposition-checkpoint.md'
+    if scope_checkpoint in function['references']:
+        include(scope_checkpoint)
     chosen=list(resources) if args.full else []
     entries={e['id']:e['path'] for e in manifest['entries']}
     for ref in args.reference:

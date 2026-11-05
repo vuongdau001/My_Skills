@@ -1,6 +1,6 @@
 # Prepare Stories
 
-ID: **crm-prepare-stories** · CRM Workflow Kit 1.4.0 · 03/11/2026
+ID: **crm-prepare-stories** · CRM Workflow Kit 1.11.0 · 05/11/2026
 
 Function: **`crm-prepare-stories`** · Agent: **[Requirements Analyst](../agents/profiles/crm-requirements-analyst.md)**  
 Supported targets: Epic, Story, Task  
@@ -21,6 +21,8 @@ Selected Epic scope, requirements/models/AC, solution refs, dependencies, alloca
 Context chung: target/logical ID, selected scope, input revision/canonical locations, policy refs/effective scope và quyền đọc/sửa. Sources chưa có thì ghi chưa xác định; không bịa commit/Jira key/actor hoặc evidence.
 
 ## Input Check
+
+Khi phân rã hoặc sửa Story allocation, dùng [checkpoint nguồn scope](../references/source-scope-and-decomposition-checkpoint.md) trước khi đề nghị chốt manifest: giữ outcome tích hợp, mapping và controls áp dụng, chỉ rõ scope trùng/chưa nhận. Không lấy số leaf nguồn làm số Story. Task-only không thay allocation thì không lập lại inventory.
 
 Đọc target và refs trước khi chỉnh sửa. Đối soát scope/version với request, source/authority và previous records; hỏi lựa chọn khi có nhiều target hợp lý. Ghi input còn thiếu, phần bị chặn, owner nếu biết và next action. Tiếp tục phần độc lập; không tự điền expected behavior/policy để hoàn thiện đầu ra.
 
