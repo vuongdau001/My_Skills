@@ -8,7 +8,7 @@ Nội dung để người đọc nằm trước metadata: tiêu đề, ý chính
 
 Mẫu dưới minh họa Feature schema 1. Chọn đúng kind/schema, ID/revision và vocabulary. Không gán work_status cho Feature. Knowledge records mới dùng các template schema 2 riêng.
 
-artifact_id và defined_ids là definitions; references là links tương đối từ artifact. trace_links có ID/path/revision/relation để khai dependency; evidence schema 2 cần hash/revision đúng nguồn. ID trong ví dụ không là ID đã được cấp cho dự án.
+artifact_id và defined_ids là definitions; references là links tương đối từ artifact. trace_links có ID/path/revision/relation để khai dependency; evidence schema 2 cần hash/revision đúng nguồn. Thay `<assigned-feature-id>` bằng ID được cấp theo quy ước của workstream trước khi dùng block này.
 
 
 <details>
@@ -17,7 +17,7 @@ artifact_id và defined_ids là definitions; references là links tương đối
 ```crm-spec-kit
 {
   "schema_version": 1,
-  "artifact_id": "FEAT-CRM-001",
+  "artifact_id": "<assigned-feature-id>",
   "kind": "Feature",
   "revision": "draft-r1",
   "defined_ids": [],

@@ -47,25 +47,25 @@ Blockers: [{id,reason,category}], category content/approval/delivery. Cùng bloc
 
 ## Lệnh dùng thực tế
 
-Gọi từ repo root, chọn paths từ config; ví dụ dưới giả định workstream p3 có layout legacy. Từ source kit thay prefix bằng scripts/kit.py và --repo bằng repo đích. Helper mặc định in stdout; --output chỉ lưu báo cáo Markdown mới theo quy tắc bên dưới.
+Gọi từ repo root và thay giá trị trong dấu `<>` trước khi chạy. Lấy path của artifact và reports từ `artifact_paths` trong Work Context. Từ source kit dùng `scripts/kit.py` và trỏ `--repo` tới repo đích. Helper mặc định in stdout. `--output` lưu báo cáo Markdown mới theo quy tắc bên dưới.
 
 Tạo inventory Unknown đủ 12 mục cho một Story (thay ID/path/revision/scope thật):
 
 ```sh
-python3 .agents/skills/crm-spec-kit/scripts/kit.py score --repo . --workstream p3 --init --artifact phase-3/spec/stories/STORY-CRM-001-customer-list.md --target STORY-CRM-001 --kind Story --revision p3-pilot-r1 --scope customer-list > phase-3/spec/reports/story-001-assessment.json
+python3 .agents/skills/crm-spec-kit/scripts/kit.py score --repo . --workstream "<workstream-id>" --init --artifact "<story-path>" --target "<story-id>" --kind Story --revision "<revision>" --scope "<scope-id>" > "<new-assessment-path>"
 ```
 
 Shell redirection là thao tác ghi riêng trong vùng được giao; chọn tên file mới, không ghi đè record cũ. Skeleton chỉ pin target và để Unknown, không chấm bằng số heading. Agent/BA đọc source/catalog/model/Q, ghi rationale/evidence/levels có căn cứ. Gom nhiều skeleton bằng cách ghép targets vào một root inventory thống nhất; mỗi ID/scope/revision theo schema trên. Để chấm từng Epic, tạo tương tự --kind Epic và đúng ID/path.
 
 ```sh
 # Một Story
-python3 .agents/skills/crm-spec-kit/scripts/kit.py score --repo . --workstream p3 --assessment phase-3/spec/reports/assessment.json --target STORY-CRM-001 --format markdown
+python3 .agents/skills/crm-spec-kit/scripts/kit.py score --repo . --workstream "<workstream-id>" --assessment "<assessment-path>" --target "<story-id>" --format markdown
 # Một Epic
-python3 .agents/skills/crm-spec-kit/scripts/kit.py score --repo . --workstream p3 --assessment phase-3/spec/reports/assessment.json --target EPIC-CRM-001
+python3 .agents/skills/crm-spec-kit/scripts/kit.py score --repo . --workstream "<workstream-id>" --assessment "<assessment-path>" --target "<epic-id>"
 # Một mục trong scope của Epic
-python3 .agents/skills/crm-spec-kit/scripts/kit.py score --repo . --workstream p3 --assessment phase-3/spec/reports/assessment.json --target EPIC-CRM-001 --scope manual --item E07
+python3 .agents/skills/crm-spec-kit/scripts/kit.py score --repo . --workstream "<workstream-id>" --assessment "<assessment-path>" --target "<epic-id>" --scope "<scope-id>" --item E07
 # Toàn inventory, hai ledger tách riêng
-python3 .agents/skills/crm-spec-kit/scripts/kit.py score --repo . --workstream p3 --assessment phase-3/spec/reports/assessment.json
+python3 .agents/skills/crm-spec-kit/scripts/kit.py score --repo . --workstream "<workstream-id>" --assessment "<assessment-path>"
 ```
 
 --target không kèm --scope trả tất cả scopes của ID đó. --item cần --target; focused result không là full artifact score. Nếu một assessment chứa nhiều target, tất cả pins/catalog được kiểm kể cả khi chỉ lọc một target; muốn snapshot độc lập dùng assessment riêng. JSON là mặc định; --format markdown giúp đọc. Exit 0 nghĩa tính hợp lệ, không là Ready/PASS nghiệp vụ; exit 2 là input/pin không hợp lệ.

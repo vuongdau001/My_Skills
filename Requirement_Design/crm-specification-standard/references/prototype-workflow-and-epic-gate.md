@@ -1,6 +1,6 @@
 # Prototype trong quy trình Epic
 
-ID **CRM-PROTOTYPE** · CRM Workflow Kit 1.12.1
+ID **CRM-PROTOTYPE** · CRM Workflow Kit 1.12.2
 
 Một Prototype là bản chạy được để diễn tập hành vi UI trong phạm vi Epic đã đặc tả. E08 ghi UI cần làm, D06 đối chiếu hành vi với contract và walkthrough ghi kết quả quan sát. Gate bàn giao sang Story thực thi yêu cầu ba đầu ra này cho scope có tác động UI.
 
@@ -30,11 +30,11 @@ Ghi draft HTML/CSS/JS và fixture giả trong vùng prototypes khi được giao
 
 Mỗi hành trình người dùng có một thư mục ngay dưới category prototypes, đặt tên theo việc người dùng làm và giữ tên ổn định khi lên revision. Chia file theo màn hình bên trong `screens/` và dùng chung entrypoint, assets, fixture cho cả luồng. Ghi phân bổ Epic, revision và scope trong manifest để một hành trình có thể đi qua nhiều Epic. Baseline pin revision và hash của bundle đã review.
 
-Ví dụ layout numbered:
+Ví dụ layout numbered cho một hành trình tạo Contact. Nếu bundle minh họa cả tạo và gắn, liệt kê scenario và phân bổ cho từng Epic, kể cả khi các scenario dùng chung entrypoint.
 
 ```text
 09-prototypes/
-  contact-create-and-link/
+  contact-create/
     README.md
     manifest.json
     scenarios.md

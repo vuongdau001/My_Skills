@@ -22,6 +22,8 @@ Context chung: target/logical ID, selected scope, input revision/canonical locat
 
 ## Input Check
 
+Khi tạo/đổi allocation, áp dụng phép kiểm chọn cấp/cha–con của checkpoint. Story nhận delta có ích và controls bắt buộc; không tự tạo cha mới hoặc tách preview/detail theo màn hình khi chưa có căn cứ giá trị/sizing. Task-only giữ phạm vi hiện có.
+
 Khi phân rã hoặc sửa Story allocation, dùng [checkpoint nguồn scope](../references/source-scope-and-decomposition-checkpoint.md) trước khi đề nghị chốt manifest: giữ outcome tích hợp, mapping và controls áp dụng, chỉ rõ scope trùng/chưa nhận. Không lấy số leaf nguồn làm số Story. Task-only không thay allocation thì không lập lại inventory.
 
 Đọc target và refs trước khi chỉnh sửa. Đối soát scope/version với request, source/authority và previous records; hỏi lựa chọn khi có nhiều target hợp lý. Ghi input còn thiếu, phần bị chặn, owner nếu biết và next action. Tiếp tục phần độc lập; không tự điền expected behavior/policy để hoàn thiện đầu ra.

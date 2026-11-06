@@ -85,9 +85,9 @@ Zero denominator=N/A, Unknown phải hiện riêng; không gọi review coverage
 
 > Vừa làm gì xong? Trả ngắn từ observed result, dẫn file và kiểm chứng; không tạo report file.
 
-> STORY-CRM-001 hiện tới đâu? Đọc current revision và evidence; phân biệt draft/Ready/implementation, không roll up toàn Project.
+> Story [ID Story hiện hành] tới đâu? Đọc current revision và evidence; phân biệt draft/Ready/implementation, không roll up toàn Project.
 
-> EPIC-CRM-002 nên làm gì tiếp? Đối chiếu mục tiêu và blockers, đề xuất một bước chính có function/target/inputs, chưa tự mở scope thực hiện mới.
+> Epic [ID Epic hiện hành] nên làm gì tiếp? Đối chiếu mục tiêu và blockers, đề xuất một bước chính có function/target/inputs, chưa tự mở scope thực hiện mới.
 
 > Dùng crm-report-status tổng hợp Feature tại snapshot này; tách readiness, delivery, acceptance và báo dữ liệu chưa xác minh.
 

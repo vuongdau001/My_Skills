@@ -19,6 +19,8 @@ Feature chỉ ở Git. Không tạo issue type hay status mới. Không bắt m�
 
 Với F04/F06, dùng [checkpoint nguồn scope](source-scope-and-decomposition-checkpoint.md) khi tiếp nhận inventory hoặc thay allocation. Rationale cần dựa outcome/model/control/acceptance; mapping một owner chính trên mỗi dòng nguồn chưa chứng minh mọi fragment đã được bao phủ.
 
+Khi tạo/đổi F04/F06, áp dụng [checkpoint chọn cấp và quan hệ cha–con](source-scope-and-decomposition-checkpoint.md#level-selection). Đối chiếu năng lực với Feature hiện có; kiểm cha–con lặp nghĩa và giải thích quan hệ một–một nếu có. Rationale thiếu là phần cần làm rõ; cây có outcome trùng nhưng không có vai trò riêng là finding phân rã.
+
 ## Cách review theo bước, không đòi đầy đủ quá sớm
 
 1. **Cho phép làm rõ/phân rã:** F01–F04 có khung đủ giao việc, F06 có kế hoạch/owner, F08 ghi authority/questions. F05/F07 còn discovery được ghi rõ. Áp dụng DoR Feature hiện có; không tuyên bố đã đủ để code.

@@ -22,6 +22,8 @@ Context chung: target/logical ID, selected scope, input revision/canonical locat
 
 ## Input Check
 
+Khi tạo/đổi ranh giới, áp dụng phép kiểm chọn cấp/cha–con của checkpoint tại E01/E15: parent, model/acceptance chung, Epic lân cận và delta Story. Một entry point riêng chưa chứng minh cần Epic riêng.
+
 Nếu scope Epic lấy từ function list hoặc đang đổi ranh giới, áp dụng [checkpoint nguồn scope](../references/source-scope-and-decomposition-checkpoint.md). Đối chiếu các fragment/rule dùng chung với Epic lân cận; ghi gap trước khi coi selected scope đủ rõ. Không cần phân rã lại toàn Feature khi chỉ sửa rule không ảnh hưởng allocation.
 
 Đọc target và refs trước khi chỉnh sửa. Đối soát scope/version với request, source/authority và previous records; hỏi lựa chọn khi có nhiều target hợp lý. Ghi input còn thiếu, phần bị chặn, owner nếu biết và next action. Tiếp tục phần độc lập; không tự điền expected behavior/policy để hoàn thiện đầu ra.

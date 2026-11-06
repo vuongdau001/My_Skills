@@ -28,7 +28,7 @@ Dùng Epic minh họa tại mục [Ví dụ liên kết Epic → Story → model
 3. Với MOD-CRM-001, liệt kê guard partitions: đúng/sai auth, role, owner, data, current state/version; thứ tự lỗi theo decision rules. Dùng trường hợp chỉ một điều kiện sai khi cần để không che lỗi.
 4. Xét replay riêng với operation đã ghi, không nhập nhằng với submit mới ở PendingApproval. Cùng key/payload, key trùng payload khác, đổi quyền, mất response và hai key cạnh tranh đều có expected result theo applicability.
 5. Map các dòng và nhóm guard/failure tới AC/test conditions của scope Story. Story submit chọn cột submit và related guards/replay; approve/reject/cancel có allocation khác. Spec Epic vẫn giữ model chung.
-6. Ghi finding: ví dụ `F-STATE-01: PendingApproval × cancel chưa có disposition/decision`. Chỉ đóng khi có decision + model/contract/AC refs đã sửa và reviewer kiểm lại.
+6. Ghi finding theo evidence. Với `F-STATE-01`, bảng và đặc tả đều ghi `PendingApproval × cancel = Denied` và giữ nguyên state. Khi review scope cancel, chỉ ra phần chưa rõ là contract phản hồi cho nhóm từ chối này. Đóng finding khi có contract và AC tương ứng được xác nhận, rồi review lại đúng revision.
 
 **Kết luận được phép:** 20/20 cặp đã có disposition, 4 transition có guard/effect, những nhóm guard/replay/failure áp dụng có outcome và allocation, nguồn/authority đã xác nhận. Đây là coverage của mô hình/đặc tả đã rà, chưa phải 20 test đã chạy hoặc chứng minh mọi tổ hợp toàn hệ thống.
 

@@ -16,13 +16,20 @@ Mã tài liệu: **EX-PROJECT-CODE** · Gói CRM 1.3.1 · 03/11/2026
 
 <a id="spec-9-1"></a>
 
-### Epic: Gửi và xét duyệt yêu cầu mở mã dự án
+### Epic: Chuẩn bị, gửi và xét duyệt yêu cầu mở mã dự án
 
-- Entity: `ProjectCodeRequest`; actor: Requester và designated Approver.
-- Scope: tạo draft, submit, approve, reject và cancel draft. Việc tạo mã dự án thật sau quyết định không được ngầm suy ra từ ví dụ.
-- Invariant: mỗi hồ sơ có ID duy nhất và version; một logical submit không được chuyển state/audit/notification intent lặp do retry.
-- Quyền giả định: Requester thao tác draft của mình; Approver được phân công và khác người tạo mới approve/reject.
-- Epic gồm Story submit, Story quyết định duyệt và các phần còn lại theo manifest; Story submit không cần triển khai cả UI approve/reject.
+Epic này minh họa một phần của Feature **Quản lý Project Code**. Phạm vi gồm tạo draft, submit, approve, reject và cancel draft. Việc cấp hoặc kích hoạt mã dự án thật nằm ngoài ví dụ.
+
+- Entity là `ProjectCodeRequest`. Actor gồm Requester và designated Approver.
+- Mỗi hồ sơ có ID duy nhất và version. Retry cùng logical submit giữ nguyên số lần chuyển state, ghi audit và ghi notification intent.
+- Requester thao tác draft của mình. Approver được phân công và khác người tạo mới được approve hoặc reject.
+
+| Hành vi | Phân bổ minh họa |
+|---|---|
+| Tạo và lưu draft | Candidate A có giá trị riêng nếu Requester có thể mở lại và tiếp tục draft. Nếu cần giao cùng submit để tạo outcome, review lại ranh giới A và B. |
+| Submit draft | Candidate B đưa hồ sơ vào PendingApproval đúng một lần. Đường đưa hồ sơ đến người xử lý và phụ thuộc vào luồng xét duyệt phải có owner trước khi đưa vào sử dụng. |
+| Approve hoặc reject | Candidate C ghi quyết định của người có thẩm quyền. Xét lại sizing và các guards chung trước khi tách. |
+| Cancel draft | Candidate D xử lý hủy draft còn mở. Ví dụ giữ hành vi này trong scope Epic. Story, contract và AC chi tiết vẫn cần refinement. |
 
 
 <a id="spec-9-2"></a>
@@ -30,12 +37,13 @@ Mã tài liệu: **EX-PROJECT-CODE** · Gói CRM 1.3.1 · 03/11/2026
 ### Business state và transition
 
 ```mermaid
+%%{init: {'theme':'dark'}}%%
 stateDiagram-v2
     [*] --> Draft
     Draft --> PendingApproval: submit [owner, valid data, current version]
-    PendingApproval --> Approved: approve [assigned approver, not creator]
-    PendingApproval --> Rejected: reject [assigned approver, reason]
-    Draft --> Cancelled: cancel [owner]
+    PendingApproval --> Approved: approve [assigned approver, not creator, current version]
+    PendingApproval --> Rejected: reject [assigned approver, not creator, valid reason, current version]
+    Draft --> Cancelled: cancel [owner, current version]
     Approved --> [*]
     Rejected --> [*]
     Cancelled --> [*]
@@ -59,7 +67,7 @@ Như vậy không còn ô “state sai thì Dev tự xử lý”. Trong spec th�
 
 ### Story: Owner gửi draft để chờ duyệt
 
-**In scope:** command submit, permission, dữ liệu/version, retry/concurrency, response và notification intent. **Out of scope:** triển khai UI approve/reject; nhưng vòng đời và guard chung vẫn tham chiếu Epic.
+**Trong phạm vi:** command submit, quyền, dữ liệu và version, retry, concurrency, response và ghi notification intent. **Ngoài phạm vi:** UI approve/reject và cơ chế gửi hoặc retry của worker. Dẫn vòng đời và guards của Epic. Nếu cần kiểm gửi thông báo thực tế, phân bổ worker và verification tương ứng cho scope có owner.
 
 Precondition của lần submit mới: hồ sơ Draft tồn tại, actor có quyền và là owner. Postcondition: hồ sơ PendingApproval đúng một lần, version tăng một đơn vị, audit và notification intent được ghi nhất quán.
 
@@ -120,11 +128,11 @@ Business/security authority phải review thứ tự lỗi và thông tin đư�
 |---|---|---|
 | AC-CRM-101 | Submit mới hợp lệ: Draft → PendingApproval, tăng version một đơn vị, audit và intent nhất quán | Đúng owner/role/version/data; kiểm response, state, version và các record/effect liên quan |
 | AC-CRM-102 | Sai auth/quyền/owner bị từ chối, không có thay đổi nghiệp vụ | Thiếu auth; sai role; đúng role nhưng khác owner; đối chiếu MOD-CRM-101 và MOD-CRM-103 |
-| AC-CRM-103 | Data invalid không đổi state/data; error theo contract | Empty sau trim, biên 1/100 và vượt 101; kết hợp với input khác hợp lệ để không che lỗi |
+| AC-CRM-103 | Dữ liệu sai bị từ chối theo contract và giữ nguyên state/data | Với các input khác hợp lệ, kiểm 0 và 101 code points bị từ chối, 1 và 100 được chấp nhận sau trim |
 | AC-CRM-104 | State sai hoặc stale version bị từ chối; không tăng version | PendingApproval với operation mới; từng terminal state; Draft với version cũ |
 | AC-CRM-105 | Retry cùng operation trả kết quả cũ, không lặp logical side effects | Commit đã xong nhưng response bị mất; cùng key/payload; key cũ payload khác bị conflict |
 | AC-CRM-106 | Hai operation mới cạnh tranh trên cùng version chỉ một lần chuyển thành công | Hai key trên cùng Draft/version; một thành công, một conflict; không có hai transition |
-| AC-CRM-107 | Notification lỗi sau commit không đổi ngược state và có đường recovery | Intent đã lưu, gửi lỗi/timeout, retry notification không nhân đôi logical event |
+| AC-CRM-107 | Sau commit, kết quả submit và một durable intent vẫn tồn tại khi thành phần gửi chưa xử lý được thông báo | Mô phỏng thành phần gửi chưa sẵn sàng, kiểm hồ sơ vẫn PendingApproval và giữ đúng một intent. Kiểm retry/recovery của worker theo scope nhận dependency |
 | AC-CRM-108 | Commit lỗi không để dữ liệu nghiệp vụ/audit/intent thay đổi một phần | Mô phỏng lỗi tại boundary ghi; kiểm toàn bộ output/record theo contract |
 
 Đây là planned conditions, chưa phải kết quả chạy test. Khi triển khai cần bổ sung testcase/data cụ thể, tiêu chí retry/retention và cách mô phỏng/quan sát phù hợp giải pháp được duyệt.

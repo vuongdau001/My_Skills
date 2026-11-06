@@ -1,6 +1,6 @@
 # Install and Operate CRM Spec Kit
 
-ID: **CRM-INSTALL** · CRM Workflow Kit 1.12.1 · 05/11/2026
+ID: **CRM-INSTALL** · CRM Workflow Kit 1.12.2 · 05/11/2026
 
 AI được đưa folder kit để tự cài đọc [BOOTSTRAP](BOOTSTRAP.md) trước. Nội dung/workflow dùng chung; filesystem adapters và router tùy chọn xử lý phần tích hợp tool.
 
@@ -65,7 +65,7 @@ Sau cài, mở phiên mới trên từng công cụ; xác nhận chỉ một pub
 Sinh prompt chỉ đọc và evidence template từ package đã cài:
 
 ```text
-python3 scripts/kit.py smoke-prompt crm-check-readiness --repo <repo-root> --agent codex --workstream p3 --target STORY-CRM-001 --target-kind Story --revision <current-revision>
+python3 scripts/kit.py smoke-prompt crm-check-readiness --repo <repo-root> --agent codex --workstream "<workstream-id>" --target "<story-id>" --target-kind Story --revision "<current-revision>"
 ```
 
 Lệnh nhận một tool, function và explicit target/kind/revision, kiểm managed receipt và sinh [prompt](assets/installation/smoke-test-prompt.md); --format json trả prompt + evidence_template. Không chạy workflow, ghi artifact, mở chat hoặc sửa config. Mode chọn skill thật khác manual đọc SKILL theo path; template giữ runtime_verified=false/verdict Chưa kiểm cho tới khi người kiểm ghi evidence quan sát được. Prompt generation không cấp runtime verification hoặc authority approval.
@@ -74,11 +74,11 @@ Source missing là WARN để workflow có thể ghi question và làm phần đ
 
 ## Context and Workflow
 
-Từ package đã cài, dùng helper bên trong package:
+Từ package đã cài, dùng helper bên trong package. Thay các placeholder trong dấu `<>` bằng giá trị thật trước khi chạy.
 
 ```text
-python3 scripts/kit.py context crm-define-feature --repo <repo-root> --workstream p3 --target FEAT-CRM-001 --target-kind Feature --revision working-tree
-python3 scripts/kit.py context crm-review-specification --repo <repo-root> --workstream p3 --target STORY-CRM-001 --target-kind Story --revision <revision> --reference Q03 --reference D05
+python3 scripts/kit.py context crm-define-feature --repo <repo-root> --workstream "<workstream-id>" --target "<feature-id>" --target-kind Feature --revision "<current-revision>"
+python3 scripts/kit.py context crm-review-specification --repo <repo-root> --workstream "<workstream-id>" --target "<story-id>" --target-kind Story --revision "<current-revision>" --reference Q03 --reference D05
 ```
 
 Context mặc định gồm workflow, phần profile liên quan, các section protocol bắt buộc và standard viết artifact chung; các function setup/define-feature/specify-epic/prepare-stories/review-specification/report-status còn nạp checkpoint nguồn scope theo registry; config được in như dữ liệu, không approval. Tài nguyên chi tiết nằm ở available_references; thêm bằng --reference (entry ID hoặc path nội bộ). --full chỉ để so sánh/debug, không mặc định nạp mọi catalog. --format json cung cấp paths/hashes/character counts. Helper không tự chọn active workstream khi có nhiều stream, không tự đoán target/revision.

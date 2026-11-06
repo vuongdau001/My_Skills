@@ -16,7 +16,7 @@ Với mỗi input: chọn function từ mục tiêu, đọc Input Check/Executio
 
 - **Input fixture:** BA có mô tả “cần tiếp nhận khách hàng”; chưa có Business authority hoặc target Feature rõ.
 - **Selected function/profile:** crm-define-feature.
-- **Observed decision in desk walkthrough:** CRM Guide xác định nhu cầu ở mức Feature, không chọn check-readiness hay tự tạo Story. Output draft giữ source/authority là gap; chưa tự đặt rule.
+- **Observed decision in desk walkthrough:** Dùng crm-define-feature để làm rõ outcome, tra Feature hiện có và xác định đề xuất là scope mới hay bổ sung vào scope cũ. Giữ target, nguồn và authority chưa xác định trong hồ sơ intake.
 - **Artifacts:** record trong scenario này; không sửa target hoặc thực hiện external action.
 - **Rule evidence:** [crm-define-feature.md](../../workflows/crm-define-feature.md), [START-HERE.md](../../START-HERE.md).
 - **Handoff:** người nhận đọc target/scope/current revision và thực hiện next action theo protocol; không tự cấp approval.

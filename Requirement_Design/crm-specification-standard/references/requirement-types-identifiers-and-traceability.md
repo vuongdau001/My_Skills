@@ -44,7 +44,7 @@ Dùng dạng `PREFIX-CRM-NNN` (NNN là số có ít nhất ba chữ số; cấp 
 
 Các mã F01/E01/S01/T01/Q01/D01 của **bộ chuẩn** là checklist IDs, không là ID requirement CRM. Policy category IDs như POL-SEVERITY và mã finding cũng không thuộc namespace requirement/model. Jira key do Jira cấp, không ép thành logical ID.
 
-**Ví dụ hiện hành dùng quy ước mới để có thể chép theo:** AC-CRM-001 (acceptance tạo khách hàng), BR-CRM-002 (business rule), MOD-CRM-001 (kind: transition), MOD-CRM-101 (kind: decision rule). Domain và loại model nằm ở metadata/title, không thay đoạn CRM trong ID. Các số là minh họa, không quy định dải số riêng theo domain.
+**Ví dụ cú pháp ID.** Dùng định dạng bên dưới và lấy số từ workstream khi lập hồ sơ thực: AC-CRM-001 (acceptance tạo khách hàng), BR-CRM-002 (business rule), MOD-CRM-001 (kind: transition), MOD-CRM-101 (kind: decision rule). Domain và loại model nằm ở metadata/title, không thay đoạn CRM trong ID. Các số là minh họa, không quy định dải số riêng theo domain.
 
 Quy tắc giữ ID cũ áp dụng cho hồ sơ dự án đã tồn tại hoặc snapshot lịch sử, không dùng làm lý do giữ mẫu hướng dẫn sai quy ước. Nếu gặp `TR-`, `DAT-`, `PM-`, `DR-`, `SCN-` trong nguồn cũ: khai báo kind tương ứng transition, data, permission, decision rule, scenario; không hiểu PM là Project Manager hay TR là Transition requirement. Không đổi ID dự án thật chỉ để khớp ví dụ mới; duy trì mapping khi cần chuyển đổi có kiểm soát.
 

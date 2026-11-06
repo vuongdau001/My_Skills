@@ -32,6 +32,8 @@ Feature (tài liệu Git): năng lực và phạm vi tổng thể
 
 Trong Jira mặc định, Story và Task là hai loại công việc cùng cấp dưới Epic; Subtask là cấp dưới. Vì chưa khảo sát cấu hình thật, mặc định kế hoạch dùng **Task thuộc Epic + issue link tới Story**, không giả lập parent Story cho một standard Task. Ghi Story key và quan hệ công việc trong ticket/receipt để kiểm được; không tự thêm link type hay custom field. Task dùng chung liên kết mọi Story tiêu thụ. Nếu dùng Subtask về sau phải xác nhận workflow/reporting tương ứng trước. [Atlassian — work types](https://support.atlassian.com/jira-cloud-administration/docs/what-are-issue-types/).
 
+Áp dụng [checkpoint chọn cấp và quan hệ cha–con](source-scope-and-decomposition-checkpoint.md#level-selection) trước khi tạo hoặc đổi cây: tìm parent hiện có, đối chiếu Feature ngang hàng, giải thích vai trò riêng của mỗi cấp và delta bàn giao. Không dùng số lượng con làm tiêu chí chọn cấp.
+
 ## Phân rã Epic thành Story theo hành vi
 
 1. Xác nhận scope/acceptance và các mô hình dùng chung. Liệt kê commands/use cases, actors, rules, conditions và các kết quả có thể bàn giao.
@@ -100,21 +102,32 @@ Ghi quyết định theo mẫu: `Story/Epic — checklist hoặc Task — lý do
 | Story | Một lát cắt hành vi có kết quả quan sát và kiểm chứng được | Outcome, phạm vi, BR/AC, solution refs, dependency, estimate và DoR/DoD | Jira Story tham chiếu baseline Git |
 | Task | Công việc triển khai, kiểm chứng hoặc hỗ trợ kỹ thuật có đầu ra cụ thể, cần giao/theo dõi riêng | Owner, input, output, reviewer, tiêu chí hoàn tất và evidence | Jira Task |
 
-Ví dụ giả định khi có nhu cầu giao riêng các đầu ra API/UI/QA; đây không phải bộ Task bắt buộc:
+Ví dụ đào tạo mở rộng case [Customer–Contact trong BA Getting Started](ba-getting-started.md#walkthrough). Các mã `EX-*` là mã tham chiếu trong ví dụ. Khi lập hồ sơ thực, lấy ID từ workstream.
 
 ```text
-Feature FEAT-CRM-001: Tiếp nhận khách hàng mới
-├── Epic: Tiếp nhận bằng nhập thủ công
-│   ├── Hồ sơ requirement/AC, solution và testability
-│   │   └── Theo dõi owner, readiness, review và evidence ngay trên Epic
-│   └── Story: AM tạo khách hàng thủ công trong phạm vi đã chốt
-│       ├── Task [DEV]: API và kiểm thử liên quan
-│       ├── Task [DEV]: UI và kiểm thử liên quan
-│       └── Task [TEST-EXEC]: QA kiểm chứng Story
-└── Epic: Tiếp nhận qua import
+EX-F1  Feature · Quản lý Customer và Contact
+├── EX-E2  Epic candidate · Quản lý hồ sơ Customer
+│   ├── E03  Use Case · Tạo Customer thủ công
+│   └── EX-S2  Story candidate · AM tạo hồ sơ hợp lệ trong phạm vi đã chọn
+│       Kế hoạch thực hiện · Tích hợp UI và API, rồi kiểm chứng theo AC
+├── EX-E3  Epic candidate · Import/Export Customer theo quyền
+└── EX-E1  Epic candidate · Quản lý liên kết Customer–Contact
+    ├── E03  Use Case · Gắn Contact có sẵn
+    └── EX-S1  Story candidate · Gắn Contact New/Inactive và quan sát kết quả Active theo quyền
 ```
 
-**Đây là quan hệ logic.** Nếu Jira hiện đặt Story và Task cùng cấp, cả hai thuộc Epic; Task triển khai liên kết với Story bằng issue link. Không mặc định Task có thể làm con trực tiếp của Story. Làm rõ requirement, phân tích solution và review testability là hoạt động trên Epic, không tự động tạo Task riêng.
+`EX-E2` nhóm các thao tác trên hồ sơ Customer có chung định danh, validation và audit. `EX-S2` chọn lát tạo thủ công và giữ kiểm quyền, validation cùng xử lý trùng áp dụng. `EX-E3` là phương án gom khi kiểm soát dữ liệu và tiêu chí nghiệm thu chung có ý nghĩa. Xét riêng quyền, validation và lỗi của import và export. Nếu cần owner, contract hoặc acceptance độc lập, có thể tách. Việc tiếp nhận Customer mới có thể được nghiệm thu qua cả hai nhóm.
+
+Use Case mô tả hành vi ở E03. Story xác định phần hành vi sẽ giao. Các đầu ra của refinement như requirement, solution và testability được theo dõi ngay trên Epic.
+
+Nếu có công việc API cần bàn giao riêng và Jira dùng standard Task cùng cấp Story, cấu trúc ví dụ là:
+
+```text
+Epic EX-E2
+├── Story EX-S2
+└── Task · Bàn giao API tạo Customer đã review và kiểm thử
+    Liên kết issue → Story EX-S2
+```
 
 Không bắt mọi Epic phải có nhiều Story hoặc mọi Story phải có nhiều Task. Chỉ phân rã khi giúp giao việc, review hoặc kiểm chứng rõ hơn.
 

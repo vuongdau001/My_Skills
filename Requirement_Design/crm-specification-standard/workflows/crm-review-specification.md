@@ -22,6 +22,8 @@ Context chung: target/logical ID, selected scope, input revision/canonical locat
 
 ## Input Check
 
+Với focused review phân rã hoặc full review có allocation, kiểm chọn cấp/cha–con theo checkpoint bằng scope/AC thật. Ghi finding khi các cấp chỉ lặp cùng hành vi mà không có vai trò riêng; không suy lỗi từ tên hay số lượng con. Thiếu rationale ghi phần chưa xác định, đề xuất correction về workflow tác giả; không sửa target.
+
 Khi review scope/allocation, dùng [checkpoint nguồn scope](../references/source-scope-and-decomposition-checkpoint.md) để kiểm căn cứ gom/tách và giao thoa bằng witness cụ thể. Có đủ dòng mapping hoặc ít Epic hơn chưa chứng minh phân rã hợp lý. Chỉ ghi findings; focused review không mở rộng thành full audit ngoài nhiệm vụ.
 
 Đọc target và refs trước khi chỉnh sửa. Đối soát scope/version với request, source/authority và previous records; hỏi lựa chọn khi có nhiều target hợp lý. Ghi input còn thiếu, phần bị chặn, owner nếu biết và next action. Tiếp tục phần độc lập; không tự điền expected behavior/policy để hoàn thiện đầu ra.

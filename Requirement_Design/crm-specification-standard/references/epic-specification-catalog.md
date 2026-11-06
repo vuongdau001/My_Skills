@@ -35,6 +35,8 @@ Mã tài liệu: **CRM-EPIC** · Gói CRM 1.3.1 · 03/11/2026
 Ví dụ E04 có thể N/A cho sửa copy thuần túy, nhưng không được N/A cho luồng duyệt vì chưa nghĩ ra vòng đời. E08 có thể N/A cho backend-only nếu đã xác nhận không có UI delta. E11/E12 vẫn phải rà tác động, không mặc định bỏ qua vì tên Epic không nói đến NFR/migration.
 
 
+E01/E15 áp dụng [checkpoint chọn cấp và quan hệ cha–con](source-scope-and-decomposition-checkpoint.md#level-selection) khi tạo/đổi allocation: nêu parent, phạm vi model/acceptance chung và delta từng Story. Entry point, role hay màn hình riêng chưa đủ lý do tạo Epic.
+
 ## Dùng catalog để tạo Story
 
 E01–E02 giữ mục tiêu/ranh giới; E03–E05 giữ hành vi dùng chung; E06–E09 dữ liệu/giao tiếp; E10–E12 ngoại lệ/vận hành; E13–E14 solution/kiểm chứng; E15–E16 phân rã/phê duyệt. Nội dung có thể kế thừa qua ref đúng phiên bản; không bắt 16 file riêng.

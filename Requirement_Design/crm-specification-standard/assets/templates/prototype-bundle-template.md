@@ -1,8 +1,8 @@
 # Mẫu bundle Prototype
 
-ID **TPL-PROTOTYPE-BUNDLE** · CRM Workflow Kit 1.12.1
+ID **TPL-PROTOTYPE-BUNDLE** · CRM Workflow Kit 1.12.2
 
-Dùng [standard Prototype](../../references/prototype-workflow-and-epic-gate.md) và [standard viết artifact](../../references/artifact-writing-standard.md). ID và giá trị dưới đây chỉ minh họa. Lấy đường dẫn category prototypes từ Work Context. Đặt bundle bàn giao trong thư mục hành trình ngay dưới category này, ví dụ `09-prototypes/contact-create-and-link/`. Dùng tên thư mục ổn định, ghi revision trong hồ sơ và pin bằng manifest cùng walkthrough.
+Dùng [standard Prototype](../../references/prototype-workflow-and-epic-gate.md) và [standard viết artifact](../../references/artifact-writing-standard.md). ID và giá trị dưới đây chỉ minh họa. Lấy đường dẫn category prototypes từ Work Context. Đặt bundle bàn giao trong thư mục hành trình ngay dưới category này, ví dụ `09-prototypes/contact-create/` cho một scenario tạo Contact độc lập. Dùng tên thư mục ổn định, ghi revision trong hồ sơ và pin bằng manifest cùng walkthrough.
 
 ## README.md
 
@@ -25,20 +25,20 @@ Viết mỗi case thành mục riêng, giữ ID trong manifest.
 
 ## manifest.json
 
-Dùng path tương đối từ bundle. Tạo SHA256 từ bytes của scenarios.md và mọi file trong app, screens, assets, fixtures sau khi hoàn thiện nội dung. Trên macOS có thể dùng `shasum -a 256 scenarios.md app/index.html screens/contact-create.html` cho các file của ví dụ này.
+Thay mọi placeholder bằng giá trị từ scope đã đặc tả. Dùng path tương đối từ bundle. Tạo SHA256 từ bytes của scenarios.md và mọi file trong app, screens, assets, fixtures sau khi hoàn thiện nội dung. Trên macOS có thể dùng `shasum -a 256 scenarios.md app/index.html screens/contact-create.html` cho các file của ví dụ này.
 
 ```json
 {
   "schema_version": 1,
   "entrypoint": "app/index.html",
   "allocations": [
-    {"epic_id": "EPIC-CRM-001", "epic_revision": "r1", "scope": "contact-create", "scenarios": ["SCN-CONTACT-CREATE"]}
+    {"epic_id": "<epic-id>", "epic_revision": "<epic-revision>", "scope": "contact-create", "scenarios": ["SCN-CONTACT-CREATE"]}
   ],
   "screens": [
     {"id": "SCR-CONTACT-CREATE", "path": "screens/contact-create.html"}
   ],
   "scenarios": [
-    {"id": "SCN-CONTACT-CREATE", "screens": ["SCR-CONTACT-CREATE"], "refs": ["BR-CRM-001", "AC-CRM-001", "Contact.Create"]}
+    {"id": "SCN-CONTACT-CREATE", "screens": ["SCR-CONTACT-CREATE"], "refs": ["<business-rule-id>", "<acceptance-id>", "<create-contract-ref>"]}
   ],
   "files": {
     "scenarios.md": "<sha256>",
@@ -57,7 +57,7 @@ Thêm trường prototype vào block metadata crm-spec-kit đang có. Path manif
   "prototype": {
     "applicability": "required",
     "scope": "contact-create",
-    "manifest": "09-prototypes/contact-create-and-link/manifest.json",
+    "manifest": "09-prototypes/contact-create/manifest.json",
     "review": "05-reviews/contact-create-walkthrough.md"
   }
 }

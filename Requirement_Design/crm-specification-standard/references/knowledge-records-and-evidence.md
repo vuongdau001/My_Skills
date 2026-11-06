@@ -75,9 +75,9 @@ Quyết định đảo ngược quan trọng: tạo DEC mới, giữ record cũ 
 Workflow khi nhận source mới: pin source → phân loại fact/question/decision/assumption/constraint → xác định authority và scope → lưu record chuẩn → liên kết consumer → author update theo quyền → review lại revision. Chat workshop cũ giữ BA-D* như source locators; khi tạo DEC mới phải map, không đổi tên/xóa lịch sử BA-D*.
 
 ```text
-python3 scripts/kit.py lint --repo <repo-root> --workstream p3
-python3 scripts/kit.py lint --repo <repo-root> --workstream p3 --gate readiness --target STORY-CRM-001
-python3 scripts/kit.py lint --repo <repo-root> --workstream p3 --gate baseline --target EPIC-CRM-002
+python3 scripts/kit.py lint --repo <repo-root> --workstream "<workstream-id>"
+python3 scripts/kit.py lint --repo <repo-root> --workstream "<workstream-id>" --gate readiness --target "<story-id>"
+python3 scripts/kit.py lint --repo <repo-root> --workstream "<workstream-id>" --gate baseline --target "<epic-id>"
 ```
 
 Default draft: record obligations chưa đóng là WARN, không chặn soạn draft; structural errors vẫn ERROR. Gate readiness/baseline: Assumption phải Validated, Decision phải Approved và Constraint phải Confirmed trong dependency closure của target. Superseded/Retired/Rejected/Withdrawn chỉ chặn nếu target còn phụ thuộc; không buộc mọi record lịch sử phải trở lại active. External/unverifiable revision trong closure chặn gate cho tới khi có evidence kiểm được. Không --target là kiểm obligations hiện hành của toàn workstream. Structural link/schema/duplicate errors vẫn được audit rộng, kể cả khi chọn target.
@@ -92,9 +92,9 @@ Output lint có record_impacts (record/revision và affected_ids qua dependency 
 
 ## Phân bổ dependency khi chỉ bàn giao một phần Epic
 
-Gate tính dependency theo graph: `parent` kéo các input của Epic xuống Story; `applies-to` gắn vào toàn Epic được hiểu là áp dụng cho các consumer con. Field `scope` là mô tả để review, không phải bộ lọc tự động. Ghi “import only” trong scope nhưng vẫn gắn Decision vào toàn Epic sẽ chặn cả Story nhập thủ công.
+Gate tính dependency theo graph. Story kế thừa input của Epic qua `parent`. Decision có `applies-to` ở toàn Epic áp dụng cho các consumer con. Field `scope` giúp review nội dung. Nếu Decision ghi “import only” nhưng link tới toàn Epic, Decision đó vẫn có thể chặn Story export.
 
-Ví dụ giả định: Epic có hai Story nhập thủ công và import. Decision về xử lý batch lỗi chỉ liên kết `applies-to` Story import (hoặc requirement/model riêng của nhánh import mà Story đó `depends-on`). Story nhập thủ công vẫn giữ `parent` Epic. Decision về quyền truy cập chung liên kết Epic và được cả hai Story kế thừa. Ma trận allocation trong Epic chỉ rõ Decision nào chung, Decision nào riêng và rationale.
+Giả sử review đã xác nhận Epic Import/Export Customer có control quyền chung và gồm hai Story import và export. Liên kết Decision về lỗi từng dòng bằng `applies-to` tới Story import, hoặc tới requirement/model riêng mà Story import `depends-on`. Story export vẫn giữ `parent` Epic. Decision về quyền chung liên kết Epic khi thực sự áp dụng cho cả hai. Ghi phần áp dụng và lý do trong bảng allocation.
 
 Nếu consumer chưa tồn tại, giữ Decision ở trạng thái draft với scope mô tả và ghi allocation gap; chưa tuyên bố nhánh đó Ready. Khi tạo consumer, bổ sung typed links và review allocation trước gate. Không gắn vào Epic tạm rồi bỏ qua blocker bằng diễn giải scope. Không xóa dependency thực để vượt gate; thay đổi allocation đã baseline phải qua impact/change review. Lint chỉ xác minh graph/record obligations, không chứng minh allocation đã đầy đủ hoặc approval hợp lệ.
 

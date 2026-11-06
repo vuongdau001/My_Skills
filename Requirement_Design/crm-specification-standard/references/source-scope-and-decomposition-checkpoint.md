@@ -10,6 +10,31 @@ Checkpoint này là phần kiểm của workflow hiện có, không thêm functi
 
 Nếu đã có kết quả kiểm hiện hành, dẫn lại scope/revision và kiểm delta thay vì làm lại toàn bộ. Recap hẹp hoặc Task-only không thay allocation thì không cần lập inventory mới. Thiếu thông tin vẫn có thể soạn candidates và làm rõ phần độc lập; chưa kết luận allocation đã đạt hoặc scope đã hoàn tất.
 
+<a id="level-selection"></a>
+
+## Chọn cấp độ và kiểm quan hệ cha–con
+
+Phần này là quy tắc tối thiểu khi tạo hoặc thay allocation, được nạp trong context mặc định. Áp dụng theo phạm vi nhiệm vụ; không chạy lại toàn cây cho sửa đổi cục bộ không đổi ranh giới.
+
+1. **Tìm vị trí trước khi tạo cấp mới.** Đọc Feature/Epic hiện có và quy ước cấp độ của workstream. Chọn nơi nhận yêu cầu hoặc ghi candidate/gap nếu chưa có. Phạm vi của prompt hay một release không tự thành phạm vi Feature. Khi chưa có cây, đề xuất khung năng lực và ghi rõ là phương án; không tự sinh cả cây ngoài phạm vi được giao.
+2. **Feature giữ năng lực nghiệp vụ có ranh giới tương đối ổn định.** Nêu người hưởng lợi, outcome tổng thể và in/out scope. Đối chiếu với các Feature ngang hàng về trách nhiệm, không ép bằng nhau về effort/số Epic. Không chọn cấp chỉ theo tên CRUD, màn hình, dòng estimation hoặc độ dài tài liệu. Quy ước của dự án có evidence được ưu tiên; khi chưa có, nêu giả định cấp độ thay vì tự coi đã chốt.
+3. **Epic giữ phạm vi cần đặc tả và nghiệm thu chung.** Nêu outcome, model/rule/contract liên quan, trách nhiệm sở hữu và acceptance. Cùng entity/UI chưa đủ để gom; khác entry point, role hoặc kênh chưa đủ để tách. So với Epic lân cận để tránh phân bổ trùng và dependency bị che.
+4. **Story chọn phần thay đổi bàn giao được.** Nêu actor/consumer, kết quả hữu ích, hành vi trong scope và cách quan sát, rồi xét sizing/dependency của team. Query/read-only là kết quả hợp lệ. Quyền, validation, lỗi và NFR bắt buộc đi cùng lát cắt. Một nhánh Use Case hoặc một màn hình chưa tự đủ lý do tách Story.
+5. **Kiểm ba cấp có lặp cùng nghĩa không.** So nội dung, không chỉ tên: Feature bổ sung ranh giới năng lực/acceptance gì; Epic bổ sung phạm vi model/contract/nghiệm thu gì; Story chọn delta bàn giao nào? Nếu ba cấp chỉ đổi tên cùng một hành vi hoặc thêm tên màn hình/điều kiện quyền, ghi finding và đề xuất đặt lại vào cây hiện có. Không mở rộng scope hoặc bịa thêm con để hợp thức hóa cây.
+6. **Cho phép quan hệ một–một có căn cứ.** Không bắt Feature có nhiều Epic hay Epic có nhiều Story. Khi một–một, giải thích vai trò riêng của hồ sơ cha, chẳng hạn phạm vi release hiện chỉ chọn một lát hoặc hợp đồng/baseline cần quản lý riêng. Kế thừa bằng ref, tránh chép ba bộ AC giống nhau. Chưa có căn cứ thì giữ candidate và nêu thông tin cần làm rõ; không tự bỏ tầng bắt buộc của dự án.
+
+Ghi kết quả ngay trong F04/F06, E01/E15 hoặc Story manifest, tùy cấp đang sửa. Với nhóm mới/đổi ranh giới, cần có **cấp/parent được chọn → lý do chọn cấp → phần model/control/acceptance chung → delta bàn giao → căn cứ gom/tách và gap**. Chỉ cần giải thích phương án khác ở ranh giới còn tranh luận; không bắt thêm file, schema hoặc approval gate. Review kiểm nội dung rationale, không đánh dấu đạt vì đã điền cột.
+
+Use Case là mô hình actor goal, trigger, pre/postconditions và main/alternate/exception flows ở E03 hoặc shared model được tham chiếu. Nó không là tầng giữa Epic và Story, không có quan hệ 1–1 bắt buộc với Epic/Story. Khi phân bổ một Use Case qua nhiều Story/Epic, chỉ rõ scenario/subset, nơi sở hữu model/control và kiểm kết quả tích hợp. Một hành trình xuyên Epic cần dependency/acceptance liên Epic; không nhân bản Use Case thành nhiều nguồn chuẩn.
+
+### Phản ví dụ và ngoại lệ
+
+`Feature: Tra cứu Customer → Epic: Tra cứu hồ sơ từ Customer List → Story: Tìm Customer trong phạm vi quyền` là **dấu hiệu cần review**, không phải lỗi có thể kết luận từ tên. Nếu cả ba chỉ mô tả cùng một truy vấn, điểm vào List và guard quyền không đủ chứng minh ba phạm vi khác nhau. Ưu tiên đặt Story vào Epic hồ sơ/tra cứu thuộc Feature quản lý Customer hiện có; chỉ đề xuất sửa, không tự rewrite baseline trong review.
+
+Trong một dự án có Feature “Quản lý Customer và Contact”, Epic tra cứu riêng có thể hợp lý nếu query semantics, data scope, field visibility và nghiệm thu tạo thành phạm vi cần quản lý chung. Nếu chỉ là lookup đơn giản dùng trong quản lý hồ sơ, có thể đặt Story trong Epic hồ sơ. Preview/detail chỉ tách Story khi từng phần có giá trị và khả năng bàn giao riêng; nếu không giữ cùng lát cắt. Kiểm quyền vẫn đi cùng từng hành vi.
+
+Ngược lại, sản phẩm có năng lực tìm kiếm nhiều nguồn, nhiều kiểu truy vấn và quản trị truy vấn có thể dùng Feature “Tìm kiếm thông tin khách hàng”. Phải chứng minh ranh giới năng lực và quan hệ với Feature khác. Không cấm tên “Tra cứu”, không bắt mọi CRM dùng Feature Customer–Contact, không lấy số Story/Epic làm ngưỡng đúng sai.
+
 ## Đọc đúng đơn vị nguồn
 
 - Ghi source locator/revision, mục đích của danh sách và ý nghĩa đơn vị được đếm. Phân biệt số nguồn công bố với số đã tự đối soát; nếu chưa đọc được bảng đầy đủ thì nói rõ. Khi kiểm đếm, xét record logic, ID trùng/thiếu và dòng bảng lỗi; giữ witness thay vì âm thầm sửa nguồn.

@@ -1,6 +1,6 @@
 # Bootstrap CRM Spec Kit cho AI tools
 
-ID: CRM-BOOTSTRAP · CRM Workflow Kit 1.12.1 · 05/11/2026
+ID: CRM-BOOTSTRAP · CRM Workflow Kit 1.12.2 · 05/11/2026
 
 Điểm vào khi người dùng đưa folder kit và yêu cầu cài vào một repo. AI khảo sát repo, chọn tham số và gọi helper; đường dẫn cài, copy/receipt, config/scaffold và update do helper thực hiện. Không tự dựng wrapper, sửa bản cài hoặc tạo bản nội dung riêng cho mỗi tool.
 
@@ -41,7 +41,7 @@ Workstream mới mặc định numbered layout; config cũ thiếu layout giữ 
 Từ package đã cài, sinh prompt cho một target thật:
 
 ```text
-python3 scripts/kit.py smoke-prompt crm-check-readiness --repo <repo-root> --agent codex --workstream p3 --target STORY-CRM-001 --target-kind Story --revision <current-revision>
+python3 scripts/kit.py smoke-prompt crm-check-readiness --repo <repo-root> --agent codex --workstream "<workstream-id>" --target "<story-id>" --target-kind Story --revision "<current-revision>"
 ```
 
 Helper chỉ sinh prompt và evidence template; không mở phiên mới hoặc chạy workflow. Dùng prompt trong phiên mới của tool được chọn. Ghi tool/version, mode discovery, package/workstream/target/revision và observed output; phân biệt chọn skill thật với agent chỉ đọc SKILL theo đường dẫn. Nếu chưa quan sát phiên mới thì runtime Chưa kiểm. Doctor không đọc CLI version để tự kết luận desktop discovery.

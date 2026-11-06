@@ -30,6 +30,8 @@ Dẫn ID/revision của requirements, rule, NFR, data/permission/integration/tra
 
 ## F06 — Phân bổ Epic và dependency
 
+Nêu quy ước cấp độ đang dùng, Feature ngang hàng đã đối chiếu và lý do năng lực này cần Feature riêng. Dẫn evidence hiện có hoặc ghi giả định. Với nhóm mới/đổi ranh giới, áp dụng checkpoint chọn cấp: parent/cấp, model/control/acceptance chung, delta bàn giao và rationale gom/tách. Kiểm cha–con lặp nghĩa; quan hệ một–một cần vai trò riêng, không bịa thêm con.
+
 Bảng tra scope unit → Epic/candidate → source/REQ. Giải thích overlap/split; ghi người cung cấp dependency, cam kết/capacity/mốc sơ bộ khi có. Chưa có thì giữ gap.
 
 ## F07 — Tình huống nghiệm thu liên Epic

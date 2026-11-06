@@ -14,6 +14,8 @@ ID, Epic/Feature, selected scope và pinned baseline/revision. Có thể là sec
 
 ## S02 — Actor và outcome
 
+Nêu delta bàn giao so với phạm vi Epic, parent hiện có và control bắt buộc đi cùng. Nếu đang đổi allocation, ghi rationale cấp/parent theo checkpoint. Tên màn hình, role hoặc một bước Use Case chưa đủ chứng minh Story riêng.
+
 Người dùng nhận kết quả gì; in/out scope cụ thể và phần không nhận.
 
 ## S03 — Điều kiện và kết quả

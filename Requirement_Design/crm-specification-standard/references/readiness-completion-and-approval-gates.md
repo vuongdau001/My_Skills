@@ -34,7 +34,7 @@ Không đòi toàn bộ rule và solution đã chi tiết ở thời điểm nà
 
 ### AC cấp Feature
 
-AC mô tả kết quả nghiệp vụ tổng thể và các luồng liên Epic phải đáp ứng. Ví dụ: khách hàng tạo qua manual và import đều tuân thủ cùng quy tắc định danh/phân quyền đã chốt.
+AC mô tả kết quả nghiệp vụ tổng thể và các luồng liên Epic phải đáp ứng. Trong [case Customer–Contact](backlog-hierarchy-and-decomposition.md#workflow-3-2), kiểm quy tắc định danh và quyền dùng chung qua cả tạo thủ công lẫn import. AC riêng của import, như kết quả xử lý từng dòng, nằm trong phạm vi import.
 
 
 <a id="workflow-7-3"></a>
@@ -90,7 +90,7 @@ Epic vẫn `inprogress` sau khi đạt cổng này. Đạt điều kiện tạo 
 
 ### AC cấp Epic
 
-AC mô tả kết quả tổng thể của phần phạm vi Epic. Ví dụ, luồng tạo manual phải bảo đảm kiểm quyền, validation, xử lý trùng và kết quả lưu/phản hồi nhất quán, kể cả khi được triển khai qua nhiều Story.
+AC mô tả kết quả tổng thể của phần phạm vi Epic. Với phạm vi tạo Customer thủ công của Epic hồ sơ Customer, kiểm quyền, validation, xử lý trùng và kết quả lưu/phản hồi nhất quán, kể cả khi hành vi được triển khai qua nhiều Story.
 
 AC Epic không được chỉ viết “mọi Story đã Done”; cần chỉ ra kết quả nghiệp vụ phải quan sát được.
 
@@ -142,9 +142,9 @@ AC phải mô tả điều kiện và kết quả có thể quan sát/kiểm ch�
 
 | AC | Điều kiện / thao tác | Kết quả mong đợi |
 |---|---|---|
-| AC-CRM-001 | AM có quyền, gửi dữ liệu hợp lệ không trùng | Tạo đúng một hồ sơ và trả kết quả xác định |
-| AC-CRM-002 | Request không có quyền tạo | Bị từ chối; không phát sinh hồ sơ |
-| AC-CRM-003 | MST trùng theo rule/phạm vi trạng thái được duyệt | Không tạo hồ sơ trùng; phản hồi theo contract |
+| EX-CUS-AC1 | AM có quyền, gửi dữ liệu hợp lệ không trùng | Tạo đúng một hồ sơ và trả kết quả theo contract. |
+| EX-CUS-AC2 | Request không có quyền tạo | Từ chối và giữ nguyên dữ liệu. |
+| EX-CUS-AC3 | MST trùng theo rule và phạm vi trạng thái được duyệt | Từ chối, giữ nguyên dữ liệu và phản hồi theo contract. |
 
 Nếu cần ngưỡng hiệu năng hoặc định nghĩa cụ thể về chuẩn hóa/trùng, chúng phải được chốt trong rule/NFR; không để AI tự chọn.
 

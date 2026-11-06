@@ -16,6 +16,8 @@ Giữ E01–E16 và điền sâu theo scope đang xét. Mỗi mục có nội du
 
 ## E01 — Bối cảnh, mục tiêu và phạm vi
 
+Giải thích vì sao scope thuộc Feature này và cần Epic riêng so với Epic lân cận. Nêu model/control/acceptance chung, delta dự kiến của Story và rationale gom/tách theo checkpoint. Nếu chỉ có một Story, giải thích vai trò hồ sơ Epic; không chép lại cùng một outcome/AC để lấp cấp.
+
 Nêu outcome, selected scope, exclusions và acceptance toàn Epic; phân biệt scope hiện tại với các nhánh làm sau.
 
 ## E02 — Actor, thuật ngữ và domain model

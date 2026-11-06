@@ -74,9 +74,11 @@ Prompt áp dụng, thay các chỗ trong ngoặc bằng dữ liệu thật:
 
 Khi bắt đầu từ function list/WBS/estimation, áp dụng [checkpoint nguồn scope](source-scope-and-decomposition-checkpoint.md) trước khi dùng số dòng làm allocation hoặc báo tiến độ. Giữ nguyên nguồn; số dòng estimation, số Epic candidates và số Story đủ DoR là các thông tin khác nhau.
 
+Trước khi đặt tên, tìm Feature/Epic hiện có và áp dụng [phép kiểm chọn cấp/cha–con](source-scope-and-decomposition-checkpoint.md#level-selection). Cây dưới là ví dụ có điều kiện; không biến mọi yêu cầu tra cứu thành Feature riêng hoặc mọi CRM thành một cây cố định.
+
 Feature candidate EX-F1: “Quản lý Customer và Contact”. BA làm rõ vấn đề, người hưởng lợi, outcome, in/out scope và cách đánh giá. Không tự đặt KPI hoặc thời gian phản hồi để điền đủ ô. Dùng [Feature F01–F08](feature-specification-catalog.md) và `crm-define-feature`.
 
-Epic candidate EX-E1: “Quản lý liên kết Customer–Contact”. Phạm vi này có mô hình quan hệ, rules và acceptance chung. Hồ sơ Contact và lifecycle là dependencies cần chốt trách nhiệm; không tự nhận toàn bộ chúng vào Epic chỉ vì flow có sử dụng.
+Epic candidate EX-E1: “Quản lý liên kết Customer–Contact”. Phạm vi này có mô hình quan hệ, rules và acceptance chung. Chốt Epic nào chịu trách nhiệm về hồ sơ Contact và lifecycle trước khi phân bổ phần phụ thuộc. [Cây phân rã mở rộng](backlog-hierarchy-and-decomposition.md#workflow-3-2) đặt thêm nhóm hồ sơ Customer và trao đổi dữ liệu dưới cùng Feature.
 
 Thử ranh giới bằng ba câu hỏi: các hành vi có cùng outcome và mô hình cần hiểu chung không; có thể nghiệm thu phạm vi này rõ ràng không; ai sở hữu những phần nằm ngoài nhưng bắt buộc phải dùng? Epic không mặc định tương đương Bounded Context hay một màn hình.
 

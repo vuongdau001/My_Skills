@@ -22,6 +22,8 @@ Context chung: target/logical ID, selected scope, input revision/canonical locat
 
 ## Input Check
 
+Trước khi tạo Feature, đọc cây và quy ước cấp độ hiện có. Áp dụng phần chọn cấp/cha–con của checkpoint tại F04/F06; giải thích vì sao không đặt yêu cầu vào Feature hiện có, nếu đề xuất Feature mới. Không dựng đủ ba cấp từ một prompt nhỏ.
+
 Trước khi đề nghị chốt F04/F06 hoặc sửa nhóm Epic, áp dụng [checkpoint nguồn scope](../references/source-scope-and-decomposition-checkpoint.md). Nêu outcome/model/acceptance làm căn cứ gom/tách và mapping/giao thoa; cùng màn hình, object hay file chưa đủ lý do. Thiếu đầu vào vẫn có thể soạn candidates, ghi phần chưa kiểm.
 
 Đọc target và refs trước khi chỉnh sửa. Đối soát scope/version với request, source/authority và previous records; hỏi lựa chọn khi có nhiều target hợp lý. Ghi input còn thiếu, phần bị chặn, owner nếu biết và next action. Tiếp tục phần độc lập; không tự điền expected behavior/policy để hoàn thiện đầu ra.

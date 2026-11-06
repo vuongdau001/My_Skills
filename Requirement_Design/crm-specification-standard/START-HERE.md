@@ -1,6 +1,6 @@
 # Start Here
 
-ID: **CRM-START** · CRM Workflow Kit 1.12.1 · 05/11/2026
+ID: **CRM-START** · CRM Workflow Kit 1.12.2 · 05/11/2026
 
 
 Khi scope có UI, tìm mockup hiện có trước khi specify. Hỏi người dùng mẫu và chỉ dẫn, sau đó tái dùng hoặc tạo bundle khi scope đủ rõ. Dùng [quy trình Prototype](references/prototype-workflow-and-epic-gate.md) để walkthrough và bàn giao.
@@ -33,9 +33,9 @@ Kit này giúp quản lý requirement/backlog và các điểm bàn giao CRM. M�
 
 > Dùng crm-specification-standard. Tôi là BA, đang có yêu cầu sơ bộ dưới đây. Hãy xác định bước hiện tại, chức năng phù hợp và đầu vào còn thiếu.
 
-Nếu biết chức năng, nêu ID cùng target/scope/refs:
+Nếu biết chức năng, nêu ID, scope và refs của target thực tế. Thay phần trong ngoặc vuông của ví dụ bên dưới.
 
-> Dùng crm-check-readiness trong crm-specification-standard để kiểm Story STORY-CRM-001 theo baseline được cung cấp. Chỉ ra evidence đã có, phần thiếu và người cần xác nhận.
+> Dùng crm-check-readiness trong crm-specification-standard để kiểm Story [ID Story] theo baseline được cung cấp. Chỉ ra evidence đã có, phần thiếu và người cần xác nhận.
 
 CRM Guide xác định context, nói ngắn function/profile/output dự kiến, rồi đọc đúng workflow. Nếu nhiều target hợp lý thì hỏi trước khi sửa. Không cần nhớ Q/D hoặc đường dẫn model; workflow và mapping dẫn tới các phần cần đọc.
 
@@ -116,7 +116,7 @@ Cuối mỗi workflow đọc target/scope/revision, artifacts, findings/evidence
 
 Có một root skill cùng 5 profiles và 13 workflow guides. Chúng không tự khởi chạy multi-agent, không phụ thuộc BMAD runtime và không thực hiện Jira/Git/CI mutations. Files dự án và policy đã duyệt là inputs; kit không mang sẵn approval CRM. [Nguồn BMAD và CRM tailoring](provenance/bmad-inspiration-and-crm-tailoring.md) giải thích cách áp dụng tư tưởng.
 
-Chạy `python3 scripts/validate_reference_pack.py` để kiểm cấu trúc kit; xem [kết quả 1.12.1](provenance/pack-validation-report-v1.12.1.md). Kết quả này khác pilot hay test sản phẩm thực tế.
+Chạy `python3 scripts/validate_reference_pack.py` để kiểm cấu trúc kit; xem [kết quả 1.12.2](provenance/pack-validation-report-v1.12.2.md). Kết quả này khác pilot hay test sản phẩm thực tế.
 
 ## Muốn biết requirement đã rõ tới đâu?
 

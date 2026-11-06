@@ -31,6 +31,8 @@ Story có mức chi tiết đủ để Dev/QA triển khai, không phải SRS vi
 **Thời điểm:** trước spawn phải có kế hoạch Story và nội dung baseline đủ rõ cho scope chọn; sau spawn có thể hoàn thiện phân công/dữ liệu/slot/capacity trước DoR. Không dùng “sẽ làm rõ khi code” cho quyết định làm thay đổi hành vi.
 
 
+S01/S02 và manifest áp dụng [checkpoint chọn cấp và quan hệ cha–con](source-scope-and-decomposition-checkpoint.md#level-selection) khi đổi allocation. Tìm parent hiện có, giải thích delta bàn giao và giữ controls bắt buộc trong lát cắt. Không tạo Feature/Epic mới chỉ vì đang nhận một Story mới.
+
 ## Story đủ để triển khai mà không cần Task
 
 **Đầu vào:** baseline cha, scope chọn, model/contract refs và delta. **Output:** Story spec/AC/test conditions, readiness evidence, checklist thực hiện hoặc Task links. Business/BA xác nhận nghĩa; Dev/TL xác nhận solution; QA xác nhận testability; PM chốt planning.

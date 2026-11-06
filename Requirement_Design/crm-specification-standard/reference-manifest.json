@@ -1,7 +1,7 @@
 {
   "pack_id": "crm-specification-standard",
-  "version": "1.12.1",
-  "date": "2026-11-05",
+  "version": "1.12.3",
+  "date": "2026-11-06",
   "language": "vi",
   "scope": "Self-contained CRM workflow kit with deterministic local installation adapters; no automatic runtime discovery or external mutations",
   "entries": [
@@ -1028,6 +1028,12 @@
       "path": "provenance/pack-validation-report-v1.12.1.md"
     },
     {
+      "id": "CRM-VALIDATION-V1122",
+      "kind": "provenance",
+      "title": "Kiểm chứng CRM Workflow Kit 1.12.2",
+      "path": "provenance/pack-validation-report-v1.12.2.md"
+    },
+    {
       "id": "TOOL-PROTOTYPE",
       "kind": "script",
       "title": "Prototype baseline evidence checker",
@@ -1038,6 +1044,12 @@
       "kind": "test-script",
       "title": "Prototype evidence and scoring regression tests",
       "path": "scripts/tests/test_prototypes.py"
+    },
+    {
+      "id": "CRM-VALIDATION-V1123",
+      "kind": "provenance",
+      "title": "Kiểm chứng gói 1.12.3",
+      "path": "provenance/pack-validation-report-v1.12.3.md"
     }
   ],
   "source_archive": "provenance/original-epic-story-standard-and-workflow-v1.1.zip",

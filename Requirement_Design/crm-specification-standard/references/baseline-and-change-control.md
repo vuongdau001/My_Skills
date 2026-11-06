@@ -33,7 +33,7 @@ Mã tài liệu: **CRM-BASELINE** · Gói CRM 1.3.1 · 03/11/2026
 | **Baseline yêu cầu + solution của phạm vi Epic được chọn** | Nội dung chi tiết nêu tại mục [Bộ hồ sơ phải review và merge trước khi tạo Story](baseline-and-change-control.md#workflow-5) và manifest Story | Cho phép tạo Story; cung cấp đầu vào chuẩn cho Dev/QA/AI | Sau review chuyên môn, PM chốt và PR merge |
 | Cấu hình/bản bàn giao triển khai | Code, test, config, migration, artifact/build và release manifest | Chứng minh bản được kiểm thử và bàn giao thực tế | Sau triển khai; không thay thế baseline yêu cầu + solution |
 
-Ví dụ: đã chốt khung “Tiếp nhận khách hàng” thì có thể tạo Epic và giao BA/Dev làm rõ. Các hoạt động này có owner, hạn, capacity và đầu ra ngay trên Epic, không cần Story hoặc Task phân tích có trước. Tuy nhiên, chưa có baseline yêu cầu + solution thì chưa được sinh Story thực thi cho phần đó.
+Trong [case đào tạo Customer–Contact](backlog-hierarchy-and-decomposition.md#workflow-3-2), PM có thể giao BA, Dev và QA làm rõ Epic hồ sơ Customer sau khi chốt khung Feature. Theo dõi người phụ trách, hạn, capacity và đầu ra trên Epic. Story thực thi của lát tạo thủ công cần baseline yêu cầu và solution đã merge.
 
 
 <a id="workflow-4-3"></a>
@@ -85,18 +85,16 @@ Tiêu chí nội dung và chất lượng cho từng hạng mục Epic/Story đ�
 
 ### Cấu trúc lưu trữ đề xuất
 
-Các đường dẫn dưới đây là cấu trúc đề xuất cho repo dự án, chưa khẳng định đã có repo hoặc các file đó:
+Lấy thư mục từng loại từ `artifact_paths` trong Work Context. Cây dưới đây minh họa layout numbered. Thay phần trong dấu `<…>` bằng path và ID thật.
 
 ```text
-docs/
-  features/
-    FEAT-CRM-001.md                 # Scope Feature, rule chung, Epic refs
-  epics/
-    EPIC-CRM-001.md              # Yêu cầu + solution + AC của phần manual
-  baselines/
-    BASE-CRM-001.yaml        # Selected scope, artifact refs, Story manifest
-  shared/
-    customer-data-contract.md      # Nếu có contract dùng chung cần tách riêng
+<spec-root>/
+  01-features/
+    <feature-id>.md
+  02-epics/
+    <epic-id>.md
+  06-baselines/
+    <baseline-id>.yaml
 ```
 
 Có thể gộp yêu cầu, solution và manifest thành các section trong một file Epic khi nhỏ. Điều bắt buộc là **xác định được chính xác tập nội dung/phiên bản được duyệt**, không phải tạo thật nhiều file.
@@ -107,28 +105,30 @@ Có thể gộp yêu cầu, solution và manifest thành các section trong mộ
 ### Ví dụ manifest trước khi tạo Story
 
 ```yaml
-# Ví dụ minh họa, không phải dữ liệu Jira thực tế.
-baseline_id: BASE-CRM-001
-feature_id: FEAT-CRM-001
-epic_ref: <Jira Epic key đã tồn tại>
+# Lát tạo Customer thủ công trong case EX-F1 / EX-E2 / EX-S2.
+# Thay mọi placeholder bằng ID hoặc path thật trước khi dùng.
+baseline_id: "<baseline-id>"
+feature_id: "<feature-id>"
+epic_ref: "<existing-jira-epic-key>"
 scope:
-  included: Tạo khách hàng thủ công theo các rule được chọn
-  excluded: Import khách hàng
+  included: Tạo Customer thủ công theo các rule được chọn
+  excluded: Các lát sửa hồ sơ, đổi trạng thái và import/export nằm ngoài baseline này
 artifact_refs:
-  - docs/features/FEAT-CRM-001.md
-  - docs/epics/EPIC-CRM-001.md
-selected_rules: [BR-CRM-001, BR-CRM-002]
-selected_acceptance: [AC-CRM-001, AC-CRM-002, AC-CRM-003]
+  - "<feature-path>"
+  - "<epic-path>"
+selected_rules: ["<permission-rule-id>", "<duplicate-rule-id>"]
+selected_acceptance: ["<success-ac-id>", "<permission-ac-id>", "<duplicate-ac-id>"]
 stories:
-  - logical_id: STORY-CRM-001
+  - logical_id: "<story-id>"
     outcome: AM tạo hồ sơ hợp lệ, có kiểm quyền và xử lý trùng
-    rules: [BR-CRM-001, BR-CRM-002]
-    acceptance: [AC-CRM-001, AC-CRM-002, AC-CRM-003]
-    solution_ref: docs/epics/EPIC-CRM-001.md#solution
+    rules: ["<permission-rule-id>", "<duplicate-rule-id>"]
+    acceptance: ["<success-ac-id>", "<permission-ac-id>", "<duplicate-ac-id>"]
+    solution_ref: "<epic-path>#<solution-anchor>"
     dependencies: []  # Chỉ rỗng sau khi đã đánh giá
 ```
 
-- Logical ID có trước khi tạo ticket; Jira issue key có sau khi API/người thực hiện tạo ticket thành công.
+- Scope trên là scope của baseline. Giữ các lát còn lại trong allocation của Feature nếu chúng vẫn thuộc phạm vi dự án.
+- Logical ID có trước khi tạo ticket. Jira issue key có sau khi người hoặc service được giao tạo ticket thành công.
 - Không buộc manifest phải có Jira key của Story chưa được tạo.
 - Approval lấy từ hồ sơ xác thực của PR/review system; một cờ `approved: true` do AI tự ghi không chứng minh đã được duyệt.
 - Git commit sau merge được ghi vào receipt/ticket bàn giao. Không bắt file tự chứa SHA của chính commit đang tạo ra nó.

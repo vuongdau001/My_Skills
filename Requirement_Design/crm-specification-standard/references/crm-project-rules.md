@@ -106,11 +106,11 @@ Việc đặt Feature trên Epic là quy ước của CRM. Nó khác thứ tự 
 | Khái niệm | Định nghĩa sử dụng | Ví dụ / hệ quả |
 |---|---|---|
 | Requirement | Nhu cầu, hành vi hoặc ràng buộc mà giải pháp phải đáp ứng | Người không có quyền không được tạo khách hàng |
-| Business Rule — BR | Quy tắc nghiệp vụ có ID, nội dung và nguồn quyết định | BR-CRM-002 quy định phạm vi kiểm tra trùng MST |
+| Business Rule — BR | Quy tắc nghiệp vụ có ID, nội dung và nguồn quyết định | EX-CUS-BR2 minh họa quy tắc chuẩn hóa MST và phạm vi kiểm trùng |
 | Acceptance Criteria — AC | Điều kiện có thể kiểm chứng để chấp nhận hành vi/kết quả của một phạm vi cụ thể | Request không có quyền bị từ chối và không tạo bản ghi |
 | Definition of Ready — DoR | Bộ điều kiện để một loại công việc được bắt đầu ở bước đã xác định | Story đủ rõ, có solution, dữ liệu/dependency và người thực hiện trước khi code |
 | Definition of Done — DoD | Bộ điều kiện để xác nhận công việc/đầu ra của một loại đối tượng đã hoàn thành | Story đáp ứng AC, review/test đạt, evidence và tài liệu đầy đủ |
-| Baseline | Một tập nội dung xác định đã được review/phê duyệt và được định danh bằng phiên bản; thay đổi sau đó phải được kiểm soát | Bộ yêu cầu + solution của phạm vi manual thuộc Epic CRM-101, tại một Git commit cụ thể |
+| Baseline | Một tập nội dung xác định đã được review/phê duyệt và được định danh bằng phiên bản; thay đổi sau đó phải được kiểm soát | Bộ yêu cầu và solution của lát tạo thủ công thuộc Epic hồ sơ Customer, tại Git commit đã merge |
 | Manifest | Danh sách có cấu trúc mô tả phạm vi được chốt và các child dự kiến được phép tạo | Story logical ID, BR/AC thực hiện, dependency và owner |
 | Evidence — EVD | Bằng chứng của quyết định, review, thao tác hoặc kiểm chứng thực tế | PR approval, gate receipt, CI run, QA verdict, acceptance record |
 

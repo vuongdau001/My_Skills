@@ -75,7 +75,7 @@ Giữ vocabulary của schema: Pending, Proposed, Approved, Unverified, Validate
 | Feature | Nhu cầu/outcome; stakeholder và authority; phạm vi; requirements chung; Epic allocation; acceptance; quyết định — F01–F08 |
 | Epic | Actor/domain terms; flows, state/rules, data/quyền, UI/API, ngoại lệ, NFR/migration, solution, AC, Story candidates và gaps — E01–E16 |
 | Story | Actor/outcome; selected scope/model/BR/AC; điều kiện/thất bại; test approach; kế hoạch và DoD — S01–S12 |
-| Task | Mục đích/parent; đầu ra và ranh giới; inputs; dependency/owner; tiêu chí kiểm và evidence/closure — T01–T08 |
+| Task | Mục đích, Epic quản lý và Story liên kết. Đầu ra, ranh giới, inputs, dependency, owner, tiêu chí kiểm và evidence khi đóng — T01–T08 |
 | Requirement/BR/AC register | Index ngắn; một mục cho mỗi ID có statement, type nếu áp dụng, source/revision, applies-to, cách kiểm và gap |
 | Model/solution/UI/API/read contract | Mục đích và consumers; assumptions/constraints; options/contract; flows/data/quyền/errors; verification và quyết định còn thiếu |
 | Project/source/scope/policy register | Bối cảnh; danh mục tra; phạm vi/authority/evidence; tình trạng và câu hỏi; mapping giữ một nơi định nghĩa |
