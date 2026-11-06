@@ -8,7 +8,7 @@ Nêu mục tiêu, bước cần kiểm và kết quả scoped nếu đã quan s�
 
 ## Bối cảnh thử
 
-Pilot ID/date; Feature/Epic/Story/target refs; scope/revision; nguồn/policy/version; participants/roles và quyền được cấp. Nêu môi trường thật/bản sao, phần không kiểm.
+Pilot ID/date; Capability/Epic/Story/target refs; scope/revision; nguồn/policy/version; participants/roles và quyền được cấp. Nêu môi trường thật/bản sao, phần không kiểm.
 
 ## Từng scenario
 

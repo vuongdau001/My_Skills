@@ -9,9 +9,9 @@ Mã tài liệu: **EX-DECOMPOSITION** · Gói CRM 1.3.1 · 03/11/2026
 
 ## Phạm vi minh họa
 
-Mọi tên/rule ở đây là giả định để học cách chia. Không có baseline CRM thật được duyệt. [Ví dụ ProjectCodeRequest](project-code-request-specification.md) vẫn còn câu hỏi retention/key limit và authority chưa xác nhận; không được coi ví dụ đó Ready.
+Mọi tên/rule ở đây là giả định để học cách chia. Không có baseline CRM thật được duyệt. [Ví dụ ProjectCodeRequest](project-code-request-specification.md) mô phỏng hai đợt với câu hỏi freshness/hiển thị còn mở ở r2.
 
-Feature **Quản lý Project Code** có Epic **Chuẩn bị, gửi và xét duyệt yêu cầu mở mã dự án** trong ví dụ. [Bảng phân bổ](project-code-request-specification.md#spec-9-1) giữ các candidate A lưu draft, B submit, C quyết định duyệt hoặc từ chối và D cancel draft. Candidate A chỉ đứng riêng nếu người dùng có thể mở lại và tiếp tục. Với B, kiểm đường đưa yêu cầu vào luồng xử lý của Approver. Dùng INVEST và capacity để quyết định ranh giới giao việc.
+Capability **Quản lý Project Code** có các Epic gửi, xét duyệt và đóng nháp. [Bảng phân bổ](project-code-request-specification.md#spec-9-1) ghi mục tiêu, actor, outcome và shared model. Lưu nháp là bước chuẩn bị trong Use Case gửi; Approve/Reject là hai kết cục của Use Case xét duyệt. Kiểm đường đưa request vào hàng đợi trước khi chốt lát Story gửi.
 
 ## Story trực tiếp, không Task
 

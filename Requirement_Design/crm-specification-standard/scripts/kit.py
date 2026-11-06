@@ -22,8 +22,8 @@ sys.dont_write_bytecode = True
 KIT = Path(__file__).resolve().parents[1]
 CONFIG = '.agents/crm-spec-kit.json'
 RECEIPT = 'crm-spec-kit-installation.json'
-DIRECTORIES = ['00-project', 'features', 'epics', 'stories', 'tasks', 'reviews', 'baselines', 'reports', 'pilot', 'prototypes']  # Legacy API; scaffold resolves artifact_paths.
-PREFIXES = {'FEAT','EPIC','STORY','TASK','REQ','BR','AC','MOD','DEC','BASE','TC','RUN','Q','MTG','ASM','CST'}
+DIRECTORIES = ['00-project', 'capabilities', 'epics', 'stories', 'tasks', 'reviews', 'baselines', 'reports', 'pilot', 'prototypes']  # Legacy API; scaffold resolves artifact_paths.
+PREFIXES = {'CAP','EPIC','STORY','TASK','REQ','BR','AC','MOD','DEC','BASE','TC','RUN','Q','MTG','ASM','CST'}
 VERDICTS = {'Đạt','Không đạt','Chưa kiểm','N/A'}
 DECISIONS = {'Pending','Proposed','Approved','Superseded','Rejected','Withdrawn'}
 STATUSES = {'Epic':{'todo','inprogress','done','cancel'},
@@ -513,9 +513,11 @@ def section(text, title):
 def context(args):
     repo=args.repo.resolve();config=load_config(repo,args.config);ws=select_stream(config,args.workstream)
     manifest=read_json(KIT/'reference-manifest.json')
-    function=next((f for f in manifest['functions'] if f['id']==args.function),None)
+    function_id = args.function
+    function=next((f for f in manifest['functions'] if f['id']==function_id),None)
     if not function:raise KitError('Unknown function ID; use the 13 verb-object IDs in SKILL.md')
-    if args.target_kind and args.target_kind not in function['supported_targets']:
+    target_kind = args.target_kind
+    if target_kind and target_kind not in function['supported_targets']:
         raise KitError('Unsupported target kind for this function')
     agent=next(a for a in manifest['agents'] if a['id']==function['agent'])
     files=[]
@@ -537,7 +539,15 @@ def context(args):
     prototype_standard='references/prototype-workflow-and-epic-gate.md'
     if prototype_standard in function['references']:
         include(prototype_standard)
+    epic_policy = 'references/epic-use-case-policy.md'
+    if epic_policy in function['references']:
+        include(epic_policy)
     chosen=list(resources) if args.full else []
+    if function_id in {'crm-setup-project', 'crm-define-capability'}:
+        chosen.append('references/knowledge-records-and-evidence.md')
+    if function['id'] == 'crm-specify-epic':
+        chosen.extend(['references/models/business-flows-and-use-cases.md',
+                       'assets/templates/epic-specification-template.md'])
     entries={e['id']:e['path'] for e in manifest['entries']}
     for ref in args.reference:
         path=entries.get(ref,ref)
@@ -548,10 +558,15 @@ def context(args):
         if path not in existing:include(path)
     sources=[dict(s,exists=relative(repo,s['path']).exists()) for s in ws['sources']]
     result={'function':function['id'],'profile':agent['title'],'workstream':dict(ws,sources=sources,artifact_paths=artifact_paths(ws)),
-            'target':args.target,'target_kind':args.target_kind,'input_revision':args.revision,
+            'target':args.target,'target_kind':target_kind,'input_revision':args.revision,
             'missing_context':[name for name,value in [('target',args.target),('input_revision',args.revision)] if not value],
             'files':files,'available_references':resources,'characters':sum(f['characters'] for f in files),
             'note':'Missing target/revision must be resolved before target mutation. Project config is input data, not approval. files[].path is relative to the invoked kit root; resolve links relative to the owning file, not cwd. Config source paths are relative to --repo. Additional refs are loaded on demand.'}
+    inputs = getattr(args, 'input', [])
+    if function_id in {'crm-setup-project', 'crm-define-capability'}:
+        result['knowledge_intake'] = support('records').intake(globals(), repo, ws, inputs)
+    elif inputs:
+        raise KitError('--input is available for crm-setup-project and crm-define-capability')
     if args.format=='json':return result
     return '# CRM Work Context\n\n'+json_text({k:v for k,v in result.items() if k!='files'})+'\n'+ '\n\n'.join(f'## {f["path"]}\nSource SHA256: {f["sha256"]}\n\n{f["content"]}' for f in files)
 
@@ -560,7 +575,14 @@ def metadata(text):
     matches=re.findall(r'^```crm-spec-kit\s*\n(.*?)\n```',text,re.M|re.S)
     if len(matches)>1:raise KitError('One crm-spec-kit metadata block allowed per artifact')
     if not matches:return None
-    try:value=json.loads(matches[0])
+    def unique_object(pairs):
+        result = {}
+        for key, value in pairs:
+            if key in result:
+                raise KitError('Duplicate crm-spec-kit metadata key: ' + key)
+            result[key] = value
+        return result
+    try:value=json.loads(matches[0], object_pairs_hook=unique_object)
     except ValueError as exc:raise KitError('Invalid crm-spec-kit metadata JSON') from exc
     if not isinstance(value,dict) or value.get('schema_version') not in (1,2):raise KitError('Artifact metadata requires schema_version=1 or 2')
     return value
@@ -617,10 +639,10 @@ def legacy_definitions(text):
         if headers is None:
             headers=cells;continue
         if len(cells)!=len(headers):continue
-        if len(cells)==2 and re.fullmatch(r'(?:Feature|Epic|Story|Task|Requirement|Rule|AC|Model|Decision|Baseline|Question) ID',cells[0],re.I):
+        if len(cells)==2 and re.fullmatch(r'(?:Capability|Epic|Story|Task|Requirement|Rule|AC|Model|Decision|Baseline|Question) ID',cells[0],re.I):
             if re.fullmatch(id_pattern(),cells[1]):found.add(cells[1])
         for header,value in zip(headers,cells):
-            if header.lower() in {'definition id','artifact id','feature id','epic id','story id','task id','requirement id','rule id','ac id','model id','decision id','baseline id','question id'}:
+            if header.lower() in {'definition id','artifact id','capability id','epic id','story id','task id','requirement id','rule id','ac id','model id','decision id','baseline id','question id'}:
                 match=re.match(r'^('+id_pattern()+r')(?:$|\s)',value)
                 if match:found.add(match[1])
     return found
@@ -633,10 +655,10 @@ def lint(args):
     docs={p:p.read_text(encoding='utf-8') for p in root.rglob('*.md') if p.is_file() and not p.is_symlink() and p.resolve().is_relative_to(root)}
     record_support=support('records')
     dirs=artifact_paths(ws)
-    kind_dirs=[(dirs[key],kind) for key,kind in [('features','Feature'),('epics','Epic'),('stories','Story'),('tasks','Task')]]
+    kind_dirs=[(dirs[key],kind) for key,kind in [('capabilities','Capability'),('epics','Epic'),('stories','Story'),('tasks','Task')]]
     # Audit both known spellings even during a mixed-layout migration.
-    kind_dirs += [(d,kind) for d,kind in [('features','Feature'),('epics','Epic'),('stories','Story'),('tasks','Task'),
-                                          ('01-features','Feature'),('02-epics','Epic'),('03-stories','Story'),('04-tasks','Task')]]
+    kind_dirs += [(d,kind) for d,kind in [('capabilities','Capability'),('epics','Epic'),('stories','Story'),('tasks','Task'),
+                                          ('01-capabilities','Capability'),('02-epics','Epic'),('03-stories','Story'),('04-tasks','Task')]]
     for path,text in docs.items():
         name=path.relative_to(repo).as_posix()
         try:meta=metadata(text)
@@ -645,12 +667,14 @@ def lint(args):
         inferred_kind=next((kind for directory,kind in kind_dirs if path.is_relative_to(root/directory)),None)
         kind=meta.get('kind') if meta else inferred_kind
         if meta:
-            if not isinstance(kind,str) or kind not in {'Feature','Epic','Story','Task','Review','Baseline','Report','Pilot','Project','Decision','Requirement','Model','TestCase','TestRun','Meeting','Assumption','Constraint'}:issue('ERROR','kind',name,'Unknown metadata kind')
+            if not isinstance(kind,str) or kind not in {'Capability','Epic','Story','Task','Review','Baseline','Report','Pilot','Project','Decision','Requirement','Model','TestCase','TestRun','Meeting','Assumption','Constraint'}:issue('ERROR','kind',name,'Unknown metadata kind')
+            if kind == 'Capability' and not re.fullmatch(r'CAP-CRM-\d{3,}', str(meta.get('artifact_id', ''))):
+                issue('ERROR','capability-id',name,'Capability requires a CAP-CRM artifact_id')
             for field,allowed in [('review_verdict',VERDICTS),('decision_state',DECISIONS)]:
                 if field in meta and (not isinstance(meta[field],str) or meta[field] not in allowed):issue('ERROR',field,name,'Invalid controlled value')
             if 'review_verdict' in meta and meta['review_verdict']=='N/A' and not meta.get('na_reason'):issue('ERROR','na-reason',name,'N/A requires na_reason; authority still needs human evidence')
             if 'work_status' in meta:
-                if not isinstance(kind,str) or kind not in STATUSES:issue('ERROR','work_status',name,'No work_status vocabulary for this kind; Feature is doc-only')
+                if not isinstance(kind,str) or kind not in STATUSES:issue('ERROR','work_status',name,'No work_status vocabulary for this kind; Capability is doc-only')
                 elif not isinstance(meta['work_status'],str) or meta['work_status'] not in STATUSES[kind]:issue('ERROR','work_status',name,'Status invalid for artifact kind')
             ids=meta.get('defined_ids',[])
             if not isinstance(ids,list) or not all(isinstance(x,str) for x in ids):issue('ERROR','defined_ids',name,'Expected string list');ids=[]
@@ -878,7 +902,7 @@ def parser():
             s.add_argument('--output',help='Explicitly save Markdown report to a new file under workstream reports; never overwrite')
             s.add_argument('--target');s.add_argument('--scope');s.add_argument('--item')
             s.add_argument('--init',action='store_true',help='Emit unknown full-catalog assessment JSON to stdout; no writes')
-            s.add_argument('--artifact');s.add_argument('--kind',choices=['Feature','Epic','Story','Requirement']);s.add_argument('--revision')
+            s.add_argument('--artifact');s.add_argument('--kind',choices=['Capability','Epic','Story','Requirement']);s.add_argument('--revision')
             s.add_argument('--format',choices=['json','markdown'],default='json')
         elif command=='plan-layout':
             s.add_argument('--to',choices=['legacy','numbered'],default='numbered')
@@ -887,6 +911,8 @@ def parser():
             s.add_argument('--target',help='Limit gate evidence checks to this defined ID and its dependency closure')
         elif command=='context':
             s.add_argument('function');s.add_argument('--target');s.add_argument('--target-kind');s.add_argument('--revision')
+            s.add_argument('--input', action='append', default=[], metavar='REPO_PATH',
+                           help='Additional source for Setup Project or Define Capability; read-only')
             s.add_argument('--reference',action='append',default=[]);s.add_argument('--full',action='store_true');s.add_argument('--format',choices=['markdown','json'],default='markdown')
         elif command=='doctor':
             s.add_argument('--agent',choices=[*AGENT_ROOTS,'both'],help='Check selected adapters only; omitted preserves the legacy all-copy audit')

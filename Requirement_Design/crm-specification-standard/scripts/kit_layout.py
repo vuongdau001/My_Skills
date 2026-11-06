@@ -6,9 +6,9 @@ import os
 import re
 from urllib.parse import unquote, urlsplit
 
-KEYS = ('project','features','epics','stories','tasks','reviews','baselines','reports','pilot','prototypes')
-LEGACY = dict(zip(KEYS, ('00-project','features','epics','stories','tasks','reviews','baselines','reports','pilot','prototypes')))
-NUMBERED = dict(zip(KEYS, ('00-project','01-features','02-epics','03-stories','04-tasks','05-reviews','06-baselines','07-reports','08-pilot','09-prototypes')))
+KEYS = ('project','capabilities','epics','stories','tasks','reviews','baselines','reports','pilot','prototypes')
+LEGACY = dict(zip(KEYS, ('00-project','capabilities','epics','stories','tasks','reviews','baselines','reports','pilot','prototypes')))
+NUMBERED = dict(zip(KEYS, ('00-project','01-capabilities','02-epics','03-stories','04-tasks','05-reviews','06-baselines','07-reports','08-pilot','09-prototypes')))
 
 
 def artifact_paths(ws, error=ValueError):

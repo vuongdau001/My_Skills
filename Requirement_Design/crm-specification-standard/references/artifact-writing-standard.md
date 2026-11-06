@@ -6,7 +6,7 @@ Standard này áp dụng cho mọi artifact do kit soạn hoặc chỉnh sửa, 
 
 ## Phạm vi áp dụng
 
-Áp dụng cho Feature, Epic, Story, Task; requirement/BR/AC; model, solution, UI/API/read contract; project/source/scope/policy/question registers; Meeting/Decision/Assumption/Constraint; Review, Baseline, change assessment, Report, TestCase/TestRun, Pilot và handoff.
+Áp dụng cho Capability, Epic, Story, Task; requirement/BR/AC; model, solution, UI/API/read contract; project/source/scope/policy/question registers; Meeting/Decision/Assumption/Constraint; Review, Baseline, change assessment, Report, TestCase/TestRun, Pilot và handoff.
 
 Markdown dùng chuẩn dưới đây. JSON/config/assessment/evidence giữ schema gốc, không thêm prose hoặc HTML vào dữ liệu máy đọc. Tóm tắt chat dùng cùng nguyên tắc ngôn ngữ và phân biệt evidence nhưng không bắt tạo file hay đủ mọi mục của template.
 
@@ -34,7 +34,7 @@ Không dùng dấu `/`, `;` hoặc chuỗi từ tiếng Anh để thay nhiều m
 5. **Điểm chưa chốt và việc tiếp theo:** ID, phạm vi ảnh hưởng, người cần trả lời và output tiếp theo.
 6. **Metadata:** dữ liệu cho helper ở cuối file.
 
-Không biến thứ tự này thành sáu heading trống trong mọi tài liệu. Artifact nhỏ có thể gộp bối cảnh/handoff; artifact dài giữ mục F/E/S/T và thêm mục con theo nội dung. ID và anchor đã được tham chiếu phải được giữ hoặc có mapping khi thay đổi có kiểm soát.
+Không biến thứ tự này thành sáu heading trống trong mọi tài liệu. Artifact nhỏ có thể gộp bối cảnh/handoff; artifact dài giữ mục C/E/S/T và thêm mục con theo nội dung. ID và anchor đã được tham chiếu phải được giữ hoặc có mapping khi thay đổi có kiểm soát.
 
 ## 3. Đoạn văn, danh sách và bảng
 
@@ -72,10 +72,10 @@ Giữ vocabulary của schema: Pending, Proposed, Approved, Unverified, Validate
 
 | Nhóm | Nội dung cần để người đọc tra được |
 |---|---|
-| Feature | Nhu cầu/outcome; stakeholder và authority; phạm vi; requirements chung; Epic allocation; acceptance; quyết định — F01–F08 |
+| Capability | Nhu cầu/outcome; stakeholder và authority; phạm vi; requirements chung; Epic allocation; acceptance; quyết định — C01–C08 |
 | Epic | Actor/domain terms; flows, state/rules, data/quyền, UI/API, ngoại lệ, NFR/migration, solution, AC, Story candidates và gaps — E01–E16 |
 | Story | Actor/outcome; selected scope/model/BR/AC; điều kiện/thất bại; test approach; kế hoạch và DoD — S01–S12 |
-| Task | Mục đích, Epic quản lý và Story liên kết. Đầu ra, ranh giới, inputs, dependency, owner, tiêu chí kiểm và evidence khi đóng — T01–T08 |
+| Task | Mục đích, một Epic owner và các Story/Epic sử dụng đầu ra. Đầu ra, ranh giới, inputs, dependency, owner, tiêu chí kiểm và evidence khi đóng — T01–T08 |
 | Requirement/BR/AC register | Index ngắn; một mục cho mỗi ID có statement, type nếu áp dụng, source/revision, applies-to, cách kiểm và gap |
 | Model/solution/UI/API/read contract | Mục đích và consumers; assumptions/constraints; options/contract; flows/data/quyền/errors; verification và quyết định còn thiếu |
 | Project/source/scope/policy register | Bối cảnh; danh mục tra; phạm vi/authority/evidence; tình trạng và câu hỏi; mapping giữ một nơi định nghĩa |

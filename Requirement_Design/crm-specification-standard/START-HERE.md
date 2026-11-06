@@ -1,6 +1,6 @@
 # Start Here
 
-ID: **CRM-START** · CRM Workflow Kit 1.12.2 · 05/11/2026
+ID: **CRM-START** · CRM Workflow Kit 2.0.0 · 06/11/2026
 
 
 Khi scope có UI, tìm mockup hiện có trước khi specify. Hỏi người dùng mẫu và chỉ dẫn, sau đó tái dùng hoặc tạo bundle khi scope đủ rõ. Dùng [quy trình Prototype](references/prototype-workflow-and-epic-gate.md) để walkthrough và bàn giao.
@@ -13,7 +13,11 @@ Khi scope có UI, tìm mockup hiện có trước khi specify. Hỏi người d�
 
 Khi đầu vào là function list/WBS/estimation hoặc cần xem lại cách chia, áp dụng [checkpoint nguồn scope](references/source-scope-and-decomposition-checkpoint.md) trước khi đề nghị chốt allocation. Số dòng nguồn chưa là số Story hoặc mẫu số tiến độ.
 
-Đọc [BA Getting Started](references/ba-getting-started.md) nếu cần hiểu Feature/Epic/Story/Task liên hệ với BRD/SRS/Use Case thế nào hoặc chưa biết phân tích tới đâu là đủ. Guide đi qua một ví dụ Customer–Contact, cách chọn ranh giới Epic, Story/AC, phản ví dụ và bài tập tự làm. Sau đó chọn workflow dưới đây và mở catalog/template theo nhu cầu. Ví dụ đào tạo không là policy hoặc approval dự án.
+Bắt đầu với [Epic–Use Case 1–1](references/epic-use-case-policy.md). Xem [ví dụ Gửi yêu cầu mở mã dự án](references/examples/project-code-request-specification.md) để đi từ nguồn tới E01–E16 và Story.
+
+Đọc [BA Getting Started](references/ba-getting-started.md) nếu cần hiểu Capability/Epic/Story/Task liên hệ với BRD/SRS/Use Case thế nào hoặc chưa biết phân tích tới đâu là đủ. Guide đi qua một ví dụ Customer–Contact, cách chọn ranh giới Epic, Story/AC, phản ví dụ và bài tập tự làm. Sau đó chọn workflow dưới đây và mở catalog/template theo nhu cầu. Ví dụ đào tạo không là policy hoặc approval dự án.
+
+Nếu đầu vào đã có assumption, constraint hoặc decision, dùng ngay [intake hồ sơ](references/knowledge-records-and-evidence.md#tái-dùng-hồ-sơ-từ-đầu-vào) trong Setup Project hoặc Define Capability. Giữ ID/revision, pin evidence và dùng trạng thái đúng thẩm quyền.
 
 ## Install or Check an Installation
 
@@ -23,7 +27,7 @@ Có thể yêu cầu agent: “Đọc INSTALL.md trong kit và chuẩn bị cài
 
 ## Thư mục và hồ sơ trao đổi
 
-Workstream mới có thư mục 00-project, 01-features đến 09-prototypes; config cũ tiếp tục dùng layout legacy. Xem [layout/migration](references/artifact-layout-and-migration.md). Khi nhận notes/chat, dùng crm-setup-project trên Project/workstream; khi chỉnh rule thuộc Epic, dùng crm-specify-epic và dẫn [Meeting/Decision/Assumption/Constraint records](references/knowledge-records-and-evidence.md). Không cần bốn slash commands mới.
+Workstream mới có thư mục 00-project, 01-capabilities đến 09-prototypes; config cũ tiếp tục dùng layout legacy. Xem [layout/migration](references/artifact-layout-and-migration.md). Khi nhận notes/chat, dùng crm-setup-project trên Project/workstream; khi chỉnh rule thuộc Epic, dùng crm-specify-epic và dẫn [Meeting/Decision/Assumption/Constraint records](references/knowledge-records-and-evidence.md). Không cần bốn slash commands mới.
 
 > Dùng crm-setup-project trên workstream p3 để tiếp nhận notes workshop này. Ghi đúng source/event type, chuẩn bị các Decision/Assumption/Constraint records và trace các Epic liên quan; phần chưa xác nhận giữ draft.
 
@@ -48,7 +52,7 @@ Có thể hỏi “Vừa làm gì xong?”, “Epic này đang tới đâu?” h
 | Bạn đang cần | Bắt đầu | Người nhận đầu ra |
 |---|---|---|
 | Thiết lập quy ước/policy dự án | [crm-setup-project](workflows/crm-setup-project.md) | PM + authority từng policy |
-| Làm rõ nhu cầu/phạm vi năng lực | [crm-define-feature](workflows/crm-define-feature.md) | Business/BA/PM |
+| Làm rõ nhu cầu/phạm vi năng lực | [crm-define-capability](workflows/crm-define-capability.md) | Business/BA/PM |
 | Làm rõ hành vi và rule Epic | [crm-specify-epic](workflows/crm-specify-epic.md) | Business + Dev/TL + QA |
 | Phân tích solution/contracts/feasibility | [crm-design-solution](workflows/crm-design-solution.md) | TL + QA, Business khi đổi nghĩa |
 | Phân rã/làm rõ Story, kế hoạch/Task tùy chọn | [crm-prepare-stories](workflows/crm-prepare-stories.md) | Reviewer chuyên môn + PM |
@@ -63,14 +67,14 @@ Có thể hỏi “Vừa làm gì xong?”, “Epic này đang tới đâu?” h
 
 ## Chọn theo vai trò con người
 
-PM thường dùng setup-project, prepare-baseline, report-status, assess-change và run-pilot. BA dùng define-feature, specify-epic và prepare-stories. Dev/TL dùng design-solution và check-readiness; QA dùng review-specification, check-readiness, check-handoff và check-completion. Business tham gia làm rõ và quyết định outcome/rule/acceptance. Đây là gợi ý điểm vào, không khóa function theo chức danh; authority thật vẫn theo policy.
+PM thường dùng setup-project, prepare-baseline, report-status, assess-change và run-pilot. BA dùng define-capability, specify-epic và prepare-stories. Dev/TL dùng design-solution và check-readiness; QA dùng review-specification, check-readiness, check-handoff và check-completion. Business tham gia làm rõ và quyết định outcome/rule/acceptance. Đây là gợi ý điểm vào, không khóa function theo chức danh; authority thật vẫn theo policy.
 
 ## Luồng bàn giao
 
 ```mermaid
 flowchart TD
     A[CRM Guide] --> B[crm-setup-project]
-    B --> C[crm-define-feature]
+    B --> C[crm-define-capability]
     C --> D[crm-specify-epic]
     D --> E[crm-design-solution]
     E --> F[crm-prepare-stories]
@@ -91,7 +95,7 @@ Luồng là định hướng, không bắt chạy lại từ đầu. Có Epic hi
 | Function | Output và workflow | AI profile |
 |---|---|---|
 | `crm-setup-project` — Set Up Project | [Draft policy register/context, artifact-location map và missing-decision queue; approval để riêng.](workflows/crm-setup-project.md) | Delivery Coordinator |
-| `crm-define-feature` — Define Feature | [Feature F01–F08, source/outcome/scope, acceptance method, Epic candidates và decisions cần authority.](workflows/crm-define-feature.md) | Requirements Analyst |
+| `crm-define-capability` — Define Capability | [Capability C01–C08, source/outcome/scope, acceptance method, Epic candidates và decisions cần authority.](workflows/crm-define-capability.md) | Requirements Analyst |
 | `crm-specify-epic` — Specify Epic | [Epic spec/model inventory, BR/AC refs, question log, applicability và solution/decomposition inputs.](workflows/crm-specify-epic.md) | Requirements Analyst |
 | `crm-design-solution` — Design Solution | [Solution/contract draft, rationale, dependency/feasibility record, verification approach và open technical decisions.](workflows/crm-design-solution.md) | Solution Architect |
 | `crm-prepare-stories` — Prepare Stories | [Story drafts/manifest, allocation/INVEST record, execution checklist hoặc optional Task briefs trong phạm vi được giao.](workflows/crm-prepare-stories.md) | Requirements Analyst |

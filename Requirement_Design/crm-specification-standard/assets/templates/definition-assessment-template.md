@@ -8,7 +8,7 @@ Dùng cùng [scoring guideline](../../references/definition-maturity-scoring.md)
 
 ## Thông tin cần có trong assessment
 
-- Root: snapshot có timezone; workstream; inventory scope/revision; complete=false nếu chưa xác định toàn phạm vi.
+- Root: `policy: "crm-definition-v2"`, `epic_policy: "use-case-v1"`, snapshot có timezone; workstream; inventory scope/revision; complete=false nếu chưa xác định toàn phạm vi.
 - Target: id/kind/path/revision/sha256/scope do --init cấp từ artifact thật; không sửa target khi review.
 - Items: giữ đủ catalog, không loại phần chưa rõ. Applicability Unknown cần được quyết; N/A chỉ theo policy và có người xác nhận.
 - Rationale: nội dung nào đã rõ, gap nào còn, vì sao chọn mức này ở bước hiện tại; không chỉ “đã có mục”.

@@ -7,6 +7,8 @@ Mã tài liệu: **CRM-REVIEW** · Gói CRM 1.3.1 · 03/11/2026
 **Đọc khi:** Review toàn bộ hoặc một phần Epic/Story.
 
 
+Review Epic áp dụng [use-case-v1](epic-use-case-policy.md). Ghi evidence E01–E03 và E14–E16 cho mục tiêu, boundary, nhánh, kết quả, coverage và baseline của scope. Thiếu expected result là finding nội dung dù lint cấu trúc đạt.
+
 ## Chọn phạm vi review
 
 **Đầu vào:** target/revision/selected scope, baseline/source, catalog applicability và models. **Đầu ra:** [review record](../assets/templates/requirements-review-record-template.md), findings, evidence và verdict có phạm vi; PM dùng để xét gate.
@@ -141,7 +143,7 @@ Không lấy “AI review đạt” hoặc đủ số section làm gate duy nh�
 
 ## Chọn phép kiểm từ hạng mục và policy
 
-[Mapping E/S→Q/D](catalog-check-model-mapping.md) chỉ rõ model, trigger, evidence và reviewer của từng dòng. Full review Feature/Epic/Story vẫn xét Q01–Q07; mapping không là danh sách miễn check. Feature áp dụng [F01–F08](feature-specification-catalog.md), Task áp dụng T01–T08 theo brief. Readiness/risk/required checks phải dẫn [policy đã có hiệu lực](project-policy-register.md); authority của nội dung không được thay bằng một cờ “policy checked”.
+[Mapping E/S→Q/D](catalog-check-model-mapping.md) chỉ rõ model, trigger, evidence và reviewer của từng dòng. Full review Capability/Epic/Story vẫn xét Q01–Q07; mapping không là danh sách miễn check. Capability áp dụng [C01–C08](capability-specification-catalog.md), Task áp dụng T01–T08 theo brief. Readiness/risk/required checks phải dẫn [policy đã có hiệu lực](project-policy-register.md); authority của nội dung không được thay bằng một cờ “policy checked”.
 
 
 ---

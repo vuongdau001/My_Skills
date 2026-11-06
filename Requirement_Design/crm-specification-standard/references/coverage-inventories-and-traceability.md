@@ -67,7 +67,7 @@ Given/When/Then có thể dùng để diễn đạt; không bắt mọi tổ h�
 ### Chuỗi truy vết và bảng coverage
 
 ```text
-Nhu cầu/Feature
+Nhu cầu/Capability
   → Epic scope + BR + flow/state/decision/data/permission/NFR
   → Story selected scope + AC
   → Test condition / scenario dự kiến

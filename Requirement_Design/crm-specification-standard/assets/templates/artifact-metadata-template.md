@@ -6,10 +6,12 @@ ID: **TPL-ARTIFACT-METADATA** · CRM Workflow Kit 1.10.0 · 05/11/2026
 
 Nội dung để người đọc nằm trước metadata: tiêu đề, ý chính, context, nội dung nghiệp vụ, gap và handoff. Thêm đúng một block cuối file; có thể thu gọn bằng details khi viewer hỗ trợ.
 
-Mẫu dưới minh họa Feature schema 1. Chọn đúng kind/schema, ID/revision và vocabulary. Không gán work_status cho Feature. Knowledge records mới dùng các template schema 2 riêng.
+Mẫu dưới minh họa Capability schema 1. Chọn đúng kind/schema, ID/revision và vocabulary. Không gán work_status cho Capability. Knowledge records mới dùng các template schema 2 riêng.
 
-artifact_id và defined_ids là definitions; references là links tương đối từ artifact. trace_links có ID/path/revision/relation để khai dependency; evidence schema 2 cần hash/revision đúng nguồn. Thay `<assigned-feature-id>` bằng ID được cấp theo quy ước của workstream trước khi dùng block này.
+artifact_id và defined_ids là definitions; references là links tương đối từ artifact. trace_links có ID/path/revision/relation để khai dependency; evidence schema 2 cần hash/revision đúng nguồn. Thay `<assigned-capability-id>` bằng ID được cấp theo quy ước của workstream trước khi dùng block này.
 
+
+Với Epic, bổ sung epic_policy và use_case theo [mẫu Epic](epic-specification-template.md). Story dẫn MOD ID, path#locator và revision bằng trace derived-from.
 
 <details>
 <summary>Metadata mẫu — thay bằng giá trị thật</summary>
@@ -17,8 +19,8 @@ artifact_id và defined_ids là definitions; references là links tương đối
 ```crm-spec-kit
 {
   "schema_version": 1,
-  "artifact_id": "<assigned-feature-id>",
-  "kind": "Feature",
+  "artifact_id": "<assigned-capability-id>",
+  "kind": "Capability",
   "revision": "draft-r1",
   "defined_ids": [],
   "review_verdict": "Chưa kiểm",

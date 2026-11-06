@@ -8,6 +8,8 @@ Một đoạn nêu output của Task và giá trị với Story/Epic. ID/Jira ma
 
 Chỉ tạo khi có nhu cầu giao output thực tế; đọc [Task planning](../../references/task-planning-and-completion.md).
 
+Task có một Epic owner. Ghi từng Story/Epic dùng đầu ra cùng dependency, tiêu chí nhận và evidence.
+
 ## T01 — Mục đích, Epic và Story liên kết
 
 Ghi Epic quản lý Task và Story tiêu thụ đầu ra theo quan hệ đã xác nhận trong Jira. Nếu Task dùng chung, liệt kê các Story liên kết. Dẫn BR/AC hoặc đầu ra được giao.

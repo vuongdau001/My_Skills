@@ -1,6 +1,6 @@
 # Install and Operate CRM Spec Kit
 
-ID: **CRM-INSTALL** · CRM Workflow Kit 1.12.2 · 05/11/2026
+ID: **CRM-INSTALL** · CRM Workflow Kit 2.0.0 · 06/11/2026
 
 AI được đưa folder kit để tự cài đọc [BOOTSTRAP](BOOTSTRAP.md) trước. Nội dung/workflow dùng chung; filesystem adapters và router tùy chọn xử lý phần tích hợp tool.
 
@@ -44,7 +44,7 @@ AGENTS.override.md không rỗng được xét trước AGENTS.md; helper không
 
 Mẫu nền: [project config blueprint](assets/installation/project-config.template.json). Mỗi workstream có id/title, spec_root, optional input_root, sources với id/path/use và read_only. Tất cả path là repo-relative POSIX; không `..`, absolute path hoặc symlink thoát repo. spec_root không được chồng tool dirs, source/read_only của bất kỳ workstream nào hoặc spec_root khác. input_root cũng phải tránh mọi source/read_only. Namespace hiện hành là CRM theo bộ chuẩn; không đổi ngầm theo tên domain.
 
-Scaffold mới mặc định numbered: `00-project`, `01-features`, `02-epics`, `03-stories`, `04-tasks`, `05-reviews`, `06-baselines`, `07-reports`, `08-pilot`, `09-prototypes`. Workstream mới bật `prototype_gate: true`. Workstream cũ có thể thêm field này trong config và chạy lại install --apply để tạo category Prototype. Xem [quy trình Prototype](references/prototype-workflow-and-epic-gate.md). Project có các vùng 01-meetings/02-decisions/03-assumptions/04-constraints cho schema-2 records. Chọn --layout legacy khi cần tên cũ cho workstream mới. Workstream thiếu layout vẫn dùng tên cũ; install lại/update không tự migration hoặc thêm record_schema_version vào config cũ. Context trả artifact_paths; có thể override category paths có kiểm boundary/overlap. [Layout và migration](references/artifact-layout-and-migration.md) là quy ước canonical. Có thư mục tasks không có nghĩa phải tạo Task. Mỗi thư mục scaffold có marker .crm-spec-kit-keep để tồn tại sau git clone; không sinh artifact nghiệp vụ giả để lấp thư mục.
+Scaffold mới mặc định numbered: `00-project`, `01-capabilities`, `02-epics`, `03-stories`, `04-tasks`, `05-reviews`, `06-baselines`, `07-reports`, `08-pilot`, `09-prototypes`. Workstream mới bật `prototype_gate: true`. Workstream cũ có thể thêm field này trong config và chạy lại install --apply để tạo category Prototype. Xem [quy trình Prototype](references/prototype-workflow-and-epic-gate.md). Project có các vùng 01-meetings/02-decisions/03-assumptions/04-constraints cho schema-2 records. Chọn `--layout legacy` khi cần layout không đánh số. Workstream thiếu layout dùng preset không đánh số; install lại/update không tự migration hoặc thêm record_schema_version vào config cũ. Context trả artifact_paths; có thể override category paths có kiểm boundary/overlap. [Layout và migration](references/artifact-layout-and-migration.md) là quy ước canonical. Có thư mục tasks không có nghĩa phải tạo Task. Mỗi thư mục scaffold có marker .crm-spec-kit-keep để tồn tại sau git clone; không sinh artifact nghiệp vụ giả để lấp thư mục.
 
 Scoped AGENTS/CLAUDE chỉ được tạo khi chưa có; file có sẵn được giữ và báo cần xem xét. Chúng hướng dẫn trong spec_root, không override instruction/policy cấp cao hơn. Mọi adapter vẫn tạo hai scoped files như 1.5 để giữ tương thích; chỉ root router mới là Codex opt-in. Không tự tạo file `.agents/rules` rồi tuyên bố mọi nền tảng sẽ nạp. Các thay đổi config để thêm workstream là cập nhật config kit có chủ đích; config fields/values cũ được giữ.
 
@@ -77,24 +77,32 @@ Source missing là WARN để workflow có thể ghi question và làm phần đ
 Từ package đã cài, dùng helper bên trong package. Thay các placeholder trong dấu `<>` bằng giá trị thật trước khi chạy.
 
 ```text
-python3 scripts/kit.py context crm-define-feature --repo <repo-root> --workstream "<workstream-id>" --target "<feature-id>" --target-kind Feature --revision "<current-revision>"
+python3 scripts/kit.py context crm-define-capability --repo <repo-root> --workstream "<workstream-id>" --target "<capability-id>" --target-kind Capability --revision "<current-revision>"
 python3 scripts/kit.py context crm-review-specification --repo <repo-root> --workstream "<workstream-id>" --target "<story-id>" --target-kind Story --revision "<current-revision>" --reference Q03 --reference D05
 ```
 
-Context mặc định gồm workflow, phần profile liên quan, các section protocol bắt buộc và standard viết artifact chung; các function setup/define-feature/specify-epic/prepare-stories/review-specification/report-status còn nạp checkpoint nguồn scope theo registry; config được in như dữ liệu, không approval. Tài nguyên chi tiết nằm ở available_references; thêm bằng --reference (entry ID hoặc path nội bộ). --full chỉ để so sánh/debug, không mặc định nạp mọi catalog. --format json cung cấp paths/hashes/character counts. Helper không tự chọn active workstream khi có nhiều stream, không tự đoán target/revision.
+Context mặc định gồm workflow, phần profile liên quan, các section protocol bắt buộc và standard viết artifact chung; các function setup/define-capability/specify-epic/prepare-stories/review-specification/report-status còn nạp checkpoint nguồn scope theo registry; config được in như dữ liệu, không approval. Tài nguyên chi tiết nằm ở available_references; thêm bằng --reference (entry ID hoặc path nội bộ). --full chỉ để so sánh/debug, không mặc định nạp mọi catalog. --format json cung cấp paths/hashes/character counts. Helper không tự chọn active workstream khi có nhiều stream, không tự đoán target/revision.
 
 Các lệnh đọc doctor/context/lint/smoke-prompt nhận --config <candidate-config.json> để audit migration mà không tạo config trong repo thật; đường dẫn trong config vẫn được kiểm theo --repo.
 
 Sau khi ghi artifact chạy lint; cuối run ghi Handoff theo template hiện có. Admin actions install/doctor/context/lint/next-id/update/smoke-prompt là helper, không thêm function nghiệp vụ vào bộ 13 function IDs.
 
+Setup Project và Define Capability tự nạp hướng dẫn [tái dùng hồ sơ](references/knowledge-records-and-evidence.md#tái-dùng-hồ-sơ-từ-đầu-vào) và `knowledge_intake`. Để thêm tệp đầu vào cho lần chạy, dùng `--input` với path repo-relative. Ví dụ:
+
+```sh
+python3 scripts/kit.py context crm-define-capability --repo . --workstream p3 --target CAP-CRM-001 --target-kind Capability --revision draft-r1 --input input/workshop.md
+```
+
+Dùng `crm-define-capability`, metadata kind `Capability`, ID `CAP-CRM-*` và catalog C01–C08. Scaffold đặt hồ sơ trong `01-capabilities` hoặc `capabilities` theo layout. Với phiên bản có thay đổi này, dùng quy trình cài mới trên workstream sạch.
+
 ## Artifact Lint and IDs
 
-Đọc [Artifact Metadata and Lint](references/artifact-metadata-and-lint.md). Lint kiểm cấu trúc metadata/explicit fields và links; không là full semantic review hoặc gate enforcement.
+Đọc [Artifact Metadata and Lint](references/artifact-metadata-and-lint.md). Lint kiểm cấu trúc metadata, fields và links. Với [policy Epic–Use Case](references/epic-use-case-policy.md), draft báo legacy; baseline/readiness chặn Epic legacy trong target closure. Kiểm trùng ID bao quát các workstream hiện hành. Gate nghiệp vụ cần review và authority đúng scope.
 
 ```text
 python3 scripts/kit.py lint --repo <repo-root> --workstream p3
-python3 scripts/kit.py next-id FEAT --repo <repo-root>
-python3 scripts/kit.py next-id FEAT --repo <repo-root> --reserve --owner ba-session-1 --apply
+python3 scripts/kit.py next-id CAP --repo <repo-root>
+python3 scripts/kit.py next-id CAP --repo <repo-root> --reserve --owner ba-session-1 --apply
 ```
 
 next-id không reserve chỉ là gợi ý. Reservation có local lock và ledger ngoài package; scan tất cả workstreams cùng namespace. Không tái dùng ID đã reserve. Lock không bảo đảm uniqueness qua các clone độc lập; reconcile/central allocator và lint trước merge vẫn cần. Q chỉ dùng cho câu hỏi của project binding khi được chọn, khác Q01 checklist của kit.
@@ -126,11 +134,13 @@ Không có Python: agent có thể đọc workflows và soạn/review theo check
 
 Bản triển khai này kiểm nguồn kit và repo tạm; repo crm-docs đang cài thử được đọc để đối chiếu, chưa bị migration/hoàn tác/commit bởi công cụ này.
 
+Nâng package lên 2.0.0 và chuyển đổi Epic là hai thao tác riêng. Dùng [checklist migration](references/epic-use-case-policy.md#chuyển-đổi-hồ-sơ-đang-mở) để xác định inventory và disposition trước gate.
+
 Backup update được giữ tại `.agents/crm-spec-kit-backups/<installation-key>-<old-snapshot>` ngoài các thư mục skills; dry-run trả đường dẫn backup trước khi ghi. Mỗi installation có key riêng để không đụng backup adapter khác. Helper từ chối ghi đè backup đã tồn tại và giữ receipt cũ để đối soát/rollback. Backup từ các phiên bản helper cũ có thể nằm cạnh skill; kiểm ownership và di chuyển ra ngoài skills trước runtime discovery, không xóa bản cũ chưa đối soát.
 
 ## Definition Maturity Scoring
 
-Đọc [scoring guideline](references/definition-maturity-scoring.md) cho schema/rubric/evidence. Lệnh `score --init` tạo JSON Unknown trên stdout; `score --assessment <repo-relative-json>` tính điểm. `--target <ID>` lọc Epic/Story/Feature/requirement; `--scope <scope>` chọn lát cắt; `--item E07` hoặc S09 tính riêng mục trong target; `--format markdown` in báo cáo. Không có --target thì tổng hợp inventory, tách catalog obligations và canonical requirements. Mặc định không ghi file; --output lưu báo cáo Markdown mới trong reports, không tự chấm semantics. Thay source/target/evidence phải reassess, không refresh hash để giữ điểm. Không tạo Ready hoặc approval dù điểm 100.
+Đọc [scoring guideline](references/definition-maturity-scoring.md) cho schema/rubric/evidence. Lệnh `score --init` tạo JSON Unknown trên stdout; `score --assessment <repo-relative-json>` tính điểm. `--target <ID>` lọc Epic/Story/Capability/requirement; `--scope <scope>` chọn lát cắt; `--item E07` hoặc S09 tính riêng mục trong target; `--format markdown` in báo cáo. Không có --target thì tổng hợp inventory, tách catalog obligations và canonical requirements. Mặc định không ghi file; --output lưu báo cáo Markdown mới trong reports, không tự chấm semantics. Thay source/target/evidence phải reassess, không refresh hash để giữ điểm. Không tạo Ready hoặc approval dù điểm 100.
 
 ## Standard trình bày — 1.10
 
@@ -138,4 +148,4 @@ Backup update được giữ tại `.agents/crm-spec-kit-backups/<installation-k
 
 ## Checkpoint nguồn scope — 1.11
 
-[Checkpoint nguồn scope và phân rã](references/source-scope-and-decomposition-checkpoint.md) được nạp mặc định cho sáu function liên quan. Trigger và độ sâu được quyết trong workflow: status ngắn chỉ đọc evidence hiện hành, không tự chia lại scope. `--reference CRM-SCOPE-CHECKPOINT` mở tài liệu từ các context khác khi áp dụng. Helper không phân tích semantic nội dung nguồn, không tự chọn số Feature/Epic hoặc chứng nhận allocation; lint giữ giới hạn structural/record obligations. Không thêm CLI/function, schema hoặc gate approval mới.
+[Checkpoint nguồn scope và phân rã](references/source-scope-and-decomposition-checkpoint.md) được nạp mặc định cho sáu function liên quan. Trigger và độ sâu được quyết trong workflow: status ngắn chỉ đọc evidence hiện hành, không tự chia lại scope. `--reference CRM-SCOPE-CHECKPOINT` mở tài liệu từ các context khác khi áp dụng. Helper không phân tích semantic nội dung nguồn, không tự chọn số Capability/Epic hoặc chứng nhận allocation; lint giữ giới hạn structural/record obligations. Không thêm CLI/function, schema hoặc gate approval mới.

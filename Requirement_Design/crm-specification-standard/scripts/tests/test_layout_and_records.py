@@ -11,8 +11,8 @@ import unittest
 sys.dont_write_bytecode = True
 PACK = Path(__file__).resolve().parents[2]
 TOOL = PACK/'scripts/kit.py'
-NUMBERED = ['00-project','01-features','02-epics','03-stories','04-tasks','05-reviews','06-baselines','07-reports','08-pilot','09-prototypes']
-LEGACY = ['00-project','features','epics','stories','tasks','reviews','baselines','reports','pilot']
+NUMBERED = ['00-project','01-capabilities','02-epics','03-stories','04-tasks','05-reviews','06-baselines','07-reports','08-pilot','09-prototypes']
+LEGACY = ['00-project','capabilities','epics','stories','tasks','reviews','baselines','reports','pilot']
 
 
 class LayoutAndRecordTests(unittest.TestCase):
@@ -86,7 +86,11 @@ class LayoutAndRecordTests(unittest.TestCase):
 
     def test_partial_scope_allocation_keeps_shared_controls(self):
         self.config(layout='numbered')
-        epic=self.put('02-epics/epic.md',dict(schema_version=1,kind='Epic',artifact_id='EPIC-CRM-001',revision='r1'))
+        epic = self.put('02-epics/epic.md', dict(
+            schema_version=1, kind='Epic', artifact_id='EPIC-CRM-001', revision='r1',
+            epic_policy='use-case-v1', defined_ids=['MOD-CRM-001'],
+            use_case=dict(id='MOD-CRM-001', level='user-goal', locator='#use-case')),
+            body='\n## E03 — Use Case\n\n<a id="use-case"></a>\n')
         manual_path=self.root/'03-stories/manual.md'
         manual=self.story([self.trace(manual_path,epic,'EPIC-CRM-001','parent')],rel='03-stories/manual.md')
         import_path=self.root/'03-stories/import.md'
@@ -143,7 +147,7 @@ class LayoutAndRecordTests(unittest.TestCase):
 
     def test_invalid_layouts_paths_and_overlaps_rejected(self):
         for fields in ({'layout':'unknown'},{'artifact_paths':{'wrong':'x'}},{'artifact_paths':{'stories':'../escape'}},
-                       {'artifact_paths':{'stories':'features/nested'}},{'artifact_paths':{'stories':'.agents'}},
+                       {'artifact_paths':{'stories':'capabilities/nested'}},{'artifact_paths':{'stories':'.agents'}},
                        {'artifact_paths':{'stories':'/absolute'}}):
             with self.subTest(fields=fields):
                 self.config(**fields)
@@ -297,11 +301,11 @@ class LayoutAndRecordTests(unittest.TestCase):
         self.assertIn('reference-path',self.codes(self.lint(code=1)))
 
     def test_legacy_prose_revision_needs_hash_for_gate(self):
-        self.config();a=self.put('02-epics/e.md',dict(schema_version=1,kind='Epic',artifact_id='EPIC-CRM-001'))
-        s=self.root/'03-stories/story.md';self.story([self.trace(s,a,'EPIC-CRM-001')])
+        self.config();a=self.put('00-project/model.md',dict(schema_version=1,kind='Model',artifact_id='MOD-CRM-001'))
+        s=self.root/'03-stories/story.md';self.story([self.trace(s,a,'MOD-CRM-001')])
         self.assertIn('revision-unverified',self.codes(self.lint()))
         self.assertIn('gate-evidence-unverified',self.codes(self.lint('--gate','readiness','--target','STORY-CRM-001',code=1)))
-        self.story([self.trace(s,a,'EPIC-CRM-001',pin=True)])
+        self.story([self.trace(s,a,'MOD-CRM-001',pin=True)])
         self.assertTrue(self.lint('--gate','readiness','--target','STORY-CRM-001')['valid'])
 
     def test_supersession_is_preserved_and_obsolete_dependency_is_blocked(self):

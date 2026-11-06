@@ -1,6 +1,6 @@
 {
   "pack_id": "crm-specification-standard",
-  "version": "1.12.3",
+  "version": "2.0.0",
   "date": "2026-11-06",
   "language": "vi",
   "scope": "Self-contained CRM workflow kit with deterministic local installation adapters; no automatic runtime discovery or external mutations",
@@ -26,7 +26,7 @@
     {
       "id": "CRM-DECOMPOSITION",
       "kind": "reference",
-      "title": "Phân cấp và phân rã Feature, Epic, Story, Task",
+      "title": "Phân cấp và phân rã Capability, Epic, Story, Task",
       "path": "references/backlog-hierarchy-and-decomposition.md"
     },
     {
@@ -540,16 +540,16 @@
       "path": "references/requirement-types-identifiers-and-traceability.md"
     },
     {
-      "id": "CRM-FEATURE",
+      "id": "CRM-CAPABILITY",
       "kind": "reference",
-      "title": "Danh mục nội dung và tiêu chí Feature",
-      "path": "references/feature-specification-catalog.md"
+      "title": "Danh mục nội dung và tiêu chí Capability",
+      "path": "references/capability-specification-catalog.md"
     },
     {
-      "id": "TPL-FEATURE",
+      "id": "TPL-CAPABILITY",
       "kind": "template",
-      "title": "Mẫu hồ sơ Feature",
-      "path": "assets/templates/feature-specification-template.md"
+      "title": "Mẫu hồ sơ Capability",
+      "path": "assets/templates/capability-specification-template.md"
     },
     {
       "id": "CRM-MAPPING",
@@ -560,8 +560,8 @@
     {
       "id": "CRM-MEASUREMENT",
       "kind": "reference",
-      "title": "Đo tiến độ phân tích, triển khai và tổng hợp lên Feature",
-      "path": "references/progress-measurement-and-feature-rollup.md"
+      "title": "Đo tiến độ phân tích, triển khai và tổng hợp lên Capability",
+      "path": "references/progress-measurement-and-capability-rollup.md"
     },
     {
       "id": "TPL-PROGRESS",
@@ -582,60 +582,60 @@
       "path": "assets/templates/pilot-review-record-template.md"
     },
     {
-      "id": "F01",
+      "id": "C01",
       "kind": "catalog-item",
-      "title": "F01 — Nguồn và vấn đề",
-      "path": "references/feature-specification-catalog.md",
-      "anchor": "f01"
+      "title": "C01 — Nguồn và vấn đề",
+      "path": "references/capability-specification-catalog.md",
+      "anchor": "c01"
     },
     {
-      "id": "F02",
+      "id": "C02",
       "kind": "catalog-item",
-      "title": "F02 — Outcome và cách đánh giá",
-      "path": "references/feature-specification-catalog.md",
-      "anchor": "f02"
+      "title": "C02 — Outcome và cách đánh giá",
+      "path": "references/capability-specification-catalog.md",
+      "anchor": "c02"
     },
     {
-      "id": "F03",
+      "id": "C03",
       "kind": "catalog-item",
-      "title": "F03 — Stakeholder và authority",
-      "path": "references/feature-specification-catalog.md",
-      "anchor": "f03"
+      "title": "C03 — Stakeholder và authority",
+      "path": "references/capability-specification-catalog.md",
+      "anchor": "c03"
     },
     {
-      "id": "F04",
+      "id": "C04",
       "kind": "catalog-item",
-      "title": "F04 — Phạm vi và ranh giới",
-      "path": "references/feature-specification-catalog.md",
-      "anchor": "f04"
+      "title": "C04 — Phạm vi và ranh giới",
+      "path": "references/capability-specification-catalog.md",
+      "anchor": "c04"
     },
     {
-      "id": "F05",
+      "id": "C05",
       "kind": "catalog-item",
-      "title": "F05 — Requirement/control dùng chung",
-      "path": "references/feature-specification-catalog.md",
-      "anchor": "f05"
+      "title": "C05 — Requirement/control dùng chung",
+      "path": "references/capability-specification-catalog.md",
+      "anchor": "c05"
     },
     {
-      "id": "F06",
+      "id": "C06",
       "kind": "catalog-item",
-      "title": "F06 — Phân bổ Epic và dependency",
-      "path": "references/feature-specification-catalog.md",
-      "anchor": "f06"
+      "title": "C06 — Phân bổ Epic và dependency",
+      "path": "references/capability-specification-catalog.md",
+      "anchor": "c06"
     },
     {
-      "id": "F07",
+      "id": "C07",
       "kind": "catalog-item",
-      "title": "F07 — Acceptance liên Epic",
-      "path": "references/feature-specification-catalog.md",
-      "anchor": "f07"
+      "title": "C07 — Acceptance liên Epic",
+      "path": "references/capability-specification-catalog.md",
+      "anchor": "c07"
     },
     {
-      "id": "F08",
+      "id": "C08",
       "kind": "catalog-item",
-      "title": "F08 — Quyết định, baseline và nghiệm thu",
-      "path": "references/feature-specification-catalog.md",
-      "anchor": "f08"
+      "title": "C08 — Quyết định, baseline và nghiệm thu",
+      "path": "references/capability-specification-catalog.md",
+      "anchor": "c08"
     },
     {
       "id": "CRM-VALIDATION-1-3",
@@ -692,10 +692,10 @@
       "path": "workflows/crm-setup-project.md"
     },
     {
-      "id": "crm-define-feature",
+      "id": "crm-define-capability",
       "kind": "workflow",
-      "title": "Define Feature",
-      "path": "workflows/crm-define-feature.md"
+      "title": "Define Capability",
+      "path": "workflows/crm-define-capability.md"
     },
     {
       "id": "crm-specify-epic",
@@ -1050,6 +1050,18 @@
       "kind": "provenance",
       "title": "Kiểm chứng gói 1.12.3",
       "path": "provenance/pack-validation-report-v1.12.3.md"
+    },
+    {
+      "id": "CRM-EPIC-USE-CASE",
+      "kind": "reference",
+      "title": "Policy Epic và Use Case cấp mục tiêu sử dụng",
+      "path": "references/epic-use-case-policy.md"
+    },
+    {
+      "id": "CRM-VALIDATION-V200",
+      "kind": "provenance",
+      "title": "Kiểm chứng gói 2.0.0",
+      "path": "provenance/pack-validation-report-v2.0.0.md"
     }
   ],
   "source_archive": "provenance/original-epic-story-standard-and-workflow-v1.1.zip",
@@ -1646,7 +1658,7 @@
     {
       "source": "workflow",
       "section": "6",
-      "title": "Quy trình từ Feature đến Story thực thi",
+      "title": "Quy trình từ Capability đến Story thực thi",
       "source_sha256": "0fe2e24505e3c3e381104c5901826625a5f63c5fbe389311d130083b470b0173",
       "target": "references/baseline-and-change-control.md",
       "anchor": "workflow-6",
@@ -1655,7 +1667,7 @@
     {
       "source": "workflow",
       "section": "7",
-      "title": "DoR, AC và DoD của Feature",
+      "title": "DoR, AC và DoD của Capability",
       "source_sha256": "783b982dc91f0a9a5f49580b6546ce29f812e5add620517681b7e5d0822e3503",
       "target": "references/readiness-completion-and-approval-gates.md",
       "anchor": "workflow-7",
@@ -1664,7 +1676,7 @@
     {
       "source": "workflow",
       "section": "7.1",
-      "title": "DoR để bắt đầu làm rõ/phân rã Feature",
+      "title": "DoR để bắt đầu làm rõ/phân rã Capability",
       "source_sha256": "22c90da62773d949e52353e7ada73585e7114d167c65b6028d0f50dca7e4b5de",
       "target": "references/readiness-completion-and-approval-gates.md",
       "anchor": "workflow-7-1",
@@ -1673,7 +1685,7 @@
     {
       "source": "workflow",
       "section": "7.2",
-      "title": "AC cấp Feature",
+      "title": "AC cấp Capability",
       "source_sha256": "6665a4b8681d26dad2988290366d97cbce859319b29a2bf669b36a64a2789b85",
       "target": "references/readiness-completion-and-approval-gates.md",
       "anchor": "workflow-7-2",
@@ -1682,7 +1694,7 @@
     {
       "source": "workflow",
       "section": "7.3",
-      "title": "Hoàn tất phân tích Feature và DoD bàn giao Feature là hai mốc",
+      "title": "Hoàn tất phân tích Capability và DoD bàn giao Capability là hai mốc",
       "source_sha256": "7b89c323a2ca6397ff3bb98981dab52ca7e16af303ca8421e27362fd713f3701",
       "target": "references/readiness-completion-and-approval-gates.md",
       "anchor": "workflow-7-3",
@@ -1970,7 +1982,7 @@
     {
       "source": "workflow",
       "section": "16.1",
-      "title": "Feature và Epic",
+      "title": "Capability và Epic",
       "source_sha256": "e1b42328c855c2460d550465cce096375b0c82966eaec7a4bdb869f1c02f0a91",
       "target": "references/examples/baseline-to-delivery-walkthrough.md",
       "anchor": "workflow-16-1",
@@ -2078,30 +2090,31 @@
         "assets/templates/artifact-document-template.md"
       ],
       "next_functions": [
-        "crm-define-feature"
+        "crm-define-capability"
       ],
       "write_scope": "scoped-artifacts"
     },
     {
-      "id": "crm-define-feature",
-      "title": "Define Feature",
-      "description": "Feature F01–F08, source/outcome/scope, acceptance method, Epic candidates và decisions cần authority.",
+      "id": "crm-define-capability",
+      "title": "Define Capability",
+      "description": "Capability C01–C08, source/outcome/scope, acceptance method, Epic candidates và decisions cần authority.",
       "agent": "crm-requirements-analyst",
-      "workflow": "workflows/crm-define-feature.md",
+      "workflow": "workflows/crm-define-capability.md",
       "supported_targets": [
-        "Feature"
+        "Capability"
       ],
       "references": [
-        "references/feature-specification-catalog.md",
+        "references/capability-specification-catalog.md",
         "references/requirement-types-identifiers-and-traceability.md",
         "references/readiness-completion-and-approval-gates.md",
         "references/artifact-layout-and-migration.md",
         "references/knowledge-records-and-evidence.md",
         "references/artifact-writing-standard.md",
-        "references/source-scope-and-decomposition-checkpoint.md"
+        "references/source-scope-and-decomposition-checkpoint.md",
+        "references/epic-use-case-policy.md"
       ],
       "templates": [
-        "assets/templates/feature-specification-template.md",
+        "assets/templates/capability-specification-template.md",
         "assets/templates/meeting-record-template.md",
         "assets/templates/decision-record-template.md",
         "assets/templates/assumption-record-template.md",
@@ -2116,7 +2129,7 @@
     {
       "id": "crm-specify-epic",
       "title": "Specify Epic",
-      "description": "Epic spec/model inventory, BR/AC refs, question log, applicability và solution/decomposition inputs.",
+      "description": "Đặc tả một Use Case cấp user-goal tại E03 và hoàn thiện E01–E16 theo phạm vi bàn giao.",
       "agent": "crm-requirements-analyst",
       "workflow": "workflows/crm-specify-epic.md",
       "supported_targets": [
@@ -2130,7 +2143,9 @@
         "references/knowledge-records-and-evidence.md",
         "references/artifact-writing-standard.md",
         "references/source-scope-and-decomposition-checkpoint.md",
-        "references/prototype-workflow-and-epic-gate.md"
+        "references/prototype-workflow-and-epic-gate.md",
+        "references/epic-use-case-policy.md",
+        "references/models/business-flows-and-use-cases.md"
       ],
       "templates": [
         "assets/templates/epic-specification-template.md",
@@ -2163,7 +2178,8 @@
         "references/artifact-layout-and-migration.md",
         "references/knowledge-records-and-evidence.md",
         "references/artifact-writing-standard.md",
-        "references/prototype-workflow-and-epic-gate.md"
+        "references/prototype-workflow-and-epic-gate.md",
+        "references/epic-use-case-policy.md"
       ],
       "templates": [
         "assets/templates/meeting-record-template.md",
@@ -2199,7 +2215,8 @@
         "references/knowledge-records-and-evidence.md",
         "references/artifact-writing-standard.md",
         "references/source-scope-and-decomposition-checkpoint.md",
-        "references/prototype-workflow-and-epic-gate.md"
+        "references/prototype-workflow-and-epic-gate.md",
+        "references/epic-use-case-policy.md"
       ],
       "templates": [
         "assets/templates/story-specification-template.md",
@@ -2222,7 +2239,7 @@
       "agent": "crm-quality-reviewer",
       "workflow": "workflows/crm-review-specification.md",
       "supported_targets": [
-        "Feature",
+        "Capability",
         "Epic",
         "Story",
         "Task"
@@ -2232,7 +2249,7 @@
         "references/catalog-check-model-mapping.md",
         "references/coverage-inventories-and-traceability.md",
         "references/task-planning-and-completion.md",
-        "references/feature-specification-catalog.md",
+        "references/capability-specification-catalog.md",
         "references/epic-specification-catalog.md",
         "references/story-specification-catalog.md",
         "references/artifact-layout-and-migration.md",
@@ -2240,7 +2257,8 @@
         "references/definition-maturity-scoring.md",
         "references/artifact-writing-standard.md",
         "references/source-scope-and-decomposition-checkpoint.md",
-        "references/prototype-workflow-and-epic-gate.md"
+        "references/prototype-workflow-and-epic-gate.md",
+        "references/epic-use-case-policy.md"
       ],
       "templates": [
         "assets/templates/requirements-review-record-template.md",
@@ -2273,7 +2291,8 @@
         "references/artifact-layout-and-migration.md",
         "references/knowledge-records-and-evidence.md",
         "references/artifact-writing-standard.md",
-        "references/prototype-workflow-and-epic-gate.md"
+        "references/prototype-workflow-and-epic-gate.md",
+        "references/epic-use-case-policy.md"
       ],
       "templates": [
         "assets/templates/artifact-document-template.md",
@@ -2303,7 +2322,8 @@
         "references/artifact-layout-and-migration.md",
         "references/knowledge-records-and-evidence.md",
         "references/artifact-writing-standard.md",
-        "references/prototype-workflow-and-epic-gate.md"
+        "references/prototype-workflow-and-epic-gate.md",
+        "references/epic-use-case-policy.md"
       ],
       "templates": [
         "assets/templates/requirements-review-record-template.md"
@@ -2331,7 +2351,8 @@
         "references/jira-status-and-progress-reporting.md",
         "references/artifact-layout-and-migration.md",
         "references/knowledge-records-and-evidence.md",
-        "references/artifact-writing-standard.md"
+        "references/artifact-writing-standard.md",
+        "references/epic-use-case-policy.md"
       ],
       "templates": [
         "assets/templates/requirements-review-record-template.md"
@@ -2352,16 +2373,17 @@
         "Task",
         "Story",
         "Epic",
-        "Feature"
+        "Capability"
       ],
       "references": [
         "references/readiness-completion-and-approval-gates.md",
         "references/task-planning-and-completion.md",
-        "references/feature-specification-catalog.md",
+        "references/capability-specification-catalog.md",
         "references/project-policy-register.md",
         "references/artifact-layout-and-migration.md",
         "references/knowledge-records-and-evidence.md",
-        "references/artifact-writing-standard.md"
+        "references/artifact-writing-standard.md",
+        "references/epic-use-case-policy.md"
       ],
       "templates": [
         "assets/templates/requirements-review-record-template.md"
@@ -2379,7 +2401,7 @@
       "agent": "crm-delivery-coordinator",
       "workflow": "workflows/crm-assess-change.md",
       "supported_targets": [
-        "Feature",
+        "Capability",
         "Epic",
         "Story",
         "Task",
@@ -2394,13 +2416,14 @@
         "references/artifact-layout-and-migration.md",
         "references/knowledge-records-and-evidence.md",
         "references/artifact-writing-standard.md",
-        "references/prototype-workflow-and-epic-gate.md"
+        "references/prototype-workflow-and-epic-gate.md",
+        "references/epic-use-case-policy.md"
       ],
       "templates": [
         "assets/templates/artifact-document-template.md"
       ],
       "next_functions": [
-        "crm-define-feature",
+        "crm-define-capability",
         "crm-specify-epic",
         "crm-design-solution",
         "crm-prepare-stories",
@@ -2416,13 +2439,13 @@
       "workflow": "workflows/crm-report-status.md",
       "supported_targets": [
         "Project",
-        "Feature",
+        "Capability",
         "Epic",
         "Story",
         "Task"
       ],
       "references": [
-        "references/progress-measurement-and-feature-rollup.md",
+        "references/progress-measurement-and-capability-rollup.md",
         "references/jira-status-and-progress-reporting.md",
         "references/project-policy-register.md",
         "references/artifact-layout-and-migration.md",
@@ -2431,7 +2454,8 @@
         "references/definition-maturity-scoring.md",
         "references/artifact-writing-standard.md",
         "references/source-scope-and-decomposition-checkpoint.md",
-        "references/prototype-workflow-and-epic-gate.md"
+        "references/prototype-workflow-and-epic-gate.md",
+        "references/epic-use-case-policy.md"
       ],
       "templates": [
         "assets/templates/progress-report-template.md",
@@ -2439,7 +2463,7 @@
       ],
       "next_functions": [
         "crm-setup-project",
-        "crm-define-feature",
+        "crm-define-capability",
         "crm-specify-epic",
         "crm-design-solution",
         "crm-prepare-stories",
@@ -2478,5 +2502,6 @@
       ],
       "write_scope": "pilot-record-only"
     }
-  ]
+  ],
+  "epic_policy": "use-case-v1"
 }

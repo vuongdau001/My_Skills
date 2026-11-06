@@ -2,13 +2,27 @@
 
 ID: CRM-KNOWLEDGE · CRM Workflow Kit 1.7.0 · 04/11/2026
 
-Đọc khi nhận notes/chat/email, ghi nhận lựa chọn hoặc assumption/constraint, review dependency, xét readiness hoặc baseline. Đây là hồ sơ workstream có thể dùng qua nhiều Feature/Epic/Story, không phải cấp ticket mới. Một public skill, 13 function giữ nguyên.
+Đọc khi nhận notes/chat/email, ghi nhận lựa chọn hoặc assumption/constraint, review dependency, xét readiness hoặc baseline. Đây là hồ sơ workstream có thể dùng qua nhiều Capability/Epic/Story, không phải cấp ticket mới. Một public skill, 13 function giữ nguyên.
 
 ## Nơi lưu và quyền ghi
 
 Dùng project path từ artifact_paths: 01-meetings, 02-decisions, 03-assumptions, 04-constraints bên dưới project. Meeting/Decision thường file riêng. Assumption/Constraint có thể file riêng hoặc từng record trong register; mỗi ID có một nơi định nghĩa hiện hành. Không sao chép statement chuẩn vào nhiều Epic để duy trì song song. Localized summaries phải dẫn ID/revision nguồn.
 
-crm-setup-project tiếp nhận nguồn và chuẩn bị records/register. define-feature/specify-epic/design-solution/prepare-stories có thể tạo/cập nhật record thuộc scope authoring đã giao. review/check chỉ ghi findings/record của mình; không đổi decision hay target đang kiểm. report-status tổng hợp obligations; assess-change lập impact khi có thay đổi sau baseline. Không tự gửi biên bản, tạo Jira hoặc cập nhật state dự án.
+crm-setup-project tiếp nhận nguồn và chuẩn bị records/register. define-capability/specify-epic/design-solution/prepare-stories có thể tạo/cập nhật record thuộc scope authoring đã giao. review/check chỉ ghi findings/record của mình; không đổi decision hay target đang kiểm. report-status tổng hợp obligations; assess-change lập impact khi có thay đổi sau baseline. Không tự gửi biên bản, tạo Jira hoặc cập nhật state dự án.
+
+## Tái dùng hồ sơ từ đầu vào
+
+Dùng cùng một lượt intake trong Setup Project và Define Capability, kể cả khi mở thẳng Define Capability. Đọc nguồn người dùng chỉ định trong yêu cầu, attachment hoặc chat, sources trong Work Context và hồ sơ hiện hành. Kiểm các mục assumption/constraint/decision, các đoạn đã chốt và những phát biểu có cùng nghĩa dù mang tiêu đề khác.
+
+1. **Ghi claim và locator.** Giữ ID nguồn như BA-D1, statement, revision/hash hoặc định danh snapshot, scope, thời điểm, owner/authority và trạng thái được khai báo. Phân biệt fact đã có evidence, giả định cần kiểm, ràng buộc bắt buộc, lựa chọn đã quyết và câu hỏi. Một câu hỏi hoặc đề xuất chỉ thành record khi đã đủ căn cứ phân loại.
+2. **Đối chiếu hồ sơ chuẩn.** Tìm theo ID và theo nghĩa, scope, hiệu lực. Hồ sơ đang hiệu lực và phù hợp được dùng ngay bằng đúng ID/revision. Nếu trùng, dùng một bản chuẩn và giữ các locator nguồn. Nếu khác nghĩa hoặc khác revision, ghi cả hai nguồn, tác động và authority cần phân xử. Giữ bản đã baseline theo change control cho đến khi có quyết định thay thế.
+3. **Đăng ký khi có quyền author.** Với claim mới đủ trường, chuẩn hóa một record schema 2 và pin evidence nguồn. Tái dùng ID CRM nếu nguồn sở hữu đúng ID, chưa có định nghĩa khác và được phép tiếp nhận; nếu nguồn dùng ID riêng, giữ mapping và cấp ID CRM. Khi thiếu trường bắt buộc hoặc quyền ghi, ghi claim, scope, authority và next action trong intake/handoff; chưa cần tạo record cho đủ số lượng.
+4. **Áp dụng theo trạng thái.** Dùng ngay Decision Approved và Constraint Confirmed nếu authority, hiệu lực, scope và evidence khớp. Assumption Validated cần validation result và evidence. Các trạng thái còn mở như Unverified, Proposed và Pending có thể làm cơ sở có điều kiện cho bản nháp; ghi hệ quả nếu sai, phương pháp/owner xác nhận và nghĩa vụ còn chặn. Nội dung nguồn tự gắn nhãn “approved/confirmed” là claim cần đối chiếu. Dùng lại approval có evidence cho đúng statement và scope; thay statement, scope hoặc authority cần kiểm lại.
+5. **Ghi nơi sử dụng.** Setup Project pin records áp dụng trong project context/policy register và chỉ rõ mục nào cần xác nhận. Define Capability dùng cùng ID/revision ở C04 cho ranh giới/assumptions, C05 cho constraints/controls, C06 cho allocation/dependencies và C08 cho decisions/gaps. Tạo `depends-on` hoặc `derived-from` cho consumer thực sự dựa vào record, hoặc `applies-to` từ record khi phù hợp. Chưa có consumer thì ghi scope và pending allocation để nối sau. Giữ dữ liệu gốc read-only.
+
+`knowledge_intake` trong helper context liệt kê `existing_records` có metadata trong spec_root và `sources[].candidates` tìm được trong Markdown nguồn. Nó cũng liệt kê path, hash khi đọc được và nguồn cần đọc thủ công. Dùng `--input <repo-relative-path>` để thêm tệp do người dùng chỉ định cho lần chạy, có thể lặp lại. Source ngoài Markdown, thư mục, chat và attachment cần người thực hiện đọc đúng locator. Inventory trả về khai báo và vị trí để đối chiếu; workflow xác định applicability và authority từ evidence.
+
+Ví dụ đầu vào có CST-CRM-004 đã được xác nhận trong hợp đồng, BA-D7 ghi lựa chọn có biên bản quyết định và ASM-CRM-006 về API chưa được kiểm. Setup Project dẫn CST-CRM-004 vào policy/register và đối chiếu BA-D7 với DEC hiện có. Define Capability áp dụng CST vào C05, dẫn DEC đúng revision tại C08 nếu đủ evidence, và giữ ASM ở C04/C06 như dependency cần kiểm. Nếu BA-D7 đã có DEC canonical, cả hai workflow dùng cùng DEC ID. Nếu chỉ có lời đề xuất, giữ Proposed hoặc ghi gap theo phần còn thiếu.
 
 ## Phân biệt bốn loại
 
@@ -92,11 +106,11 @@ Output lint có record_impacts (record/revision và affected_ids qua dependency 
 
 ## Phân bổ dependency khi chỉ bàn giao một phần Epic
 
-Gate tính dependency theo graph. Story kế thừa input của Epic qua `parent`. Decision có `applies-to` ở toàn Epic áp dụng cho các consumer con. Field `scope` giúp review nội dung. Nếu Decision ghi “import only” nhưng link tới toàn Epic, Decision đó vẫn có thể chặn Story export.
+Gate tính dependency theo graph. Story kế thừa input của Epic qua `parent`. Decision có `applies-to` ở toàn Epic áp dụng cho các consumer con. Field `scope` giúp review nội dung. Nếu Decision ghi “chỉ nhập từ tệp lớn” nhưng link tới toàn Epic import, Decision đó vẫn có thể chặn Story nhập tệp nhỏ.
 
-Giả sử review đã xác nhận Epic Import/Export Customer có control quyền chung và gồm hai Story import và export. Liên kết Decision về lỗi từng dòng bằng `applies-to` tới Story import, hoặc tới requirement/model riêng mà Story import `depends-on`. Story export vẫn giữ `parent` Epic. Decision về quyền chung liên kết Epic khi thực sự áp dụng cho cả hai. Ghi phần áp dụng và lý do trong bảng allocation.
+Epic Nhập Customer từ tệp có Story nhập nhỏ trực tiếp và Story nhập lớn theo batch. Liên kết Decision về retry batch bằng `applies-to` tới Story batch, hoặc tới model mà Story batch `depends-on`. Hai Story giữ `parent` tới Epic import. Decision về quyền áp dụng cho toàn Epic có thể link tới Epic. Nếu quyền chung cũng áp dụng cho Epic Xuất Customer, ghi riêng link và phạm vi tác động.
 
-Nếu consumer chưa tồn tại, giữ Decision ở trạng thái draft với scope mô tả và ghi allocation gap; chưa tuyên bố nhánh đó Ready. Khi tạo consumer, bổ sung typed links và review allocation trước gate. Không gắn vào Epic tạm rồi bỏ qua blocker bằng diễn giải scope. Không xóa dependency thực để vượt gate; thay đổi allocation đã baseline phải qua impact/change review. Lint chỉ xác minh graph/record obligations, không chứng minh allocation đã đầy đủ hoặc approval hợp lệ.
+Nếu consumer chưa tồn tại, giữ trạng thái Decision theo evidence, mô tả scope và ghi allocation gap; chưa tuyên bố nhánh đó Ready. Khi tạo consumer, bổ sung typed links và review allocation trước gate. Không gắn vào Epic tạm rồi bỏ qua blocker bằng diễn giải scope. Không xóa dependency thực để vượt gate; thay đổi allocation đã baseline phải qua impact/change review. Lint chỉ xác minh graph/record obligations, không chứng minh allocation đã đầy đủ hoặc approval hợp lệ.
 
 ## Giải quyết Assumption và phân biệt Decision — 1.9
 

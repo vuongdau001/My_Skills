@@ -22,13 +22,15 @@ Context chung: target/logical ID, selected scope, input revision/canonical locat
 
 ## Input Check
 
-Khi tiếp nhận function list/WBS/estimation/screen list, dùng [checkpoint nguồn scope](../references/source-scope-and-decomposition-checkpoint.md): xác định đơn vị/mục đích nguồn, giữ counts có provenance và gaps. Chưa mặc định inventory nguồn là phân cấp Feature/Epic/Story đã được review.
+Khi tiếp nhận function list/WBS/estimation/screen list, dùng [checkpoint nguồn scope](../references/source-scope-and-decomposition-checkpoint.md): xác định đơn vị/mục đích nguồn, giữ counts có provenance và gaps. Chưa mặc định inventory nguồn là phân cấp Capability/Epic/Story đã được review.
 
 Đọc target và refs trước khi chỉnh sửa. Đối soát scope/version với request, source/authority và previous records; hỏi lựa chọn khi có nhiều target hợp lý. Ghi input còn thiếu, phần bị chặn, owner nếu biết và next action. Tiếp tục phần độc lập; không tự điền expected behavior/policy để hoàn thiện đầu ra.
 
 Khi có meeting/chat/decision/assumption/constraint ảnh hưởng target, đọc [knowledge records](../references/knowledge-records-and-evidence.md), đối chiếu revision và dependency closure. Lấy nơi ghi từ artifact_paths trong context; [layout policy](../references/artifact-layout-and-migration.md) giữ tương thích config cũ. Chỉ author record trong scope đã giao; không suy discussion hoặc action item thành approval/product Task.
 
 ## Execution Steps
+
+Thực hiện [intake hồ sơ đã có](../references/knowledge-records-and-evidence.md#tái-dùng-hồ-sơ-từ-đầu-vào) trước khi soạn policy register. Đọc nguồn và đối chiếu `knowledge_intake` với hồ sơ chuẩn. Dùng lại ID/revision, pin evidence và áp dụng ngay record đã có hiệu lực đúng phạm vi. Ghi phần có điều kiện, nguồn xung đột và việc cần người có thẩm quyền xác nhận.
 
 Ở intake, tìm Prototype/mockup trong Work Context và các vị trí người dùng chỉ định mà bạn có quyền đọc. Nhắc người dùng cung cấp chỉ dẫn, mẫu, link hoặc ví dụ dữ liệu cho Prototype. Ghi candidate/revision và input còn thiếu trong Work Context. Xem [standard Prototype](../references/prototype-workflow-and-epic-gate.md).
 
@@ -37,7 +39,7 @@ Khi có meeting/chat/decision/assumption/constraint ảnh hưởng target, đọ
 2. Đối chiếu policy register guide để lập các nhóm applicability, owner và missing decisions; không tự đặt severity/SLA/check names.
 3. Ghi nguồn requirement, namespace ID, roles/reviewers/backup có thật và phạm vi quyền được giao.
 4. Chuẩn bị draft register bằng template; ghi policy state/version/effective scope và gate bị chặn bởi policy Pending.
-5. Bàn giao các decision cho Business/TL/QA/PM; ghi điều kiện có thể làm rõ Feature song song.
+5. Bàn giao các decision cho Business/TL/QA/PM; ghi điều kiện có thể làm rõ Capability song song.
 
 **References đọc theo nhu cầu:**
 
@@ -64,7 +66,7 @@ Hoàn tất chuẩn bị khi nguồn/quy ước/gaps có refs và owner nếu bi
 
 Tách output prepared / review performed / authority approval / actual action confirmed. Thiếu evidence thì verdict đúng phần là Chưa kiểm; có gap/counterexample là Không đạt; N/A cần reason/reviewer. Không dùng workflow complete thay gate verdict. Next function là đề xuất, không là quyền thực hiện bước mới.
 
-**Next functions:** [crm-define-feature](crm-define-feature.md)
+**Next functions:** [crm-define-capability](crm-define-capability.md)
 
 ## Failure & Rework
 

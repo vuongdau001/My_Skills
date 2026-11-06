@@ -6,7 +6,7 @@ import json
 import re
 
 POLICY = 'crm-definition-v2'
-CATALOGS = {'Feature':('F',8), 'Epic':('E',16), 'Story':('S',12), 'Requirement':('definition',1)}
+CATALOGS = {'Capability':('C',8), 'Epic':('E',16), 'Story':('S',12), 'Requirement':('definition',1)}
 CORE = {'E01','E02','E03','E05','E06','E07','E10','E13','E14','E15','E16'}
 
 def criteria(kind):
@@ -38,7 +38,7 @@ def run(api, args):
             require(string(ref.get('locator')),label+': evidence locator required')
     def identity(t):
         require(isinstance(t,dict),'Target must be an object')
-        require(t.get('kind') in CATALOGS,'Unsupported scoring kind')
+        require(t['kind'] in CATALOGS,'Unsupported scoring kind')
         require(string(t.get('scope')),'Explicit target scope required')
         require(bool(re.fullmatch(api['id_pattern'](),str(t.get('id','')))),'Invalid target ID')
         p = pin(t,'target '+t['id'])
@@ -51,11 +51,16 @@ def run(api, args):
             require(meta.get('kind')==t['kind'],'Target kind mismatch')
         else:
             require(t['id'].split('-')[0] in {'REQ','BR','MOD'},'Requirement scoring expects canonical REQ/BR/MOD ID')
+        if t['kind'] == 'Capability':
+            require(t['id'] == meta.get('artifact_id') and bool(re.fullmatch(r'CAP-CRM-\d{3,}', t['id'])),
+                    'Capability scoring requires the CAP-CRM artifact_id')
         if meta.get('revision'):
             require(t['revision']==meta['revision'],'Declared revision differs from artifact metadata')
         return p
     require(not(args.item and not args.target),'--item requires --target')
     require(not(args.scope and not args.target),'--scope requires --target')
+    epic_policy = api['support']('epics').POLICY
+    legacy_policy = api['support']('epics').LEGACY
     if args.init:
         require(not args.output,'--init emits JSON stdout; --output is for Markdown reports')
         require(not args.assessment and args.artifact and args.target and args.kind and args.revision and args.scope,
@@ -66,12 +71,15 @@ def run(api, args):
                sha256=api['digest'](p),scope=args.scope)
         identity(t)
         t['record_dependencies']=[dict(r,items=None) for r in api['support']('score_dependencies').snapshot(api,args,args.target)]
-        t['items']=[dict(id=i,applicability='unknown',present=None,level=None,rationale='',evidence=[],blockers=[]) for i in criteria(args.kind)]
-        return dict(schema_version=1,policy=POLICY,workstream=ws['id'],snapshot=api['now'](),
+        t['items']=[dict(id=i,applicability='unknown',present=None,level=None,rationale='',evidence=[],blockers=[]) for i in criteria(t['kind'])]
+        return dict(schema_version=1,policy=POLICY,epic_policy=epic_policy,workstream=ws['id'],snapshot=api['now'](),
                     inventory=dict(revision=args.revision,scope='Selected artifact only',complete=False),targets=[t])
     require(args.assessment and not any([args.artifact,args.kind,args.revision]),'Use --assessment for calculation; authoring arguments require --init')
     data=api['read_json'](api['relative'](repo,args.assessment))
     require(isinstance(data,dict) and data.get('schema_version')==1 and data.get('policy')==POLICY,'Unsupported assessment schema/policy; v2 requires dependency snapshot: regenerate --init and reassess')
+    assessment_policy = data.get('epic_policy', legacy_policy)
+    require(assessment_policy in (legacy_policy, epic_policy), 'Unsupported Epic assessment method')
+    reassessment_required = assessment_policy != epic_policy
     require(data.get('workstream')==ws['id'],'Assessment workstream mismatch')
     try:
         timestamp=datetime.fromisoformat(data.get('snapshot','').replace('Z','+00:00'))
@@ -112,7 +120,7 @@ def run(api, args):
             require(type(i.get('weight',1)) is int and i.get('weight',1)==1,label+': scoring policy uses equal weights only')
             if app=='na':
                 require(not (t['kind']=='Epic' and i['id'] in CORE),label+': mandatory Epic catalog item cannot be N/A')
-                require(t['kind']=='Epic',label+': only conditional Epic items may be wholly N/A; use applicable refs/delta for Feature/Story')
+                require(t['kind']=='Epic',label+': only conditional Epic items may be wholly N/A; use applicable refs/delta for Capability/Story')
                 require(not blockers,label+': N/A cannot hide blockers')
                 c=i.get('na_confirmation',{})
                 require(string(i.get('rationale')) and string(c.get('reviewer')),label+': N/A rationale/reviewer required')
@@ -184,7 +192,8 @@ def run(api, args):
     # Distinct ledgers: catalog obligations are not requirements, nor business value.
     catalog=[i for t,rows in selected if t['kind']!='Requirement' for i in rows]
     req=[i for t,rows in selected if t['kind']=='Requirement' for i in rows]
-    result=dict(valid=True,policy=POLICY,workstream=ws['id'],snapshot=data['snapshot'],inventory=inv,
+    result=dict(valid=True,policy=POLICY,epic_policy=assessment_policy,
+                reassessment_required=reassessment_required,workstream=ws['id'],snapshot=data['snapshot'],inventory=inv,
                 report_scope='focused item' if args.item else 'selected targets' if args.target else 'assessment inventory',targets=outputs,
                 rollup=dict(catalog_obligations=summarize(catalog),canonical_requirements=summarize(req)),
                 semantic_approval=False,authority_verified=False,project_completeness_verified=False,
@@ -203,11 +212,14 @@ def run(api, args):
            'Báo cáo tách điểm đề xuất với điểm hiệu lực sau kiểm dependency. Kết quả là chỉ số mức hoàn thiện trên phạm vi đã khai báo, không là % yêu cầu đúng hoặc % sản phẩm hoàn thành.',
            '', '## Bối cảnh đánh giá', '',
            f'- **Policy / workstream:** {POLICY} / {ws["id"]}.',
+           f'- **Phương pháp Epic:** {assessment_policy}.',
            f'- **Snapshot:** {data["snapshot"]}.',
            f'- **Inventory:** {inv["scope"]} / {inv["revision"]}.',
            f'- **Khai báo đầy đủ:** {inv["complete"]}; chưa được tool xác minh.',
            '- **Người thực hiện/chế độ (khai báo):** '+str(data.get('assessment_context','Chưa khai báo; không tự là independent review')), '',
            '## Kết quả chính','']
+    if reassessment_required:
+        lines.extend(['Assessment legacy cần được đánh giá lại theo use-case-v1 trước khi dùng làm evidence readiness.', ''])
     lines.extend(['| Artifact | Điểm đề xuất | Điểm hiệu lực | Gate |','|---|---|---|---|'])
     def display_index(s):
         d=s['definition_index']

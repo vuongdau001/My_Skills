@@ -27,11 +27,11 @@ Bổ sung Feature F01–F08, policy register/template, loại requirement và ID
 |---|---|---|---|
 | AT17 — Thiếu policy | Policy bắt buộc Pending chưa cho gate đạt; không tự đặt ngưỡng | [Policy](../references/project-policy-register.md), [gate](../references/readiness-completion-and-approval-gates.md) | Khớp |
 | AT18 — Type/ID nhầm | BR là rule; REQ có type và applies_to; không ép NFR vào Epic | [ID/type](../references/requirement-types-identifiers-and-traceability.md) | Khớp |
-| AT19 — Outcome chưa đo | Product acceptance khác benefit observation; ràng buộc hợp đồng/authority vẫn giữ | [Feature](../references/feature-specification-catalog.md) | Khớp |
+| AT19 — Outcome chưa đo | Product acceptance khác benefit observation; ràng buộc hợp đồng/authority vẫn giữ | [Feature](../references/capability-specification-catalog.md) | Khớp |
 | AT20 — E07 phụ thuộc state/API | D05/D02/D07 có trigger và evidence; Q01–Q07 không được miễn | [Mapping](../references/catalog-check-model-mapping.md) | Khớp |
-| AT21 — Review coverage | 12/14 là coverage review; gap E05/E07 vẫn chặn, không là % sản phẩm | [Measurement](../references/progress-measurement-and-feature-rollup.md) | Khớp |
-| AT22 — Mẫu số/unknown/change | Zero=N/A; unknown riêng; scope delta phải giải thích, không xóa mẫu số ngầm | [Measurement](../references/progress-measurement-and-feature-rollup.md) | Khớp |
-| AT23 — Task/cancel | Shared Task tính một lần; cancel không tự loại requirement khỏi scope | [Roll-up](../references/progress-measurement-and-feature-rollup.md) | Khớp |
+| AT21 — Review coverage | 12/14 là coverage review; gap E05/E07 vẫn chặn, không là % sản phẩm | [Measurement](../references/progress-measurement-and-capability-rollup.md) | Khớp |
+| AT22 — Mẫu số/unknown/change | Zero=N/A; unknown riêng; scope delta phải giải thích, không xóa mẫu số ngầm | [Measurement](../references/progress-measurement-and-capability-rollup.md) | Khớp |
+| AT23 — Task/cancel | Shared Task tính một lần; cancel không tự loại requirement khỏi scope | [Roll-up](../references/progress-measurement-and-capability-rollup.md) | Khớp |
 | AT24 — SLA | Chưa có ngưỡng chỉ báo age/clock; quá hạn không tự approval | [Policy](../references/project-policy-register.md), [report template](../assets/templates/progress-report-template.md) | Khớp |
 | AT25 — Chưa pilot | Hướng dẫn và mẫu không là evidence đã thử thật; phạm vi chưa kiểm được ghi riêng | [Pilot](../references/pilot-and-operational-validation.md) | Khớp |
 

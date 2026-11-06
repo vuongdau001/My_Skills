@@ -51,11 +51,11 @@ def validate(api, root, dirs, path, epic, scope=None):
             result[identity] = row
         return result
 
-    def bundle(path, epic, selection):
-        manifest = obj(api['read_json'](path))
+    def bundle(manifest_path, epic, selection):
+        manifest = obj(api['read_json'](manifest_path))
         if type(manifest.get('schema_version')) is not int or manifest['schema_version'] != 1:
             fail('Unsupported prototype manifest schema_version')
-        parent = path.parent
+        parent = manifest_path.parent
         entrypoint = manifest.get('entrypoint')
         entry = object_file(parent, entrypoint, '.html')
         if not entry.is_relative_to(parent/'app'):
@@ -96,7 +96,19 @@ def validate(api, root, dirs, path, epic, scope=None):
                    and row.get('epic_revision') == epic['revision'] and row.get('scope') == selection['scope']]
         if len(matches) != 1:
             fail('Manifest needs exactly one allocation for the selected Epic ID, revision and scope')
-        return set(matches[0]['scenarios'])
+        allocated = set(matches[0]['scenarios'])
+        epic_policy = api['support']('epics')
+        if epic.get('epic_policy') == epic_policy.POLICY:
+            case_id = epic_policy.case_id(epic)
+            if not case_id:
+                fail('Prototype allocation requires a valid Epic Use Case binding')
+            anchors = epic_policy.case_anchors(api, path.read_text(encoding='utf-8'))
+            for scenario in sorted(allocated):
+                locators = {ref[len(case_id):] for ref in scenarios[scenario]['refs']
+                            if ref == case_id or ref.startswith(case_id + '#')}
+                if not locators or not locators <= anchors:
+                    fail(f'{scenario} must reference {case_id} at valid E03 locators')
+        return allocated
 
     selection = obj(epic.get('prototype'))
     state = selection.get('applicability')
@@ -104,7 +116,9 @@ def validate(api, root, dirs, path, epic, scope=None):
         fail('Epic requires revision, prototype.scope and prototype.applicability (required or not_applicable)')
     if scope is not None and scope != selection['scope']:
         fail('Prototype scope does not match the assessed scope')
-    review_path = object_file(root, selection.get('review'), '.md')
+    if not text(selection.get('review')):
+        fail('Epic requires a Prototype walkthrough review path for the selected scope')
+    review_path = object_file(root, selection['review'], '.md')
     if not review_path.is_relative_to(root/dirs['reviews']):
         fail('Prototype review record must be under the workstream reviews directory')
     review = obj(api['metadata'](review_path.read_text(encoding='utf-8')))

@@ -15,7 +15,7 @@ Story có mức chi tiết đủ để Dev/QA triển khai, không phải SRS vi
 
 | ID | Hạng mục Story | Nội dung cần có | Tiêu chí review |
 |---|---|---|---|
-| <a id="s01"></a>S01 | Định danh và baseline | Feature/Epic, logical/Jira ID, baseline commit + selected scope | Không trỏ “latest”; xác định chính xác phần được phép làm |
+| <a id="s01"></a>S01 | Định danh và baseline | Capability/Epic, logical/Jira ID, baseline commit + selected scope | Không trỏ “latest”; xác định chính xác phần được phép làm |
 | <a id="s02"></a>S02 | Outcome và scope | Actor, mục tiêu, giá trị, trong/ngoài scope | Một phần hành vi kiểm chứng được; không chỉ là tên màn hình/API |
 | <a id="s03"></a>S03 | Trigger và pre/postconditions | Điều kiện bắt đầu, sự kiện/kênh gọi, kết quả sau thành công/thất bại | Test có thể setup dữ liệu/state và biết kết quả cần kiểm |
 | <a id="s04"></a>S04 | Flow được chọn | Step IDs từ Epic, alternate/exception trong scope và delta | Không phải suy đoán bước giữa; nhánh kết thúc/phản hồi rõ |
@@ -31,7 +31,7 @@ Story có mức chi tiết đủ để Dev/QA triển khai, không phải SRS vi
 **Thời điểm:** trước spawn phải có kế hoạch Story và nội dung baseline đủ rõ cho scope chọn; sau spawn có thể hoàn thiện phân công/dữ liệu/slot/capacity trước DoR. Không dùng “sẽ làm rõ khi code” cho quyết định làm thay đổi hành vi.
 
 
-S01/S02 và manifest áp dụng [checkpoint chọn cấp và quan hệ cha–con](source-scope-and-decomposition-checkpoint.md#level-selection) khi đổi allocation. Tìm parent hiện có, giải thích delta bàn giao và giữ controls bắt buộc trong lát cắt. Không tạo Feature/Epic mới chỉ vì đang nhận một Story mới.
+S01/S02 và manifest áp dụng [checkpoint chọn cấp và quan hệ cha–con](source-scope-and-decomposition-checkpoint.md#level-selection) khi đổi allocation. Tìm parent hiện có, giải thích delta bàn giao và giữ controls bắt buộc trong lát cắt. Không tạo Capability/Epic mới chỉ vì đang nhận một Story mới.
 
 ## Story đủ để triển khai mà không cần Task
 
@@ -52,7 +52,7 @@ Không phải thiết kế mọi dòng code trước. Lựa chọn tổ chức c
 
 ## Mapping, ID và policy cần kiểm
 
-Dùng [mapping theo từng S01–S12](catalog-check-model-mapping.md), [quy ước ID/trace](requirement-types-identifiers-and-traceability.md) và [policy register](project-policy-register.md). Record S11/S12 phải chỉ ra policy version áp dụng, không chỉ ghi “theo policy”. Các quyết định bắt buộc còn Pending chặn gate tương ứng, dù đã có đầy đủ Task. [Measurement](progress-measurement-and-feature-rollup.md) xác định cách báo readiness/delivery mà không đếm lặp.
+Dùng [mapping theo từng S01–S12](catalog-check-model-mapping.md), [quy ước ID/trace](requirement-types-identifiers-and-traceability.md) và [policy register](project-policy-register.md). Record S11/S12 phải chỉ ra policy version áp dụng, không chỉ ghi “theo policy”. Các quyết định bắt buộc còn Pending chặn gate tương ứng, dù đã có đầy đủ Task. [Measurement](progress-measurement-and-capability-rollup.md) xác định cách báo readiness/delivery mà không đếm lặp.
 
 
 ---

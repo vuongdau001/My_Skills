@@ -12,13 +12,13 @@ Với mỗi input: chọn function từ mục tiêu, đọc Input Check/Executio
 
 <a id="wk01"></a>
 
-### WK01 — Vague Feature Intake
+### WK01 — Vague Capability Intake
 
-- **Input fixture:** BA có mô tả “cần tiếp nhận khách hàng”; chưa có Business authority hoặc target Feature rõ.
-- **Selected function/profile:** crm-define-feature.
-- **Observed decision in desk walkthrough:** Dùng crm-define-feature để làm rõ outcome, tra Feature hiện có và xác định đề xuất là scope mới hay bổ sung vào scope cũ. Giữ target, nguồn và authority chưa xác định trong hồ sơ intake.
+- **Input fixture:** BA có mô tả “cần tiếp nhận khách hàng”; chưa có Business authority hoặc target Capability rõ.
+- **Selected function/profile:** crm-define-capability.
+- **Observed decision in desk walkthrough:** Dùng crm-define-capability để làm rõ outcome, tra Capability hiện có và xác định đề xuất là scope mới hay bổ sung vào scope cũ. Giữ target, nguồn và authority chưa xác định trong hồ sơ intake.
 - **Artifacts:** record trong scenario này; không sửa target hoặc thực hiện external action.
-- **Rule evidence:** [crm-define-feature.md](../../workflows/crm-define-feature.md), [START-HERE.md](../../START-HERE.md).
+- **Rule evidence:** [crm-define-capability.md](../../workflows/crm-define-capability.md), [START-HERE.md](../../START-HERE.md).
 - **Handoff:** người nhận đọc target/scope/current revision và thực hiện next action theo protocol; không tự cấp approval.
 
 <a id="wk02"></a>
@@ -128,7 +128,7 @@ Với mỗi input: chọn function từ mục tiêu, đọc Input Check/Executio
 - **Selected function/profile:** crm-report-status.
 - **Observed decision in desk walkthrough:** Báo discrepancy và dữ liệu chưa xác minh, không tự sửa Jira hoặc suy evidence từ status. Có thể đề xuất check-completion.
 - **Artifacts:** record trong scenario này; không sửa target hoặc thực hiện external action.
-- **Rule evidence:** [crm-report-status.md](../../workflows/crm-report-status.md), [progress-measurement-and-feature-rollup.md](../../references/progress-measurement-and-feature-rollup.md).
+- **Rule evidence:** [crm-report-status.md](../../workflows/crm-report-status.md), [progress-measurement-and-capability-rollup.md](../../references/progress-measurement-and-capability-rollup.md).
 - **Handoff:** người nhận đọc target/scope/current revision và thực hiện next action theo protocol; không tự cấp approval.
 
 <a id="wk12"></a>

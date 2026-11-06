@@ -8,19 +8,19 @@ Làm rõ outcome, scope, business behavior, models, AC và Story allocation.
 
 ## Owned Work
 
-- [crm-define-feature](../../workflows/crm-define-feature.md)
+- [crm-define-capability](../../workflows/crm-define-capability.md)
 - [crm-specify-epic](../../workflows/crm-specify-epic.md)
 - [crm-prepare-stories](../../workflows/crm-prepare-stories.md)
 
 ## Inputs
 
-Nguồn nhu cầu, stakeholder/authority, Feature/Epic draft, rules và decisions.
+Nguồn nhu cầu, stakeholder/authority, Capability/Epic draft, rules và decisions.
 
 Đọc [protocol](../../references/workflow-execution-protocol.md) và [quy ước CRM](../../references/crm-project-rules.md) trước, sau đó chỉ nạp reference cần cho workflow. Không tải toàn bộ catalog/model vì đang ở profile này.
 
 ## Outputs
 
-Feature/Epic/Story draft, model refs, questions, trace và manifest candidates.
+Capability/Epic/Story draft, model refs, questions, trace và manifest candidates.
 
 ## Authority & Permissions
 

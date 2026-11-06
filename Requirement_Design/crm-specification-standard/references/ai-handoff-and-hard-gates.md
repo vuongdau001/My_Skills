@@ -20,7 +20,7 @@ Mã tài liệu: **CRM-HANDOFF** · Gói CRM 1.3.1 · 03/11/2026
 2. Đọc baseline manifest từ commit đó, không đọc nhánh đang bị sửa tiếp.
 3. Tạo Story theo logical ID và scope được PM duyệt.
 4. Ghi mapping logical ID → Jira issue key vào execution receipt/Jira, không bắt sửa lại baseline chỉ để thêm key vừa sinh.
-5. Trên Story ghi Feature/Epic, baseline ID, repo/path/commit, selected BR/AC, solution/test refs và các approval links.
+5. Trên Story ghi Capability/Epic, baseline ID, repo/path/commit, selected BR/AC, solution/test refs và các approval links.
 6. Dev/QA xác nhận nhận đúng bộ đầu vào; bổ sung việc còn thiếu để đạt DoR trước triển khai.
 
 
@@ -29,7 +29,7 @@ Mã tài liệu: **CRM-HANDOFF** · Gói CRM 1.3.1 · 03/11/2026
 ### Bộ context tối thiểu cho Dev/QA/AI
 
 ```text
-Jira Story / Epic / Feature refs:
+Jira Story / Epic / Capability refs:
 Baseline ID:
 Repo + commit + paths:
 Selected scope / ngoài scope:

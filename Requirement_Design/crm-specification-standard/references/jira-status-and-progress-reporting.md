@@ -18,10 +18,10 @@ Mã tài liệu: **CRM-TRACKING** · Gói CRM 1.3.1 · 03/11/2026
 
 | Status | Ý nghĩa | Điều kiện chính |
 |---|---|---|
-| `todo` | Đã được phép ghi nhận phạm vi, chưa bắt đầu làm rõ/thực hiện | Có Feature refs, scope sơ bộ và owner |
+| `todo` | Đã được phép ghi nhận phạm vi, chưa bắt đầu làm rõ/thực hiện | Có Capability refs, scope sơ bộ và owner |
 | `inprogress` | Đang phân tích, thiết kế, triển khai hoặc kiểm chứng | DoR bắt đầu Epic đạt; các Task/Story cho biết đang ở phần nào |
-| `done` | Hoàn thành và nghiệm thu phạm vi Epic | Đạt DoD Epic tại mục [DoD để đóng Epic: `inprogress` → `done`](readiness-completion-and-approval-gates.md#workflow-8-4) |
-| `cancel` | Không tiếp tục phạm vi Epic theo quyết định | Có authority/reason và đánh giá tác động tới Feature |
+| `done` | Đã nghiệm thu phạm vi baseline được định danh của Epic | Đạt DoD Epic tại mục [DoD để đóng Epic: `inprogress` → `done`](readiness-completion-and-approval-gates.md#workflow-8-4) |
+| `cancel` | Không tiếp tục phạm vi Epic theo quyết định | Có authority/reason và đánh giá tác động tới Capability |
 
 Epic không có `pending`: giữ `inprogress` và ghi blocker/owner/due trên Epic; Task/Story bị chặn dùng `pending`. Epic bị chặn không được kéo sang `done` hoặc `cancel` chỉ để khỏi hiện việc tồn.
 
@@ -81,7 +81,7 @@ Nếu review đã đồng thời đáp ứng DoD và người nhận xác nhận
 - Ghi status trước khi bị chặn và điều kiện resume. Khi có quyết định mới, quay về trạng thái phù hợp; đổi rule cần code lại thì về `inprogress`, không quay thẳng `done`.
 - Review/test không đạt mà owner có thể sửa ngay: quay `inprogress`; không tự coi mọi rework là blocker.
 - `cancel` cần authority/reason và tác động tới scope/estimate/child. Hủy child không tự loại requirement khỏi scope.
-- Mở lại Epic/Story đã Done phải ghi lý do, phạm vi/version và đánh giá lại acceptance; không xóa lịch sử kết quả cũ.
+- Mở lại Epic/Story đã Done theo workflow cho phép sau khi change được chấp nhận. Với cùng mục tiêu, giữ Epic/Use Case ID, ghi scope/revision/baseline mới và pin nghiệm thu cũ. Review phần chịu tác động và ghi lý do tái dùng evidence. [Vòng đời Epic](epic-use-case-policy.md).
 
 
 <a id="workflow-11-5"></a>
@@ -102,9 +102,9 @@ Chưa kiểm tra tenant nên tài liệu không khẳng định chỉ đổi cá
 
 ### Requirement Backlog
 
-Quản lý bằng hồ sơ Feature và Jira Epic, với bảng readiness các hạng mục; không dùng số Task phân tích đã đóng để đo độ rõ requirement. Báo cáo phải cho thấy:
+Quản lý bằng hồ sơ Capability và Jira Epic, với bảng readiness các hạng mục; không dùng số Task phân tích đã đóng để đo độ rõ requirement. Báo cáo phải cho thấy:
 
-- Feature/Epic nào đã có người làm rõ, ai quyết định nghiệp vụ.
+- Capability/Epic nào đã có người làm rõ, ai quyết định nghiệp vụ.
 - Requirement/AC đang làm rõ, chờ review hay đã được xác nhận; owner và hạn.
 - Solution đang phân tích, chờ review hay đã được xác nhận; owner và hạn.
 - QA đã xác nhận testability chưa.
@@ -137,7 +137,7 @@ Theo dõi Story và Task triển khai qua các status đã có:
 - `done`: đủ DoD; không tính `resolved` là Story Done.
 - `cancel`: theo dõi riêng, không cộng vào hoàn thành phạm vi.
 
-Feature không có ticket Jira: tài liệu Git giữ scope, rule, Epic links và baseline refs; dashboard/report tổng hợp trạng thái triển khai bằng cách đọc Jira. Không nhập lại thủ công mọi trạng thái Jira vào tài liệu Git.
+Capability không có ticket Jira: tài liệu Git giữ scope, rule, Epic links và baseline refs; dashboard/report tổng hợp trạng thái triển khai bằng cách đọc Jira. Không nhập lại thủ công mọi trạng thái Jira vào tài liệu Git.
 
 Ready buffer phải xét effort/capacity theo từng vai trò và dependency; không cộng BA + Dev + QA effort rồi chia riêng capacity Dev. Chưa có capacity thì không gọi là sẵn sàng triển khai.
 
@@ -153,7 +153,7 @@ Báo cáo hai chiều: (1) Requirement/solution/testability đang soạn, review
 
 ## Quy tắc đo và mẫu báo cáo
 
-[Đo tiến độ và tổng hợp lên Feature](progress-measurement-and-feature-rollup.md) định nghĩa scope units, review coverage, baseline coverage, delivery, aging và acceptance, gồm unknown/zero denominator/cancel/change scope. Dùng [mẫu báo cáo](../assets/templates/progress-report-template.md). Bốn dòng readiness tổng hợp ở trên phải truy xuống từng E/S item có ID/tên/revision/evidence; không coi nó là toàn bộ dữ liệu review. Ngưỡng SLA/aging theo [policy register](project-policy-register.md), chưa chốt thì chỉ báo age, không tự gán vi phạm.
+[Đo tiến độ và tổng hợp lên Capability](progress-measurement-and-capability-rollup.md) định nghĩa scope units, review coverage, baseline coverage, delivery, aging và acceptance, gồm unknown/zero denominator/cancel/change scope. Dùng [mẫu báo cáo](../assets/templates/progress-report-template.md). Bốn dòng readiness tổng hợp ở trên phải truy xuống từng E/S item có ID/tên/revision/evidence; không coi nó là toàn bộ dữ liệu review. Ngưỡng SLA/aging theo [policy register](project-policy-register.md), chưa chốt thì chỉ báo age, không tự gán vi phạm.
 
 
 ---

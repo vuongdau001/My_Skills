@@ -15,7 +15,7 @@ spec/
     02-decisions/
     03-assumptions/
     04-constraints/
-  01-features/
+  01-capabilities/
   02-epics/
   03-stories/
   04-tasks/
@@ -28,7 +28,7 @@ spec/
 
 Số ở folder là thứ tự đọc theo nhóm, không priority hoặc tiến độ. File dùng ID ổn định, ví dụ EPIC-CRM-002-contact-relationships.md; không thêm số thứ tự thứ hai. Story có thể đổi parent mà giữ ID. Cây thư mục phẳng theo loại; hierarchy và dependency nằm ở allocation/trace_links, không suy từ số hoặc tên file. Task chỉ được tạo khi có nhu cầu giao việc thật.
 
-Config schema 1 tiếp tục được đọc. Workstream thiếu layout được hiểu là legacy, dùng 00-project/features/epics/stories/tasks/reviews/baselines/reports/pilot/prototypes. Prototype scaffold được tạo khi `prototype_gate: true`. Workstream mới bật mặc định. Với workstream cũ, bật trong config theo [quy trình Prototype](prototype-workflow-and-epic-gate.md), rồi scaffold lại bằng install --apply. Install lại hoặc update package không tự thêm field, đổi path hoặc rewrite hồ sơ của workstream cũ. --layout legacy chọn tên thư mục cũ cho workstream mới; loại hồ sơ schema 2 vẫn được hỗ trợ bởi kit 1.7.
+Config schema 1 tiếp tục được đọc. Workstream thiếu layout được hiểu là legacy, dùng 00-project/capabilities/epics/stories/tasks/reviews/baselines/reports/pilot/prototypes. Prototype scaffold được tạo khi `prototype_gate: true`. Workstream mới bật mặc định. Với workstream cũ, bật trong config theo [quy trình Prototype](prototype-workflow-and-epic-gate.md), rồi scaffold lại bằng install --apply. Install lại hoặc update package không tự thêm field, đổi path hoặc rewrite hồ sơ của workstream cũ. `--layout legacy` chọn layout không đánh số cho workstream mới. Cả hai layout dùng category capabilities.
 
 Workstream mới ghi layout và record_schema_version=2. Field artifact_paths tùy chọn override theo category; mọi giá trị là path POSIX tương đối từ spec_root, không overlap, không ẩn/tool directory hoặc thoát repo. Ví dụ cấu hình workstream:
 

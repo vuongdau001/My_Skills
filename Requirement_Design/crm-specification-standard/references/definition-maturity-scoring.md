@@ -6,6 +6,8 @@ ID: CRM-SCORING · CRM Workflow Kit 1.9.0 · 05/11/2026
 
 ## Mô hình và ý nghĩa
 
+Assessment mới khai `epic_policy: "use-case-v1"` bên cạnh scoring policy `crm-definition-v2`. Assessment thiếu marker hoặc khai `legacy` được hiển thị theo phương pháp cũ, giữ công thức và có cờ reassessment_required. Dùng review mới đúng revision trước khi lấy assessment legacy làm readiness evidence.
+
 Ba lớp: catalog coverage (có nội dung), definition maturity (đặc tả/xác nhận tới đâu), gate (được chuyển bước chưa). Không dùng điểm để thay review verdict, approval, baseline, DoR hoặc runtime acceptance. Q01–Q07 giữ verdict riêng; không lấy trung bình để bù sai nghiệp vụ bằng đủ links.
 
 | Mức | Rubric | Evidence |
@@ -15,7 +17,7 @@ Ba lớp: catalog coverage (có nội dung), definition maturity (đặc tả/x�
 | 2 | Đặc tả đủ cho selected scope và bước đang xét, đã tự kiểm; chưa đủ review xác nhận | Evidence có locator; không còn content blocker đã khai báo; self-check không tự lên 3 |
 | 3 | Reviewer chuyên môn/độc lập đã xác nhận các checks áp dụng đúng revision | Review mode, reviewer, pinned evidence; Q01–Q07 disposition Đạt hoặc N/A có rationale |
 
-Unknown dùng level=null, không đổi thành 0. Applicability là applies/na/unknown. N/A chỉ cho hạng mục Epic có điều kiện E04/E08/E09/E11/E12, với rationale, reviewer và evidence xác nhận. Không đánh N/A toàn mục bắt buộc, toàn mục Feature/Story hay canonical requirement; nội dung kế thừa vẫn là applies và dẫn ref/delta. Đây là lựa chọn bảo thủ được giữ từ policy v1 sang v2. Applicability Unknown chưa được chốt thì chỉ số tổng thể null, không lặng lẽ bỏ khỏi mẫu số.
+Unknown dùng level=null, không đổi thành 0. Applicability là applies/na/unknown. N/A chỉ cho hạng mục Epic có điều kiện E04/E08/E09/E11/E12, với rationale, reviewer và evidence xác nhận. Không đánh N/A toàn mục bắt buộc, toàn mục Capability/Story hay canonical requirement; nội dung kế thừa vẫn là applies và dẫn ref/delta. Đây là lựa chọn bảo thủ được giữ từ policy v1 sang v2. Applicability Unknown chưa được chốt thì chỉ số tổng thể null, không lặng lẽ bỏ khỏi mẫu số.
 
 Mức 2/3 không cho phép blocker category=content. Approval hoặc delivery blocker có thể tồn tại dù nội dung đã rõ; vẫn báo gate=blocked. Không có blocker chỉ cho gate=not_assessed, tuyệt đối không tự Ready. Reviewer/authority là khai báo cần kiểm chứng qua workflow; helper chỉ kiểm byte/hash, không xác thực người ký hoặc tính đúng của lời khai.
 
@@ -25,11 +27,13 @@ Khi workstream bật `prototype_gate`, helper đối chiếu scope E08 với [bu
 
 ## Cách tính và các đơn vị
 
+Với use-case-v1, mức 2/3 ở E01–E03 và E14–E16 cần evidence theo [rubric Epic](catalog-check-model-mapping.md). Mức 2 cần đủ nội dung theo scope và tự kiểm. Mức 3 pin kết quả review chuyên môn/độc lập đã lần qua ranh giới mục tiêu, các đường đi và kết quả, trace và scope/baseline.
+
 Policy cố định crm-definition-v2, equal weights: D=100×sum(level)/(3×N), N là số đơn vị applies. Với level Unknown: cận dưới đóng góp 0, cận trên đóng góp 3. Đây là khoảng điểm trên inventory đã biết, không phải khoảng tin cậy thống kê hay % requirement đúng/effort/value. N=0 cho null, không 100%. Báo thêm assessed/N, confirmed/N, presence, N/A, Unknown, blockers và scope revision.
 
-Epic dùng đủ E01–E16, Story đủ S01–S12, Feature đủ F01–F08. Không được xóa dòng chưa rõ; dùng Unknown. --item chỉ lọc kết quả sau validation toàn assessment. Mỗi hạng mục có mức dựa vào rubric và các Q áp dụng, không bắt tạo 16×7 file riêng.
+Epic dùng đủ E01–E16, Story đủ S01–S12, Capability đủ C01–C08. Không được xóa dòng chưa rõ; dùng Unknown. --item chỉ lọc kết quả sau validation toàn assessment. Mỗi hạng mục có mức dựa vào rubric và các Q áp dụng, không bắt tạo 16×7 file riêng.
 
-Khi review canonical requirement, chọn parent Feature/Epic/Story làm workflow target và ID requirement làm focused scope; không thêm supported target hoặc function mới. Helper score riêng nhận kind Requirement.
+Khi review canonical requirement, chọn parent Capability/Epic/Story làm workflow target và ID requirement làm focused scope; không thêm supported target hoặc function mới. Helper score riêng nhận kind Requirement.
 
 Canonical Requirement dùng một item definition cho REQ/BR/MOD ID đã khai báo ở metadata artifact_id hoặc defined_ids. Không lấy trung bình bảy Q; một content gap làm cả definition chưa đạt mức 2. Một file chứa nhiều requirement phải khai báo từng ID; evidence locator chỉ đúng nội dung đang chấm.
 

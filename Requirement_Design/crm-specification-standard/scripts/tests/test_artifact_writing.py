@@ -50,11 +50,11 @@ class ArtifactWritingTests(unittest.TestCase):
         self.assertEqual(self.hashes(), before)
 
     def test_full_and_explicit_reference_do_not_duplicate_shared_standard(self):
-        result = self.cli('context', 'crm-define-feature', '--workstream', 'p3', '--full',
+        result = self.cli('context', 'crm-define-capability', '--workstream', 'p3', '--full',
                           '--reference', 'CRM-ARTIFACT-WRITING', '--format', 'json')
         paths = [f['path'] for f in result['files']]
         self.assertEqual(paths.count(STANDARD), 1)
-        self.assertIn('assets/templates/feature-specification-template.md', paths)
+        self.assertIn('assets/templates/capability-specification-template.md', paths)
 
     def test_footer_keeps_record_evidence_and_dependency_gate(self):
         root = self.repo / 'spec'

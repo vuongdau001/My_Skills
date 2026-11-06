@@ -2,7 +2,7 @@
 
 ID: CRM-BA-START · Bổ sung onboarding cho CRM Workflow Kit 1.7.1 · 04/11/2026
 
-Đọc khi mới dùng kit, cần chuyển từ BRD/SRS/Use Case sang cách tổ chức Feature/Epic/Story/Task, hoặc chưa biết phân tích tới đâu là đủ. Guide giải thích cách dùng; tiêu chí chính thức vẫn nằm ở các catalog và gate được liên kết. Không cần đọc hết kit trước khi bắt đầu.
+Đọc khi mới dùng kit, cần chuyển từ BRD/SRS/Use Case sang cách tổ chức Capability/Epic/Story/Task, hoặc chưa biết phân tích tới đâu là đủ. Guide giải thích cách dùng; tiêu chí chính thức vẫn nằm ở các catalog và gate được liên kết. Không cần đọc hết kit trước khi bắt đầu.
 
 Lộ trình: [hiểu khái niệm](#concepts) → [theo ví dụ Customer–Contact](#walkthrough) → [chọn độ sâu](#depth) → [tự thực hành](#practice). Nếu đã có hồ sơ đang làm, vào bước tương ứng trong [START-HERE](../START-HERE.md), không bắt đầu lại từ đầu.
 
@@ -15,10 +15,10 @@ Hãy tưởng tượng người phụ trách kinh doanh nói: “Một người 
 | Câu hỏi | Trục đang xét | Ví dụ |
 |---|---|---|
 | Yêu cầu nói về điều gì? | Loại requirement | Business, Stakeholder, Functional, Non-functional, Transition |
-| Phạm vi nào được tổ chức và bàn giao cùng nhau? | Cấp phạm vi/công việc | Feature, Epic, Story, Task |
+| Phạm vi nào được tổ chức và bàn giao cùng nhau? | Cấp phạm vi/công việc | Capability, Epic, Story, Task |
 | Trình bày thông tin bằng cách nào? | Hồ sơ hoặc mô hình | BRD, SRS, Use Case, decision table, data dictionary |
 
-Một Epic có thể áp dụng nhiều loại requirement và chứa nhiều Use Case. Một SRS có thể tập hợp nội dung từ nhiều Epic. Khi chia lại Story, requirement dùng chung vẫn giữ ID và nguồn chuẩn; cập nhật quan hệ phân bổ thay vì chép thành các bản riêng. Xem [requirement types, ID và traceability](requirement-types-identifiers-and-traceability.md).
+Một Epic sở hữu một Use Case cấp user-goal và có thể áp dụng nhiều loại requirement. [Policy Epic–Use Case](epic-use-case-policy.md). Một SRS có thể tập hợp nội dung từ nhiều Epic. Khi chia lại Story, requirement dùng chung vẫn giữ ID và nguồn chuẩn; cập nhật quan hệ phân bổ thay vì chép thành các bản riêng. Xem [requirement types, ID và traceability](requirement-types-identifiers-and-traceability.md).
 
 IIBA phân loại Business requirements (mục tiêu thay đổi), Stakeholder requirements (nhu cầu của các bên), Solution requirements (Functional và Non-functional), và Transition requirements (phục vụ chuyển từ hiện trạng sang trạng thái mới). [IIBA Core Standard, mục 1.5](https://www.iiba.org/globalassets/standards-and-resources/core-standard/iiba-core-standard.pdf).
 
@@ -28,11 +28,11 @@ IIBA phân loại Business requirements (mục tiêu thay đổi), Stakeholder r
 
 | Khái niệm quen thuộc | Cách sử dụng trong kit | Giới hạn của mapping |
 |---|---|---|
-| Business Case | Nguồn cho rationale, outcome và lựa chọn đầu tư của Feature | Feature không tự bao phủ phân tích chi phí/lợi ích và các phương án đầu tư |
-| BRD — Business Requirements Document | Nội dung Feature, business/stakeholder requirements, constraints và decisions liên quan là đầu vào biên soạn | Một BRD có thể bao phủ nhiều Feature; không có quy tắc một Feature = một BRD |
+| Business Case | Nguồn cho rationale, outcome và lựa chọn đầu tư của Capability | Capability không tự bao phủ phân tích chi phí/lợi ích và các phương án đầu tư |
+| BRD — Business Requirements Document | Nội dung Capability, business/stakeholder requirements, constraints và decisions liên quan là đầu vào biên soạn | Một BRD có thể bao phủ nhiều Capability; không có quy tắc một Capability = một BRD |
 | SRS — Software Requirements Specification | Tập hợp requirement từ Epic, shared models/controls và chi tiết/delta liên quan trong Story theo scope/revision | Cần rà coverage và consistency toàn scope; danh sách Story riêng lẻ chưa chứng minh SRS đầy đủ |
 | FRD/FSD | Có thể dùng phần đặc tả chức năng của Epic để biên soạn theo template tổ chức | Cần thống nhất nghĩa các tên này trong glossary dự án |
-| Use Case Specification | E03 giữ actor goal, trigger, pre/postconditions, main/alternate/exception flows; Story chọn phần áp dụng ở S03–S05 | Use Case và Story không có quan hệ 1–1 bắt buộc |
+| Use Case Specification | E03 giữ actor goal, trigger, pre/postconditions, main/alternate/exception flows; Story chọn phần áp dụng ở S03–S05 | Một Use Case thuộc một Epic; các Story nhận lát cắt của nó |
 | Technical Design | Solution/contract refs, đặc biệt E09/E13 và S07 | Phân biệt lựa chọn thiết kế với requirement; BA không tự quyết cơ chế kỹ thuật chưa được chốt |
 | RTM — Requirements Traceability Matrix | Các quan hệ source → requirement/rule → model → Story/AC → testcase/evidence | Trace có thể nhiều–nhiều; cần kiểm đúng revision và phần chưa phân bổ |
 | Task | Đầu ra thực hiện cần giao/theo dõi riêng, áp dụng T01–T08 | Không tạo thêm một tầng yêu cầu nghiệp vụ; Task tùy nhu cầu |
@@ -43,7 +43,7 @@ Muốn bàn giao BRD/SRS, chọn phạm vi và revision, tập hợp nội dung 
 
 Hai điểm cần nhớ khi đọc tài liệu từ dự án khác:
 
-- Kit dùng Feature → Epic → Story; Task/checklist phục vụ triển khai. Azure Boards dùng Epic → Feature → User Story → Task. Jira mặc định đặt Story và Task cùng cấp dưới Epic, Subtask ở cấp dưới. Đừng suy ra parent-child trong công cụ chỉ từ sơ đồ tư duy. [Microsoft](https://learn.microsoft.com/en-us/azure/devops/boards/backlogs/define-features-epics?view=azure-devops), [Atlassian](https://support.atlassian.com/jira-cloud-administration/docs/what-are-issue-types/).
+- Kit dùng Capability → Epic → Story; Task/checklist phục vụ triển khai. Azure Boards dùng Epic → Feature → User Story → Task. Jira mặc định đặt Story và Task cùng cấp dưới Epic, Subtask ở cấp dưới. Đừng suy ra parent-child trong công cụ chỉ từ sơ đồ tư duy. [Microsoft](https://learn.microsoft.com/en-us/azure/devops/boards/backlogs/define-features-epics?view=azure-devops), [Atlassian](https://support.atlassian.com/jira-cloud-administration/docs/what-are-issue-types/).
 - `BR` trong kit là Business Rule; Business Requirement dùng `REQ` với type riêng. Business analysis task trong giáo trình là hoạt động phân tích, không tự thành ticket Task triển khai. [IIBA — BA tasks](https://www.iiba.org/knowledgehub/business-analysis-standard/4-tasks-and-knowledge-areas/introducing-business-analysis-tasks/).
 
 <a id="walkthrough"></a>
@@ -70,15 +70,15 @@ Prompt áp dụng, thay các chỗ trong ngoặc bằng dữ liệu thật:
 
 > Dùng crm-setup-project trên workstream [id] để tiếp nhận notes [nguồn/revision]. Phân biệt source facts, quyết định có evidence, assumptions và câu hỏi. Liên kết hồ sơ liên quan; giữ phần chưa xác nhận ở trạng thái phù hợp.
 
-### Bước B — Đặt Feature và chọn một phạm vi Epic
+### Bước B — Đặt Capability và chọn một phạm vi Epic
 
 Khi bắt đầu từ function list/WBS/estimation, áp dụng [checkpoint nguồn scope](source-scope-and-decomposition-checkpoint.md) trước khi dùng số dòng làm allocation hoặc báo tiến độ. Giữ nguyên nguồn; số dòng estimation, số Epic candidates và số Story đủ DoR là các thông tin khác nhau.
 
-Trước khi đặt tên, tìm Feature/Epic hiện có và áp dụng [phép kiểm chọn cấp/cha–con](source-scope-and-decomposition-checkpoint.md#level-selection). Cây dưới là ví dụ có điều kiện; không biến mọi yêu cầu tra cứu thành Feature riêng hoặc mọi CRM thành một cây cố định.
+Trước khi đặt tên, tìm Capability/Epic hiện có và áp dụng [phép kiểm chọn cấp/cha–con](source-scope-and-decomposition-checkpoint.md#level-selection). Cây dưới là ví dụ có điều kiện; không biến mọi yêu cầu tra cứu thành Capability riêng hoặc mọi CRM thành một cây cố định.
 
-Feature candidate EX-F1: “Quản lý Customer và Contact”. BA làm rõ vấn đề, người hưởng lợi, outcome, in/out scope và cách đánh giá. Không tự đặt KPI hoặc thời gian phản hồi để điền đủ ô. Dùng [Feature F01–F08](feature-specification-catalog.md) và `crm-define-feature`.
+Capability candidate EX-C1: “Quản lý Customer và Contact”. BA làm rõ vấn đề, người hưởng lợi, outcome, in/out scope và cách đánh giá. Không tự đặt KPI hoặc thời gian phản hồi để điền đủ ô. Dùng [Capability C01–C08](capability-specification-catalog.md) và `crm-define-capability`.
 
-Epic candidate EX-E1: “Quản lý liên kết Customer–Contact”. Phạm vi này có mô hình quan hệ, rules và acceptance chung. Chốt Epic nào chịu trách nhiệm về hồ sơ Contact và lifecycle trước khi phân bổ phần phụ thuộc. [Cây phân rã mở rộng](backlog-hierarchy-and-decomposition.md#workflow-3-2) đặt thêm nhóm hồ sơ Customer và trao đổi dữ liệu dưới cùng Feature.
+Epic candidate EX-E1 “Gắn Contact vào Customer” sở hữu mục tiêu tạo liên kết có hiệu lực. Epic tạo hồ sơ Contact cung cấp Contact ID; hai Epic dẫn model quan hệ/lifecycle dùng chung đúng revision. [Cây phân rã mở rộng](backlog-hierarchy-and-decomposition.md#workflow-3-2) đặt thêm các mục tiêu tạo, nhập và xuất hồ sơ Customer dưới cùng Capability.
 
 Thử ranh giới bằng ba câu hỏi: các hành vi có cùng outcome và mô hình cần hiểu chung không; có thể nghiệm thu phạm vi này rõ ràng không; ai sở hữu những phần nằm ngoài nhưng bắt buộc phải dùng? Epic không mặc định tương đương Bounded Context hay một màn hình.
 
@@ -157,7 +157,7 @@ Review ghi findings, tác giả sửa bằng workflow authoring, rồi review l�
 | Nhận Story để triển khai | Có baseline/scope, đủ điều kiện DoR, input/quyền/dependency/capacity tương ứng | Dev quyết chi tiết tổ chức code trong constraints; không tự quyết business behavior còn thiếu |
 | Hoàn tất | Có evidence đúng build/revision và acceptance theo gate áp dụng | Lợi ích sau sử dụng được đo theo kế hoạch riêng nếu authority cho phép |
 
-Đây là bảng chỉ đường, không thay gate. Không đòi đóng mọi câu hỏi của cả Feature trước khi làm một scope độc lập. Đồng thời, tất cả yêu cầu áp dụng cho scope được chọn phải được xét: hạng mục “có điều kiện” cần quyết applicability, không tự bỏ vì chưa có thông tin. [Feature theo từng bước](feature-specification-catalog.md), [Epic catalog](epic-specification-catalog.md).
+Đây là bảng chỉ đường, không thay gate. Không đòi đóng mọi câu hỏi của cả Capability trước khi làm một scope độc lập. Đồng thời, tất cả yêu cầu áp dụng cho scope được chọn phải được xét: hạng mục “có điều kiện” cần quyết applicability, không tự bỏ vì chưa có thông tin. [Capability theo từng bước](capability-specification-catalog.md), [Epic catalog](epic-specification-catalog.md).
 
 Sau mỗi lượt làm việc, BA nên nói được: “Tôi đang làm target/revision nào; đã làm rõ điều gì; còn quyết định nào chặn phần nào; ai cần trả lời; bước tiếp theo là gì.” Có thể dùng `crm-report-status` để hỏi next step từ hồ sơ hiện hành, không cần tạo report file cho mỗi câu hỏi.
 
@@ -165,7 +165,7 @@ Sau mỗi lượt làm việc, BA nên nói được: “Tôi đang làm target/
 
 | Cách làm dễ gặp | Điều cần sửa |
 |---|---|
-| Feature = BRD, Epic = SRS, Story = Use Case | Mapping nội dung/phạm vi, giữ quan hệ nhiều–nhiều |
+| Capability = BRD, Epic = SRS, Story = Use Case | Mapping nội dung/phạm vi, giữ quan hệ nhiều–nhiều |
 | Mỗi bước Use Case hoặc mỗi mục SRS tạo một Story | Chọn outcome có thể bàn giao; controls bắt buộc đi cùng hành vi |
 | Điền đủ E01–E16 là Epic đã Ready | Kiểm applicability, chất lượng và evidence theo selected scope/gate |
 | Chia Story quá lớn thành nhiều Task rồi coi là Small | Xem lại cách chia hành vi và sizing của team |
@@ -178,7 +178,7 @@ Sau mỗi lượt làm việc, BA nên nói được: “Tôi đang làm target/
 
 ## 6. Thử tự giải thích và áp dụng
 
-Hãy giải thích bằng lời cho đồng nghiệp: “Feature giữ năng lực và mục tiêu; Epic giữ phạm vi nghiệp vụ và mô hình chung; Story chọn hành vi bàn giao; Task chia việc thực hiện. BRD/SRS tập hợp thông tin cho người nhận; Use Case mô tả cách actor đạt mục tiêu.” Nếu chỉ nhớ tên mà chưa nêu được ví dụ, quay lại EX-S1.
+Hãy giải thích bằng lời cho đồng nghiệp: “Capability giữ năng lực và mục tiêu; Epic sở hữu một mục tiêu sử dụng và các mô hình áp dụng; Story chọn hành vi bàn giao; Task chia việc thực hiện. BRD/SRS tập hợp thông tin cho người nhận; Use Case mô tả cách actor đạt mục tiêu.” Nếu chỉ nhớ tên mà chưa nêu được ví dụ, quay lại EX-S1.
 
 Bài tập chuyển tình huống: Business yêu cầu “Cho AM xuất danh sách Contact theo bộ lọc để chuẩn bị chăm sóc khách hàng.” Chưa biết AM được xem trường nào, có xuất lịch sử hay không và giới hạn dữ liệu. Hãy tự trả lời trước khi xem gợi ý:
 

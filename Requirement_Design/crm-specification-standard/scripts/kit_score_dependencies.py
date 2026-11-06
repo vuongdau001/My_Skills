@@ -4,7 +4,7 @@ from argparse import Namespace
 
 def snapshot(api,args,identity):
     audit=api['lint'](Namespace(repo=args.repo,config=args.config,workstream=args.workstream,gate='readiness',target=identity))
-    errors=[x for x in audit['issues'] if x['level']=='ERROR' and x['code']!='record-obligation']
+    errors=[x for x in audit['issues'] if x['level']=='ERROR' and x['code'] not in {'record-obligation', 'epic-legacy'}]
     if errors:
         raise api['KitError']('Dependency audit failed; resolve lint errors before scoring: '+str(errors[:5]))
     blocked={r['id'] for r in audit['record_obligations']}

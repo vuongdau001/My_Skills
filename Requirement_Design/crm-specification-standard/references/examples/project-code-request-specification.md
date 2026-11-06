@@ -1,154 +1,223 @@
 # Ví dụ đặc tả yêu cầu mở mã dự án
 
-Mã tài liệu: **EX-PROJECT-CODE** · Gói CRM 1.3.1 · 03/11/2026
+Mã tài liệu **EX-PROJECT-CODE** · CRM Workflow Kit 2.0.0
 
-**Mục đích:** Minh họa liên kết Epic, Story, model, AC và test conditions.
-
-**Đọc khi:** Học cách đặc tả; mọi policy/giá trị ở đây là giả định.
-
+Ví dụ đào tạo giả định. Các quyết định, mốc nghiệm thu và evidence minh họa dưới đây dùng để tập review.
 
 <a id="spec-9"></a>
 
-## Ví dụ liên kết Epic → Story → model → AC → test condition
+## Từ nguồn đến quyết định BA
 
-**Tất cả tên/giá trị/rule trong ví dụ là giả định để minh họa cách đặc tả, chưa được duyệt cho CRM thật. Ví dụ chỉ khai triển các phần chính, không tự coi là bộ hồ sơ đã đủ điều kiện baseline.**
+**Nguồn EX-SRC-PC r1.** “Người đề nghị mở mã điền thông tin, lưu nháp và gửi để người được phân công xét duyệt. Người xét có thể chấp thuận hoặc từ chối. Cần xử lý bấm gửi lại khi mạng chập chờn.” Chức năng cấp mã thật thuộc hệ thống lân cận.
 
+| Câu hỏi BA | Quyết định minh họa |
+|---|---|
+| EX-Q1. Người đề nghị nhận kết quả gì khi gửi? | EX-D1. Cùng request ID chuyển PendingApproval, xuất hiện trong hàng đợi Approver, có audit và một ý định thông báo. Tạo nháp để hoàn thành việc gửi thuộc cùng mục tiêu trong ví dụ. |
+| EX-Q2. Ai được gửi và ai được xét? | EX-D2. Requester có quyền và sở hữu draft. Approver được phân công, khác creator. Reject cần lý do. |
+| EX-Q3. Hai lần gửi hoặc lỗi giữa chừng xử lý thế nào? | EX-D3. Chỉ một lần chuyển state. Cùng key và payload trong cửa sổ 24 giờ trả kết quả cũ nếu còn quyền. Lỗi trước commit không ghi một phần. Sau commit, worker gửi nền và có thể retry độc lập. |
+| EX-Q4. Hủy có phải mục tiêu riêng? | EX-D4. Đóng một draft đã lưu để dừng đề nghị là mục tiêu riêng của Requester. Đóng màn hình khi đang chuẩn bị gửi chỉ là nhánh hủy thao tác. |
 
 <a id="spec-9-1"></a>
 
-### Epic: Chuẩn bị, gửi và xét duyệt yêu cầu mở mã dự án
+### Phân bổ dưới Capability Quản lý Project Code
 
-Epic này minh họa một phần của Feature **Quản lý Project Code**. Phạm vi gồm tạo draft, submit, approve, reject và cancel draft. Việc cấp hoặc kích hoạt mã dự án thật nằm ngoài ví dụ.
+| Epic / Use Case | Actor và kết quả | Quan hệ |
+|---|---|---|
+| EPIC-CRM-001 / MOD-CRM-201 · Gửi yêu cầu mở mã dự án để chờ duyệt | Requester đưa request hợp lệ vào PendingApproval | Hồ sơ E01–E16 bên dưới |
+| EPIC-CRM-002 / MOD-CRM-202 · Xét duyệt yêu cầu mở mã dự án | Approver ghi một quyết định Approved hoặc Rejected | Nhận request PendingApproval từ Epic gửi |
+| EPIC-CRM-003 / MOD-CRM-203 · Đóng yêu cầu nháp không còn cần | Requester đánh dấu draft Cancelled để dừng xử lý | Dùng chung lifecycle và quyền sở hữu |
 
-- Entity là `ProjectCodeRequest`. Actor gồm Requester và designated Approver.
-- Mỗi hồ sơ có ID duy nhất và version. Retry cùng logical submit giữ nguyên số lần chuyển state, ghi audit và ghi notification intent.
-- Requester thao tác draft của mình. Approver được phân công và khác người tạo mới được approve hoặc reject.
-
-| Hành vi | Phân bổ minh họa |
-|---|---|
-| Tạo và lưu draft | Candidate A có giá trị riêng nếu Requester có thể mở lại và tiếp tục draft. Nếu cần giao cùng submit để tạo outcome, review lại ranh giới A và B. |
-| Submit draft | Candidate B đưa hồ sơ vào PendingApproval đúng một lần. Đường đưa hồ sơ đến người xử lý và phụ thuộc vào luồng xét duyệt phải có owner trước khi đưa vào sử dụng. |
-| Approve hoặc reject | Candidate C ghi quyết định của người có thẩm quyền. Xét lại sizing và các guards chung trước khi tách. |
-| Cancel draft | Candidate D xử lý hủy draft còn mở. Ví dụ giữ hành vi này trong scope Epic. Story, contract và AC chi tiết vẫn cần refinement. |
-
+Capability giữ hành trình gửi → xét duyệt → chuyển giao cho nơi cấp mã. Một Epic kỹ thuật “xây worker thông báo” được phân bổ thành Task dưới Epic gửi, có links đến Story submit và Epic xét duyệt nếu chúng dùng đầu ra. Chia theo nút Lưu/Gửi hoặc màn hình List/Form chia nhỏ một mục tiêu. Gom gửi và xét duyệt vì cùng entity làm mất ranh giới trách nhiệm. Approve và Reject là hai kết cục của mục tiêu xét duyệt trong ví dụ này.
 
 <a id="spec-9-2"></a>
 
-### Business state và transition
+### Shared model ProjectCodeRequest r1
 
-```mermaid
-%%{init: {'theme':'dark'}}%%
-stateDiagram-v2
-    [*] --> Draft
-    Draft --> PendingApproval: submit [owner, valid data, current version]
-    PendingApproval --> Approved: approve [assigned approver, not creator, current version]
-    PendingApproval --> Rejected: reject [assigned approver, not creator, valid reason, current version]
-    Draft --> Cancelled: cancel [owner, current version]
-    Approved --> [*]
-    Rejected --> [*]
-    Cancelled --> [*]
-```
+| ID | Command | Guard | Outcome khi hợp lệ |
+|---|---|---|---|
+| MOD-CRM-001 | Submit | Draft, owner có quyền, dữ liệu đúng, version hiện hành | PendingApproval, tăng version, ghi audit và notification intent |
+| MOD-CRM-002 | Approve | PendingApproval, assigned Approver khác creator, version hiện hành | Approved, tăng version, audit decision |
+| MOD-CRM-003 | Reject | Guard xét duyệt như Approve, có lý do | Rejected, tăng version, audit decision |
+| MOD-CRM-004 | Cancel draft | Draft, owner có quyền, version hiện hành | Cancelled, tăng version, audit decision |
 
-Sơ đồ Mermaid minh họa trạng thái, không phải một file UML/BPMN được xác nhận tuân thủ ký pháp. Bảng dưới bổ sung hành vi cụ thể; actor/guard đã được định nghĩa trong rule và permission matrix.
+State gồm Draft, PendingApproval, Approved, Rejected và Cancelled. Với operation mới, mọi cặp state–command ngoài bảng bị từ chối và giữ dữ liệu. Replay submit đã commit là truy kết quả của cùng operation sau khi kiểm quyền hiện tại. Ba Epic dẫn shared model r1 cùng EX-D2 cho ownership/segregation of duties.
 
-| ID (kind: transition) | Source / command | Điều kiện cho phép | Target / effect | Khi không đạt |
-|---|---|---|---|---|
-| MOD-CRM-001 | Draft / submit | Requester là owner, dữ liệu hợp lệ, version hiện hành | PendingApproval, tăng version; ghi audit và durable notification intent | Từ chối theo nguyên nhân; không đổi dữ liệu/state |
-| MOD-CRM-002 | PendingApproval / approve | Assigned Approver khác creator, version hiện hành | Approved, tăng version, audit decision | Không đổi state/data; trả lỗi phù hợp |
-| MOD-CRM-003 | PendingApproval / reject | Assigned Approver khác creator, reason hợp lệ, version hiện hành | Rejected, tăng version, audit decision | Không đổi state/data; trả lỗi phù hợp |
-| MOD-CRM-004 | Draft / cancel | Requester là owner, version hiện hành | Cancelled, tăng version, audit decision | Không đổi state/data; trả lỗi phù hợp |
+## E01 — Mục tiêu và phạm vi
 
-**Disposition cho các trường hợp còn lại:** command không được liệt kê hợp lệ tại state hiện tại bị từ chối, không đổi state; gồm submit ở Approved/Rejected/Cancelled, approve/reject ở Draft và cancel khi đã PendingApproval. Replay cùng idempotency key/payload/principal/resource đã thành công là trả kết quả đã ghi, không phải một transition mới. Trường hợp reopen/resubmit từ terminal state không thuộc scope ví dụ và không được tự cho phép.
+**EPIC-CRM-001 · Gửi yêu cầu mở mã dự án để chờ duyệt.** Requester muốn đưa đề nghị hợp lệ vào hàng đợi để Approver có thể xử lý. Hệ thống quản lý draft, quyền, submit, hàng đợi và notification intent. Người đề nghị, Approver và kênh gửi thông báo nằm ngoài boundary nghiệp vụ của hệ thống.
 
-Như vậy không còn ô “state sai thì Dev tự xử lý”. Trong spec thật cần contract/error cụ thể cho mọi nhóm từ chối; bảng sau minh họa phần submit.
+Use Case ở cấp user-goal bao gồm chuẩn bị/mở draft, gửi, sửa dữ liệu, xử lý từ chối và phục hồi. Đợt r1 bàn giao các đường đi submit qua màn hình và đọc receipt trong CRM, gồm bảo đảm durable intent. Duyệt, đóng draft và cấp mã nằm ngoài Use Case. Gửi thông báo thật qua worker theo scope Task phụ thuộc. Đợt r2 bổ sung luồng đọc trạng thái nộp sau mất kết nối kéo dài.
 
+## E02 — Actor và quyền lợi
+
+Requester là actor chính, cần biết request đã vào hàng đợi và có thể thử lại an toàn. Approver là actor hỗ trợ nhận request được phân công. Audit/control owner cần một dấu vết cho mỗi lần chuyển trạng thái. Kênh thông báo nhận intent tối thiểu cần thiết. EX-D2 xác định ranh giới bảo vệ hồ sơ giữa các actor.
+
+## E03 — Use Case
+
+<a id="submit-request"></a>
+
+**MOD-CRM-201 · Gửi yêu cầu mở mã dự án để chờ duyệt.** Trigger là Requester chọn bắt đầu đề nghị mới hoặc tiếp tục một draft. Precondition là CRM đã cung cấp entry point và Requester có ngữ cảnh đăng nhập để bắt đầu. Hệ thống kiểm lại authentication/authorization, ownership, state, version và dữ liệu tại bước gửi.
+
+### Luồng chính
+
+<a id="submit-prepare"></a>
+
+1. **Chuẩn bị.** Requester tạo hoặc mở draft. CRM hiển thị request ID, version và trường có thể sửa. Draft chưa vào hàng đợi.
+
+<a id="submit-check"></a>
+
+2. **Gửi.** Requester gửi draft. CRM kiểm quyền hiện tại theo E07, kiểm replay rồi kiểm state/version và dữ liệu theo E04–E06. Request chưa đổi khi còn đang kiểm.
+
+<a id="submit-commit"></a>
+
+3. **Ghi.** CRM cập nhật Draft → PendingApproval cùng version, audit, notification intent và kết quả operation trong một commit theo E09/E13.
+
+<a id="submit-receipt"></a>
+
+4. **Nhận kết quả.** CRM hiển thị receipt cùng request ID, PendingApproval và version mới. Approver được phân công có thể thấy request ở hàng đợi theo quyền. Kết thúc tại [OK](#submit-ok).
+
+### Nhánh tại điểm rẽ
+
+<a id="submit-cancel"></a>
+
+- **Tại 1 · Dừng chuẩn bị.** Requester đóng form. CRM giữ draft đã lưu và yêu cầu xác nhận bỏ thay đổi chưa lưu nếu có. Kết thúc tại [Giữ nguyên](#submit-unchanged).
+
+<a id="submit-denied"></a>
+
+- **Tại 2 · Thiếu quyền hoặc hết phiên.** CRM từ chối và áp dụng disclosure theo E07. Kết thúc tại [Giữ nguyên](#submit-unchanged).
+
+<a id="submit-invalid"></a>
+
+- **Tại 2 · Dữ liệu sai.** CRM trả lỗi theo trường, giữ giá trị đang nhập tại form trong phiên hợp lệ. Requester sửa rồi quay lại bước 2. Nếu dừng, kết thúc tại [Giữ nguyên](#submit-unchanged).
+
+<a id="submit-conflict"></a>
+
+- **Tại 2 hoặc 3 · Xung đột.** Operation mới dùng version cũ, state sai, thua race tại commit hoặc cùng key khác payload thì nhận conflict. CRM giữ dữ liệu hiện hành. Requester đọc lại theo quyền rồi quay bước 1 nếu hồ sơ vẫn Draft và muốn gửi. Nếu dừng, kết thúc tại [Giữ nguyên](#submit-unchanged).
+
+<a id="submit-retry"></a>
+
+- **Tại 2 hoặc 4 · Timeout/retry.** Sau khi kiểm quyền, cùng key/payload trong 24 giờ trả receipt cũ nếu đã commit, tới [OK](#submit-ok). Nếu chưa có kết quả ghi, thử lại luồng kiểm của bước 2. Nếu hết cửa sổ hoặc còn chưa rõ trạng thái, dùng quyền đọc hiện hành để kiểm receipt/hàng đợi trước khi tạo operation mới. Hết retry mà chưa đối soát thì kết thúc tại [Chờ đối soát](#submit-unknown).
+
+<a id="submit-store-failed"></a>
+
+- **Tại 3 · Lỗi lưu trước commit.** CRM trả lỗi có thể thử lại, rollback toàn bộ thay đổi của operation. Kết thúc tại [Giữ nguyên](#submit-unchanged) hoặc quay bước 2 theo retry policy.
+
+<a id="submit-notify-failed"></a>
+
+- **Sau 3 · Gửi thông báo nền chậm/lỗi.** CRM giữ đúng một durable intent và request PendingApproval. Worker xử lý recovery riêng. Kết thúc tại [OK](#submit-ok).
+
+### Kết quả cuối và bảo đảm tối thiểu
+
+<a id="submit-ok"></a>
+
+- **OK.** Cùng request ID, một lần tăng version, một audit và một durable intent. Receipt và hàng đợi phản ánh PendingApproval theo quyền.
+
+<a id="submit-unchanged"></a>
+
+- **Giữ nguyên.** Operation bị chặn/hủy/lỗi không làm thay đổi dữ liệu nghiệp vụ hoặc sinh audit thành công hay intent. Thay đổi của actor khác vẫn được giữ. Dữ liệu ngoài quyền được bảo vệ.
+
+<a id="submit-unknown"></a>
+
+- **Chờ đối soát.** CRM báo chưa xác định kết quả tại client. Trạng thái bền vững chỉ có commit trọn vẹn hoặc không commit. Actor đọc lại sau khi có kết nối và còn quyền; dùng cùng key trong cửa sổ hỗ trợ.
+
+## E04 — State
+
+Áp dụng MOD-CRM-001 r1 và disposition mặc định trong [shared model](#spec-9-2). Concurrent submit đánh giá guard tại commit. MOD-CRM-002–004 r1 thuộc các mục tiêu lân cận.
+
+## E05 — Business rules
+
+BR-CRM-101 dẫn EX-D1 và shared transition. BR-CRM-102 dẫn EX-D2 cho quyền và ownership. BR-CRM-103 dẫn EX-D3 cho replay sau quyền, commit nguyên tử và notification nền. Khi nhiều lỗi cùng xuất hiện, E09 dùng thứ tự auth → resource/ownership → replay → state/version → dữ liệu → commit.
+
+## E06 — Dữ liệu
+
+`requestId` do CRM cấp. `expectedVersion` là số nguyên được so tại commit. `projectName` bắt buộc, 1–100 Unicode code points sau trim. `idempotencyKey` bắt buộc, tối đa 64 ASCII ký tự, scope theo principal + request + command. Fingerprint dùng payload và version kỳ vọng. Result lưu 24 giờ theo EX-D3.
+
+## E07 — Quyền
+
+Requester có quyền và là owner mới đọc/sửa/gửi draft. Hết phiên trả 401. Draft ngoài scope được che theo cùng 404 với hồ sơ không tồn tại. Actor thấy hồ sơ nhưng thiếu quyền gửi nhận 403. Approver đọc hàng đợi theo assignment. Replay phải kiểm quyền ở request hiện tại.
+
+## E08 — UI và Prototype
+
+SCR-PC-LIST dẫn [bước chuẩn bị](#submit-prepare). SCR-PC-EDIT dẫn [gửi](#submit-check), [dữ liệu sai](#submit-invalid) và [xung đột](#submit-conflict). SCR-PC-RECEIPT dẫn [receipt](#submit-receipt) và [timeout/retry](#submit-retry). Prototype demo có fixture cho từng nhánh E14. Ví dụ manifest dùng refs như `MOD-CRM-201#submit-retry` trong allocation `EPIC-CRM-001 / r1 / initial-submit`. Baseline thật cần bundle runnable và walkthrough pin bytes.
+
+## E09 — Contract
+
+Contract EX-PC-SUBMIT r1 nhận requestId, expectedVersion, projectName và key. Thành công trả receipt và version; replay trả cùng kết quả. Validation 422 theo trường, conflict 409, lỗi trước commit trả lỗi server có thể thử lại. Hàng đợi đọc PendingApproval sau commit theo cùng ID. Worker đọc intent theo contract EX-PC-NOTIFY r1 và kiểm soát replay độc lập.
+
+## E10 — Ngoại lệ và tình huống biên
+
+Rà [dừng](#submit-cancel), [quyền](#submit-denied), [dữ liệu](#submit-invalid), [concurrency](#submit-conflict), [timeout/replay](#submit-retry), [lỗi trước commit](#submit-store-failed) và [lỗi sau commit](#submit-notify-failed). Kiểm cả session mất quyền giữa hai lần retry, key trùng payload khác và crash ở ranh giới audit/intent.
+
+## E11 — NFR và kiểm soát
+
+Giả định p95 submit tối đa 800 ms với 20 submit đồng thời trên môi trường kiểm thử tương đương cấu hình release. Đo response API riêng khỏi notification nền. Audit có request ID, principal, operation ID và transition. Kiểm một audit thành công mỗi operation.
+
+## E12 — Migration và vận hành
+
+Ví dụ dùng module mới và dữ liệu mới nên không backfill. Ops kiểm hàng đợi intent lỗi, đối soát request ID và operation trước replay. Nếu tắt release, giữ dữ liệu đã commit, ngừng nhận operation mới và dùng runbook drain/restore được duyệt.
+
+## E13 — Solution và dependency
+
+TL đề xuất optimistic version guard và transaction ghi state/audit/intent/result, kiểm bằng fault injection. Approver queue và worker là consumer của outputs được version hóa. Task kỹ thuật notification có owner Epic gửi; Story submit và Epic xét duyệt dẫn dependency khi dùng worker. Cấp mã thật bàn giao theo interface của Capability.
 
 <a id="spec-9-3"></a>
 
-### Story: Owner gửi draft để chờ duyệt
+## E14 — Acceptance Criteria và test conditions
 
-**Trong phạm vi:** command submit, quyền, dữ liệu và version, retry, concurrency, response và ghi notification intent. **Ngoài phạm vi:** UI approve/reject và cơ chế gửi hoặc retry của worker. Dẫn vòng đời và guards của Epic. Nếu cần kiểm gửi thông báo thực tế, phân bổ worker và verification tương ứng cho scope có owner.
-
-Precondition của lần submit mới: hồ sơ Draft tồn tại, actor có quyền và là owner. Postcondition: hồ sơ PendingApproval đúng một lần, version tăng một đơn vị, audit và notification intent được ghi nhất quán.
-
-#### A. Main flow và nhánh lỗi
-
-```mermaid
-flowchart TD
-    A[Owner gửi Submit] --> B{Auth, resource và ownership hợp lệ?}
-    B -- Không --> X[Từ chối, không đổi state]
-    B -- Có --> C{Đã có key operation?}
-    C -- Cùng payload --> R[Trả lại kết quả đã ghi]
-    C -- Khác payload --> K[Conflict, không đổi state]
-    C -- Chưa có --> D{Draft và version hiện hành?}
-    D -- Không --> K
-    D -- Có --> E{Dữ liệu hợp lệ?}
-    E -- Không --> V[Validation error, không đổi state]
-    E -- Có --> F[Ghi state, version, audit, intent và operation result nhất quán]
-    F --> G{Commit thành công?}
-    G -- Không --> Z[Lỗi lưu, không có thay đổi một phần]
-    G -- Có --> H[Trả kết quả PendingApproval]
-```
-
-Replay được kiểm trước validation state/version của lần submit mới, nhưng sau authentication/authorization hiện tại: sau commit đầu tiên state đã đổi, retry được phép của cùng operation phải trả kết quả cũ; mất quyền thì không được dùng key cũ để đọc dữ liệu ngoài quyền. Việc gửi thông báo thật diễn ra nền; lỗi gửi không tự hủy quyết định submit đã commit. Dev chọn giải pháp phù hợp để bảo đảm contract này, không nhất thiết một thiết kế lưu trữ duy nhất.
-
-#### B. Data và permission subset
-
-| Item | Quy ước giả định | Nhóm cần kiểm |
+| AC | Scenario/outcome E03 | Test condition và planned evidence |
 |---|---|---|
-| requestId | ID do hệ thống cấp, định danh một hồ sơ | Tồn tại/không tồn tại; request khác owner |
-| expectedVersion | Số nguyên khớp version hiện hành cho operation mới | Khớp, stale, absent/invalid |
-| projectName | Bắt buộc; trim đầu/cuối; 1–100 Unicode code points sau trim | Null/empty/whitespace, 1, 100, 101 code points và Unicode |
-| idempotencyKey | Bắt buộc cho submit; scope theo principal + request + command | Replay payload khớp, key trùng payload khác, hai key cạnh tranh |
-| permission | Requester có quyền và là owner mới submit | Sai role, đúng role nhưng sai owner, thiếu auth |
+| AC-CRM-101 | [Receipt](#submit-receipt) → [OK](#submit-ok) | Draft hợp lệ qua List/Form/Receipt, cùng ID; đối chiếu response, queue, audit và intent. |
+| AC-CRM-102 | [Thiếu quyền](#submit-denied) → [Giữ nguyên](#submit-unchanged) | Hết phiên, sai quyền và khác owner; xác nhận phản hồi/disclosure và dữ liệu giữ nguyên. |
+| AC-CRM-103 | [Dữ liệu sai](#submit-invalid) → sửa hoặc giữ nguyên | Kiểm 0/101 ký tự bị từ chối, 1/100 được chấp nhận sau trim. |
+| AC-CRM-104 | [Version/state sai](#submit-conflict) → giữ nguyên | Draft stale và từng state khác Draft với operation mới. |
+| AC-CRM-105 | [Retry](#submit-retry) → OK hoặc chờ đối soát | Mất response sau commit, cùng key, khác payload, mất quyền và hết cửa sổ. So version/audit/intent. |
+| AC-CRM-106 | [Hai operation cạnh tranh](#submit-conflict) → một OK | Hai key trên cùng version, một commit và một conflict. |
+| AC-CRM-107 | [Lỗi gửi nền](#submit-notify-failed) → OK | Worker tạm dừng; đọc PendingApproval và một intent bền vững. |
+| AC-CRM-108 | [Lỗi lưu](#submit-store-failed) → giữ nguyên | Fault injection tại boundary ghi, đối chiếu mọi record trước/sau. |
+| AC-CRM-109 | [Dừng chuẩn bị](#submit-cancel) → giữ nguyên | Đóng form có thay đổi chưa lưu, kiểm xác nhận và đọc lại draft. |
 
-Các chính sách như thời hạn giữ operation result, giới hạn key và data retention phải được chốt trong spec thật trước baseline nếu ảnh hưởng contract/retry. Bảng mẫu không trao quyền để Dev/AI tự đặt chúng.
+Test conditions dự kiến. TestRun, walkthrough và nghiệm thu dùng evidence riêng theo revision/scope.
 
-#### C. Decision/error rules cho submit
+## E15 — Phân bổ Story
 
-Các dòng được xét theo thứ tự; dòng sau chỉ áp dụng khi chưa trúng dòng trước. Response codes dưới đây là ví dụ contract, không phải quy định áp dụng sẵn cho CRM.
-
-| ID (kind: decision rule) | Điều kiện | Kết quả giả định |
+| Story candidate | Use Case và lát bàn giao | Controls, dependency và phần còn lại |
 |---|---|---|
-| MOD-CRM-101 | Thiếu/không hợp lệ authentication | 401, không đổi state/data |
-| MOD-CRM-102 | Không có resource phù hợp | 404 theo policy disclosure được duyệt |
-| MOD-CRM-103 | Actor không có quyền hoặc không là owner | 403, không đổi state/data |
-| MOD-CRM-104 | Có operation cùng key nhưng payload khác | 409, không tạo operation/transition mới |
-| MOD-CRM-105 | Có operation cùng key và payload khớp | Trả kết quả đã ghi; không tăng version/audit/intent lần nữa |
-| MOD-CRM-106 | Operation mới nhưng state hoặc version không hợp lệ | 409, không đổi state/data |
-| MOD-CRM-107 | Operation mới, state/version đúng nhưng data sai | 422, không đổi state/data |
-| MOD-CRM-108 | Các điều kiện đều đạt nhưng commit thất bại | Lỗi server; không có state/audit/intent ghi một phần |
-| MOD-CRM-109 | Các điều kiện đều đạt và commit thành công | Response thành công chứa state/version; ghi một logical transition |
+| STORY-CRM-001 · Gửi draft qua CRM | MOD-CRM-201 r1, bước 1–4 và toàn bộ nhánh r1 ở E14 | Quyền, data, concurrency, retry, atomicity và kiểm receipt/queue tích hợp. Phụ thuộc hợp đồng queue và Task notification. |
+| STORY-CRM-002 · Đọc trạng thái nộp sau mất kết nối kéo dài | MOD-CRM-201 r2, delta từ [Chờ đối soát](#submit-unknown) | Dùng cùng ID, quyền và trạng thái bền vững; cần read contract và kiểm không lộ hồ sơ. Phân bổ r2, không đếm lại STORY-CRM-001. |
 
-Business/security authority phải review thứ tự lỗi và thông tin được tiết lộ; không chỉ “chọn code HTTP cho đủ”. Lỗi gửi notification sau commit thuộc xử lý nền và không rơi lại vào MOD-CRM-108.
+## E16 — Policy, revision, baseline và thay đổi
 
-#### D. AC và test conditions trọng yếu
-
-| AC | Kết quả cần đạt | Test conditions dự kiến |
+| Đợt minh họa | Scope và trạng thái | Evidence và review |
 |---|---|---|
-| AC-CRM-101 | Submit mới hợp lệ: Draft → PendingApproval, tăng version một đơn vị, audit và intent nhất quán | Đúng owner/role/version/data; kiểm response, state, version và các record/effect liên quan |
-| AC-CRM-102 | Sai auth/quyền/owner bị từ chối, không có thay đổi nghiệp vụ | Thiếu auth; sai role; đúng role nhưng khác owner; đối chiếu MOD-CRM-101 và MOD-CRM-103 |
-| AC-CRM-103 | Dữ liệu sai bị từ chối theo contract và giữ nguyên state/data | Với các input khác hợp lệ, kiểm 0 và 101 code points bị từ chối, 1 và 100 được chấp nhận sau trim |
-| AC-CRM-104 | State sai hoặc stale version bị từ chối; không tăng version | PendingApproval với operation mới; từng terminal state; Draft với version cũ |
-| AC-CRM-105 | Retry cùng operation trả kết quả cũ, không lặp logical side effects | Commit đã xong nhưng response bị mất; cùng key/payload; key cũ payload khác bị conflict |
-| AC-CRM-106 | Hai operation mới cạnh tranh trên cùng version chỉ một lần chuyển thành công | Hai key trên cùng Draft/version; một thành công, một conflict; không có hai transition |
-| AC-CRM-107 | Sau commit, kết quả submit và một durable intent vẫn tồn tại khi thành phần gửi chưa xử lý được thông báo | Mô phỏng thành phần gửi chưa sẵn sàng, kiểm hồ sơ vẫn PendingApproval và giữ đúng một intent. Kiểm retry/recovery của worker theo scope nhận dependency |
-| AC-CRM-108 | Commit lỗi không để dữ liệu nghiệp vụ/audit/intent thay đổi một phần | Mô phỏng lỗi tại boundary ghi; kiểm toàn bộ output/record theo contract |
+| BASE-CRM-001 · r1 | `initial-submit`, giả định đã nghiệm thu, Epic done ở mốc này | Snapshot r1, manifest/walkthrough r1, AC-CRM-101–109 và nghiệm thu EVID-PC-R1. |
+| BASE-CRM-002 · r2 | `submission-status`, baseline draft. Change EX-CHG-01 giả định đã được chấp nhận để làm; Epic mở lại inprogress theo workflow. | Giữ EPIC-CRM-001/MOD-CRM-201. Review lại timeout, quyền đọc, contract, UI và AC của delta. Pin evidence commit r1 để tái dùng cho invariant giữ nguyên, chạy lại phép kiểm tích hợp chịu tác động. |
 
-Đây là planned conditions, chưa phải kết quả chạy test. Khi triển khai cần bổ sung testcase/data cụ thể, tiêu chí retry/retention và cách mô phỏng/quan sát phù hợp giải pháp được duyệt.
-
+Câu hỏi EX-Q5 của r2. Mốc freshness và cách hiển thị “đang đối soát” chờ Product, TL và QA xác nhận. Báo riêng phạm vi r1 đã nghiệm thu và r2 đang bổ sung. Block minh họa metadata của snapshot r1 bên dưới.
 
 <a id="spec-9-4"></a>
 
-### Vì sao ví dụ này rõ hơn một Story chỉ có mô tả?
+### Bài tập review
 
-- Dev biết transition và thứ tự replay/state validation, không tự đoán retry có phải lỗi không.
-- QA biết kiểm state/data/side effects, không chỉ thông báo “Gửi thành công”.
-- Business thấy quyền, ngoại lệ và kết quả khi từ chối để xác nhận có đúng mong muốn.
-- PM thấy phạm vi Story submit, phần kế thừa từ Epic và câu hỏi còn phải chốt trước baseline.
-- Agent có bộ nội dung và tiêu chí để hỗ trợ; không có quyền tự quyết những phần còn thiếu.
+Xóa câu về dữ liệu và điểm kết thúc ở nhánh [Dữ liệu sai](#submit-invalid), giữ nguyên anchor/binding. Lint cấu trúc vẫn có thể đạt. Reviewer ghi finding Q02/Q04 ở E03/E14, dẫn nhánh cụ thể và yêu cầu expected result trước khi cấp verdict cho scope đó.
 
+<details>
+<summary>Metadata minh họa của r1</summary>
 
----
+```crm-spec-kit
+{
+  "schema_version": 1,
+  "kind": "Epic",
+  "artifact_id": "EPIC-CRM-001",
+  "revision": "r1",
+  "work_status": "done",
+  "epic_policy": "use-case-v1",
+  "use_case": {"id": "MOD-CRM-201", "level": "user-goal", "locator": "#submit-request"},
+  "defined_ids": [
+    "MOD-CRM-201", "BR-CRM-101", "BR-CRM-102", "BR-CRM-103",
+    "AC-CRM-101", "AC-CRM-102", "AC-CRM-103", "AC-CRM-104", "AC-CRM-105",
+    "AC-CRM-106", "AC-CRM-107", "AC-CRM-108", "AC-CRM-109"
+  ]
+}
+```
 
-**Liên quan:** [Điểm vào gói](../../SKILL.md) · [Review và verdict](../requirements-review-process-and-verdicts.md) · [Nguồn và cách điều chỉnh](../standards-and-crm-tailoring.md).
+</details>

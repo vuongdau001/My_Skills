@@ -1,4 +1,4 @@
-# Phân cấp và phân rã Feature, Epic, Story, Task
+# Phân cấp và phân rã Capability, Epic, Story, Task
 
 Mã tài liệu: **CRM-DECOMPOSITION** · Gói CRM 1.3.1 · 03/11/2026
 
@@ -11,32 +11,32 @@ Mã tài liệu: **CRM-DECOMPOSITION** · Gói CRM 1.3.1 · 03/11/2026
 
 Nếu đầu vào là inventory chức năng, WBS hoặc bảng estimation, áp dụng [checkpoint nguồn scope](source-scope-and-decomposition-checkpoint.md) để phân biệt đơn vị nguồn với đơn vị bàn giao, thử ranh giới nhóm và tìm phần giao thoa. Cùng tên object/file hoặc giảm số nhóm chưa đủ chứng minh allocation tốt hơn.
 
-**Đầu vào:** Feature scope/source, mô hình/acceptance Epic, constraints/dependency và khả năng thực hiện của team. **Đầu ra:** Story manifest có scope allocation; quyết định checklist/Task có lý do. **Review:** Business/BA + Dev/TL + QA; PM chốt manifest và kế hoạch.
+**Đầu vào:** Capability scope/source, mô hình/acceptance Epic, constraints/dependency và khả năng thực hiện của team. **Đầu ra:** Story manifest có scope allocation; quyết định checklist/Task có lý do. **Review:** Business/BA + Dev/TL + QA; PM chốt manifest và kế hoạch.
 
 ```text
-Feature (tài liệu Git): năng lực và phạm vi tổng thể
-└── Epic: phạm vi nghiệp vụ + model dùng chung + acceptance tổng thể
+Capability (tài liệu Git): năng lực và phạm vi tổng thể
+└── Epic: một Use Case user-goal + models áp dụng + acceptance tổng thể
     ├── Story: một hành vi/kết quả kiểm chứng được
     │   └── Checklist thực hiện hoặc Task liên kết khi cần
-    └── Task kỹ thuật dùng chung: đầu ra riêng, liên kết các Story sử dụng
+    └── Task kỹ thuật dùng chung: một Epic owner, liên kết Story/Epic sử dụng
 ```
 
 **Requirement không đồng nghĩa với ticket.** Rule, data requirement, permission, NFR và constraint có ID riêng; nhiều Story có thể cùng tham chiếu. Task không tạo một lớp yêu cầu nghiệp vụ mới.
 
 | Cấp | Cần trả lời | Ranh giới hoàn thành |
 |---|---|---|
-| Feature | Cần năng lực gì, tại sao và phạm vi nào? | Acceptance năng lực trên các Epic |
+| Capability | Cần năng lực gì, tại sao và phạm vi nào? | Acceptance năng lực trên các Epic |
 | Epic | Phạm vi nghiệp vụ vận hành và được nghiệm thu thế nào? | Kết quả tổng thể + luồng liên Story |
 | Story | Actor/hệ thống làm được hành vi cụ thể nào sau phần triển khai này? | Hành vi tích hợp đáp ứng AC và DoD |
 | Task | Ai tạo đầu ra cụ thể nào để phục vụ triển khai? | Đầu ra đạt tiêu chí và được người nhận chấp nhận |
 
 Trong Jira mặc định, Story và Task là hai loại công việc cùng cấp dưới Epic; Subtask là cấp dưới. Vì chưa khảo sát cấu hình thật, mặc định kế hoạch dùng **Task thuộc Epic + issue link tới Story**, không giả lập parent Story cho một standard Task. Ghi Story key và quan hệ công việc trong ticket/receipt để kiểm được; không tự thêm link type hay custom field. Task dùng chung liên kết mọi Story tiêu thụ. Nếu dùng Subtask về sau phải xác nhận workflow/reporting tương ứng trước. [Atlassian — work types](https://support.atlassian.com/jira-cloud-administration/docs/what-are-issue-types/).
 
-Áp dụng [checkpoint chọn cấp và quan hệ cha–con](source-scope-and-decomposition-checkpoint.md#level-selection) trước khi tạo hoặc đổi cây: tìm parent hiện có, đối chiếu Feature ngang hàng, giải thích vai trò riêng của mỗi cấp và delta bàn giao. Không dùng số lượng con làm tiêu chí chọn cấp.
+Áp dụng [checkpoint chọn cấp và quan hệ cha–con](source-scope-and-decomposition-checkpoint.md#level-selection) trước khi tạo hoặc đổi cây: tìm parent hiện có, đối chiếu Capability ngang hàng, giải thích vai trò riêng của mỗi cấp và delta bàn giao. Không dùng số lượng con làm tiêu chí chọn cấp.
 
 ## Phân rã Epic thành Story theo hành vi
 
-1. Xác nhận scope/acceptance và các mô hình dùng chung. Liệt kê commands/use cases, actors, rules, conditions và các kết quả có thể bàn giao.
+1. Xác nhận scope/acceptance và các mô hình dùng chung. Dẫn Use Case nguồn, liệt kê scenario/steps, actors, rules, conditions và các kết quả có thể bàn giao.
 2. Chọn lát cắt theo hành vi, biến thể nghiệp vụ, kênh hoặc mức khả năng khi vẫn có kết quả hữu ích và kiểm chứng được. Không lấy frontend/backend/test làm Story mặc định.
 3. Gán BR/model/AC cho từng Story. Kiểm không sót rule bắt buộc và không tính phạm vi hai lần. NFR/quyền/atomicity cần cho hành vi phải đi cùng nó.
 4. Dùng Example Mapping để làm rõ rules → examples → questions. Khi chưa biết expected result, ghi câu hỏi/authority; không tự sinh Gherkin để che quyết định chưa có.
@@ -63,7 +63,7 @@ INVEST là heuristic chất lượng Story, không thay [Q01–Q07 và review ch
 | Có migration/pipeline/artifact dùng chung | Một Task kỹ thuật dưới Epic; links tới các Story cần nó |
 | Story chứa nhiều kết quả, quá lớn cho Sprint | Tách Story trước; không chỉ đẻ Task |
 | Chưa rõ rule/quyền/AC/expected outcome | Refinement và chặn scope bị ảnh hưởng; Task không sửa được thiếu requirement |
-| PoC/benchmark thật sự cần timebox và evidence riêng | Task nghiên cứu được lập kế hoạch; output là kết quả/thí nghiệm/khuyến nghị, không phải feature Done |
+| PoC/benchmark thật sự cần timebox và evidence riêng | Task nghiên cứu được lập kế hoạch; output là kết quả/thí nghiệm/khuyến nghị, tách khỏi nghiệm thu Capability |
 | AI có nhiều bước/lần chạy | Execution plan/log trong công việc; không tự động biến thành ticket |
 
 Ghi quyết định theo mẫu: `Story/Epic — checklist hoặc Task — lý do — đầu ra/owner — dependency — approval/ủy quyền`. Cặp Dev–QA cùng làm một Story không tự động buộc tạo Task; chỉ tạo nếu có nhu cầu quản lý riêng.
@@ -97,28 +97,28 @@ Ghi quyết định theo mẫu: `Story/Epic — checklist hoặc Task — lý do
 
 | Cấp | Định nghĩa trong CRM | Nội dung cần quản lý | Nơi quản lý |
 |---|---|---|---|
-| Feature | Phạm vi chức năng nghiệp vụ tổng thể cần theo dõi xuyên suốt | Mục tiêu, scope, yêu cầu dùng chung, danh sách Epic, AC cấp Feature và tiêu chí nghiệm thu tổng thể | Tài liệu Git |
-| Epic | Một phần phạm vi của Feature cần làm rõ, thiết kế, triển khai và nghiệm thu | Hồ sơ yêu cầu/solution, owner/readiness từng hạng mục, phương án Story, dependency và nghiệm thu Epic | Jira Epic liên kết tài liệu Git |
+| Capability | Phạm vi chức năng nghiệp vụ tổng thể cần theo dõi xuyên suốt | Mục tiêu, scope, yêu cầu dùng chung, danh sách Epic, AC cấp Capability và tiêu chí nghiệm thu tổng thể | Tài liệu Git |
+| Epic | Một mục tiêu sử dụng thuộc Capability, có đúng một Use Case ở E03 | Hồ sơ yêu cầu/solution, owner/readiness từng hạng mục, phương án Story, dependency và nghiệm thu Epic | Jira Epic liên kết tài liệu Git |
 | Story | Một lát cắt hành vi có kết quả quan sát và kiểm chứng được | Outcome, phạm vi, BR/AC, solution refs, dependency, estimate và DoR/DoD | Jira Story tham chiếu baseline Git |
 | Task | Công việc triển khai, kiểm chứng hoặc hỗ trợ kỹ thuật có đầu ra cụ thể, cần giao/theo dõi riêng | Owner, input, output, reviewer, tiêu chí hoàn tất và evidence | Jira Task |
 
 Ví dụ đào tạo mở rộng case [Customer–Contact trong BA Getting Started](ba-getting-started.md#walkthrough). Các mã `EX-*` là mã tham chiếu trong ví dụ. Khi lập hồ sơ thực, lấy ID từ workstream.
 
 ```text
-EX-F1  Feature · Quản lý Customer và Contact
-├── EX-E2  Epic candidate · Quản lý hồ sơ Customer
+EX-C1  Capability · Quản lý Customer và Contact
+├── EX-E2  Epic candidate · Tạo Customer thủ công
 │   ├── E03  Use Case · Tạo Customer thủ công
 │   └── EX-S2  Story candidate · AM tạo hồ sơ hợp lệ trong phạm vi đã chọn
 │       Kế hoạch thực hiện · Tích hợp UI và API, rồi kiểm chứng theo AC
-├── EX-E3  Epic candidate · Import/Export Customer theo quyền
-└── EX-E1  Epic candidate · Quản lý liên kết Customer–Contact
+├── EX-E3  Epic candidate · Nhập Customer từ tệp
+└── EX-E1  Epic candidate · Gắn Contact có sẵn vào Customer
     ├── E03  Use Case · Gắn Contact có sẵn
     └── EX-S1  Story candidate · Gắn Contact New/Inactive và quan sát kết quả Active theo quyền
 ```
 
-`EX-E2` nhóm các thao tác trên hồ sơ Customer có chung định danh, validation và audit. `EX-S2` chọn lát tạo thủ công và giữ kiểm quyền, validation cùng xử lý trùng áp dụng. `EX-E3` là phương án gom khi kiểm soát dữ liệu và tiêu chí nghiệm thu chung có ý nghĩa. Xét riêng quyền, validation và lỗi của import và export. Nếu cần owner, contract hoặc acceptance độc lập, có thể tách. Việc tiếp nhận Customer mới có thể được nghiệm thu qua cả hai nhóm.
+`EX-E2` phục vụ tạo một hồ sơ thủ công. `EX-S2` nhận lát tạo hợp lệ cùng các kiểm quyền, validation và xử lý trùng. `EX-E3` phục vụ import tệp theo batch với mapping và lỗi theo dòng. Export theo quyền là mục tiêu độc lập nếu nằm trong Capability; dẫn privacy và data models dùng chung.
 
-Use Case mô tả hành vi ở E03. Story xác định phần hành vi sẽ giao. Các đầu ra của refinement như requirement, solution và testability được theo dõi ngay trên Epic.
+Use Case mô tả hành vi ở E03 và thuộc đúng một Epic theo [use-case-v1](epic-use-case-policy.md). Story xác định phần hành vi sẽ giao. Các đầu ra của refinement như requirement, solution và testability được theo dõi ngay trên Epic.
 
 Nếu có công việc API cần bàn giao riêng và Jira dùng standard Task cùng cấp Story, cấu trúc ví dụ là:
 
@@ -134,7 +134,7 @@ Không bắt mọi Epic phải có nhiều Story hoặc mọi Story phải có n
 
 ## Nguồn nội dung bổ sung trước phân rã
 
-Feature giữ [F01–F08](feature-specification-catalog.md) để xác định outcome/scope và Epic allocation. [Loại requirement và ID](requirement-types-identifiers-and-traceability.md) quy định canonical source, authority và trace; không cố định loại requirement vào một tầng backlog. [Mapping E/S→Q/D](catalog-check-model-mapping.md) dẫn tới các thao tác review. Task tiếp tục là tùy chọn; thêm catalog Feature/policy không làm phát sinh tầng ticket mới.
+Capability giữ [C01–C08](capability-specification-catalog.md) để xác định outcome/scope và Epic allocation. [Loại requirement và ID](requirement-types-identifiers-and-traceability.md) quy định canonical source, authority và trace; không cố định loại requirement vào một tầng backlog. [Mapping E/S→Q/D](catalog-check-model-mapping.md) dẫn tới các thao tác review. Task tiếp tục là tùy chọn; thêm catalog Capability/policy không làm phát sinh tầng ticket mới.
 
 
 ---

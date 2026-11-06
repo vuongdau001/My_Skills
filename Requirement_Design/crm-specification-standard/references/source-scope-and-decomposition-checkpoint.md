@@ -2,7 +2,7 @@
 
 ID: **CRM-SCOPE-CHECKPOINT** · CRM Workflow Kit 1.11.0 · 05/11/2026
 
-Dùng khi tiếp nhận function list, WBS, bảng estimation, screen list; khi tạo/sửa allocation Feature/Epic/Story; hoặc khi review/báo tiến độ dựa vào các đơn vị đó. Mục tiêu là giữ đủ scope và giải thích được ranh giới bàn giao, trước khi dùng số đếm để đưa ra kết luận.
+Dùng khi tiếp nhận function list, WBS, bảng estimation, screen list; khi tạo/sửa allocation Capability/Epic/Story; hoặc khi review/báo tiến độ dựa vào các đơn vị đó. Mục tiêu là giữ đủ scope và giải thích được ranh giới bàn giao, trước khi dùng số đếm để đưa ra kết luận.
 
 ## Áp dụng đúng độ sâu
 
@@ -16,24 +16,24 @@ Nếu đã có kết quả kiểm hiện hành, dẫn lại scope/revision và k
 
 Phần này là quy tắc tối thiểu khi tạo hoặc thay allocation, được nạp trong context mặc định. Áp dụng theo phạm vi nhiệm vụ; không chạy lại toàn cây cho sửa đổi cục bộ không đổi ranh giới.
 
-1. **Tìm vị trí trước khi tạo cấp mới.** Đọc Feature/Epic hiện có và quy ước cấp độ của workstream. Chọn nơi nhận yêu cầu hoặc ghi candidate/gap nếu chưa có. Phạm vi của prompt hay một release không tự thành phạm vi Feature. Khi chưa có cây, đề xuất khung năng lực và ghi rõ là phương án; không tự sinh cả cây ngoài phạm vi được giao.
-2. **Feature giữ năng lực nghiệp vụ có ranh giới tương đối ổn định.** Nêu người hưởng lợi, outcome tổng thể và in/out scope. Đối chiếu với các Feature ngang hàng về trách nhiệm, không ép bằng nhau về effort/số Epic. Không chọn cấp chỉ theo tên CRUD, màn hình, dòng estimation hoặc độ dài tài liệu. Quy ước của dự án có evidence được ưu tiên; khi chưa có, nêu giả định cấp độ thay vì tự coi đã chốt.
+1. **Tìm vị trí trước khi tạo cấp mới.** Đọc Capability/Epic hiện có và quy ước cấp độ của workstream. Chọn nơi nhận yêu cầu hoặc ghi candidate/gap nếu chưa có. Phạm vi của prompt hay một release không tự thành phạm vi Capability. Khi chưa có cây, đề xuất khung năng lực và ghi rõ là phương án; không tự sinh cả cây ngoài phạm vi được giao.
+2. **Capability giữ năng lực nghiệp vụ có ranh giới tương đối ổn định.** Nêu người hưởng lợi, outcome tổng thể và in/out scope. Đối chiếu với các Capability ngang hàng về trách nhiệm, không ép bằng nhau về effort/số Epic. Không chọn cấp chỉ theo tên CRUD, màn hình, dòng estimation hoặc độ dài tài liệu. Quy ước của dự án có evidence được ưu tiên; khi chưa có, nêu giả định cấp độ thay vì tự coi đã chốt.
 3. **Epic giữ phạm vi cần đặc tả và nghiệm thu chung.** Nêu outcome, model/rule/contract liên quan, trách nhiệm sở hữu và acceptance. Cùng entity/UI chưa đủ để gom; khác entry point, role hoặc kênh chưa đủ để tách. So với Epic lân cận để tránh phân bổ trùng và dependency bị che.
 4. **Story chọn phần thay đổi bàn giao được.** Nêu actor/consumer, kết quả hữu ích, hành vi trong scope và cách quan sát, rồi xét sizing/dependency của team. Query/read-only là kết quả hợp lệ. Quyền, validation, lỗi và NFR bắt buộc đi cùng lát cắt. Một nhánh Use Case hoặc một màn hình chưa tự đủ lý do tách Story.
-5. **Kiểm ba cấp có lặp cùng nghĩa không.** So nội dung, không chỉ tên: Feature bổ sung ranh giới năng lực/acceptance gì; Epic bổ sung phạm vi model/contract/nghiệm thu gì; Story chọn delta bàn giao nào? Nếu ba cấp chỉ đổi tên cùng một hành vi hoặc thêm tên màn hình/điều kiện quyền, ghi finding và đề xuất đặt lại vào cây hiện có. Không mở rộng scope hoặc bịa thêm con để hợp thức hóa cây.
-6. **Cho phép quan hệ một–một có căn cứ.** Không bắt Feature có nhiều Epic hay Epic có nhiều Story. Khi một–một, giải thích vai trò riêng của hồ sơ cha, chẳng hạn phạm vi release hiện chỉ chọn một lát hoặc hợp đồng/baseline cần quản lý riêng. Kế thừa bằng ref, tránh chép ba bộ AC giống nhau. Chưa có căn cứ thì giữ candidate và nêu thông tin cần làm rõ; không tự bỏ tầng bắt buộc của dự án.
+5. **Kiểm ba cấp có lặp cùng nghĩa không.** So nội dung, không chỉ tên: Capability bổ sung ranh giới năng lực/acceptance gì; Epic bổ sung phạm vi model/contract/nghiệm thu gì; Story chọn delta bàn giao nào? Nếu ba cấp chỉ đổi tên cùng một hành vi hoặc thêm tên màn hình/điều kiện quyền, ghi finding và đề xuất đặt lại vào cây hiện có. Không mở rộng scope hoặc bịa thêm con để hợp thức hóa cây.
+6. **Cho phép quan hệ một–một có căn cứ.** Không bắt Capability có nhiều Epic hay Epic có nhiều Story. Khi một–một, giải thích vai trò riêng của hồ sơ cha, chẳng hạn phạm vi release hiện chỉ chọn một lát hoặc hợp đồng/baseline cần quản lý riêng. Kế thừa bằng ref, tránh chép ba bộ AC giống nhau. Chưa có căn cứ thì giữ candidate và nêu thông tin cần làm rõ; không tự bỏ tầng bắt buộc của dự án.
 
-Ghi kết quả ngay trong F04/F06, E01/E15 hoặc Story manifest, tùy cấp đang sửa. Với nhóm mới/đổi ranh giới, cần có **cấp/parent được chọn → lý do chọn cấp → phần model/control/acceptance chung → delta bàn giao → căn cứ gom/tách và gap**. Chỉ cần giải thích phương án khác ở ranh giới còn tranh luận; không bắt thêm file, schema hoặc approval gate. Review kiểm nội dung rationale, không đánh dấu đạt vì đã điền cột.
+Ghi kết quả ngay trong C04/C06, E01/E15 hoặc Story manifest, tùy cấp đang sửa. Với nhóm mới/đổi ranh giới, cần có **cấp/parent được chọn → lý do chọn cấp → phần model/control/acceptance chung → delta bàn giao → căn cứ gom/tách và gap**. Chỉ cần giải thích phương án khác ở ranh giới còn tranh luận; không bắt thêm file, schema hoặc approval gate. Review kiểm nội dung rationale, không đánh dấu đạt vì đã điền cột.
 
-Use Case là mô hình actor goal, trigger, pre/postconditions và main/alternate/exception flows ở E03 hoặc shared model được tham chiếu. Nó không là tầng giữa Epic và Story, không có quan hệ 1–1 bắt buộc với Epic/Story. Khi phân bổ một Use Case qua nhiều Story/Epic, chỉ rõ scenario/subset, nơi sở hữu model/control và kiểm kết quả tích hợp. Một hành trình xuyên Epic cần dependency/acceptance liên Epic; không nhân bản Use Case thành nhiều nguồn chuẩn.
+Mỗi Epic sở hữu một Use Case user-goal ở E03. Khi phân bổ qua nhiều Story, ghi scenario/subset/delta, model/control và phép kiểm outcome tích hợp. Capability hoặc shared process điều phối hành trình xuyên Epic và truy Use Case tại nơi sở hữu. Dùng [policy Epic–Use Case](epic-use-case-policy.md) để thử actor goal, boundary và các kết cục.
 
 ### Phản ví dụ và ngoại lệ
 
-`Feature: Tra cứu Customer → Epic: Tra cứu hồ sơ từ Customer List → Story: Tìm Customer trong phạm vi quyền` là **dấu hiệu cần review**, không phải lỗi có thể kết luận từ tên. Nếu cả ba chỉ mô tả cùng một truy vấn, điểm vào List và guard quyền không đủ chứng minh ba phạm vi khác nhau. Ưu tiên đặt Story vào Epic hồ sơ/tra cứu thuộc Feature quản lý Customer hiện có; chỉ đề xuất sửa, không tự rewrite baseline trong review.
+`Capability: Tra cứu Customer → Epic: Tra cứu hồ sơ từ Customer List → Story: Tìm Customer trong phạm vi quyền` là **dấu hiệu cần review**, không phải lỗi có thể kết luận từ tên. Nếu cả ba chỉ mô tả cùng một truy vấn, điểm vào List và guard quyền không đủ chứng minh ba phạm vi khác nhau. Đặt Story vào Epic phù hợp với mục tiêu tra cứu trong Capability hiện có, hoặc xác định một Epic nếu mục tiêu độc lập chưa có owner; chỉ đề xuất sửa, không tự rewrite baseline trong review.
 
-Trong một dự án có Feature “Quản lý Customer và Contact”, Epic tra cứu riêng có thể hợp lý nếu query semantics, data scope, field visibility và nghiệm thu tạo thành phạm vi cần quản lý chung. Nếu chỉ là lookup đơn giản dùng trong quản lý hồ sơ, có thể đặt Story trong Epic hồ sơ. Preview/detail chỉ tách Story khi từng phần có giá trị và khả năng bàn giao riêng; nếu không giữ cùng lát cắt. Kiểm quyền vẫn đi cùng từng hành vi.
+Trong một dự án có Capability “Quản lý Customer và Contact”, Epic tra cứu riêng có thể hợp lý nếu query semantics, data scope, field visibility và nghiệm thu tạo thành phạm vi cần quản lý chung. Lookup làm bước chọn Customer để chỉnh hồ sơ có thể thuộc Use Case chỉnh hồ sơ. Nếu tra cứu có kết quả được dùng độc lập, hãy phân bổ vào Epic tra cứu. Preview/detail chỉ tách Story khi từng phần có giá trị và khả năng bàn giao riêng; nếu không giữ cùng lát cắt. Kiểm quyền vẫn đi cùng từng hành vi.
 
-Ngược lại, sản phẩm có năng lực tìm kiếm nhiều nguồn, nhiều kiểu truy vấn và quản trị truy vấn có thể dùng Feature “Tìm kiếm thông tin khách hàng”. Phải chứng minh ranh giới năng lực và quan hệ với Feature khác. Không cấm tên “Tra cứu”, không bắt mọi CRM dùng Feature Customer–Contact, không lấy số Story/Epic làm ngưỡng đúng sai.
+Ngược lại, sản phẩm có năng lực tìm kiếm nhiều nguồn, nhiều kiểu truy vấn và quản trị truy vấn có thể dùng Capability “Tìm kiếm thông tin khách hàng”. Phải chứng minh ranh giới năng lực và quan hệ với Capability khác. Không cấm tên “Tra cứu”, không bắt mọi CRM dùng Capability Customer–Contact, không lấy số Story/Epic làm ngưỡng đúng sai.
 
 ## Đọc đúng đơn vị nguồn
 
@@ -43,7 +43,7 @@ Ngược lại, sản phẩm có năng lực tìm kiếm nhiều nguồn, nhiề
 
 ## Thử ranh giới nhóm trước khi chốt allocation
 
-Áp dụng [phân cấp CRM](backlog-hierarchy-and-decomposition.md) và [Feature F04–F07](feature-specification-catalog.md). Với mỗi nhóm đề xuất, người đọc cần hiểu outcome/actor, phần model/rule dùng chung, phạm vi nghiệm thu và dependency có người nhận hoặc gap. Số nhóm ít hơn hay tên đồng nhất hơn chưa chứng minh cách chia tốt hơn.
+Áp dụng [phân cấp CRM](backlog-hierarchy-and-decomposition.md) và [Capability C04–C07](capability-specification-catalog.md). Với mỗi nhóm đề xuất, người đọc cần hiểu outcome/actor, phần model/rule dùng chung, phạm vi nghiệm thu và dependency có người nhận hoặc gap. Số nhóm ít hơn hay tên đồng nhất hơn chưa chứng minh cách chia tốt hơn.
 
 Với ranh giới còn có thể tranh luận, ghi lý do chọn và điều kiện sẽ làm thay đổi cách gom/tách. Không cần tạo nhiều phương án cho mọi nhóm đã rõ. Đặc biệt:
 
@@ -51,11 +51,11 @@ Với ranh giới còn có thể tranh luận, ghi lý do chọn và điều ki�
 |---|---|
 | Import/export hoặc cùng màn hình/object | Cùng file, UI hay entity chưa đủ để gom Epic. Xét actor, model/control, error semantics, acceptance và khả năng baseline độc lập. |
 | Lookup và mutation | Có thể cùng phạm vi hồ sơ, nhưng read contract, privacy và outcome truy vấn vẫn phải được phân bổ. Không gộp chỉ để giảm số Epic. |
-| Integration hoặc chức năng xuyên Feature | Chỉ nhóm độc lập khi có consumer/outcome, contract và acceptance rõ. Giữ sender, receiver, failure/recovery và verification áp dụng; việc nhỏ có thể chỉ cần Task. |
+| Integration hoặc chức năng xuyên Capability | Chỉ nhóm độc lập khi có consumer/outcome, contract và acceptance rõ. Giữ sender, receiver, failure/recovery và verification áp dụng; việc nhỏ có thể chỉ cần Task. |
 | Lifecycle và side effect | Giữ kết quả nghiệp vụ và control bắt buộc trong lát cắt; không tách theo API/UI/DB/test để che dependency hoặc lỗi giữa các bước. |
-| Feature/Epic so với DDD | Phân cấp phạm vi không tự xác lập Bounded Context, Aggregate hoặc architecture approval. Tham chiếu DDD đúng revision khi áp dụng. |
+| Capability/Epic so với DDD | Phân cấp phạm vi không tự xác lập Bounded Context, Aggregate hoặc architecture approval. Tham chiếu DDD đúng revision khi áp dụng. |
 
-Ví dụ: import Contact có mapping, duplicate và lỗi theo dòng; export có filter, privacy và giới hạn volume. Chỉ ghi “đều xử lý file” thì chưa đủ căn cứ gom. Có thể giữ chung khi phạm vi dữ liệu/control và acceptance thực sự phù hợp; nếu cần owner/baseline riêng thì đề xuất tách và nêu lý do. Xem thêm [BA guide, chọn phạm vi Epic](ba-getting-started.md#walkthrough).
+Ví dụ: import Contact có mapping, duplicate và lỗi theo dòng; export có filter, privacy và giới hạn volume. Khi actor có thể nhập hoặc xuất để đạt hai kết quả độc lập, phân bổ hai Epic. Dẫn các quy tắc dữ liệu hoặc privacy chung. Xem thêm [BA guide, chọn phạm vi Epic](ba-getting-started.md#walkthrough).
 
 ## Truy vết và giao thoa
 
@@ -76,4 +76,4 @@ Ghi trong artifact/allocation hoặc review/report phù hợp với nhiệm vụ
 
 Phân biệt **đếm đúng nguồn**, **đã đề xuất allocation**, **đã review cách phân rã**, **authority đã chốt**. Chưa có evidence thì ghi Chưa kiểm đúng phần; có overlap/control gap thì ghi finding theo [review protocol](requirements-review-process-and-verdicts.md). Đủ mapping hoặc lint PASS chưa xác nhận semantic coverage hay DoR.
 
-Khi báo status, có thể nói “nguồn công bố N dòng estimation; cách phân rã chưa được review”. Chỉ dùng coverage trên đơn vị đã định nghĩa, có phạm vi và evidence phù hợp; không gọi tỷ lệ số dòng thành tỷ lệ sản phẩm hoàn thành. Route correction về crm-define-feature, crm-specify-epic hoặc crm-prepare-stories theo cấp bị ảnh hưởng, thay vì sửa allocation trong lượt report/check.
+Khi báo status, có thể nói “nguồn công bố N dòng estimation; cách phân rã chưa được review”. Chỉ dùng coverage trên đơn vị đã định nghĩa, có phạm vi và evidence phù hợp; không gọi tỷ lệ số dòng thành tỷ lệ sản phẩm hoàn thành. Route correction về crm-define-capability, crm-specify-epic hoặc crm-prepare-stories theo cấp bị ảnh hưởng, thay vì sửa allocation trong lượt report/check.

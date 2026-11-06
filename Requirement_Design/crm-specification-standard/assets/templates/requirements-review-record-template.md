@@ -10,7 +10,7 @@ Mở bằng target/scope/revision và mục tiêu review. Nêu full/focused, che
 
 ## Input và phạm vi kiểm
 
-Nguồn, actor/authority, inventory/model revision và target hashes; policy/version. Thiếu input/authority nêu rõ. Dùng F01–F08, E01–E16, S01–S12 hoặc T01–T08 đúng loại; full specification review xét Q01–Q07.
+Nguồn, actor/authority, inventory/model revision và target hashes; policy/version. Thiếu input/authority nêu rõ. Dùng C01–C08, E01–E16, S01–S12 hoặc T01–T08 đúng loại; full specification review xét Q01–Q07.
 
 ## Kết quả từng phép kiểm
 
@@ -21,6 +21,8 @@ Index ngắn: item/check → verdict → finding/evidence. Với từng check d�
 - **Expected/observed:** phân biệt kết quả mong đợi với điều đã thấy trong tài liệu/thực thi.
 - **Evidence và kết luận:** refs/revision, verdict scoped, reviewer.
 - **Finding:** ID, tác động/gate, owner/due; severity theo policy nếu đã chốt.
+
+Với Epic, pin policy, Epic/Use Case ID, selected scope và baseline/revision. Dùng E01–E03 để kiểm mục tiêu, boundary và từng đường đi tới outcome. Dùng E14–E16 để kiểm trace, phần còn lại, nghiệm thu đã có và evidence đúng đợt. Dẫn locator của từng finding.
 
 ## Findings và closure
 

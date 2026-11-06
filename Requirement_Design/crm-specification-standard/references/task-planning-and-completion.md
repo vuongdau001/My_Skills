@@ -97,7 +97,7 @@ Các dòng trên là nhóm đầu ra để chọn tiêu chí, không phải các
 
 Làm rõ requirement, phân tích solution và testability được quản lý bằng readiness/output/review trên Epic. Effort vẫn ghi trên Epic hoặc work package tương ứng; PM cấp capacity và theo dõi thời hạn, không để effort biến mất vì không có Task.
 
-Nghiên cứu nhỏ xử lý trong hoạt động phân tích Epic. Chỉ tạo Task kỹ thuật/spike độc lập khi thật sự cần timebox và đầu ra riêng như PoC, benchmark hoặc script thử nghiệm để ra quyết định. Khi đó PM chốt kế hoạch, TL xác nhận brief/tiêu chí và quyền/dữ liệu; không bắt biết trước solution. Kết quả là evidence/khuyến nghị, không tự được tính là Story hay Feature hoàn thành.
+Nghiên cứu nhỏ xử lý trong hoạt động phân tích Epic. Chỉ tạo Task kỹ thuật/spike độc lập khi thật sự cần timebox và đầu ra riêng như PoC, benchmark hoặc script thử nghiệm để ra quyết định. Khi đó PM chốt kế hoạch, TL xác nhận brief/tiêu chí và quyền/dữ liệu; không bắt biết trước solution. Kết quả là evidence/khuyến nghị, không tự được tính là Story hay Capability hoàn thành.
 
 
 ---

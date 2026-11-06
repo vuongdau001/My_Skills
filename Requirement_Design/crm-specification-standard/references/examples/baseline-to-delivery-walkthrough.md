@@ -16,9 +16,9 @@ Walkthrough dùng [case Customer–Contact](../backlog-hierarchy-and-decompositi
 
 <a id="workflow-16-1"></a>
 
-### Feature và Epic
+### Capability và Epic
 
-- `EX-F1` là Feature Quản lý Customer và Contact. `EX-E2` là Epic Quản lý hồ sơ Customer trong ví dụ. Use Case Tạo Customer thủ công nằm ở E03.
+- `EX-C1` là Capability Quản lý Customer và Contact. `EX-E2` là Epic Tạo Customer thủ công trong ví dụ. Epic sở hữu Use Case cùng mục tiêu ở E03.
 - `EX-S2` là Story candidate cho lát tạo thủ công. Khi áp dụng thực tế, manifest giữ logical ID đã cấp. Jira key được ghi vào mapping sau khi tạo issue.
 - `EX-E3` nhận phần Import/Export Customer. Có thể tiếp tục làm rõ phạm vi này nếu `EX-S2` đủ độc lập và các control dùng chung đã rõ.
 - Giả định PM đã cho phép mở Epic và giao BA, Dev, QA làm rõ requirement, solution và testability. Theo dõi phần việc trên Epic.
@@ -40,7 +40,7 @@ Walkthrough dùng [case Customer–Contact](../backlog-hierarchy-and-decompositi
 
 PR của lát tạo thủ công chứa hoặc dẫn đúng revision của:
 
-1. Scope và controls dùng chung của `EX-F1`.
+1. Scope và controls dùng chung của `EX-C1`.
 2. Use Case ở E03, yêu cầu, solution và AC liên quan của `EX-E2`.
 3. [Manifest baseline](../baseline-and-change-control.md#workflow-5-2) chỉ liệt kê Story trong lát được duyệt.
 4. Contract, NFR và quyết định áp dụng.
@@ -63,7 +63,7 @@ Baseline định danh **bộ yêu cầu và solution của lát tạo thủ côn
 6. QA phát hiện bypass quyền: ghi issue, Story về `inprogress` để sửa, rồi qua lại review/CI/deploy/retest.
 7. QA Pass + đủ DoD + PM chốt: Story `done`.
 8. Epic hồ sơ Customer chỉ `done` khi toàn phạm vi Epic đã được kiểm chứng và Business nghiệm thu. Nếu Epic còn sửa hồ sơ hoặc chuyển trạng thái, các phần đó vẫn phải được đối soát.
-9. Feature được nghiệm thu theo phạm vi hiện hành, gồm các luồng liên Epic áp dụng. Story tạo thủ công đã Done là evidence cho lát tương ứng.
+9. Capability được nghiệm thu theo phạm vi hiện hành, gồm các luồng liên Epic áp dụng. Story tạo thủ công đã Done là evidence cho lát tương ứng.
 
 
 ---

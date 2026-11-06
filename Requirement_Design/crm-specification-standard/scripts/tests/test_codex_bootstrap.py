@@ -216,7 +216,7 @@ class CodexBootstrapTests(unittest.TestCase):
     def test_smoke_prompt_rejects_empty_revision_and_incompatible_target(self):
         self.install();before = self.hashes()
         self.assertIn('nonempty',self.smoke('--revision','',code=2)['error'])
-        self.assertIn('Unsupported target',self.smoke('--target-kind','Feature',code=2)['error'])
+        self.assertIn('Unsupported target',self.smoke('--target-kind','Capability',code=2)['error'])
         self.assertEqual(before,self.hashes())
 
     def test_smoke_prompt_requires_managed_package_and_never_installs(self):

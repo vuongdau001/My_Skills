@@ -3,7 +3,8 @@
 ID: **crm-review-specification** · CRM Workflow Kit 1.11.0 · 05/11/2026
 
 Function: **`crm-review-specification`** · Agent: **[Quality Reviewer](../agents/profiles/crm-quality-reviewer.md)**  
-Supported targets: Feature, Epic, Story, Task  
+Supported targets: Capability, Epic, Story, Task
+
 Đọc [Workflow Execution Protocol](../references/workflow-execution-protocol.md) trước; workflow này là hướng dẫn trong root skill, không phải native slash command hay CLI.
 
 ## Purpose & Triggers
@@ -32,10 +33,12 @@ Khi có meeting/chat/decision/assumption/constraint ảnh hưởng target, đọ
 
 ## Execution Steps
 
+Áp dụng [policy Epic–Use Case](../references/epic-use-case-policy.md). Với Epic, kiểm bằng evidence E01–E03 và E14–E16. Reviewer thử ranh giới mục tiêu, boundary, đường đi, nhánh và từng kết quả/guarantee. Chỉ rõ locator, expected/observed và ảnh hưởng. Phát hiện nhánh thiếu expected result ngay cả khi lint đạt. Assessment phải khai phương pháp; record legacy cần reassessment cho readiness hiện hành.
+
 Với Epic có UI delta, walkthrough entrypoint của bundle đúng revision theo các scenario đã phân bổ. Đối chiếu E08/D06, BR/AC, quyền và Command/Query. Ghi observed results, findings, reviewer và SHA pins trong reviews. Với backend không UI delta, review evidence N/A. Chuyển findings cho author xử lý trong bước riêng. Xem [standard Prototype](../references/prototype-workflow-and-epic-gate.md).
 
 1. Ghi review scope và input revision trước khi đọc chi tiết; focused request giữ đúng check/model được giao.
-2. Full Feature/Epic/Story xét catalog áp dụng và Q01–Q07; Task xét T01–T08/SMART. Dùng mapping để đọc đúng model thay vì nạp tất cả.
+2. Full Capability/Epic/Story xét catalog áp dụng và Q01–Q07; Task xét T01–T08/SMART. Dùng mapping để đọc đúng model thay vì nạp tất cả.
 3. Thực hiện các bước kiểm trong Q/model; inventory và counterexample phải có dữ liệu cụ thể, không chỉ tick tiêu đề.
 4. So cùng action/conditions qua flow/state/permission/data/contract/AC; nêu expected và actual finding trong tài liệu.
 5. Ghi evidence/authority closure còn thiếu; xác định self-check hay review độc lập thực sự; không giả tên reviewer.
@@ -48,7 +51,7 @@ Với Epic có UI delta, walkthrough entrypoint của bundle đúng revision the
 - [Inventory, coverage, AC và truy vết](../references/coverage-inventories-and-traceability.md)
 - [Lập kế hoạch, giao và hoàn tất Task](../references/task-planning-and-completion.md)
 
-**Catalog theo target, chỉ đọc loại đang review:** [Feature F01–F08](../references/feature-specification-catalog.md), [Epic E01–E16](../references/epic-specification-catalog.md), [Story S01–S12](../references/story-specification-catalog.md), [Task T01–T08](../references/task-planning-and-completion.md).
+**Catalog theo target, chỉ đọc loại đang review:** [Capability C01–C08](../references/capability-specification-catalog.md), [Epic E01–E16](../references/epic-specification-catalog.md), [Story S01–S12](../references/story-specification-catalog.md), [Task T01–T08](../references/task-planning-and-completion.md).
 
 ## Đánh giá định lượng khi được yêu cầu
 

@@ -14,6 +14,8 @@ Mở bằng mục đích, phạm vi và tình trạng hiệu lực chung. Ghi pr
 |---|---|---|
 | ID thực từ guide | Phạm vi thực | Pending nếu thiếu quyết định |
 
+Thêm index ngắn cho Assumption, Constraint và Decision lấy từ đầu vào. Ghi ID/revision hiện hành, source locator, scope áp dụng và disposition dùng lại/có điều kiện/cần xác nhận. Dẫn record canonical và giữ câu hỏi còn mở cùng authority.
+
 ## Chi tiết từng policy
 
 Mỗi policy một mục:

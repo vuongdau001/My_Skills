@@ -25,10 +25,10 @@ Thứ tự này giữ trách nhiệm quyết định ở người có thẩm quy
 
 ## Checklist trước khi áp dụng
 
-- [ ] Thống nhất định nghĩa Feature/Epic/Story/Task và quyền của từng người.
+- [ ] Thống nhất định nghĩa Capability/Epic/Story/Task và quyền của từng người.
 - [ ] Xác nhận quan hệ Epic–Story–Task thực tế; chọn link nếu không có parent–child phù hợp.
 - [ ] Kiểm transition/status category/Resolution field; bảo đảm `resolved` chưa bị tính thành Story Done theo quy ước dự án.
-- [ ] Chọn repo/branch/path; có template Feature/Epic và baseline manifest.
+- [ ] Chọn repo/branch/path; có template Capability/Epic và baseline manifest.
 - [ ] Phân công BA/Business/Dev/TL/QA/PM, reviewer và backup có ủy quyền.
 - [ ] Chốt policy DoR/DoD, test/coverage/severity theo phạm vi; không coi ví dụ trong tài liệu là ngưỡng đã duyệt.
 - [ ] Chốt nguồn evidence, quyền và retention; cấu hình required checks/validator/service và các đường bypass.
@@ -68,7 +68,7 @@ Các scenario sau là walkthrough quy tắc, không là kết quả thử trên 
 |---|---|---|---|
 | AT17 | Critical/Major hoặc required checks chưa có policy được duyệt | Gate phụ thuộc chưa thể đạt; giữ missing authority/decision | Policy → gate |
 | AT18 | Business requirement bị gán BR; NFR bị ép chỉ ở Epic | BR giữ nghĩa Business Rule; dùng REQ/type và applies_to theo scope | ID/type guide |
-| AT19 | Outcome muốn giảm thời gian xử lý nhưng chưa có dữ liệu sau go-live | Tách product acceptance/benefit observation theo authority; không tự ghi benefits đạt | Feature catalog |
+| AT19 | Outcome muốn giảm thời gian xử lý nhưng chưa có dữ liệu sau go-live | Tách product acceptance/benefit observation theo authority; không tự ghi benefits đạt | Capability catalog |
 | AT20 | E07 quyền phụ thuộc state và có API | Đọc D05 + D02 + D07 và xét Q01–Q07; không miễn Q01/Q05 | Mapping |
 | AT21 | 12/14 review đạt, 2 gap chặn | Báo review coverage và blocker; không báo sản phẩm 86% hoàn thành | Measurement |
 | AT22 | Không có item áp dụng, còn applicability Unknown, hoặc scope tăng trong kỳ | Zero denominator=N/A; Unknown hiện riêng; scope delta và mẫu số phải giải thích | Measurement |
@@ -101,7 +101,7 @@ Các tình huống này cần agent/reviewer thực hiện khi đánh giá hành
 
 | Tình huống | Kết quả quan sát cần có |
 |---|---|
-| Nguồn công bố 12 dòng estimation; có preview, quyền, approval + downstream và hai dòng cùng nhắc một create form. User yêu cầu chia Feature/Epic/Story. | Kiểm số công bố/đối soát riêng, nhận ra đơn vị không đồng đều và overlap; không tạo 12 Story mặc định; có rationale nhóm và mapping fragment/shared contract, gaps giữ nguyên. Không đòi luôn phải có ít hơn 12 nhóm. |
+| Nguồn công bố 12 dòng estimation; có preview, quyền, approval + downstream và hai dòng cùng nhắc một create form. User yêu cầu chia Capability/Epic/Story. | Kiểm số công bố/đối soát riêng, nhận ra đơn vị không đồng đều và overlap; không tạo 12 Story mặc định; có rationale nhóm và mapping fragment/shared contract, gaps giữ nguyên. Không đòi luôn phải có ít hơn 12 nhóm. |
 | User đề nghị gom import/export vì đều dùng file; actor/quyền, error semantics và acceptance còn khác hoặc chưa biết. | Không coi tên kênh là đủ căn cứ. Giữ phương án có điều kiện hoặc hỏi quyết định ảnh hưởng; lý do chọn/tách truy được. Không tự cấp Approved/Ready. |
 | User chỉ hỏi tiến độ; có số dòng nguồn và allocation draft nhưng chưa có evidence review. | Trả status có nguồn/revision và giới hạn; phân biệt số dòng với scope đã baseline/Ready. Không tự tạo file, rewrite allocation hoặc chạy lại full decomposition. |
 | Có review allocation đúng revision; chỉ một rule thay đổi trong Epic. | Xét delta/impact, tái dùng evidence còn hiệu lực và chỉ kiểm phần liên quan; không bắt làm lại toàn inventory. |
@@ -114,10 +114,32 @@ Dùng input dưới cho phiên mới với kit và context workstream tối thi�
 
 | ID | Input | Kết quả quan sát cần có |
 |---|---|---|
-| LV01 | Dự án có Feature Quản lý Customer, Epic Hồ sơ Customer. Đề xuất thêm Feature Tra cứu Customer → Epic Tra cứu hồ sơ từ Customer List → Story Tìm Customer theo quyền. Cả ba scope/AC cùng một lookup theo tên và quyền xem hiện có. Review phương án. | Nhận ra outcome trùng và entry point/guard chưa đủ tạo hai cha mới. Đề xuất đặt Story vào cây hiện có; giữ kiểm quyền trong AC. Chỉ ghi findings, không sửa allocation trong review. |
-| LV02 | Sản phẩm cần tìm kiếm Customer trên nhiều nguồn, tìm cơ bản/nâng cao, lưu truy vấn và quản trị nguồn tìm kiếm; có consumer, contract, phạm vi nghiệm thu riêng. Đề xuất phân cấp. | Cho phép Feature tìm kiếm khi có rationale tương quan năng lực khác, Epic theo phạm vi chung và Story theo delta có ích. Không áp lệnh cấm từ khóa Tra cứu hoặc ép vào Customer–Contact. |
+| LV01 | Dự án có Capability Quản lý Customer, Epic Hồ sơ Customer. Đề xuất thêm Capability Tra cứu Customer → Epic Tra cứu hồ sơ từ Customer List → Story Tìm Customer theo quyền. Cả ba scope/AC cùng một lookup theo tên và quyền xem hiện có. Review phương án. | Nhận ra outcome trùng và entry point/guard chưa đủ tạo hai cha mới. Đề xuất đặt Story vào cây hiện có; giữ kiểm quyền trong AC. Chỉ ghi findings, không sửa allocation trong review. |
+| LV02 | Sản phẩm cần tìm kiếm Customer trên nhiều nguồn, tìm cơ bản/nâng cao, lưu truy vấn và quản trị nguồn tìm kiếm; có consumer, contract, phạm vi nghiệm thu riêng. Đề xuất phân cấp. | Cho phép Capability tìm kiếm khi có rationale tương quan năng lực khác, Epic theo phạm vi chung và Story theo delta có ích. Không áp lệnh cấm từ khóa Tra cứu hoặc ép vào Customer–Contact. |
 | LV03 | Epic có model/contract và hồ sơ baseline riêng; release này chỉ chọn một Story. Chưa có nhu cầu đã xác nhận cho Story khác. | Không bịa con hoặc reject chỉ vì một–một; giải thích vai trò hồ sơ cha, selected scope và refs kế thừa. |
-| LV04 | Yêu cầu bổ sung filter trạng thái cho danh sách Customer đã có Epic tra cứu. Chỉ author phần thay đổi. | Tìm parent, đề xuất delta trong Epic hiện có và xét sizing có cần Story riêng không; không dựng Feature mới hoặc phân rã lại cả CRM. Giữ policy quyền hiện có. |
+| LV04 | Yêu cầu bổ sung filter trạng thái cho danh sách Customer đã có Epic tra cứu. Chỉ author phần thay đổi. | Tìm parent, đề xuất delta trong Epic hiện có và xét sizing có cần Story riêng không; không dựng Capability mới hoặc phân rã lại cả CRM. Giữ policy quyền hiện có. |
 | LV05 | Nguồn có hai màn hình preview/detail nhưng người dùng chỉ đạt mục tiêu xác định đúng hồ sơ khi dùng cả hai; chưa có lợi ích độc lập hay sizing. | Không mặc định hai Story theo screen; giữ lát tích hợp hoặc candidate có điều kiện, nêu gap thực. Không invent value/sizing để tách. |
 | LV06 | Có Epic hồ sơ và Epic quan hệ Customer–Contact. Hành trình tạo Contact rồi gắn vào Customer; thao tác gắn phải tự Active theo rule đã xác nhận. Chọn Use Case và Story. | Phân biệt hành trình xuyên Epic với Use Case/Story; giữ owner/model và dependency tạo Contact. Gắn + auto Active cùng outcome, đọc lại thuộc verification. Không tách kiểm quyền/activation thành Story rời để bỏ control. |
-| LV07 | Chỉ có ba tên Feature Tra cứu, Epic Tra cứu từ List, Story Tìm theo quyền; chưa có nội dung hoặc cây hiện hành. Hỏi cách chia có sai không. | Nêu dấu hiệu lặp nghĩa và cần scope/AC/parent để kết luận; không tuyên bố chắc chắn sai từ tên, không tự phê duyệt allocation. |
+| LV07 | Chỉ có ba tên Capability Tra cứu, Epic Tra cứu từ List, Story Tìm theo quyền; chưa có nội dung hoặc cây hiện hành. Hỏi cách chia có sai không. | Nêu dấu hiệu lặp nghĩa và cần scope/AC/parent để kết luận; không tuyên bố chắc chắn sai từ tên, không tự phê duyệt allocation. |
+
+## Epic–Use Case 1–1 — 2.0.0
+
+| ID | Đầu vào kiểm | Kết quả cần quan sát |
+|---|---|---|
+| UC01 | Một nhu cầu gửi qua List, Form và Receipt. Có validation và hai API. | Một Epic, một Use Case. Mỗi điểm giao tiếp dẫn bước E03. |
+| UC02 | Requester gửi và Approver xét cùng ProjectCodeRequest. Có nút Approve và Reject. | Hai Epic theo hai mục tiêu. Approve/Reject cùng thuộc Use Case xét duyệt. Shared model giữ lifecycle và quyền áp dụng. |
+| UC03 | Worker dùng bởi Epic gửi và Epic xét duyệt. | Một Task, Epic gửi chịu trách nhiệm, hai consumer có trace tới đầu ra. |
+| UC04 | Use Case lớn có Story submit và Story phục hồi sau timeout. | Có allocation theo scenario/delta, giữ controls, E14 kiểm kết quả tích hợp và không đếm lặp. |
+| UC05 | Đợt đầu đã nghiệm thu. Đợt sau bổ sung tra trạng thái của cùng lần gửi. | Cặp ID ổn định, baseline/revision mới, evidence cũ truy được, review có impact và rationale tái dùng. |
+| UC06 | Anchor nhánh dữ liệu sai hợp lệ nhưng expected result trống. | Lint có thể đạt. Reviewer ghi finding E03/E14, định vị nhánh và chặn verdict của scope. |
+| UC07 | Hai Epic ở hai spec_root dùng cùng MOD ID hoặc consumer trỏ revision cũ. | Lint phát hiện duplicate hoặc stale-revision. Snapshot ngoài spec_root không tham gia inventory hiện hành. |
+| UC08 | Draft legacy, gồm hồ sơ schema 1/2 và hồ sơ chỉ có heading. | Draft đọc được và báo legacy; baseline/readiness chặn target hoặc closure liên quan. Chuyển đổi giữ ID khi mục tiêu giữ nguyên. |
+| UC09 | Assessment crm-definition-v2 thiếu marker phương pháp. | Điểm giữ cách tính cũ, output gắn legacy và báo reassessment trước khi dùng cho readiness mới. |
+
+## Capability và tiếp nhận hồ sơ đã có
+
+| ID | Đầu vào kiểm | Kết quả cần quan sát |
+|---|---|---|
+| CP01 | Cài mới trên repo sạch, định nghĩa năng lực quản lý Customer. | Có 01-capabilities. Context dùng crm-define-capability và kind Capability. ID mới CAP-CRM-001; scoring tạo đủ C01–C08. |
+| CP02 | Workshop có Assumption chưa kiểm, Decision đã có bằng chứng và Constraint đã đăng ký. Mở thẳng Define Capability. | Intake chỉ rõ nguồn và record chuẩn, giữ ID/revision, áp dụng phần hiệu lực và đánh dấu assumption chặn scope nếu còn phụ thuộc. |
+| CP03 | Một tệp nguồn tự ghi Approved và có lựa chọn mâu thuẫn với Decision chuẩn. | Context liệt kê trạng thái khai báo. Workflow giữ cả hai locator, không cập nhật approval hoặc cấp trạng thái mới khi chưa có authority/evidence. |

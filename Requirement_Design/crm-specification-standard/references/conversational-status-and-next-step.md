@@ -9,7 +9,7 @@ ID: CRM-CONVERSATIONAL-STATUS · CRM Workflow Kit 1.7.1 · 04/11/2026
 | Mode | Ý định | Nguồn và đầu ra tối thiểu |
 |---|---|---|
 | Recap | Việc vừa thực hiện trong run/lượt làm việc gần nhất | Dùng observed actions/tool results đã có; nêu output/file, kiểm chứng và phần chưa thực hiện. Không biến kết quả run cũ thành trạng thái hiện tại |
-| Current status | Trạng thái một Project/Feature/Epic/Story/Task tại thời điểm hỏi | Đọc lại canonical artifacts, current revision và status/evidence source liên quan. Tách draft/review/approval/baseline/readiness/implementation/acceptance, nói phần chưa xác minh |
+| Current status | Trạng thái một Project/Capability/Epic/Story/Task tại thời điểm hỏi | Đọc lại canonical artifacts, current revision và status/evidence source liên quan. Tách draft/review/approval/baseline/readiness/implementation/acceptance, nói phần chưa xác minh |
 | Next step | Việc nên ưu tiên để đạt mục tiêu hiện tại | Xét mục tiêu + current status + blocker/dependency; đề xuất một bước chính, lý do, function/target, inputs và điều kiện bắt đầu |
 | Full report | User cần tổng hợp/so sánh kỳ, coverage, counts hoặc forecast | Dùng progress-report template và measurement policy; snapshot/mẫu số/source refs phải tái kiểm được |
 
@@ -42,7 +42,7 @@ Chọn việc giúp tháo blocker hoặc tạo đầu ra có thể review tiếp
 | Tình huống đã đối soát | Next function / action đề nghị |
 |---|---|
 | Chưa rõ nguồn/policy/authority dự án | crm-setup-project cho Project/workstream; ghi source/gap, không tự đặt policy |
-| Chưa rõ ranh giới Feature hoặc meaning/rule Epic | crm-define-feature / crm-specify-epic theo target; đưa câu hỏi BA cụ thể |
+| Chưa rõ ranh giới Capability hoặc meaning/rule Epic | crm-define-capability / crm-specify-epic theo target; đưa câu hỏi BA cụ thể |
 | Rule/slice đã rõ, thiếu contract/query model/feasibility | crm-design-solution trên Epic với requirement revision và inputs kỹ thuật được phép đọc |
 | Cần phân rã Story/brief hoặc sửa allocation | crm-prepare-stories trên Epic/Story/Task phù hợp; chưa đủ thì soạn draft, không tự Ready |
 | Nội dung đã chuẩn bị, cần phản biện | crm-review-specification trên đúng revision; findings sửa bằng workflow tác giả |

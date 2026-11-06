@@ -55,7 +55,7 @@ def source_sections(text):
 
 
 EXPECTED_FUNCTIONS = {
-    'crm-setup-project', 'crm-define-feature', 'crm-specify-epic',
+    'crm-setup-project', 'crm-define-capability', 'crm-specify-epic',
     'crm-design-solution', 'crm-prepare-stories', 'crm-review-specification',
     'crm-prepare-baseline', 'crm-check-readiness', 'crm-check-handoff',
     'crm-check-completion', 'crm-assess-change', 'crm-report-status', 'crm-run-pilot',
@@ -78,7 +78,8 @@ def validate_workflow_registry(manifest, root, texts, resolve):
     function_ids = [f.get('id') for f in functions if isinstance(f, dict)]
     if len(agent_ids) != len(agents) or len(agent_ids) != len(set(agent_ids)) or set(agent_ids) != EXPECTED_AGENTS:
         errors.append('Agent registry inventory mismatch or duplicate ID')
-    if len(function_ids) != len(functions) or len(function_ids) != len(set(function_ids)) or set(function_ids) != EXPECTED_FUNCTIONS:
+    if (len(function_ids) != len(functions) or len(function_ids) != len(set(function_ids))
+            or set(function_ids) != EXPECTED_FUNCTIONS):
         errors.append('Function registry inventory mismatch or duplicate ID')
     for agent in agents:
         if not isinstance(agent, dict):
@@ -167,7 +168,7 @@ def validate(root):
         resolve(entry['path'], entry.get('anchor', ''), entry['id'])
         if not entry.get('title') or entry['title'] == entry['id']:
             errors.append(f'Descriptive title required: {entry["id"]}')
-    for prefix, count in [('F',8),('E',16),('S',12),('T',8),('Q',7),('D',10)]:
+    for prefix, count in [('C',8),('E',16),('S',12),('T',8),('Q',7),('D',10)]:
         expected = {f'{prefix}{i:02}' for i in range(1,count+1)}
         actual = {key for key in ids if re.fullmatch(prefix+r'\d{2}',key)}
         if actual != expected:

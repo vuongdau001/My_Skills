@@ -54,7 +54,7 @@ class InstallationToolingTests(unittest.TestCase):
         result=subprocess.run([sys.executable,str(target/'scripts/kit.py'),'install','--repo',str(other),'--apply'],capture_output=True,text=True)
         self.assertEqual(result.returncode,0,result.stdout+result.stderr)
         self.assertTrue((other/kit.CONFIG).is_file())
-        self.assertTrue((other/'spec/01-features').is_dir())
+        self.assertTrue((other/'spec/01-capabilities').is_dir())
         self.assertEqual(len(list((other/'.agents/skills').rglob('SKILL.md'))),1)
     def test_repeat_install_is_byte_identical(self):
         self.install('--agent','both');before=self.hashes();self.cli('install','--workstream','p3','--agent','both','--apply');self.assertEqual(self.hashes(),before)
@@ -79,7 +79,7 @@ class InstallationToolingTests(unittest.TestCase):
         self.cli('install','--apply',code=2);self.assertEqual(list(outside.iterdir()),[])
     def test_scaffold_symlink_rejected(self):
         outside=self.base/'outside';outside.mkdir();root=self.repo/'phase-3/spec';root.mkdir(parents=True)
-        try:(root/'features').symlink_to(outside,target_is_directory=True)
+        try:(root/'capabilities').symlink_to(outside,target_is_directory=True)
         except OSError:self.skipTest('Symlink creation not available')
         self.cli('install','--workstream','p3','--spec-root','phase-3/spec','--layout','legacy','--apply',code=2);self.assertEqual(list(outside.iterdir()),[])
     def test_paths_and_readonly_boundaries(self):
@@ -90,74 +90,74 @@ class InstallationToolingTests(unittest.TestCase):
         self.install();p=self.repo/kit.CONFIG;cfg=json.loads(p.read_text());cfg['custom_owner_field']='keep me';p.write_text(json.dumps(cfg))
         self.cli('install','--workstream','p4','--spec-root','phase-4/spec','--apply')
         cfg=json.loads(p.read_text());self.assertEqual(cfg['custom_owner_field'],'keep me');self.assertEqual(len(cfg['workstreams']),2)
-        self.cli('context','crm-define-feature','--format','json',code=2)
+        self.cli('context','crm-define-capability','--format','json',code=2)
         self.cli('install','--apply',code=2)
     def test_missing_source_is_explicit_warning(self):
         self.install('--source','SRC-FL=input/missing.md');r=self.cli('doctor');self.assertTrue(r['healthy']);self.assertTrue(any(c['code']=='source-missing' for c in r['checks']))
     def test_context_minimal_and_expanded(self):
-        self.install();a=self.cli('context','crm-define-feature','--format','json');b=self.cli('context','crm-define-feature','--full','--format','json')
+        self.install();a=self.cli('context','crm-define-capability','--format','json');b=self.cli('context','crm-define-capability','--full','--format','json')
         self.assertLess(a['characters'],b['characters']);self.assertIn('references/artifact-writing-standard.md',[f['path'] for f in a['files']]);self.assertIn('target',a['missing_context'])
-        self.cli('context','crm-check-readiness','--target-kind','Feature','--format','json',code=2)
+        self.cli('context','crm-check-readiness','--target-kind','Capability','--format','json',code=2)
         c=self.cli('context','crm-review-specification','--reference','Q03','--format','json');self.assertTrue(any('cross-model-consistency' in f['path'] for f in c['files']))
     def test_lint_controlled_metadata(self):
-        self.install();self.artifact('features/a.md',{'schema_version':1,'artifact_id':'FEAT-CRM-001','kind':'Feature','review_verdict':'Đạt-một-phần'})
+        self.install();self.artifact('capabilities/a.md',{'schema_version':1,'artifact_id':'CAP-CRM-001','kind':'Capability','review_verdict':'Đạt-một-phần'})
         r=self.cli('lint','--workstream','p3',code=1);self.assertTrue(any(x['code']=='review_verdict' for x in r['issues']))
     def test_lint_kind_specific_status(self):
         self.install();self.artifact('epics/a.md',{'schema_version':1,'artifact_id':'EPIC-CRM-001','kind':'Epic','work_status':'review'})
         r=self.cli('lint',code=1);self.assertTrue(any(x['code']=='work_status' for x in r['issues']))
     def test_duplicate_definitions_not_references(self):
-        self.install();meta={'schema_version':1,'artifact_id':'FEAT-CRM-001','kind':'Feature'}
-        self.artifact('features/a.md',meta,'\nMentions FEAT-CRM-001 twice: FEAT-CRM-001\n')
-        self.assertTrue(self.cli('lint')['valid']);self.artifact('features/b.md',meta)
+        self.install();meta={'schema_version':1,'artifact_id':'CAP-CRM-001','kind':'Capability'}
+        self.artifact('capabilities/a.md',meta,'\nMentions CAP-CRM-001 twice: CAP-CRM-001\n')
+        self.assertTrue(self.cli('lint')['valid']);self.artifact('capabilities/b.md',meta)
         self.assertTrue(any(x['code']=='duplicate-id' for x in self.cli('lint',code=1)['issues']))
     def test_cross_stream_duplicate_definitions(self):
         self.install();self.cli('install','--workstream','p4','--spec-root','phase-4/spec','--apply')
-        f=self.artifact('features/a.md',{'schema_version':1,'artifact_id':'FEAT-CRM-001','kind':'Feature'})
-        d=self.repo/'phase-4/spec/01-features/b.md';d.write_bytes(f.read_bytes())
+        f=self.artifact('capabilities/a.md',{'schema_version':1,'artifact_id':'CAP-CRM-001','kind':'Capability'})
+        d=self.repo/'phase-4/spec/01-capabilities/b.md';d.write_bytes(f.read_bytes())
         r=self.cli('lint','--workstream','p3',code=1);self.assertTrue(any(x['code']=='duplicate-id' for x in r['issues']))
     def test_lint_links_ids_paths_and_legacy_verdict(self):
-        self.install();self.artifact('features/a.md',{'schema_version':1,'artifact_id':'FEAT-CRM-01','kind':'Feature'},'\nVerdict: Đạt-một-phần\n[missing](no.md)\nPersonal: /Users/example/secret.md\n')
+        self.install();self.artifact('capabilities/a.md',{'schema_version':1,'artifact_id':'CAP-CRM-01','kind':'Capability'},'\nVerdict: Đạt-một-phần\n[missing](no.md)\nPersonal: /Users/example/secret.md\n')
         codes={x['code'] for x in self.cli('lint',code=1)['issues']};self.assertTrue({'id-format','legacy-Verdict','broken-link','absolute-path'}<=codes)
     def test_lint_anchor_and_na_reason(self):
-        self.install();self.artifact('features/a.md',{'schema_version':1,'artifact_id':'FEAT-CRM-001','kind':'Feature','review_verdict':'N/A'},'\n[bad](a.md#absent)\n')
+        self.install();self.artifact('capabilities/a.md',{'schema_version':1,'artifact_id':'CAP-CRM-001','kind':'Capability','review_verdict':'N/A'},'\n[bad](a.md#absent)\n')
         codes={x['code'] for x in self.cli('lint',code=1)['issues']};self.assertTrue({'na-reason','broken-anchor'}<=codes)
     def test_optional_inferred_question_rule(self):
         self.install();cfg=self.repo/kit.CONFIG;data=json.loads(cfg.read_text());data['workstreams'][0]['require_question_for_inferred']=True;cfg.write_text(json.dumps(data))
-        self.artifact('features/a.md',{'schema_version':1,'artifact_id':'FEAT-CRM-001','kind':'Feature'},'\n[INFERRED] missing question\n')
+        self.artifact('capabilities/a.md',{'schema_version':1,'artifact_id':'CAP-CRM-001','kind':'Capability'},'\n[INFERRED] missing question\n')
         self.assertTrue(any(x['code']=='inferred-question' for x in self.cli('lint',code=1)['issues']))
     def test_table_verdict_and_legacy_definitions(self):
         self.install()
-        root=self.repo/'phase-3/spec/features'
-        (root/'a.md').write_text('# FEAT-CRM-001 — A\n\n| Item | Verdict + evidence |\n|---|---|\n| F01 | Đạt-một-phần |\n')
-        (root/'b.md').write_text('# FEAT-CRM-001 — B\n')
+        root=self.repo/'phase-3/spec/capabilities'
+        (root/'a.md').write_text('# CAP-CRM-001 — A\n\n| Item | Verdict + evidence |\n|---|---|\n| C01 | Đạt-một-phần |\n')
+        (root/'b.md').write_text('# CAP-CRM-001 — B\n')
         codes={x['code'] for x in self.cli('lint',code=1)['issues']}
         self.assertTrue({'table-Verdict','duplicate-id'}<=codes)
     def test_generic_id_column_is_not_a_duplicate_definition(self):
         self.install()
-        self.artifact('features/a.md',{'schema_version':1,'artifact_id':'FEAT-CRM-001','kind':'Feature','defined_ids':['REQ-CRM-001']})
-        f=self.repo/'phase-3/spec/features/b.md'
-        f.write_text('# FEAT-CRM-002 — Reference\n\n| ID | Applies to this Feature |\n|---|---|\n| REQ-CRM-001 | Shared rule reference |\n')
+        self.artifact('capabilities/a.md',{'schema_version':1,'artifact_id':'CAP-CRM-001','kind':'Capability','defined_ids':['REQ-CRM-001']})
+        f=self.repo/'phase-3/spec/capabilities/b.md'
+        f.write_text('# CAP-CRM-002 — Reference\n\n| ID | Applies to this Capability |\n|---|---|\n| REQ-CRM-001 | Shared rule reference |\n')
         result=self.cli('lint');self.assertTrue(result['valid'])
         self.assertTrue(any(x['code']=='legacy-id-ownership' for x in result['issues']))
     def test_explicit_config_audits_without_installing(self):
-        root=self.repo/'existing/spec/features';root.mkdir(parents=True)
-        (root/'a.md').write_text('# FEAT-CRM-001 — Legacy\n')
+        root=self.repo/'existing/spec/capabilities';root.mkdir(parents=True)
+        (root/'a.md').write_text('# CAP-CRM-001 — Legacy\n')
         config=self.base/'candidate.json'
         config.write_text(json.dumps({'schema_version':1,'kit_id':'crm-specification-standard','id_namespace':'CRM','workstreams':[{'id':'audit','title':'Audit','spec_root':'existing/spec','sources':[],'read_only':[]}]}))
         result=self.cli('lint','--config',str(config));self.assertTrue(result['valid'])
         self.assertFalse((self.repo/kit.CONFIG).exists());self.assertFalse((self.repo/'.agents').exists())
     def test_next_id_suggestion_reservation_and_lock(self):
-        self.install();a=self.cli('next-id','FEAT');b=self.cli('next-id','FEAT');self.assertEqual(a['id'],b['id']);self.assertFalse(a['reserved'])
-        a=self.cli('next-id','FEAT','--reserve','--owner','test','--apply');self.assertTrue(a['reserved']);self.assertNotEqual(a['id'],self.cli('next-id','FEAT')['id'])
-        (self.repo/'.agents/crm-spec-kit-id-lock').mkdir();self.cli('next-id','FEAT','--reserve','--owner','test','--apply',code=2)
+        self.install();a=self.cli('next-id','CAP');b=self.cli('next-id','CAP');self.assertEqual(a['id'],b['id']);self.assertFalse(a['reserved'])
+        a=self.cli('next-id','CAP','--reserve','--owner','test','--apply');self.assertTrue(a['reserved']);self.assertNotEqual(a['id'],self.cli('next-id','CAP')['id'])
+        (self.repo/'.agents/crm-spec-kit-id-lock').mkdir();self.cli('next-id','CAP','--reserve','--owner','test','--apply',code=2)
     def test_next_id_scans_all_streams(self):
         self.install();self.cli('install','--workstream','p4','--spec-root','phase-4/spec','--apply')
-        (self.repo/'phase-4/spec/01-features/a.md').write_text('Mention FEAT-CRM-099\n');self.assertEqual(self.cli('next-id','FEAT')['id'],'FEAT-CRM-100')
+        (self.repo/'phase-4/spec/01-capabilities/a.md').write_text('Mention CAP-CRM-099\n');self.assertEqual(self.cli('next-id','CAP')['id'],'CAP-CRM-100')
     def test_doctor_detects_tamper_and_copy_drift(self):
         self.install('--agent','both');f=self.repo/'.claude/skills/crm-spec-kit/START-HERE.md';f.write_text(f.read_text()+'\nchanged\n')
         r=self.cli('doctor',code=1);self.assertTrue(any(x['code']=='adapter-integrity' for x in r['checks']))
     def test_update_dry_run_and_apply_preserve_project(self):
-        self.install();source=self.candidate();cfg=(self.repo/kit.CONFIG).read_bytes();artifact=self.artifact('features/a.md',{'schema_version':1,'artifact_id':'FEAT-CRM-001','kind':'Feature'});before=artifact.read_bytes()
+        self.install();source=self.candidate();cfg=(self.repo/kit.CONFIG).read_bytes();artifact=self.artifact('capabilities/a.md',{'schema_version':1,'artifact_id':'CAP-CRM-001','kind':'Capability'});before=artifact.read_bytes()
         old=(self.repo/'.agents/skills/crm-spec-kit/reference-manifest.json').read_bytes()
         self.cli('update','--source',str(source));self.assertEqual((self.repo/'.agents/skills/crm-spec-kit/reference-manifest.json').read_bytes(),old)
         r=self.cli('update','--source',str(source),'--apply');self.assertEqual(r['new_version'],'1.7.2');self.assertTrue((self.repo/r['backup']).is_dir())

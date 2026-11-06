@@ -9,6 +9,8 @@ Mã tài liệu: **CRM-BASELINE** · Gói CRM 1.3.1 · 03/11/2026
 
 <a id="workflow-4"></a>
 
+Manifest pin Epic ID và Use Case ID, locator E03, scope, revision, các Story và evidence. Khi thay đổi cùng mục tiêu được nhận, tạo scope/revision/baseline mới, giữ baseline trước và evidence tương ứng. Ghi phần review lại và lý do tái dùng evidence. [Policy use-case-v1](epic-use-case-policy.md).
+
 ## Baseline của cái gì?
 
 
@@ -20,7 +22,7 @@ Mã tài liệu: **CRM-BASELINE** · Gói CRM 1.3.1 · 03/11/2026
 >
 > Bộ hồ sơ đó gồm mục tiêu/phạm vi, rule, AC, quyết định, solution/contract liên quan, cách kiểm chứng, dependency và manifest Story. Sau merge, bộ hồ sơ tại commit xác định là **baseline đầu vào để tạo Story, development và testing** cho đúng phần phạm vi đó.
 
-Đây không phải baseline của code, không phải chỉ một bản mô tả ticket và không có nghĩa toàn Feature đã phân tích xong.
+Đây không phải baseline của code, không phải chỉ một bản mô tả ticket và không có nghĩa toàn Capability đã phân tích xong.
 
 
 <a id="workflow-4-2"></a>
@@ -29,11 +31,11 @@ Mã tài liệu: **CRM-BASELINE** · Gói CRM 1.3.1 · 03/11/2026
 
 | Tập nội dung | Đối tượng được chốt | Dùng để làm gì? | Thời điểm |
 |---|---|---|---|
-| Khung phạm vi Feature / kế hoạch làm rõ | Mục tiêu, ranh giới sơ bộ, Epic dự kiến, owner, authority và kế hoạch làm rõ | PM cho phép tạo Epic và phân công BA/Dev/QA làm rõ các hạng mục | Trước khi bắt đầu làm rõ Epic; chưa đủ để code |
+| Khung phạm vi Capability / kế hoạch làm rõ | Mục tiêu, ranh giới sơ bộ, Epic dự kiến, owner, authority và kế hoạch làm rõ | PM cho phép tạo Epic và phân công BA/Dev/QA làm rõ các hạng mục | Trước khi bắt đầu làm rõ Epic; chưa đủ để code |
 | **Baseline yêu cầu + solution của phạm vi Epic được chọn** | Nội dung chi tiết nêu tại mục [Bộ hồ sơ phải review và merge trước khi tạo Story](baseline-and-change-control.md#workflow-5) và manifest Story | Cho phép tạo Story; cung cấp đầu vào chuẩn cho Dev/QA/AI | Sau review chuyên môn, PM chốt và PR merge |
 | Cấu hình/bản bàn giao triển khai | Code, test, config, migration, artifact/build và release manifest | Chứng minh bản được kiểm thử và bàn giao thực tế | Sau triển khai; không thay thế baseline yêu cầu + solution |
 
-Trong [case đào tạo Customer–Contact](backlog-hierarchy-and-decomposition.md#workflow-3-2), PM có thể giao BA, Dev và QA làm rõ Epic hồ sơ Customer sau khi chốt khung Feature. Theo dõi người phụ trách, hạn, capacity và đầu ra trên Epic. Story thực thi của lát tạo thủ công cần baseline yêu cầu và solution đã merge.
+Trong [case đào tạo Customer–Contact](backlog-hierarchy-and-decomposition.md#workflow-3-2), PM có thể giao BA, Dev và QA làm rõ Epic hồ sơ Customer sau khi chốt khung Capability. Theo dõi người phụ trách, hạn, capacity và đầu ra trên Epic. Story thực thi của lát tạo thủ công cần baseline yêu cầu và solution đã merge.
 
 
 <a id="workflow-4-3"></a>
@@ -44,7 +46,7 @@ Với scope có tác động UI, package pin bundle Prototype theo hành trình,
 
 Mỗi baseline đầu vào triển khai phải ghi rõ:
 
-1. Feature ID và Epic liên quan.
+1. Capability ID và Epic liên quan.
 2. Phần scope được chọn; phần ngoài phạm vi hoặc còn làm rõ.
 3. Danh sách BR-ID, AC-ID và các requirement/NFR dùng chung được áp dụng.
 4. Tài liệu solution/contract/UI/data được sử dụng và phiên bản tương ứng.
@@ -61,7 +63,7 @@ Một baseline có thể chỉ khóa phần độc lập của Epic. Các rule d
 
 | Hạng mục trong bộ hồ sơ | Nội dung tối thiểu | Người chuẩn bị / xác nhận |
 |---|---|---|
-| 1. Định danh và nguồn | Feature/Epic, nguồn nhu cầu, Business authority, owner và tài liệu liên quan | BA; PM/Business xác nhận phạm vi và quyền |
+| 1. Định danh và nguồn | Capability/Epic, nguồn nhu cầu, Business authority, owner và tài liệu liên quan | BA; PM/Business xác nhận phạm vi và quyền |
 | 2. Mục tiêu và scope | Actor, outcome, trong/ngoài phạm vi; giới hạn phần được khóa | BA + Business |
 | 3. Luồng nghiệp vụ | Luồng chính, ngoại lệ, trạng thái và tương tác liên quan | BA; Business chốt; Dev/QA phản biện |
 | 4. Rule và dữ liệu | BR-ID, điều kiện, validation, quyền, định danh/chuẩn hóa, trạng thái và xử lý lỗi | BA + Business; Dev kiểm khả thi |
@@ -89,8 +91,8 @@ Lấy thư mục từng loại từ `artifact_paths` trong Work Context. Cây d�
 
 ```text
 <spec-root>/
-  01-features/
-    <feature-id>.md
+  01-capabilities/
+    <capability-id>.md
   02-epics/
     <epic-id>.md
   06-baselines/
@@ -105,16 +107,16 @@ Có thể gộp yêu cầu, solution và manifest thành các section trong mộ
 ### Ví dụ manifest trước khi tạo Story
 
 ```yaml
-# Lát tạo Customer thủ công trong case EX-F1 / EX-E2 / EX-S2.
+# Lát tạo Customer thủ công trong case EX-C1 / EX-E2 / EX-S2.
 # Thay mọi placeholder bằng ID hoặc path thật trước khi dùng.
 baseline_id: "<baseline-id>"
-feature_id: "<feature-id>"
+capability_id: "<capability-id>"
 epic_ref: "<existing-jira-epic-key>"
 scope:
   included: Tạo Customer thủ công theo các rule được chọn
   excluded: Các lát sửa hồ sơ, đổi trạng thái và import/export nằm ngoài baseline này
 artifact_refs:
-  - "<feature-path>"
+  - "<capability-path>"
   - "<epic-path>"
 selected_rules: ["<permission-rule-id>", "<duplicate-rule-id>"]
 selected_acceptance: ["<success-ac-id>", "<permission-ac-id>", "<duplicate-ac-id>"]
@@ -127,7 +129,7 @@ stories:
     dependencies: []  # Chỉ rỗng sau khi đã đánh giá
 ```
 
-- Scope trên là scope của baseline. Giữ các lát còn lại trong allocation của Feature nếu chúng vẫn thuộc phạm vi dự án.
+- Scope trên là scope của baseline. Giữ các lát còn lại trong allocation của Capability nếu chúng vẫn thuộc phạm vi dự án.
 - Logical ID có trước khi tạo ticket. Jira issue key có sau khi người hoặc service được giao tạo ticket thành công.
 - Không buộc manifest phải có Jira key của Story chưa được tạo.
 - Approval lấy từ hồ sơ xác thực của PR/review system; một cờ `approved: true` do AI tự ghi không chứng minh đã được duyệt.
@@ -136,11 +138,11 @@ stories:
 
 <a id="workflow-6"></a>
 
-## Quy trình từ Feature đến Story thực thi
+## Quy trình từ Capability đến Story thực thi
 
 | Bước | Công việc và đầu ra | Người thực hiện / chốt | Trạng thái Jira liên quan |
 |---|---|---|---|
-| 1. Chốt khung Feature | Ghi mục tiêu, scope sơ bộ, nguồn, Epic dự kiến, owner, authority và kế hoạch làm rõ | BA chuẩn bị; Business xác nhận hướng nghiệp vụ; PM chốt phân rã ban đầu | Có thể tạo Epic `todo` sau khi được phép |
+| 1. Chốt khung Capability | Ghi mục tiêu, scope sơ bộ, nguồn, Epic dự kiến, owner, authority và kế hoạch làm rõ | BA chuẩn bị; Business xác nhận hướng nghiệp vụ; PM chốt phân rã ban đầu | Có thể tạo Epic `todo` sau khi được phép |
 | 2. Giao việc làm rõ Epic | Ghi owner, hạn, capacity, reviewer và output của requirement, solution, testability trong bảng readiness trên Epic | PM phân công; BA/Dev/QA nhận việc | Epic `inprogress` khi bắt đầu; không tạo Task phân tích mặc định |
 | 3. Làm rõ requirement | Luồng, rule, AC, dữ liệu, quyền, câu hỏi và quyết định trên Jira | BA chủ trì; Business quyết; Dev/QA góp ý | Cập nhật readiness/evidence của hạng mục requirement trên Epic |
 | 4. Phân tích solution | Đối chiếu code/DB, chốt thiết kế, contract, dependency, rủi ro và estimate | Dev; TL/peer và QA review | Cập nhật readiness/evidence của hạng mục solution trên Epic |
@@ -150,7 +152,7 @@ stories:
 | 8. Tạo Story | Đọc manifest từ commit đã merge, tạo đúng child, ghi baseline refs và đối soát kết quả | Người/service được giao; PM kiểm bàn giao | Story được tạo ở `todo` |
 | 9. Kiểm DoR Story | Xác nhận đầu vào còn hiệu lực, dữ liệu/dependency/môi trường, owner và capacity | Dev + QA xác nhận; PM chốt kế hoạch | `todo` chưa Ready hoặc `todo` đạt DoR; chỉ triển khai khi đạt |
 | 10. Dev, QA và đóng Story | Code/review/CI → deploy/smoke → QA → PM chốt output theo DoD | Dev, reviewer, QA, người deploy và PM | `inprogress` → `resolved` → `done` |
-| 11. Nghiệm thu Epic/Feature | Đối chiếu toàn scope và các luồng liên Story/Epic; cập nhật tài liệu và acceptance record | Business nghiệm thu; BA/QA cung cấp hồ sơ; PM chốt roll-up | Epic `done` khi đạt DoD Epic; Feature nghiệm thu trong hồ sơ tài liệu |
+| 11. Nghiệm thu Epic/Capability | Đối chiếu toàn scope và các luồng liên Story/Epic; cập nhật tài liệu và acceptance record | Business nghiệm thu; BA/QA cung cấp hồ sơ; PM chốt roll-up | Epic `done` khi đạt DoD Epic; Capability nghiệm thu trong hồ sơ tài liệu |
 
 Một bàn giao có sender/receiver, input links, revision, output mong đợi và hạn. Người nhận xác nhận nhận việc hoặc trả thiếu có lý do; im lặng không phải approval.
 
@@ -171,9 +173,9 @@ Story pin commit và phạm vi cụ thể. Không tự đổi toàn bộ Story s
 Acceptance/evidence cũ vẫn là lịch sử cho version cũ; không tự chứng minh scope/build mới đạt. Khi Staging đổi build/config/data trong lúc QA/demo, người deploy phải báo và đánh giá lại phần evidence bị ảnh hưởng.
 
 
-## Policy/ID và Feature scope trong baseline
+## Policy/ID và Capability scope trong baseline
 
-Manifest phải dẫn Feature scope/allocation và requirement/model IDs theo [ID/trace](requirement-types-identifiers-and-traceability.md), cùng các [policy versions](project-policy-register.md) áp dụng cho gate/acceptance. Không ghi approval cho policy còn Pending. Thay policy/Feature allocation cần impact analysis như thay rule; baseline từng phần phải truy được scope unit/outcome, không tự báo toàn Feature đã chốt.
+Manifest phải dẫn Capability scope/allocation và requirement/model IDs theo [ID/trace](requirement-types-identifiers-and-traceability.md), cùng các [policy versions](project-policy-register.md) áp dụng cho gate/acceptance. Không ghi approval cho policy còn Pending. Thay policy/Capability allocation cần impact analysis như thay rule; baseline từng phần phải truy được scope unit/outcome, không tự báo toàn Capability đã chốt.
 
 
 ---

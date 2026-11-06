@@ -3,7 +3,8 @@
 ID: **crm-assess-change** · CRM Workflow Kit 1.4.0 · 03/11/2026
 
 Function: **`crm-assess-change`** · Agent: **[Delivery Coordinator](../agents/profiles/crm-delivery-coordinator.md)**  
-Supported targets: Feature, Epic, Story, Task, BaselinePackage, Policy  
+Supported targets: Capability, Epic, Story, Task, BaselinePackage, Policy
+
 Đọc [Workflow Execution Protocol](../references/workflow-execution-protocol.md) trước; workflow này là hướng dẫn trong root skill, không phải native slash command hay CLI.
 
 ## Purpose & Triggers
@@ -27,6 +28,8 @@ Context chung: target/logical ID, selected scope, input revision/canonical locat
 Khi có meeting/chat/decision/assumption/constraint ảnh hưởng target, đọc [knowledge records](../references/knowledge-records-and-evidence.md), đối chiếu revision và dependency closure. Lấy nơi ghi từ artifact_paths trong context; [layout policy](../references/artifact-layout-and-migration.md) giữ tương thích config cũ. Chỉ author record trong scope đã giao; không suy discussion hoặc action item thành approval/product Task.
 
 ## Execution Steps
+
+Áp dụng [policy Epic–Use Case](../references/epic-use-case-policy.md). Phân loại thay đổi theo mục tiêu. Cùng actor goal/boundary và chỉ đổi hành vi hay nhánh thì giữ Epic và Use Case ID, lập revision/scope/baseline mới khi change được chấp nhận. Mục tiêu độc lập cần cặp ID mới và crosswalk. Xác định dependency cần review và rationale tái dùng evidence.
 
 Kiểm hai chiều từ delta Epic/Story đến Prototype và từ thay đổi Prototype đến Epic/Story. Xác định Screen/Scenario, fixtures, BR/AC, contracts, walkthrough và baseline pins cần cập nhật. Lập plan author/review lại cho phần bị ảnh hưởng. Xem [standard Prototype](../references/prototype-workflow-and-epic-gate.md).
 
@@ -59,7 +62,7 @@ Sau authority decision, thực hiện update ở workflow tác giả, review l�
 
 Tách output prepared / review performed / authority approval / actual action confirmed. Thiếu evidence thì verdict đúng phần là Chưa kiểm; có gap/counterexample là Không đạt; N/A cần reason/reviewer. Không dùng workflow complete thay gate verdict. Next function là đề xuất, không là quyền thực hiện bước mới.
 
-**Next functions:** [crm-define-feature](crm-define-feature.md), [crm-specify-epic](crm-specify-epic.md), [crm-design-solution](crm-design-solution.md), [crm-prepare-stories](crm-prepare-stories.md), [crm-review-specification](crm-review-specification.md)
+**Next functions:** [crm-define-capability](crm-define-capability.md), [crm-specify-epic](crm-specify-epic.md), [crm-design-solution](crm-design-solution.md), [crm-prepare-stories](crm-prepare-stories.md), [crm-review-specification](crm-review-specification.md)
 
 ## Failure & Rework
 

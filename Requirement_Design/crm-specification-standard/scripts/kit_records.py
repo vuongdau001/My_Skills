@@ -3,6 +3,7 @@
 Checks declarations and locally available evidence only; never authenticates an approver.
 """
 from datetime import date, datetime
+import hashlib
 from pathlib import Path, PureWindowsPath
 import re
 from urllib.parse import unquote, urlsplit
@@ -32,8 +33,68 @@ def defined_ids(meta):
     return [r['id'] for r in entries(meta) if isinstance(r.get('id'),str)]
 
 
+def intake(api, repo, ws, inputs):
+    """Index declared records for intake. Applicability, provenance and authority require review."""
+    root = api['relative'](repo, ws['spec_root'])
+    kinds = ('Assumption', 'Constraint', 'Decision')
+
+    def inspect(path):
+        try:
+            content = path.read_bytes()
+            meta = api['metadata'](content.decode('utf-8')) or {}
+        except (OSError, UnicodeError):
+            return 'unreadable', None, []
+        except api['KitError']:
+            return 'invalid-metadata', hashlib.sha256(content).hexdigest(), []
+
+        rows = list(entries(meta))
+        if meta.get('schema_version') == 1 and meta.get('kind') in kinds and not rows:
+            rows = [dict(meta, id=meta.get('artifact_id'))]
+        records = []
+        for row in rows:
+            kind = row.get('kind')
+            if kind not in kinds:
+                continue
+            fields = {'id': row.get('id'), 'revision': row.get('revision'),
+                      'scope': row.get('scope'), 'declared_state': row.get(STATES[kind][0])}
+            records.append(dict(kind=kind, **{k: v if isinstance(v, str) else None for k, v in fields.items()}))
+        return ('structured' if records else 'review-source'), hashlib.sha256(content).hexdigest(), records
+
+    existing, issues = [], []
+    for path in sorted(root.rglob('*.md')):
+        if path.is_symlink() or not path.is_file() or not path.resolve().is_relative_to(root):
+            continue
+        inspection, sha, records = inspect(path)
+        name = path.relative_to(repo).as_posix()
+        existing.extend(dict(row, path=name, sha256=sha) for row in records)
+        if inspection in ('unreadable', 'invalid-metadata'):
+            issues.append(dict(path=name, inspection=inspection))
+
+    configured = list(ws['sources'])
+    supplied = [dict(path=raw) for raw in inputs]
+    if ws.get('input_root'):
+        supplied.append(dict(path=ws['input_root']))
+    source_rows, seen = [], set()
+    for source in configured + supplied:
+        path = api['relative'](repo, source['path'])
+        if 'id' not in source and path in seen:
+            continue
+        seen.add(path)
+        entry = dict(path=source['path'], source_id=source.get('id'))
+        if not path.exists():
+            inspection, sha, records = 'missing', None, []
+        elif path.is_file() and path.suffix.lower() == '.md':
+            inspection, sha, records = inspect(path)
+        else:
+            inspection, sha, records = 'manual-review', None, []
+        source_rows.append(dict(entry, inspection=inspection, sha256=sha, candidates=records))
+    return dict(existing_records=existing, sources=source_rows, issues=issues,
+                note='Declared metadata only. Read and reconcile the inputs; verify scope, evidence and authority before reuse. Source candidates are not registered records.')
+
+
 def audit(api, repo, cfg, ws, docs, definitions, issue, args):
     gate, selected = getattr(args,'gate','draft'), getattr(args,'target',None)
+    epic_policy = api['support']('epics')
     all_docs = dict(docs)
     for stream in cfg['workstreams']:
         root = api['relative'](repo,stream['spec_root'])
@@ -61,6 +122,20 @@ def audit(api, repo, cfg, ws, docs, definitions, issue, args):
                 records[identity] = (p,row)
                 owners[identity] = p
                 revisions[identity] = row.get('revision')
+
+    # Epic and Use Case share the same gate obligations regardless of which ID a consumer pins.
+    case_locations = {}
+    for p, meta in metas.items():
+        case = epic_policy.case_id(meta)
+        epic = meta.get('artifact_id')
+        if case and meta.get('epic_policy') == epic_policy.POLICY:
+            case_locations[p] = case
+            name = p.relative_to(repo).as_posix()
+            if (isinstance(epic, str) and name in definitions.get(case, ())
+                    and name in definitions.get(epic, ())):
+                dependencies.setdefault(case, set()).add(epic)
+                dependencies.setdefault(epic, set()).add(case)
+    anchors_by_path = {}
 
     def emit(level, code, p, message):
         issue(level,code,p.relative_to(repo).as_posix(),message)
@@ -126,6 +201,11 @@ def audit(api, repo, cfg, ws, docs, definitions, issue, args):
             emit('ERROR','trace-unresolved',p,'Undefined target ID: '+identity)
         elif target.relative_to(repo).as_posix() not in definitions[identity]:
             emit('ERROR','trace-owner',p,'Target ID is not defined by referenced file: '+identity)
+        if case_locations.get(target) == identity:
+            if target not in anchors_by_path:
+                anchors_by_path[target] = epic_policy.case_anchors(api, all_docs[target])
+            if '#' + unquote(url.fragment) not in anchors_by_path[target]:
+                emit('ERROR','trace-use-case-locator',p,'Use Case trace must point to an explicit E03 anchor: '+href)
         target_revision = revisions.get(identity)
         if target_revision is not None and target_revision != revision:
             emit('ERROR','stale-revision',p,'Target revision mismatch: '+identity)
@@ -238,7 +318,7 @@ def audit(api, repo, cfg, ws, docs, definitions, issue, args):
 
     # Build dependency closure in the semantic direction, regardless of which file stores the link.
     for source,target,relation,p in links:
-        if relation in {'depends-on','derived-from','parent','resolves'}:
+        if relation in {'depends-on','derived-from','parent','resolves','verifies'}:
             dependencies.setdefault(source,set()).add(target)
         elif relation in {'supports','applies-to'}:
             dependencies.setdefault(target,set()).add(source)
@@ -283,6 +363,7 @@ def audit(api, repo, cfg, ws, docs, definitions, issue, args):
             if parent not in scope:
                 scope.add(parent)
                 queue.append(parent)
+    epic_policy.audit(api, repo, cfg, ws, all_docs, metas, definitions, scope, issue, gate, selected)
     for identity,(p,row) in records.items():
         if identity not in scope or (not selected and p not in docs):
             continue

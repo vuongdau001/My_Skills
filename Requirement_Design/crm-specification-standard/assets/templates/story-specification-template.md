@@ -8,9 +8,11 @@ Mở bằng ID/tên và một câu actor → outcome. Dùng bảng context ngắ
 
 <a id="spec-10-2"></a>
 
+Ghi Use Case nguồn, scenario/step hoặc delta, dependency và phạm vi ngoài Story. Trace `parent` tới Epic và `derived-from` tới MOD ID với path#locator và Epic revision.
+
 ## S01 — Định danh và baseline
 
-ID, Epic/Feature, selected scope và pinned baseline/revision. Có thể là section trong Epic nếu là một nơi nội dung chuẩn; không duy trì spec trùng.
+ID, Epic/Capability, selected scope và pinned baseline/revision. Có thể là section trong Epic nếu là một nơi nội dung chuẩn; không duy trì spec trùng.
 
 ## S02 — Actor và outcome
 

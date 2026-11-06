@@ -3,7 +3,7 @@
 ID: **crm-report-status** · CRM Workflow Kit 1.11.0 · 05/11/2026
 
 Function: **`crm-report-status`** · Agent: **[Delivery Coordinator](../agents/profiles/crm-delivery-coordinator.md)**  
-Supported targets: Project, Feature, Epic, Story, Task
+Supported targets: Project, Capability, Epic, Story, Task
 Đọc [Workflow Execution Protocol](../references/workflow-execution-protocol.md) trước; workflow này là hướng dẫn trong root skill, không phải native slash command hay CLI.
 
 ## Purpose & Triggers
@@ -32,6 +32,8 @@ Khi có meeting/chat/decision/assumption/constraint ảnh hưởng target, đọ
 
 ## Execution Steps
 
+Áp dụng [policy Epic–Use Case](../references/epic-use-case-policy.md). Báo theo Epic/Use Case và từng scope/baseline. Tách phạm vi đã nghiệm thu, đang bổ sung, chưa phân bổ và cần migration. Khử đếm lặp Story/coverage giữa các đợt. Hiển thị assessment legacy theo phương pháp cũ và trạng thái cần reassessment.
+
 Khi báo mức hoàn thiện Epic có UI, dùng E08 và evidence Prototype theo scope. Nêu Prototype/biên bản nào thiếu hoặc stale và phân biệt điểm đề xuất, điểm hiệu lực và gate DoR. Xem [standard Prototype](../references/prototype-workflow-and-epic-gate.md).
 
 Chọn mode trước. Recap: trả delta đã quan sát, kiểm chứng và giới hạn. Current status: đọc lại canonical revision + state/evidence source project chỉ định; báo discrepancy/Unknown. Next step: chọn một bước chính theo mục tiêu/blocker/dependency, nêu function/target/inputs/điều kiện và lý do. Ba mode ngắn không cần mọi bước tổng hợp số liệu bên dưới. Hỏi status không tự mở scope mới; nếu đang có nhiệm vụ đã được giao thì trả lời rồi tiếp tục phần được phép.
@@ -47,7 +49,7 @@ Full report thực hiện các bước:
 
 **References đọc theo nhu cầu:**
 
-- [Đo tiến độ phân tích, triển khai và tổng hợp lên Feature](../references/progress-measurement-and-feature-rollup.md)
+- [Đo tiến độ phân tích, triển khai và tổng hợp lên Capability](../references/progress-measurement-and-capability-rollup.md)
 - [Status Jira và tiến độ phân tích, triển khai](../references/jira-status-and-progress-reporting.md)
 - [Policy dự án: khai báo, phê duyệt và áp dụng vào gate](../references/project-policy-register.md)
 - [Trả lời status ngắn, next step và checkpoint](../references/conversational-status-and-next-step.md)
@@ -75,7 +77,7 @@ PM/owners kiểm số liệu theo scope; report không cho phép chuyển gate. 
 
 Tách output prepared / review performed / authority approval / actual action confirmed. Thiếu evidence thì verdict đúng phần là Chưa kiểm; có gap/counterexample là Không đạt; N/A cần reason/reviewer. Không dùng workflow complete thay gate verdict. Next function là đề xuất, không là quyền thực hiện bước mới.
 
-**Next functions:** chọn theo blocker/inputs, không thứ tự cố định: [crm-setup-project](crm-setup-project.md), [crm-define-feature](crm-define-feature.md), [crm-specify-epic](crm-specify-epic.md), [crm-design-solution](crm-design-solution.md), [crm-prepare-stories](crm-prepare-stories.md), [crm-review-specification](crm-review-specification.md), [crm-prepare-baseline](crm-prepare-baseline.md), [crm-check-readiness](crm-check-readiness.md), [crm-assess-change](crm-assess-change.md).
+**Next functions:** chọn theo blocker/inputs, không thứ tự cố định: [crm-setup-project](crm-setup-project.md), [crm-define-capability](crm-define-capability.md), [crm-specify-epic](crm-specify-epic.md), [crm-design-solution](crm-design-solution.md), [crm-prepare-stories](crm-prepare-stories.md), [crm-review-specification](crm-review-specification.md), [crm-prepare-baseline](crm-prepare-baseline.md), [crm-check-readiness](crm-check-readiness.md), [crm-assess-change](crm-assess-change.md).
 
 ## Failure & Rework
 
@@ -89,6 +91,6 @@ Zero denominator=N/A, Unknown phải hiện riêng; không gọi review coverage
 
 > Epic [ID Epic hiện hành] nên làm gì tiếp? Đối chiếu mục tiêu và blockers, đề xuất một bước chính có function/target/inputs, chưa tự mở scope thực hiện mới.
 
-> Dùng crm-report-status tổng hợp Feature tại snapshot này; tách readiness, delivery, acceptance và báo dữ liệu chưa xác minh.
+> Dùng crm-report-status tổng hợp Capability tại snapshot này; tách readiness, delivery, acceptance và báo dữ liệu chưa xác minh.
 
 Kết quả mong đợi: Progress report tách readiness, delivery, acceptance và blocker, có snapshot/mẫu số/source refs. Record phải chỉ đúng scope/revision, evidence đã xem và phần chưa kiểm. Phản ví dụ cần tránh: kết luận gate/ticket Done chỉ vì agent đã hoàn tất câu trả lời hoặc đổi profile.

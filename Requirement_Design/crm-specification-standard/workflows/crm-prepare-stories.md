@@ -32,6 +32,8 @@ Khi có meeting/chat/decision/assumption/constraint ảnh hưởng target, đọ
 
 ## Execution Steps
 
+Áp dụng [policy Epic–Use Case](../references/epic-use-case-policy.md). Mỗi Story nhận scenario, subset hoặc delta của Use Case nguồn, dẫn MOD ID/locator/revision và giữ đủ controls cho lát cắt. Đối chiếu phần còn lại và nghiệm thu outcome tích hợp. Task kỹ thuật có một Epic owner và links đến các Story/Epic dùng đầu ra.
+
 Trước khi chuẩn bị Story thực thi, mở baseline đúng commit và kiểm Prototype/biên bản N/A đã được pin cho scope Epic. Với Story có UI, mang Screen ID, Scenario ID, entrypoint, BR/AC/contract và revision vào Story. Story candidate vẫn có thể dùng để thiết kế trong Epic. Xem [standard Prototype](../references/prototype-workflow-and-epic-gate.md).
 
 1. Nếu target là Epic, tách outcome theo hành vi, phân bổ BR/model/AC; nếu target là Story/Task, tập trung brief/kế hoạch trong scope được giao.
@@ -43,7 +45,7 @@ Trước khi chuẩn bị Story thực thi, mở baseline đúng commit và ki�
 
 **References đọc theo nhu cầu:**
 
-- [Phân cấp và phân rã Feature, Epic, Story, Task](../references/backlog-hierarchy-and-decomposition.md)
+- [Phân cấp và phân rã Capability, Epic, Story, Task](../references/backlog-hierarchy-and-decomposition.md)
 - [Danh mục nội dung và tiêu chí đặc tả Story](../references/story-specification-catalog.md)
 - [Lập kế hoạch, giao và hoàn tất Task](../references/task-planning-and-completion.md)
 - [Mapping Epic/Story với phép kiểm, mô hình và evidence](../references/catalog-check-model-mapping.md)

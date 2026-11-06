@@ -41,6 +41,17 @@ class ScoringTests(unittest.TestCase):
         self.assertEqual(out['targets'][0]['summary']['definition_index'],dict(lower=66.67,upper=66.67))
         self.assertTrue(out['targets'][0]['focused']);self.assertEqual(out['targets'][0]['summary']['expected'],1)
         self.assertEqual(out['targets'][0]['summary']['gate'],'not_assessed')
+    def test_legacy_assessment_keeps_arithmetic_but_requires_reassessment(self):
+        self.allrows()
+        current = self.calc()
+        self.assertEqual(current['epic_policy'], 'use-case-v1')
+        self.assertFalse(current['reassessment_required'])
+        del self.doc['epic_policy']
+        legacy = self.calc()
+        self.assertEqual(legacy['epic_policy'], 'legacy')
+        self.assertTrue(legacy['reassessment_required'])
+        self.assertEqual(current['rollup'], legacy['rollup'])
+
     def test_unknown_level_bounds_not_na(self):
         self.allrows();self.doc['targets'][0]['items'][0].update(level=None,present=None)
         s=self.calc()['targets'][0]['summary'];self.assertEqual(s['definition_index'],dict(lower=61.11,upper=69.44));self.assertEqual(s['unknown_levels'],1)

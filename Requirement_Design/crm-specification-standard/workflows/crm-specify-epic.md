@@ -1,6 +1,6 @@
 # Specify Epic
 
-ID: **crm-specify-epic** · CRM Workflow Kit 1.11.0 · 05/11/2026
+ID: **crm-specify-epic** · CRM Workflow Kit 2.0.0 · 06/11/2026
 
 Function: **`crm-specify-epic`** · Agent: **[Requirements Analyst](../agents/profiles/crm-requirements-analyst.md)**  
 Supported targets: Epic  
@@ -16,7 +16,7 @@ Requirements Analyst chủ trì góc nhìn AI. Quyền nội dung và gate theo 
 
 ## Required Inputs
 
-Feature/selected scope, Epic draft, source/authority, shared models/constraints và current revision.
+Capability/selected scope, Epic draft, source/authority, shared models/constraints và current revision.
 
 Context chung: target/logical ID, selected scope, input revision/canonical locations, policy refs/effective scope và quyền đọc/sửa. Sources chưa có thì ghi chưa xác định; không bịa commit/Jira key/actor hoặc evidence.
 
@@ -24,13 +24,15 @@ Context chung: target/logical ID, selected scope, input revision/canonical locat
 
 Khi tạo/đổi ranh giới, áp dụng phép kiểm chọn cấp/cha–con của checkpoint tại E01/E15: parent, model/acceptance chung, Epic lân cận và delta Story. Một entry point riêng chưa chứng minh cần Epic riêng.
 
-Nếu scope Epic lấy từ function list hoặc đang đổi ranh giới, áp dụng [checkpoint nguồn scope](../references/source-scope-and-decomposition-checkpoint.md). Đối chiếu các fragment/rule dùng chung với Epic lân cận; ghi gap trước khi coi selected scope đủ rõ. Không cần phân rã lại toàn Feature khi chỉ sửa rule không ảnh hưởng allocation.
+Nếu scope Epic lấy từ function list hoặc đang đổi ranh giới, áp dụng [checkpoint nguồn scope](../references/source-scope-and-decomposition-checkpoint.md). Đối chiếu các fragment/rule dùng chung với Epic lân cận; ghi gap trước khi coi selected scope đủ rõ. Không cần phân rã lại toàn Capability khi chỉ sửa rule không ảnh hưởng allocation.
 
 Đọc target và refs trước khi chỉnh sửa. Đối soát scope/version với request, source/authority và previous records; hỏi lựa chọn khi có nhiều target hợp lý. Ghi input còn thiếu, phần bị chặn, owner nếu biết và next action. Tiếp tục phần độc lập; không tự điền expected behavior/policy để hoàn thiện đầu ra.
 
 Khi có meeting/chat/decision/assumption/constraint ảnh hưởng target, đọc [knowledge records](../references/knowledge-records-and-evidence.md), đối chiếu revision và dependency closure. Lấy nơi ghi từ artifact_paths trong context; [layout policy](../references/artifact-layout-and-migration.md) giữ tương thích config cũ. Chỉ author record trong scope đã giao; không suy discussion hoặc action item thành approval/product Task.
 
 ## Execution Steps
+
+Áp dụng [policy Epic–Use Case](../references/epic-use-case-policy.md). Thực hiện [D01](../references/models/business-flows-and-use-cases.md) và điền [mẫu Epic](../assets/templates/epic-specification-template.md). Xác nhận binding 1–1, ghi đầy đủ hành vi tại E03 và làm rõ các mục E01–E16 áp dụng cho đợt. Đặt question và authority cạnh nhánh thiếu expected result.
 
 Trước khi viết E08, đọc candidate Prototype/mockup đã có và hỏi người dùng mẫu hoặc chỉ dẫn còn thiếu. So màn hình, trạng thái và quyền với rule/contract. Ghi gap/decision khi hai nguồn khác nhau. Chuyển sang crm-design-solution để hoàn thiện Prototype sau khi scope và expected behavior đủ rõ. Xem [standard Prototype](../references/prototype-workflow-and-epic-gate.md).
 

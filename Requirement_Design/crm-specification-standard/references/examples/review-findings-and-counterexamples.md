@@ -11,7 +11,7 @@ Mã tài liệu: **EX-REVIEW** · Gói CRM 1.3.1 · 03/11/2026
 
 ### Ví dụ kiểm đủ state transition: từ nhận xét tới finding có căn cứ
 
-Dùng Epic minh họa tại mục [Ví dụ liên kết Epic → Story → model → AC → test condition](project-code-request-specification.md#spec-9): 5 business states và 4 command. Với **operation mới**, inventory có 5 × 4 = 20 cặp state–command:
+Dùng shared lifecycle minh họa tại mục [Ví dụ liên kết Epic → Story → model → AC → test condition](project-code-request-specification.md#spec-9): 5 business states và 4 command. Với **operation mới**, inventory có 5 × 4 = 20 cặp state–command:
 
 | State / command mới | submit | approve | reject | cancel |
 |---|---|---|---|---|
@@ -34,7 +34,7 @@ Dùng Epic minh họa tại mục [Ví dụ liên kết Epic → Story → model
 
 **Chưa được kết luận Đạt nếu:** còn một command chưa xác nhận, ô denied chưa biết response/effect, hoặc chỉ có success paths. Không chấm “có sơ đồ state machine” là đủ.
 
-**Áp dụng ngay vào ví dụ mục [Ví dụ liên kết Epic → Story → model → AC → test condition](project-code-request-specification.md#spec-9):** mục [Story: Owner gửi draft để chờ duyệt](project-code-request-specification.md#spec-9-3) vẫn để thời hạn giữ operation result và giới hạn key cho spec thật chốt sau. Nếu các giá trị này quyết định retry/contract trong scope Story, Q02 chưa đạt cổng baseline dù bảng 20 ô đã đầy đủ. Q01 cũng chưa được coi Đạt vì các rule ví dụ chưa có Business authority thật xác nhận. Đây là ví dụ học cách đặc tả/review, không phải một hồ sơ đã được duyệt để triển khai.
+**Áp dụng ngay vào ví dụ mục [Ví dụ liên kết Epic → Story → model → AC → test condition](project-code-request-specification.md#spec-9):** bỏ expected result ở nhánh dữ liệu sai như [bài tập review](project-code-request-specification.md#spec-9-4). Q02/Q04 có finding tại E03/E14 dù binding và bảng state–command hợp lệ. Ở r2, freshness/hiển thị chưa rõ còn chặn scope đọc trạng thái. Q01 cũng chưa được coi Đạt vì các rule ví dụ chưa có Business authority thật xác nhận. Đây là ví dụ học cách đặc tả/review, không phải một hồ sơ đã được duyệt để triển khai.
 
 
 <a id="spec-11"></a>

@@ -13,10 +13,10 @@ TOOL = PACK / 'scripts/kit.py'
 CHECKPOINT = 'references/source-scope-and-decomposition-checkpoint.md'
 CONSUMERS = {
     'crm-setup-project': 'Project',
-    'crm-define-feature': 'Feature',
+    'crm-define-capability': 'Capability',
     'crm-specify-epic': 'Epic',
     'crm-prepare-stories': 'Epic',
-    'crm-review-specification': 'Feature',
+    'crm-review-specification': 'Capability',
     'crm-report-status': 'Project',
 }
 
@@ -61,7 +61,7 @@ class ScopeCheckpointTests(unittest.TestCase):
     def test_explicit_reference_full_mode_and_installed_copy_deliver_same_resource_once(self):
         installed = self.repo / '.agents/skills/crm-spec-kit/scripts/kit.py'
         result = subprocess.run(
-            [sys.executable, '-B', str(installed), 'context', 'crm-define-feature', '--repo', str(self.repo),
+            [sys.executable, '-B', str(installed), 'context', 'crm-define-capability', '--repo', str(self.repo),
              '--workstream', 'p3', '--full', '--reference', 'CRM-SCOPE-CHECKPOINT', '--format', 'json'],
             capture_output=True, text=True)
         self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
@@ -69,7 +69,7 @@ class ScopeCheckpointTests(unittest.TestCase):
         resources = [item for item in context['files'] if item['path'] == CHECKPOINT]
         self.assertEqual(len(resources), 1)
         self.assertEqual(resources[0]['content'], (PACK / CHECKPOINT).read_text())
-        self.assertIn('assets/templates/feature-specification-template.md', [item['path'] for item in context['files']])
+        self.assertIn('assets/templates/capability-specification-template.md', [item['path'] for item in context['files']])
 
 
 if __name__ == '__main__':

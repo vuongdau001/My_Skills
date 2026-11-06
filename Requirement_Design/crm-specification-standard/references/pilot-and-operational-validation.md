@@ -17,7 +17,7 @@ Ghi mục tiêu pilot, source/scope/revision, roles/authority, policy register, 
 
 | Bước | Thực hiện | Evidence/điều kiện đánh giá |
 |---|---|---|
-| 1 — Nhận nguồn | BA xác định Feature F01–F08 và selected scope Epic | Người nhận truy được nguồn/authority, in/out scope, unknown; không dùng ví dụ làm policy |
+| 1 — Nhận nguồn | BA xác định Capability C01–C08 và selected scope Epic | Người nhận truy được nguồn/authority, in/out scope, unknown; không dùng ví dụ làm policy |
 | 2 — Soạn/refine | Dùng E/S catalog và mapping; BA/Dev/QA read-back | Reviewer tìm được model/check cần đọc; AC/expected result không phải đoán |
 | 3 — Phản biện | Chọn case thật hoặc bản sao thử thiếu input, flow/quyền mâu thuẫn, revision cũ | Finding có witness/evidence/gate impact; không chấm PASS khi thiếu input |
 | 4 — Chốt và bàn giao | Review chuyên môn; PM xét scope/manifest; merge/tạo Story chỉ khi có quyền và đủ gate | Trace authority/revision/commit/receipt; nếu chỉ mô phỏng ghi chưa kiểm hành động thật |
