@@ -44,6 +44,12 @@ Với Epic có UI delta, walkthrough entrypoint của bundle đúng revision the
 5. Ghi evidence/authority closure còn thiếu; xác định self-check hay review độc lập thực sự; không giả tên reviewer.
 6. Lập review record có verdict theo phạm vi, finding/gate impact và remediation route. Không tự sửa spec đang review.
 
+Khi review có actor, thẩm quyền hoặc Decision/Assumption/Constraint, đối chiếu [quy ước vai trò](../references/artifact-writing-standard.md#business-and-sdlc-roles) trong các phép kiểm Q01, Q03 và Q05 áp dụng.
+
+- Dẫn bước E03 mà actor tham gia và kiểm quyền tương ứng ở E07. Ghi riêng quyền lợi của bên liên quan nghiệp vụ và trách nhiệm SDLC.
+- Kiểm người xác nhận có thẩm quyền với nội dung, phạm vi và revision đang xét. Dùng evidence riêng cho xác nhận nghiệp vụ, kiểm chứng giả định và phê duyệt bàn giao.
+- Kiểm rule runtime và điều kiện SDLC nằm đúng hồ sơ. Nếu một ghi chú chứa cả hai, tìm từng phát biểu và trace áp dụng. Ghi finding có locator khi trách nhiệm, thẩm quyền hoặc điều kiện bàn giao bị gán nhầm.
+
 **References đọc theo nhu cầu:**
 
 - [Quy trình review, evidence và điều kiện kết luận](../references/requirements-review-process-and-verdicts.md)

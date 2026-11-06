@@ -1,6 +1,6 @@
 # Install and Operate CRM Spec Kit
 
-ID: **CRM-INSTALL** · CRM Workflow Kit 2.0.0 · 06/11/2026
+ID: **CRM-INSTALL** · CRM Workflow Kit 2.0.1 · 06/11/2026
 
 AI được đưa folder kit để tự cài đọc [BOOTSTRAP](BOOTSTRAP.md) trước. Nội dung/workflow dùng chung; filesystem adapters và router tùy chọn xử lý phần tích hợp tool.
 

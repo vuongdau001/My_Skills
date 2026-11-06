@@ -4,7 +4,7 @@ Mã tài liệu: **TPL-CAPABILITY** · Gói CRM 1.10.0 · 05/11/2026
 
 Áp dụng [standard viết artifact](../../references/artifact-writing-standard.md). Đây là mẫu; thay hướng dẫn bằng dữ liệu thực, giữ gap khi thiếu input. Không suy approval từ việc điền đủ mục.
 
-Mở đầu bằng ID/tên Capability và một đoạn về năng lực, người nhận lợi ích. Dùng bảng hai cột cho revision, bước đang xét, sources, Business/BA/PM owners và policy/approval thực có.
+Mở đầu bằng ID/tên Capability và một đoạn về năng lực, người nhận lợi ích. Dùng bảng hai cột cho revision, bước đang xét và nguồn. Dẫn Work Context cho người soạn, reviewer và người điều phối bàn giao.
 
 Đọc [Capability catalog](../../references/capability-specification-catalog.md); giữ C01–C08. Chỉ soạn đến độ sâu của bước: giao làm rõ, chốt scope Epic, hoàn tất phân tích hoặc acceptance.
 
@@ -16,11 +16,11 @@ Nêu ai gặp nhu cầu/vấn đề gì, source locator và rationale. Giữ sou
 
 ## C02 — Outcome và cách đánh giá
 
-Mỗi outcome một mục: loại acceptance/lợi ích sau sử dụng, điều kiện quan sát, cách đánh giá, population/window, owner. KPI có baseline/target/unit nếu được chọn; thiếu thì ghi quyết định Pending.
+Mỗi outcome một mục: loại acceptance/lợi ích sau sử dụng, điều kiện quan sát, cách đánh giá, nhóm quan sát, thời gian đo và người phụ trách đo kết quả. KPI có baseline/target/unit nếu được chọn; thiếu thì ghi quyết định Pending.
 
-## C03 — Bên liên quan và trách nhiệm xác nhận
+## C03 — Bên liên quan nghiệp vụ
 
-Tách nhóm sử dụng khỏi người review/phê duyệt. Dùng bảng ngắn vai trò → trách nhiệm. Tên người, người thay thế và hạn chưa có thì ghi thiếu.
+Ghi nhóm sử dụng, hưởng lợi, chịu tác động hoặc có quyền lợi cần bảo vệ, cùng nhu cầu và tác động quan sát được. Khi một nhóm trực tiếp tham gia Use Case, dẫn đến actor ở Epic tương ứng. Dẫn C08 cho thẩm quyền xác nhận nghiệp vụ và Work Context cho vai trò dự án, review và bàn giao. [Quy ước vai trò](../../references/artifact-writing-standard.md#business-and-sdlc-roles).
 
 ## C04 — Phạm vi và ranh giới
 
@@ -32,7 +32,7 @@ Dẫn ID/revision của requirements, rule, NFR, data/permission/integration/tra
 
 ## C06 — Phân bổ Epic và dependency
 
-Nêu quy ước cấp độ đang dùng, Capability ngang hàng đã đối chiếu và lý do năng lực này cần Capability riêng. Dẫn evidence hiện có hoặc ghi giả định. Với nhóm mới/đổi ranh giới, áp dụng checkpoint chọn cấp: parent/cấp, model/control/acceptance chung, delta bàn giao và rationale gom/tách. Kiểm cha–con lặp nghĩa; quan hệ một–một cần vai trò riêng, không bịa thêm con.
+Dẫn kết quả [xác định vị trí lát cắt trong dự án](../../references/source-scope-and-decomposition-checkpoint.md#project-placement). Ghi nguồn phạm vi và revision, locator, Capability/Epic hiện có và các nhóm liền kề đã đối chiếu. Giải thích vì sao cấp cha được chọn, cùng phạm vi, quy tắc dùng chung hoặc tiêu chí nghiệm thu mà nó sở hữu. Nêu điểm khác giữa kết quả của Capability và mục tiêu người dùng của từng Epic trong đợt. Một Epic trong đợt đầu là đủ khi nguồn chứng minh vai trò riêng của cấp cha.
 
 Bảng tra scope unit → Epic/candidate → source/REQ. Giải thích overlap/split; ghi người cung cấp dependency, cam kết/capacity/mốc sơ bộ khi có. Chưa có thì giữ gap.
 
@@ -42,7 +42,7 @@ Mỗi tình huống nêu điều kiện, hành vi và kết quả quan sát. Ghi
 
 ## C08 — Quyết định, baseline và bàn giao
 
-Dẫn DEC ID/revision, authority và evidence cho scope áp dụng. Liệt kê câu hỏi và quyết định còn mở. Dẫn baseline/review/approval đúng revision nếu có; ghi receiver và bước tiếp. Epic Done chưa tự Capability Accepted.
+Ghi riêng quyết định và người có thẩm quyền xác nhận nghiệp vụ, cùng ID, revision, phạm vi và evidence. Đặt vai trò review, người chốt baseline và người nhận bàn giao ở phần SDLC hoặc dẫn Work Context. Nếu một người kiêm vai trò, ghi từng trách nhiệm. Giữ các câu hỏi và quyết định còn mở đúng nhóm.
 
 ## Theo dõi review của từng mục
 

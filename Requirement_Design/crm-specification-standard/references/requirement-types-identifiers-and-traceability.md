@@ -11,7 +11,7 @@ Use Case user-goal có MOD ID do đúng một Epic sở hữu trong defined_ids.
 | Loại | Thông tin phải làm rõ và cách kiểm | Nơi duy trì nguồn chuẩn/phạm vi áp dụng | Authority và evidence |
 |---|---|---|---|
 | Business | Vấn đề/cơ hội, kết quả mong muốn, đối tượng hưởng lợi, cách đánh giá; nếu là KPI có baseline/target/method/window hoặc decision pending | Capability hoặc register dùng chung; có thể liên nhiều Capability/Epic | Business/Sponsor theo quyền; source/rationale và phương pháp xác nhận outcome |
-| Stakeholder | Nhóm/role, hoàn cảnh, nhu cầu, kết quả có thể xác nhận, conflict với nhóm khác | Capability/Epic hoặc register chung; Story cụ thể hóa phần hành vi | Đại diện stakeholder có authority; ví dụ/read-back và giải quyết conflict |
+| Stakeholder | Bên liên quan nghiệp vụ, hoàn cảnh, nhu cầu, kết quả có thể xác nhận và xung đột giữa các nhóm | Capability/Epic hoặc register chung; Story cụ thể hóa phần hành vi | Đại diện và người có thẩm quyền xác nhận nhu cầu đó, cùng ví dụ/read-back và cách xử lý xung đột |
 | Functional | Điều kiện/trigger, action, outcome, quyền/state/data/error áp dụng | Epic/shared models, Story chọn subset/delta | Business chốt nghĩa, TL feasibility, QA testability; model/AC/test conditions |
 | Non-functional | Quality/control, scope, điều kiện đo/inspection, threshold hoặc chuẩn bắt buộc, owner | Shared requirement hoặc Capability/Epic/Story theo phạm vi thật | Business/control/TL tùy nội dung; measurement/control method và evidence yêu cầu |
 | Transition | Thay đổi để chuyển sang giải pháp mới: data mapping, reconcile, cutover/restore, điều kiện chuyển giao | Capability/Epic migration/operations; triển khai qua Story/Task phù hợp | Data/Ops/Business/TL; mapping, tiêu chí đối soát/khôi phục/nghiệm thu |
@@ -22,7 +22,7 @@ Mỗi requirement có `type` từ năm loại trên và `applies_to` theo scope 
 
 Business: đối chiếu source → vấn đề → outcome; hỏi ai nhận lợi ích và điều gì cho thấy đạt. Outcome định lượng có đơn vị, baseline quan sát hoặc kế hoạch thu thập, target được authority chốt, population/window/method. Outcome định tính có điều kiện chấp nhận quan sát được hoặc phương pháp đánh giá rõ. Không ép mọi outcome thành KPI số và không invent target.
 
-Stakeholder: xác định người đại diện, hoàn cảnh sử dụng, nhu cầu/constraint, ví dụ đáp ứng và phản ví dụ; yêu cầu Dev/QA diễn giải lại. Khi hai nhóm muốn kết quả trái nhau, ghi conflict/authority và đóng decision trước bàn giao scope bị ảnh hưởng.
+Với Stakeholder requirement, xác định bên liên quan nghiệp vụ, người đại diện, hoàn cảnh, nhu cầu và ví dụ đáp ứng hoặc phản ví dụ; yêu cầu Dev/QA diễn giải lại. Khi hai nhóm muốn kết quả trái nhau, ghi conflict/authority và đóng decision trước bàn giao scope bị ảnh hưởng.
 
 Cả hai áp dụng Q01–Q07 như các requirement khác, không chỉ Q01. Q04 được thực hiện bằng phương pháp đánh giá phù hợp cấp độ, không ép mọi business outcome thành API assertion. [Capability catalog](capability-specification-catalog.md) phân biệt nghiệm thu sản phẩm và đánh giá lợi ích sau sử dụng.
 

@@ -16,7 +16,7 @@ Requirements Analyst chủ trì góc nhìn AI. Quyền nội dung và gate theo 
 
 ## Required Inputs
 
-Capability/selected scope, Epic draft, source/authority, shared models/constraints và current revision.
+Capability và phạm vi đợt, Epic draft, vai trò nghiệp vụ từ Setup Project hoặc C03, người xác nhận theo nội dung, mô hình dùng chung, ràng buộc và revision hiện hành.
 
 Context chung: target/logical ID, selected scope, input revision/canonical locations, policy refs/effective scope và quyền đọc/sửa. Sources chưa có thì ghi chưa xác định; không bịa commit/Jira key/actor hoặc evidence.
 
@@ -31,6 +31,8 @@ Nếu scope Epic lấy từ function list hoặc đang đổi ranh giới, áp d
 Khi có meeting/chat/decision/assumption/constraint ảnh hưởng target, đọc [knowledge records](../references/knowledge-records-and-evidence.md), đối chiếu revision và dependency closure. Lấy nơi ghi từ artifact_paths trong context; [layout policy](../references/artifact-layout-and-migration.md) giữ tương thích config cũ. Chỉ author record trong scope đã giao; không suy discussion hoặc action item thành approval/product Task.
 
 ## Execution Steps
+
+Dùng lại phân loại vai trò từ Setup Project và C03. Ở E02, chỉ đưa vai trò vào nhóm actor khi xác định được tương tác trong E03. Tách bên liên quan chịu tác động, dẫn quyền runtime ở E07 và giữ người soạn, reviewer, người xác nhận và người chốt bàn giao ở phần tương ứng trong E16 hoặc Work Context. [Quy ước vai trò](../references/artifact-writing-standard.md#business-and-sdlc-roles).
 
 Áp dụng [policy Epic–Use Case](../references/epic-use-case-policy.md). Thực hiện [D01](../references/models/business-flows-and-use-cases.md) và điền [mẫu Epic](../assets/templates/epic-specification-template.md). Xác nhận binding 1–1, ghi đầy đủ hành vi tại E03 và làm rõ các mục E01–E16 áp dụng cho đợt. Đặt question và authority cạnh nhánh thiếu expected result.
 

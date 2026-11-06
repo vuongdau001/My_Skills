@@ -16,7 +16,7 @@ Delivery Coordinator chủ trì góc nhìn AI. Quyền nội dung và gate theo 
 
 ## Required Inputs
 
-Nguồn dự án, constraints tổ chức/hợp đồng, roles/authority, repo/artifact locations và các quy ước/policy hiện có.
+Nguồn dự án, ràng buộc tổ chức/hợp đồng, vai trò nghiệp vụ, trách nhiệm SDLC, thẩm quyền theo nội dung, vị trí hồ sơ và policy hiện có.
 
 Context chung: target/logical ID, selected scope, input revision/canonical locations, policy refs/effective scope và quyền đọc/sửa. Sources chưa có thì ghi chưa xác định; không bịa commit/Jira key/actor hoặc evidence.
 
@@ -29,6 +29,10 @@ Khi tiếp nhận function list/WBS/estimation/screen list, dùng [checkpoint ng
 Khi có meeting/chat/decision/assumption/constraint ảnh hưởng target, đọc [knowledge records](../references/knowledge-records-and-evidence.md), đối chiếu revision và dependency closure. Lấy nơi ghi từ artifact_paths trong context; [layout policy](../references/artifact-layout-and-migration.md) giữ tương thích config cũ. Chỉ author record trong scope đã giao; không suy discussion hoặc action item thành approval/product Task.
 
 ## Execution Steps
+
+Trong intake, phân loại [vai trò nghiệp vụ và trách nhiệm SDLC](../references/artifact-writing-standard.md#business-and-sdlc-roles). Ghi người soạn, reviewer, người chốt bàn giao và thẩm quyền theo từng nội dung trong Work Context. Giữ actor và bên liên quan nghiệp vụ cùng nguồn để bàn giao bước phân tích.
+
+Phân loại Decision, Assumption và Constraint theo [phạm vi áp dụng](../references/knowledge-records-and-evidence.md#record-applicability). Nếu một ghi chú chứa cả yêu cầu sản phẩm lẫn điều kiện SDLC, tách phát biểu và giữ locator nguồn cho từng phần. Dẫn rule sản phẩm đến hồ sơ nghiệp vụ và điều kiện SDLC đến policy hoặc gói bàn giao phù hợp.
 
 Thực hiện [intake hồ sơ đã có](../references/knowledge-records-and-evidence.md#tái-dùng-hồ-sơ-từ-đầu-vào) trước khi soạn policy register. Đọc nguồn và đối chiếu `knowledge_intake` với hồ sơ chuẩn. Dùng lại ID/revision, pin evidence và áp dụng ngay record đã có hiệu lực đúng phạm vi. Ghi phần có điều kiện, nguồn xung đột và việc cần người có thẩm quyền xác nhận.
 

@@ -14,10 +14,11 @@ Một đoạn nêu việc được giao hoặc output đang bàn giao. Dùng [pr
 | Function/profile/target | Logical ID/kind, Jira mapping riêng và mục tiêu |
 | Scope/revision/baseline | In/out, nguồn/pins, policy version/authority |
 | Quyền và gaps | Vùng được đọc/sửa; câu hỏi/finding, owner/due nếu biết |
+| Vai trò dự án và thẩm quyền | Người soạn, reviewer, người phụ trách kiểm chứng, người chốt bàn giao và phạm vi thẩm quyền thực tế. Dẫn C03/E02 cho các vai trò nghiệp vụ. |
 
 ## Kết quả và evidence
 
-Tách bốn sự kiện: output được chuẩn bị, review đã thực hiện, authority đã duyệt, hành động thực tế đã xác nhận. Mỗi sự kiện ghi scope/revision, evidence/actor và phần còn thiếu; không dùng approval làm bằng chứng đã merge.
+Tách bốn sự kiện: output được chuẩn bị, review đã thực hiện, authority đã duyệt, hành động thực tế đã xác nhận. Mỗi sự kiện ghi scope/revision, evidence, người thực hiện sự kiện và phần còn thiếu; không dùng approval làm bằng chứng đã merge.
 
 Nêu artifact tạo/sửa/kiểm, thao tác/witness, findings, verdict scoped và mode self-check/human/independent thực tế. Evidence phải đúng revision/build.
 

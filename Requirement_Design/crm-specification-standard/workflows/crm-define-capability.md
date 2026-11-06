@@ -1,6 +1,6 @@
 # Define Capability
 
-ID: **crm-define-capability** · CRM Workflow Kit 1.11.0 · 05/11/2026
+ID: **crm-define-capability** · CRM Workflow Kit 2.0.1 · 06/11/2026
 
 Function: **`crm-define-capability`** · Agent: **[Requirements Analyst](../agents/profiles/crm-requirements-analyst.md)**  
 Supported targets: Capability
@@ -9,7 +9,7 @@ Supported targets: Capability
 
 ## Purpose & Triggers
 
-Define Capability: Capability C01–C08, source/outcome/scope, acceptance method, Epic candidates và decisions cần authority. Dùng khi người dùng yêu cầu công việc này hoặc khi bàn giao từ bước trước đã đủ context. Chỉ xử lý target kinds nêu trên; nếu target không phù hợp, dùng CRM Guide chọn lại workflow, không ép target vào loại khác.
+Define Capability xác định vị trí lát cắt trong dự án trước khi chọn cấp hồ sơ. Khi nguồn chứng minh cấp Capability, workflow làm rõ C01–C08, tiêu chí nghiệm thu, Epic candidates và quyết định cần authority. Dùng khi người dùng yêu cầu công việc này hoặc khi bàn giao từ bước trước đã đủ context. Chỉ xử lý target kinds nêu trên; nếu target không phù hợp, dùng CRM Guide chọn lại workflow, không ép target vào loại khác.
 
 ## Participants
 
@@ -17,21 +17,31 @@ Requirements Analyst chủ trì góc nhìn AI. Quyền nội dung và gate theo 
 
 ## Required Inputs
 
-Nhu cầu/Capability draft, sources, stakeholder/authority, scope/constraints và policy refs hiện có.
+Nhu cầu hoặc Capability draft, nguồn phạm vi cấp dự án, cây Capability/Epic hiện có, bên liên quan nghiệp vụ, thẩm quyền theo nội dung, ràng buộc và policy áp dụng.
 
 Context chung: target/logical ID, selected scope, input revision/canonical locations, policy refs/effective scope và quyền đọc/sửa. Sources chưa có thì ghi chưa xác định; không bịa commit/Jira key/actor hoặc evidence.
 
 ## Input Check
 
-Trước khi tạo Capability, đọc cây và quy ước cấp độ hiện có. Áp dụng phần chọn cấp/cha–con của checkpoint tại C04/C06; giải thích vì sao không đặt yêu cầu vào Capability hiện có, nếu đề xuất Capability mới. Không dựng đủ ba cấp từ một prompt nhỏ.
+Bắt đầu bằng [xác định vị trí lát cắt trong dự án](../references/source-scope-and-decomposition-checkpoint.md#project-placement). Đọc Function List, capability map hoặc baseline liên quan và đối chiếu Capability/Epic hiện có cùng các nhóm liền kề. Khi cây trống, dùng nguồn dự án để đề xuất cấp cha. Với prompt hẹp, chỉ rà phần cần để chọn cấp và giải thích ranh giới. Nếu chưa có ID, có thể nạp context để đọc hướng dẫn và nguồn trước khi xác định target ghi.
 
-Trước khi đề nghị chốt C04/C06 hoặc sửa nhóm Epic, áp dụng [checkpoint nguồn scope](../references/source-scope-and-decomposition-checkpoint.md). Nêu outcome/model/acceptance làm căn cứ gom/tách và mapping/giao thoa; cùng màn hình, object hay file chưa đủ lý do. Thiếu đầu vào vẫn có thể soạn candidates, ghi phần chưa kiểm.
+Chọn một đầu ra **trước khi đề xuất Capability mới, gọi `next-id CAP`, soạn C01–C08 hoặc ghi file**:
+
+| Căn cứ | Đầu ra |
+|---|---|
+| Nguồn chứng minh năng lực có ranh giới ổn định và vai trò riêng về phạm vi, quy tắc dùng chung hoặc nghiệm thu. | Soạn Capability trong phạm vi được giao. Dùng ID hiện có khi cập nhật và cấp CAP ID khi tạo hồ sơ mới. Ghi riêng lát cắt được chọn cho đợt này. |
+| Lát cắt phục vụ một mục tiêu người dùng thuộc năng lực rộng hơn. | Đề xuất Epic dưới Capability cha hiện có hoặc ứng viên. Nếu cấp cha chưa xác định, giữ kết quả ở mức ứng viên. Trả căn cứ và hướng sang `crm-specify-epic` khi có target phù hợp. Hoãn CAP ID và hồ sơ Capability cho lát cắt. |
+| Thiếu nguồn cấp dự án hoặc còn nhiều cấp cha hợp lý. | Trả phần đã phân tích, các phương án có căn cứ và thông tin cần làm rõ. Giữ phân loại ở mức ứng viên. Hoãn CAP ID và hồ sơ Capability. |
+
+Với hai đầu ra ứng viên, trả kết quả phân loại trong phản hồi và dừng trước các bước authoring Capability. Một màn hình, một nhóm màn hình hoặc một guard quyền có thể là evidence về hành vi và control. Ranh giới của Capability cần căn cứ riêng từ phạm vi dự án.
 
 Đọc target và refs trước khi chỉnh sửa. Đối soát scope/version với request, source/authority và previous records; hỏi lựa chọn khi có nhiều target hợp lý. Ghi input còn thiếu, phần bị chặn, owner nếu biết và next action. Tiếp tục phần độc lập; không tự điền expected behavior/policy để hoàn thiện đầu ra.
 
 Khi có meeting/chat/decision/assumption/constraint ảnh hưởng target, đọc [knowledge records](../references/knowledge-records-and-evidence.md), đối chiếu revision và dependency closure. Lấy nơi ghi từ artifact_paths trong context; [layout policy](../references/artifact-layout-and-migration.md) giữ tương thích config cũ. Chỉ author record trong scope đã giao; không suy discussion hoặc action item thành approval/product Task.
 
 ## Execution Steps
+
+Các bước dưới đây áp dụng khi phép kiểm trên chọn đầu ra soạn Capability. Ghi evidence chọn cấp cha tại C06. Dùng lại [phân loại vai trò](../references/artifact-writing-standard.md#business-and-sdlc-roles) từ Setup Project. C03 giữ bên liên quan nghiệp vụ, C08 ghi quyết định và người xác nhận theo phạm vi, Work Context giữ trách nhiệm SDLC.
 
 Thực hiện [intake hồ sơ đã có](../references/knowledge-records-and-evidence.md#tái-dùng-hồ-sơ-từ-đầu-vào) kể cả khi vào thẳng workflow này. Đối chiếu `knowledge_intake` và nguồn người dùng trước khi dựng scope. Dùng cùng ID/revision đã ghi ở Setup Project. Dẫn Assumption/Constraint/Decision vào C04–C06/C08 theo nơi chúng thực sự ảnh hưởng, đồng thời khai trace links cho dependency áp dụng.
 
@@ -54,7 +64,7 @@ Thực hiện [intake hồ sơ đã có](../references/knowledge-records-and-evi
 Soạn output theo [standard viết artifact](../references/artifact-writing-standard.md), bao gồm review/check/report/handoff; giữ độ sâu theo mode và write boundary của function.
 
 
-Capability C01–C08, source/outcome/scope, acceptance method, Epic candidates và decisions cần authority.
+Kết quả xác định vị trí, gồm nguồn/revision, nhóm liền kề và lý do chọn cấp. Tùy căn cứ, bàn giao Capability C01–C08, Epic ứng viên dưới cấp cha phù hợp hoặc phân tích có điều kiện và câu hỏi cần làm rõ.
 
 Dùng [Work Context and Handoff Template](../assets/templates/work-context-and-handoff-template.md) để giữ function/target/revision, evidence, gaps, authority và receiver. Có thể ghi section trong hồ sơ hiện hành, không bắt file mới. **Write boundary:** chỉ artifacts trong phạm vi được giao; không product code/test hoặc external mutations.
 
@@ -78,4 +88,4 @@ Outcome/authority chưa rõ thì ghi missing decision; không ép KPI số hoặ
 
 > Dùng crm-define-capability làm rõ nhu cầu này, chỉ ra outcome, scope và Epic candidates; giữ các quyết định chưa xác nhận.
 
-Kết quả mong đợi: Capability C01–C08, source/outcome/scope, acceptance method, Epic candidates và decisions cần authority. Record phải chỉ đúng scope/revision, evidence đã xem và phần chưa kiểm. Phản ví dụ cần tránh: kết luận gate/ticket Done chỉ vì agent đã hoàn tất câu trả lời hoặc đổi profile.
+Kết quả mong đợi là phân loại có căn cứ trước khi soạn. Nếu nguồn chỉ ra một mục tiêu sử dụng trong năng lực rộng hơn, trả Epic ứng viên, cấp cha và phần còn cần xác nhận.

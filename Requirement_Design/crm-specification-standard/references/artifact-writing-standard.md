@@ -25,6 +25,23 @@ Viết câu tiếng Việt đầy đủ: ai làm gì, trong điều kiện nào,
 
 Không dùng dấu `/`, `;` hoặc chuỗi từ tiếng Anh để thay nhiều mệnh đề. Không dịch/đổi hàng loạt Customer, Contact, Aggregate, Active, CURRENT, tên field hoặc ID nguồn. Viết tắt role không tự chứng minh quyền phê duyệt của một cá nhân.
 
+<a id="business-and-sdlc-roles"></a>
+
+### Vai trò nghiệp vụ và trách nhiệm SDLC
+
+Gọi tên vai trò theo việc người đó làm trong ngữ cảnh đang mô tả. Từ `stakeholder` cần nói rõ là bên liên quan nghiệp vụ hay bên liên quan dự án.
+
+| Thuật ngữ | Dùng khi |
+|---|---|
+| Actor nghiệp vụ | Vai trò của người hoặc hệ thống bên ngoài trực tiếp tương tác với hệ thống trong Use Case. Ghi bước, mục tiêu hoặc đóng góp của actor. |
+| Bên liên quan nghiệp vụ | Người hoặc nhóm hưởng lợi, chịu tác động, vận hành nghiệp vụ hoặc có quyền lợi cần bảo vệ. Khi nhóm cũng trực tiếp tương tác với hệ thống, mô tả thêm vai trò actor ở Use Case tương ứng. |
+| Bên liên quan dự án và vai trò SDLC | Người hoặc nhóm quan tâm đến phạm vi, tiến độ, nguồn lực hoặc việc bàn giao. Nếu có trách nhiệm cụ thể, ghi vai trò tổ chức, phân tích, triển khai, review, kiểm thử hoặc chốt bàn giao tại Work Context hoặc hồ sơ tương ứng. |
+| Người có thẩm quyền xác nhận | Người hoặc nhóm được giao quyền xác nhận một nội dung cụ thể. Ghi nội dung, phạm vi, revision và evidence của lần xác nhận. |
+
+Một người có thể kiêm nhiều vai trò. Ghi từng vai trò với trách nhiệm và evidence riêng. Ví dụ, một quản lý Sales có thể duyệt yêu cầu trong CRM với tư cách actor, rồi tham gia nghiệm thu với tư cách người được giao xác nhận nghiệp vụ. Quyền thao tác trong CRM và quyền ký nghiệm thu có nguồn xác nhận riêng.
+
+Khi dùng `owner`, ghi rõ họ phụ trách dữ liệu, hồ sơ, kiểm chứng giả định, review hay bàn giao. Khi dùng `approval` hoặc `policy`, ghi rõ đó là quyết định trong nghiệp vụ, xác nhận đặc tả/nghiệm thu sản phẩm hay quy tắc SDLC. Với Decision, Assumption và Constraint, ghi [phạm vi áp dụng](knowledge-records-and-evidence.md#record-applicability) trong nội dung đọc được.
+
 ## 2. Thứ tự đọc trong mỗi artifact
 
 1. **Tiêu đề:** ID nếu có và tên thể hiện mục đích.
@@ -42,7 +59,7 @@ Mỗi đoạn một ý. Dùng đoạn ngắn cho mục đích/lý do/giới hạ
 
 | Thông tin | Hình thức nên dùng |
 |---|---|
-| Vai trò và trách nhiệm | Bảng ngắn, tách người sử dụng khỏi người review/phê duyệt |
+| Vai trò và trách nhiệm | Bảng ngắn, ghi riêng actor, bên liên quan nghiệp vụ, vai trò SDLC và thẩm quyền xác nhận từng nội dung |
 | Phạm vi | Tách trong phạm vi, phụ thuộc, ngoài phạm vi và điểm chưa quyết |
 | Mapping ID, trạng thái so sánh | Bảng, mỗi ô một thông tin ngắn |
 | Rule/AC hoặc câu hỏi có nhiều giải thích | Mỗi ID một mục, dùng nhãn điều kiện/kết quả/gap |
@@ -72,7 +89,7 @@ Giữ vocabulary của schema: Pending, Proposed, Approved, Unverified, Validate
 
 | Nhóm | Nội dung cần để người đọc tra được |
 |---|---|
-| Capability | Nhu cầu/outcome; stakeholder và authority; phạm vi; requirements chung; Epic allocation; acceptance; quyết định — C01–C08 |
+| Capability | Nhu cầu/outcome; bên liên quan nghiệp vụ; phạm vi; requirements chung; Epic allocation; acceptance; quyết định — C01–C08 |
 | Epic | Actor/domain terms; flows, state/rules, data/quyền, UI/API, ngoại lệ, NFR/migration, solution, AC, Story candidates và gaps — E01–E16 |
 | Story | Actor/outcome; selected scope/model/BR/AC; điều kiện/thất bại; test approach; kế hoạch và DoD — S01–S12 |
 | Task | Mục đích, một Epic owner và các Story/Epic sử dụng đầu ra. Đầu ra, ranh giới, inputs, dependency, owner, tiêu chí kiểm và evidence khi đóng — T01–T08 |
@@ -81,9 +98,9 @@ Giữ vocabulary của schema: Pending, Proposed, Approved, Unverified, Validate
 | Project/source/scope/policy register | Bối cảnh; danh mục tra; phạm vi/authority/evidence; tình trạng và câu hỏi; mapping giữ một nơi định nghĩa |
 | Question register | Một mục mỗi ID; câu hỏi cụ thể; scope bị ảnh hưởng; người/nhóm cần trả lời; record liên quan |
 | Meeting/chat/email | Sự kiện và participants thật; nguồn; nội dung ghi nhận; decisions/questions/actions tách riêng; trạng thái xác nhận biên bản |
-| Decision | Câu cần quyết; context/options/rationale/consequences; authority/state/evidence; ảnh hưởng và bước tiếp |
-| Assumption | Statement/basis; cách kiểm, owner/hạn; if-false; kết quả/evidence và consumer cần xem lại |
-| Constraint | Ràng buộc/loại; nguồn/authority/hiệu lực; applies-to; cách kiểm tuân thủ và gaps |
+| Decision | Câu cần quyết và phạm vi áp dụng; context/options/rationale/consequences; authority/state/evidence; ảnh hưởng và bước tiếp |
+| Assumption | Statement/basis và phạm vi áp dụng; cách kiểm, người phụ trách và hạn; if-false; kết quả/evidence và consumer cần xem lại |
+| Constraint | Ràng buộc, loại và phạm vi áp dụng; nguồn, thẩm quyền và hiệu lực; applies-to; cách kiểm tuân thủ và gaps |
 | Review/check | Target/scope/revision; cách kiểm/witness; expected/observed; findings; verdict scoped; closure/receiver |
 | Baseline/change assessment | Scope và manifest/version; approvals/evidence; thay đổi/impact; người thực hiện; actual action/merge receipt và việc còn thiếu |
 | Report/assessment | Snapshot/mẫu số/nguồn; kết quả chính; chi tiết theo target; blocker/uncertainty; next actions; tách declared/effective khi có scoring |
@@ -110,6 +127,7 @@ Khi byte/locator thay đổi: giữ snapshot hoặc lịch sử có thể truy l
 
 - Người đọc tìm được ý chính, phạm vi, kết quả và việc tiếp theo mà không tự giải mã chuỗi từ viết tắt?
 - Mỗi đoạn/bảng có một mục đích rõ; field/ID không bị mất khi tách bố cục?
+- Actor, bên liên quan nghiệp vụ và vai trò SDLC đã được ghi đúng nơi? Người xác nhận có thẩm quyền đúng nội dung và scope?
 - Proposal/gap còn được ghi rõ, expected behavior không bị tự điền?
 - Rule/model/AC còn cùng nghĩa, source/revision và các controls áp dụng?
 - Metadata/reference/ID/record links còn đọc được; lint đã chạy trong phạm vi cần thiết?

@@ -26,7 +26,7 @@ Thực hiện các bước bên dưới và lưu [review record](../../assets/te
 2. Ghi mục đích của requirement: nếu bỏ nó thì mục tiêu/control nào không đáp ứng? Nếu không giải thích được, yêu cầu BA làm rõ rationale thay vì tự kết luận cần thiết.
 3. Business đọc lại bằng một ví dụ thành công và phản ví dụ/từ chối, chốt expected result; QA/Dev đối chiếu cách hiểu. Với yêu cầu kỹ thuật/control, đúng technical/control authority xác nhận.
 4. Tách requirement nghiệp vụ khỏi lựa chọn thiết kế. Nếu một công nghệ/giải pháp là constraint bắt buộc, ghi nguồn/authority của constraint; nếu chỉ là phương án, chuyển sang solution/rationale.
-5. Khi nguồn/nhóm stakeholder mâu thuẫn, ghi conflict và người phân xử; không chọn ý kiến cuối cùng trong comment làm chân lý.
+5. Khi các nguồn hoặc bên liên quan nghiệp vụ mâu thuẫn, ghi conflict và người phân xử; không chọn ý kiến cuối cùng trong comment làm chân lý.
 
 **Evidence:** link nguồn/parent, rationale, ví dụ + phản ví dụ, authority/verdict đúng revision; conflict đã đóng.
 

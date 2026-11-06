@@ -10,15 +10,32 @@ Dùng project path từ artifact_paths: 01-meetings, 02-decisions, 03-assumption
 
 crm-setup-project tiếp nhận nguồn và chuẩn bị records/register. define-capability/specify-epic/design-solution/prepare-stories có thể tạo/cập nhật record thuộc scope authoring đã giao. review/check chỉ ghi findings/record của mình; không đổi decision hay target đang kiểm. report-status tổng hợp obligations; assess-change lập impact khi có thay đổi sau baseline. Không tự gửi biên bản, tạo Jira hoặc cập nhật state dự án.
 
+<a id="record-applicability"></a>
+
+## Phạm vi áp dụng của Decision, Assumption và Constraint
+
+Ghi nhãn **Phạm vi áp dụng** trong phần nội dung của mỗi record. Chọn một trong hai giá trị theo điều record chi phối.
+
+| Giá trị | Điều record chi phối | Nơi dẫn tới |
+|---|---|---|
+| **Nghiệp vụ / sản phẩm** | Hành vi runtime, dữ liệu, quyền, quy tắc nghiệp vụ, contract, NFR hoặc giới hạn kỹ thuật của sản phẩm. | Capability, Epic, Story, requirement, rule, model, contract hoặc AC thực sự chịu ảnh hưởng. |
+| **Dự án / SDLC** | Kế hoạch, môi trường kiểm, review, kiểm thử, CI, baseline hoặc điều kiện bàn giao. | Work Context, project policy, review, baseline, handoff hoặc kế hoạch thực hiện phù hợp. |
+
+Phạm vi áp dụng mô tả nội dung. Loại record DEC/ASM/CST mô tả bản chất của phát biểu. Với CST, `constraint_type` tiếp tục mô tả loại ràng buộc, chẳng hạn technical hoặc organizational. Ghi scope cụ thể, người phụ trách record, người có thẩm quyền với nội dung hoặc người kiểm chứng, và evidence theo schema hiện hành.
+
+Một ghi chú có cả rule sản phẩm và điều kiện bàn giao thì tách hai phát biểu. Ví dụ, “CRM che email khi actor thiếu quyền xem trường” thuộc **Nghiệp vụ / sản phẩm**. “QA phải cung cấp kết quả ca thiếu quyền trước handoff” thuộc **Dự án / SDLC**. Tạo record cho phần cần quản lý riêng hoặc dẫn policy/record chuẩn đã có. Ghi người xác nhận và evidence cho từng phần. Chỉ khai trace có ý nghĩa phụ thuộc hoặc xác minh khi quan hệ đó thực sự tồn tại. Ở ví dụ này, đặc tả quyền dẫn rule sản phẩm, còn gói handoff dẫn điều kiện và evidence QA.
+
+Khi nguồn dùng một chức danh cho nhiều trách nhiệm, xác định người đó đang thao tác trong nghiệp vụ, chịu tác động, phụ trách công việc hay có thẩm quyền xác nhận. Nếu chưa đủ căn cứ, ghi việc cần xác minh trong intake. [Quy ước vai trò](artifact-writing-standard.md#business-and-sdlc-roles).
+
 ## Tái dùng hồ sơ từ đầu vào
 
 Dùng cùng một lượt intake trong Setup Project và Define Capability, kể cả khi mở thẳng Define Capability. Đọc nguồn người dùng chỉ định trong yêu cầu, attachment hoặc chat, sources trong Work Context và hồ sơ hiện hành. Kiểm các mục assumption/constraint/decision, các đoạn đã chốt và những phát biểu có cùng nghĩa dù mang tiêu đề khác.
 
-1. **Ghi claim và locator.** Giữ ID nguồn như BA-D1, statement, revision/hash hoặc định danh snapshot, scope, thời điểm, owner/authority và trạng thái được khai báo. Phân biệt fact đã có evidence, giả định cần kiểm, ràng buộc bắt buộc, lựa chọn đã quyết và câu hỏi. Một câu hỏi hoặc đề xuất chỉ thành record khi đã đủ căn cứ phân loại.
+1. **Ghi claim và locator.** Giữ ID nguồn như BA-D1, statement, revision/hash hoặc định danh snapshot, phạm vi áp dụng, scope cụ thể, thời điểm, người phụ trách hoặc người xác nhận và trạng thái được khai báo. Phân biệt fact đã có evidence, giả định cần kiểm, ràng buộc bắt buộc, lựa chọn đã quyết và câu hỏi. Một câu hỏi hoặc đề xuất chỉ thành record khi đã đủ căn cứ phân loại.
 2. **Đối chiếu hồ sơ chuẩn.** Tìm theo ID và theo nghĩa, scope, hiệu lực. Hồ sơ đang hiệu lực và phù hợp được dùng ngay bằng đúng ID/revision. Nếu trùng, dùng một bản chuẩn và giữ các locator nguồn. Nếu khác nghĩa hoặc khác revision, ghi cả hai nguồn, tác động và authority cần phân xử. Giữ bản đã baseline theo change control cho đến khi có quyết định thay thế.
 3. **Đăng ký khi có quyền author.** Với claim mới đủ trường, chuẩn hóa một record schema 2 và pin evidence nguồn. Tái dùng ID CRM nếu nguồn sở hữu đúng ID, chưa có định nghĩa khác và được phép tiếp nhận; nếu nguồn dùng ID riêng, giữ mapping và cấp ID CRM. Khi thiếu trường bắt buộc hoặc quyền ghi, ghi claim, scope, authority và next action trong intake/handoff; chưa cần tạo record cho đủ số lượng.
 4. **Áp dụng theo trạng thái.** Dùng ngay Decision Approved và Constraint Confirmed nếu authority, hiệu lực, scope và evidence khớp. Assumption Validated cần validation result và evidence. Các trạng thái còn mở như Unverified, Proposed và Pending có thể làm cơ sở có điều kiện cho bản nháp; ghi hệ quả nếu sai, phương pháp/owner xác nhận và nghĩa vụ còn chặn. Nội dung nguồn tự gắn nhãn “approved/confirmed” là claim cần đối chiếu. Dùng lại approval có evidence cho đúng statement và scope; thay statement, scope hoặc authority cần kiểm lại.
-5. **Ghi nơi sử dụng.** Setup Project pin records áp dụng trong project context/policy register và chỉ rõ mục nào cần xác nhận. Define Capability dùng cùng ID/revision ở C04 cho ranh giới/assumptions, C05 cho constraints/controls, C06 cho allocation/dependencies và C08 cho decisions/gaps. Tạo `depends-on` hoặc `derived-from` cho consumer thực sự dựa vào record, hoặc `applies-to` từ record khi phù hợp. Chưa có consumer thì ghi scope và pending allocation để nối sau. Giữ dữ liệu gốc read-only.
+5. **Ghi nơi sử dụng.** Setup Project tách input nghiệp vụ/sản phẩm khỏi policy và điều kiện SDLC trong context. Define Capability dùng cùng ID/revision ở C04 cho phạm vi và giả định sản phẩm, C05 cho ràng buộc và controls sản phẩm, C06 cho allocation và dependency. C08 dẫn quyết định, evidence và điều kiện bàn giao theo từng phạm vi. Tạo `depends-on` hoặc `derived-from` cho consumer thực sự dựa vào record, hoặc `applies-to` từ record khi phù hợp. Chưa có consumer thì ghi scope và pending allocation để nối sau. Giữ dữ liệu gốc read-only.
 
 `knowledge_intake` trong helper context liệt kê `existing_records` có metadata trong spec_root và `sources[].candidates` tìm được trong Markdown nguồn. Nó cũng liệt kê path, hash khi đọc được và nguồn cần đọc thủ công. Dùng `--input <repo-relative-path>` để thêm tệp do người dùng chỉ định cho lần chạy, có thể lặp lại. Source ngoài Markdown, thư mục, chat và attachment cần người thực hiện đọc đúng locator. Inventory trả về khai báo và vị trí để đối chiếu; workflow xác định applicability và authority từ evidence.
 

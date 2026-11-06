@@ -5,7 +5,7 @@ description: "Vận hành yêu cầu và backlog CRM theo workflow: tiếp nhậ
 
 # CRM Workflow Kit
 
-Phiên bản **2.0.0**. Một root skill, các agent profiles logic và workflows tự chứa. Người mới đọc [Start Here](START-HERE.md). Nguồn kit tên crm-specification-standard; helper đóng gói bản cài một root skill tên crm-spec-kit. Các function IDs bên dưới vẫn là workflow nội bộ, không phải 13 slash commands riêng.
+Phiên bản **2.0.1**. Một root skill, các agent profiles logic và workflows tự chứa. Người mới đọc [Start Here](START-HERE.md). Nguồn kit tên crm-specification-standard; helper đóng gói bản cài một root skill tên crm-spec-kit. Các function IDs bên dưới vẫn là workflow nội bộ, không phải 13 slash commands riêng.
 
 Khi Epic có UI, tìm mockup nguồn theo chỉ dẫn người dùng. Bàn giao bản chạy được trong category prototypes theo từng hành trình. Kiểm Prototype ở baseline, DoR và E08. Đọc [quy trình Prototype](references/prototype-workflow-and-epic-gate.md).
 
@@ -72,6 +72,6 @@ Workstream mới dùng thư mục đánh số; config cũ giữ legacy. Khi ch�
 
 ## Registry & Verification
 
-[Manifest](reference-manifest.json) nối function → profile → workflow → refs/templates. [Nguồn và tailoring](references/standards-and-crm-tailoring.md), [BMAD inspiration](provenance/bmad-inspiration-and-crm-tailoring.md), [acceptance scenarios](references/pack-acceptance-scenarios.md) và [report 2.0.0](provenance/pack-validation-report-v2.0.0.md) phục vụ đối chiếu.
+[Manifest](reference-manifest.json) nối function → profile → workflow → refs/templates. [Nguồn và tailoring](references/standards-and-crm-tailoring.md), [BMAD inspiration](provenance/bmad-inspiration-and-crm-tailoring.md), [acceptance scenarios](references/pack-acceptance-scenarios.md) và [report 2.0.1](provenance/pack-validation-report-v2.0.1.md) phục vụ đối chiếu.
 
 Chạy `python3 scripts/validate_reference_pack.py` từ folder này hoặc gọi bằng đường dẫn script. Validator kiểm cấu trúc/refs/registry/migration, không cấp DoR/DoD approval hoặc chứng minh phần mềm đạt.

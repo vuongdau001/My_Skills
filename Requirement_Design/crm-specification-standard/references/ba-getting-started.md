@@ -22,7 +22,7 @@ Một Epic sở hữu một Use Case cấp user-goal và có thể áp dụng nh
 
 IIBA phân loại Business requirements (mục tiêu thay đổi), Stakeholder requirements (nhu cầu của các bên), Solution requirements (Functional và Non-functional), và Transition requirements (phục vụ chuyển từ hiện trạng sang trạng thái mới). [IIBA Core Standard, mục 1.5](https://www.iiba.org/globalassets/standards-and-resources/core-standard/iiba-core-standard.pdf).
 
-Áp dụng vào ví dụ: quản lý nhất quán người liên hệ là mục tiêu cần làm rõ; AM cần biết người đó đại diện công ty nào là nhu cầu stakeholder; cho phép gắn Contact vào Customer là hành vi chức năng. Một ngưỡng phản hồi cần đo là NFR; chuyển đổi dữ liệu quan hệ cũ khi go-live là transition. Các câu này mới minh họa loại thông tin, chưa đủ để coi là requirement đã duyệt.
+Áp dụng vào ví dụ: quản lý nhất quán người liên hệ là mục tiêu cần làm rõ; AM cần biết người đó đại diện công ty nào là nhu cầu của bên liên quan nghiệp vụ; cho phép gắn Contact vào Customer là hành vi chức năng. Một ngưỡng phản hồi cần đo là NFR; chuyển đổi dữ liệu quan hệ cũ khi go-live là transition. Các câu này mới minh họa loại thông tin, chưa đủ để coi là requirement đã duyệt.
 
 ## 2. Dịch các khái niệm BA sang kit
 
@@ -151,7 +151,7 @@ Review ghi findings, tác giả sửa bằng workflow authoring, rồi review l�
 
 | Thời điểm | Cần đủ để làm gì? | Phần có thể tiếp tục làm rõ |
 |---|---|---|
-| Mới nhận nhu cầu | Hiểu vấn đề, source, stakeholders, scope sơ bộ và câu hỏi ưu tiên | Chi tiết flow/solution, acceptance chưa chốt ghi Pending |
+| Mới nhận nhu cầu | Hiểu vấn đề, nguồn, bên liên quan nghiệp vụ, scope sơ bộ và câu hỏi ưu tiên | Chi tiết flow/solution, acceptance chưa chốt ghi Pending |
 | Chọn phạm vi Epic | Có outcome, ranh giới, dependencies và shared controls cần điều tra | Những phạm vi tương lai chưa được chọn có thể giữ draft |
 | Chuẩn bị selected slice để baseline | Requirement/model/solution/AC ảnh hưởng lát cắt đủ rõ, review và decisions đúng authority | Phần độc lập ngoài baseline tiếp tục refinement; ghi disposition và impact |
 | Nhận Story để triển khai | Có baseline/scope, đủ điều kiện DoR, input/quyền/dependency/capacity tương ứng | Dev quyết chi tiết tổ chức code trong constraints; không tự quyết business behavior còn thiếu |

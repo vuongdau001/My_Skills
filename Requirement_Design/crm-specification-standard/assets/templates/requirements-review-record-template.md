@@ -10,7 +10,7 @@ Mở bằng target/scope/revision và mục tiêu review. Nêu full/focused, che
 
 ## Input và phạm vi kiểm
 
-Nguồn, actor/authority, inventory/model revision và target hashes; policy/version. Thiếu input/authority nêu rõ. Dùng C01–C08, E01–E16, S01–S12 hoặc T01–T08 đúng loại; full specification review xét Q01–Q07.
+Nguồn, actor nghiệp vụ liên quan, người có thẩm quyền với từng nội dung, revision và hash target, cùng policy áp dụng. Thiếu input/authority nêu rõ. Dùng C01–C08, E01–E16, S01–S12 hoặc T01–T08 đúng loại; full specification review xét Q01–Q07.
 
 ## Kết quả từng phép kiểm
 
@@ -23,6 +23,8 @@ Index ngắn: item/check → verdict → finding/evidence. Với từng check d�
 - **Finding:** ID, tác động/gate, owner/due; severity theo policy nếu đã chốt.
 
 Với Epic, pin policy, Epic/Use Case ID, selected scope và baseline/revision. Dùng E01–E03 để kiểm mục tiêu, boundary và từng đường đi tới outcome. Dùng E14–E16 để kiểm trace, phần còn lại, nghiệm thu đã có và evidence đúng đợt. Dẫn locator của từng finding.
+
+Nếu phát hiện lẫn vai trò hoặc phạm vi, ghi locator, vai trò đang bị gán, vai trò đúng theo evidence và ảnh hưởng tới Use Case, rule quyền hoặc gate bàn giao. [Quy ước vai trò](../../references/artifact-writing-standard.md#business-and-sdlc-roles).
 
 ## Findings và closure
 

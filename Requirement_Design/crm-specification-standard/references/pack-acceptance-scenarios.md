@@ -114,8 +114,8 @@ Dùng input dưới cho phiên mới với kit và context workstream tối thi�
 
 | ID | Input | Kết quả quan sát cần có |
 |---|---|---|
-| LV01 | Dự án có Capability Quản lý Customer, Epic Hồ sơ Customer. Đề xuất thêm Capability Tra cứu Customer → Epic Tra cứu hồ sơ từ Customer List → Story Tìm Customer theo quyền. Cả ba scope/AC cùng một lookup theo tên và quyền xem hiện có. Review phương án. | Nhận ra outcome trùng và entry point/guard chưa đủ tạo hai cha mới. Đề xuất đặt Story vào cây hiện có; giữ kiểm quyền trong AC. Chỉ ghi findings, không sửa allocation trong review. |
-| LV02 | Sản phẩm cần tìm kiếm Customer trên nhiều nguồn, tìm cơ bản/nâng cao, lưu truy vấn và quản trị nguồn tìm kiếm; có consumer, contract, phạm vi nghiệm thu riêng. Đề xuất phân cấp. | Cho phép Capability tìm kiếm khi có rationale tương quan năng lực khác, Epic theo phạm vi chung và Story theo delta có ích. Không áp lệnh cấm từ khóa Tra cứu hoặc ép vào Customer–Contact. |
+| LV01 | Đề xuất Capability Tra cứu Customer → Epic Tra cứu hồ sơ từ Customer List → Story Tìm Customer theo quyền. Cả ba cấp chỉ có cùng một lookup và kiểm quyền xem. Review phương án. | Ghi đây là phản ví dụ lặp một mục tiêu. Tên màn hình và điều kiện quyền chưa tạo ranh giới Capability. Chỉ ghi findings và đề xuất đối chiếu cấp cha từ nguồn dự án. |
+| LV02 | Sản phẩm cần tìm kiếm Customer trên nhiều nguồn, tìm cơ bản/nâng cao, lưu truy vấn và quản trị nguồn tìm kiếm; có consumer, contract, phạm vi nghiệm thu riêng. Đề xuất phân cấp. | Cho phép Capability tìm kiếm khi nguồn dự án chứng minh ranh giới, trách nhiệm và tiêu chí nghiệm thu riêng. So với các năng lực liền kề và ghi phần bàn giao đầu tiên. |
 | LV03 | Epic có model/contract và hồ sơ baseline riêng; release này chỉ chọn một Story. Chưa có nhu cầu đã xác nhận cho Story khác. | Không bịa con hoặc reject chỉ vì một–một; giải thích vai trò hồ sơ cha, selected scope và refs kế thừa. |
 | LV04 | Yêu cầu bổ sung filter trạng thái cho danh sách Customer đã có Epic tra cứu. Chỉ author phần thay đổi. | Tìm parent, đề xuất delta trong Epic hiện có và xét sizing có cần Story riêng không; không dựng Capability mới hoặc phân rã lại cả CRM. Giữ policy quyền hiện có. |
 | LV05 | Nguồn có hai màn hình preview/detail nhưng người dùng chỉ đạt mục tiêu xác định đúng hồ sơ khi dùng cả hai; chưa có lợi ích độc lập hay sizing. | Không mặc định hai Story theo screen; giữ lát tích hợp hoặc candidate có điều kiện, nêu gap thực. Không invent value/sizing để tách. |
@@ -143,3 +143,20 @@ Dùng input dưới cho phiên mới với kit và context workstream tối thi�
 | CP01 | Cài mới trên repo sạch, định nghĩa năng lực quản lý Customer. | Có 01-capabilities. Context dùng crm-define-capability và kind Capability. ID mới CAP-CRM-001; scoring tạo đủ C01–C08. |
 | CP02 | Workshop có Assumption chưa kiểm, Decision đã có bằng chứng và Constraint đã đăng ký. Mở thẳng Define Capability. | Intake chỉ rõ nguồn và record chuẩn, giữ ID/revision, áp dụng phần hiệu lực và đánh dấu assumption chặn scope nếu còn phụ thuộc. |
 | CP03 | Một tệp nguồn tự ghi Approved và có lựa chọn mâu thuẫn với Decision chuẩn. | Context liệt kê trạng thái khai báo. Workflow giữ cả hai locator, không cập nhật approval hoặc cấp trạng thái mới khi chưa có authority/evidence. |
+
+
+## Xác định vị trí lát cắt trong dự án — 2.0.1
+
+| ID | Đầu vào kiểm | Kết quả cần quan sát |
+|---|---|---|
+| PL01 | P3 có Function List đầy đủ, cây Capability/Epic trống. Prompt chỉ yêu cầu soạn Customer List, Preview và Detail. | Dẫn nguồn và nhóm liền kề. Đề xuất Epic ứng viên “Tra cứu Customer theo quyền” dưới Capability ứng viên “Quản lý hồ sơ Customer và Contact”, với Use Case xác định đúng Customer và xem thông tin được phép. Giữ kiểm quyền xuyên suốt. Dừng ở Epic/Use Case, chưa cấp CAP ID hay ghi Capability. |
+| PL02 | Chỉ có ảnh hoặc mô tả màn hình. | Ghi thiếu bối cảnh cấp dự án, nêu phân loại có điều kiện và thông tin cần làm rõ. Giữ kết quả ở mức ứng viên, chưa cấp CAP ID hay ghi Capability. |
+| PL03 | Nguồn dự án xác định tìm kiếm đa nguồn là năng lực độc lập, có phạm vi và tiêu chí nghiệm thu riêng. Đợt đầu chỉ chọn một mục tiêu. | Cho phép đề xuất Capability tìm kiếm. Nêu căn cứ từ nguồn, vai trò riêng của cấp cha và ranh giới với nhóm liền kề. Tách lát cắt của đợt đầu khỏi phạm vi tổng thể. |
+
+## Vai trò nghiệp vụ và trách nhiệm SDLC — 2.0.1
+
+| ID | Đầu vào kiểm | Kết quả cần quan sát |
+|---|---|---|
+| RL01 | Một quản lý Sales thao tác duyệt trong CRM và được giao ký xác nhận nghiệm thu. QA review các ca phân quyền. | C03 ghi bên liên quan nghiệp vụ. E02/E03 ghi quản lý Sales với vai trò actor duyệt và E07 ghi quyền runtime. Work Context hoặc C08/E16 ghi người xác nhận nghiệm thu và QA reviewer cùng trách nhiệm riêng. Hai loại quyền dẫn evidence riêng. |
+| RL02 | Một ghi chú yêu cầu CRM che email khi actor thiếu quyền xem trường, đồng thời yêu cầu QA chạy ca thiếu quyền và nộp kết quả trước handoff. | Intake tách hai phát biểu và giữ cùng locator nguồn. Rule thuộc Nghiệp vụ / sản phẩm và được dẫn trong E07/AC. Điều kiện thuộc Dự án / SDLC và được dẫn trong handoff hoặc policy. Mỗi phần ghi người xác nhận và evidence theo phạm vi. |
+| RL03 | Một Decision về quyền xem chỉ có chữ ký chốt bàn giao của PM. Epic đưa PM vào E02 vì PM đã ký và đưa bước QA nghiệm thu vào luồng E03. | Review ghi finding về thẩm quyền đối với rule quyền, vai trò thiếu tương tác trong Use Case và điều kiện SDLC đặt sai vị trí. Chỉ ghi nhận các phần được evidence hỗ trợ. |

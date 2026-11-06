@@ -1,6 +1,6 @@
 # Bootstrap CRM Spec Kit cho AI tools
 
-ID: CRM-BOOTSTRAP · CRM Workflow Kit 2.0.0 · 06/11/2026
+ID: CRM-BOOTSTRAP · CRM Workflow Kit 2.0.1 · 06/11/2026
 
 Điểm vào khi người dùng đưa folder kit và yêu cầu cài vào một repo. AI khảo sát repo, chọn tham số và gọi helper; đường dẫn cài, copy/receipt, config/scaffold và update do helper thực hiện. Không tự dựng wrapper, sửa bản cài hoặc tạo bản nội dung riêng cho mỗi tool.
 

@@ -10,7 +10,7 @@ Mã tài liệu: **D08** · Gói CRM 1.3.1 · 03/11/2026
 ## Inventory, phép kiểm và điều kiện dừng
 
 - **Inventory/đơn vị rà:** Cases phát hiện từ flow/state/data/permission/integration và nguồn vận hành
-- **Reviewer thực hiện:** Với từng case ghi precondition/trigger/result/risk; kiểm vào AC/model nào; tìm case đặc biệt từ stakeholder/QA
+- **Reviewer thực hiện:** Với từng case ghi precondition/trigger/result/risk; kiểm vào AC/model nào; tìm case đặc biệt từ bên liên quan nghiệp vụ và QA reviewer
 - **Điều kiện dừng ở mức đặc tả:** Không có case trong scope chỉ có tên mà thiếu outcome; không có case bị loại mà thiếu reason/authority; không còn unknown chặn
 
 **Đầu vào:** scope/revision, nguồn/authority, model hiện có và delta. **Evidence:** inventory có ID/disposition, witness/counterexample, output refs, findings và reviewer closure.

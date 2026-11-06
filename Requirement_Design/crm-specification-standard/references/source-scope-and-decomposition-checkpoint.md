@@ -1,6 +1,6 @@
 # Checkpoint nguồn scope và cách phân rã
 
-ID: **CRM-SCOPE-CHECKPOINT** · CRM Workflow Kit 1.11.0 · 05/11/2026
+ID: **CRM-SCOPE-CHECKPOINT** · CRM Workflow Kit 2.0.1 · 06/11/2026
 
 Dùng khi tiếp nhận function list, WBS, bảng estimation, screen list; khi tạo/sửa allocation Capability/Epic/Story; hoặc khi review/báo tiến độ dựa vào các đơn vị đó. Mục tiêu là giữ đủ scope và giải thích được ranh giới bàn giao, trước khi dùng số đếm để đưa ra kết luận.
 
@@ -10,13 +10,27 @@ Checkpoint này là phần kiểm của workflow hiện có, không thêm functi
 
 Nếu đã có kết quả kiểm hiện hành, dẫn lại scope/revision và kiểm delta thay vì làm lại toàn bộ. Recap hẹp hoặc Task-only không thay allocation thì không cần lập inventory mới. Thiếu thông tin vẫn có thể soạn candidates và làm rõ phần độc lập; chưa kết luận allocation đã đạt hoặc scope đã hoàn tất.
 
+<a id="project-placement"></a>
+
+## Xác định vị trí lát cắt trong dự án
+
+Trước khi đề xuất một Capability mới, gọi `next-id CAP` hoặc soạn C01–C08, đối chiếu yêu cầu với nguồn phạm vi của workstream. Dùng Function List, capability map hoặc baseline phù hợp và ghi locator, revision cùng ý nghĩa của nguồn. Đọc phần liên quan đến lát cắt và các nhóm chức năng liền kề. Với yêu cầu hẹp, dừng ở phạm vi đủ để hiểu cấp cha, các nhóm cùng cấp và giao điểm.
+
+Đối chiếu Capability/Epic hiện có để tìm nơi sở hữu mục tiêu, rule dùng chung và phạm vi nghiệm thu. Khi cây đặc tả trống, dùng nguồn dự án để xác định cấp cha ứng viên và ghi căn cứ từ các nhóm chức năng liên quan. Phân biệt phạm vi năng lực lâu dài, một mục tiêu của người dùng và phần được chọn cho đợt này.
+
+- Nếu nguồn chứng minh nhu cầu là một năng lực có ranh giới ổn định và trách nhiệm riêng về phạm vi, quy tắc dùng chung hoặc nghiệm thu, dùng cấp Capability. Ghi riêng phần được chọn cho đợt đầu. Một Epic trong đợt đầu là đủ khi vai trò riêng của cấp cha đã có căn cứ.
+- Nếu lát cắt phục vụ một mục tiêu người dùng thuộc năng lực rộng hơn, đề xuất Epic dưới Capability cha hiện có hoặc ứng viên. Khi cấp cha chưa được xác định, giữ kết quả ở mức ứng viên, dẫn nguồn và ghi phần cần xác nhận.
+- Nếu thiếu nguồn cấp dự án hoặc còn nhiều cấp cha hợp lý, ghi phần đã phân tích được, các phương án có căn cứ và thông tin cần bổ sung. Giữ kết quả ở mức ứng viên và hoãn cấp CAP ID, soạn C01–C08 và ghi hồ sơ Capability.
+
+Ghi lại nguồn/revision, nhóm liền kề đã so, cấp cha được chọn hoặc đề xuất và lý do kết quả cấp Capability khác mục tiêu của Epic. Với kết quả ở mức ứng viên, có thể ghi trong phản hồi hoặc đầu ra phân tích đã được yêu cầu.
+
 <a id="level-selection"></a>
 
 ## Chọn cấp độ và kiểm quan hệ cha–con
 
 Phần này là quy tắc tối thiểu khi tạo hoặc thay allocation, được nạp trong context mặc định. Áp dụng theo phạm vi nhiệm vụ; không chạy lại toàn cây cho sửa đổi cục bộ không đổi ranh giới.
 
-1. **Tìm vị trí trước khi tạo cấp mới.** Đọc Capability/Epic hiện có và quy ước cấp độ của workstream. Chọn nơi nhận yêu cầu hoặc ghi candidate/gap nếu chưa có. Phạm vi của prompt hay một release không tự thành phạm vi Capability. Khi chưa có cây, đề xuất khung năng lực và ghi rõ là phương án; không tự sinh cả cây ngoài phạm vi được giao.
+1. **Tìm vị trí trước khi tạo cấp mới.** Dùng [bước xác định vị trí trong dự án](#project-placement) để chọn nơi nhận yêu cầu hoặc ghi cấp cha ứng viên. Giữ ranh giới authoring theo phạm vi được giao.
 2. **Capability giữ năng lực nghiệp vụ có ranh giới tương đối ổn định.** Nêu người hưởng lợi, outcome tổng thể và in/out scope. Đối chiếu với các Capability ngang hàng về trách nhiệm, không ép bằng nhau về effort/số Epic. Không chọn cấp chỉ theo tên CRUD, màn hình, dòng estimation hoặc độ dài tài liệu. Quy ước của dự án có evidence được ưu tiên; khi chưa có, nêu giả định cấp độ thay vì tự coi đã chốt.
 3. **Epic giữ phạm vi cần đặc tả và nghiệm thu chung.** Nêu outcome, model/rule/contract liên quan, trách nhiệm sở hữu và acceptance. Cùng entity/UI chưa đủ để gom; khác entry point, role hoặc kênh chưa đủ để tách. So với Epic lân cận để tránh phân bổ trùng và dependency bị che.
 4. **Story chọn phần thay đổi bàn giao được.** Nêu actor/consumer, kết quả hữu ích, hành vi trong scope và cách quan sát, rồi xét sizing/dependency của team. Query/read-only là kết quả hợp lệ. Quyền, validation, lỗi và NFR bắt buộc đi cùng lát cắt. Một nhánh Use Case hoặc một màn hình chưa tự đủ lý do tách Story.
@@ -29,11 +43,29 @@ Mỗi Epic sở hữu một Use Case user-goal ở E03. Khi phân bổ qua nhi�
 
 ### Phản ví dụ và ngoại lệ
 
-`Capability: Tra cứu Customer → Epic: Tra cứu hồ sơ từ Customer List → Story: Tìm Customer trong phạm vi quyền` là **dấu hiệu cần review**, không phải lỗi có thể kết luận từ tên. Nếu cả ba chỉ mô tả cùng một truy vấn, điểm vào List và guard quyền không đủ chứng minh ba phạm vi khác nhau. Đặt Story vào Epic phù hợp với mục tiêu tra cứu trong Capability hiện có, hoặc xác định một Epic nếu mục tiêu độc lập chưa có owner; chỉ đề xuất sửa, không tự rewrite baseline trong review.
+**Phản ví dụ**
 
-Trong một dự án có Capability “Quản lý Customer và Contact”, Epic tra cứu riêng có thể hợp lý nếu query semantics, data scope, field visibility và nghiệm thu tạo thành phạm vi cần quản lý chung. Lookup làm bước chọn Customer để chỉnh hồ sơ có thể thuộc Use Case chỉnh hồ sơ. Nếu tra cứu có kết quả được dùng độc lập, hãy phân bổ vào Epic tra cứu. Preview/detail chỉ tách Story khi từng phần có giá trị và khả năng bàn giao riêng; nếu không giữ cùng lát cắt. Kiểm quyền vẫn đi cùng từng hành vi.
+```text
+Capability Tra cứu Customer
+└── Epic Tra cứu hồ sơ từ Customer List
+    └── Story Tìm Customer theo quyền
+```
 
-Ngược lại, sản phẩm có năng lực tìm kiếm nhiều nguồn, nhiều kiểu truy vấn và quản trị truy vấn có thể dùng Capability “Tìm kiếm thông tin khách hàng”. Phải chứng minh ranh giới năng lực và quan hệ với Capability khác. Không cấm tên “Tra cứu”, không bắt mọi CRM dùng Capability Customer–Contact, không lấy số Story/Epic làm ngưỡng đúng sai.
+Cả ba cấp cùng mô tả một mục tiêu tra cứu. Tên màn hình Customer List chỉ xác định điểm vào. Điều kiện quyền là kiểm soát của mục tiêu đó. Hai chi tiết này chưa tạo ranh giới riêng cho Capability.
+
+**Phân cấp theo nguồn P3**
+
+```text
+Capability ứng viên · Quản lý hồ sơ Customer và Contact
+└── Epic ứng viên · Tra cứu Customer theo quyền
+    └── Use Case · Xác định đúng Customer và xem thông tin được phép
+```
+
+- Capability bao quát tra cứu, duy trì hồ sơ, quản lý vòng đời, liên kết Customer–Contact và import/export.
+- Epic phục vụ một mục tiêu người dùng qua List, Preview và Detail. Quyền xem bản ghi và trường dữ liệu áp dụng xuyên suốt Use Case.
+- Ví dụ dừng ở Epic và Use Case. Phân rã Story sau khi xác định phần hành vi có thể bàn giao và nghiệm thu.
+
+Nếu lookup chỉ phục vụ chọn Customer trong luồng chỉnh hồ sơ, đặt bước đó trong Use Case chỉnh hồ sơ. Với một dự án khác, tìm kiếm nhiều nguồn có thể là Capability độc lập khi nguồn cấp dự án chứng minh phạm vi, trách nhiệm và tiêu chí nghiệm thu riêng.
 
 ## Đọc đúng đơn vị nguồn
 

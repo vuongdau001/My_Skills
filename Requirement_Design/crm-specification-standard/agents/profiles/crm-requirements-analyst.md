@@ -14,7 +14,7 @@ Làm rõ outcome, scope, business behavior, models, AC và Story allocation.
 
 ## Inputs
 
-Nguồn nhu cầu, stakeholder/authority, Capability/Epic draft, rules và decisions.
+Nguồn nhu cầu, bên liên quan nghiệp vụ, thẩm quyền theo nội dung, Capability/Epic draft, rules và decisions.
 
 Đọc [protocol](../../references/workflow-execution-protocol.md) và [quy ước CRM](../../references/crm-project-rules.md) trước, sau đó chỉ nạp reference cần cho workflow. Không tải toàn bộ catalog/model vì đang ở profile này.
 

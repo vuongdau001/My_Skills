@@ -35,7 +35,7 @@ Một nhóm không áp dụng phải có lý do và reviewer. Chưa biết khôn
 
 Owner lập inventory cụ thể cho target, theo hướng dẫn model ở bảng trên. Chi tiết inventory, thao tác reviewer và điều kiện dừng được duy trì tại từng model để chỉ có một nguồn chuẩn. Dùng [mapping hạng mục → model/evidence](catalog-check-model-mapping.md) để chọn tuyến, rồi áp dụng các check Q01–Q07.
 
-**Mẫu số không phải số dòng trong template.** Tập state/command phải được xác nhận từ nguồn/stakeholder; bảng 100% ô hiện có không chứng minh đầy đủ nếu một command nghiệp vụ chưa được phát hiện. Unknown không được loại khỏi mẫu số mà không báo rõ. Evidence từng item và review đúng scope/revision là điều kiện kết luận.
+**Mẫu số không phải số dòng trong template.** Tập state/command phải được xác nhận từ nguồn hoặc người có thẩm quyền nghiệp vụ; bảng 100% ô hiện có không chứng minh đầy đủ nếu một command nghiệp vụ chưa được phát hiện. Unknown không được loại khỏi mẫu số mà không báo rõ. Evidence từng item và review đúng scope/revision là điều kiện kết luận.
 
 <a id="spec-7"></a>
 

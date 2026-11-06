@@ -4,7 +4,7 @@ Mã tài liệu: **TPL-EPIC-SPECIFICATION-TEMPLATE** · Gói CRM 2.0.0 · 05/11/
 
 Áp dụng [standard viết artifact](../../references/artifact-writing-standard.md). Đây là mẫu; thay hướng dẫn bằng dữ liệu thực, giữ gap khi thiếu input. Không suy approval từ việc điền đủ mục.
 
-ID/tên Epic và một đoạn về mục tiêu. Bảng context ngắn: Capability, selected scope, revision/baseline, sources, owners và bước hiện tại. Đọc [Epic catalog](../../references/epic-specification-catalog.md).
+ID/tên Epic và một đoạn về mục tiêu. Bảng context ngắn ghi Capability, phạm vi đợt, revision/baseline, nguồn và bước hiện tại. Dẫn Work Context cho trách nhiệm soạn, review và bàn giao. Đọc [Epic catalog](../../references/epic-specification-catalog.md).
 
 <a id="spec-10"></a>
 
@@ -20,9 +20,9 @@ Giải thích vì sao scope thuộc Capability này và cần Epic riêng so v�
 
 Ghi mục tiêu duy nhất ở cấp user-goal và outcome có ý nghĩa với actor. Tách boundary hệ thống, hành vi đầy đủ của Use Case và selected scope của đợt. Ghi exclusions, các nhánh làm sau và cách nghiệm thu outcome.
 
-## E02 — Actor, thuật ngữ và domain model
+## E02 — Actor nghiệp vụ, bên liên quan nghiệp vụ và domain model
 
-Ghi actor chính, actor hỗ trợ, stakeholder và quyền lợi cần bảo vệ. Định nghĩa object/identity và invariants; chỉ rõ authority/owner, không suy role label là quyền cụ thể.
+Ghi actor chính và actor hỗ trợ cùng bước tương tác ở E03. Ghi riêng bên liên quan nghiệp vụ và quyền lợi cần bảo vệ. Định nghĩa object, identity và invariants. Dẫn E07 cho quyền trong hệ thống và E16 hoặc Work Context cho người xác nhận nội dung, reviewer và người chốt bàn giao.
 
 ## E03 — Use Case
 
@@ -56,7 +56,7 @@ Dictionary/type/boundary, normalization, null/default/uniqueness và fields bắ
 
 ## E07 — Permission và data scope
 
-Lập ma trận actor × action × state × field/context, cùng ví dụ/negative case. Ghi allow/deny/visibility đã chốt và điểm còn thiếu.
+Lập ma trận actor nghiệp vụ × action × resource × điều kiện, gồm trạng thái và quyền cấp trường khi áp dụng. Ghi allow/deny/visibility, ca từ chối và điểm còn thiếu. Dẫn nguồn quyền runtime và evidence về người có thẩm quyền xác nhận rule.
 
 ## E08 — UI/UX và trạng thái tương tác
 

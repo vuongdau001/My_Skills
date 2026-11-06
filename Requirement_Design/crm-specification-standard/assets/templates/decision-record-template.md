@@ -15,9 +15,11 @@ Nêu một câu hỏi/lựa chọn rõ, scope/revision và context có nguồn. 
 
 Mỗi phương án có điều kiện, lợi ích/bất lợi. Ghi rationale và consequences của phương án được đề xuất/chọn; chưa chọn thì giữ Pending/Proposed.
 
+**Phạm vi áp dụng** · Nghiệp vụ / sản phẩm hoặc Dự án / SDLC. Ghi rõ quyết định điều chỉnh hành vi sản phẩm hay cách thực hiện/bàn giao. [Cách phân loại](../../references/knowledge-records-and-evidence.md#record-applicability).
+
 ## Authority, evidence và ảnh hưởng
 
-Ghi owner, người có quyền, thời điểm quyết và evidence khi có thật. Approved/Rejected cần authority, decided_at có timezone và nguồn pin đúng revision. Liên kết requirement/Epic/Story áp dụng bằng trace_links.
+Ghi người phụ trách record và người có thẩm quyền quyết nội dung đó, cùng thời điểm và evidence khi có thật. Approved/Rejected cần authority, decided_at có timezone và nguồn pin đúng revision. Nối trace đến hồ sơ nghiệp vụ hoặc hồ sơ SDLC thực sự sử dụng quyết định.
 
 ## Lịch sử và bước tiếp
 

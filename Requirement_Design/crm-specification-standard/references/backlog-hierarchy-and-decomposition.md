@@ -83,7 +83,7 @@ Ghi quyết định theo mẫu: `Story/Epic — checklist hoặc Task — lý do
 | Loại | Cần mô tả gì? | Ví dụ CRM |
 |---|---|---|
 | Business requirement | Kết quả tổ chức muốn đạt | Cải thiện độ tin cậy của dữ liệu khách hàng |
-| Stakeholder requirement | Nhu cầu của người/nhóm liên quan | AM cần biết khách hàng đã tồn tại và người đang phụ trách |
+| Stakeholder requirement | Nhu cầu của bên liên quan nghiệp vụ | AM cần biết khách hàng đã tồn tại và người đang phụ trách |
 | Functional requirement | Hành vi hệ thống phải thực hiện | Kiểm tra quyền, phát hiện trùng, lưu và phản hồi |
 | Non-functional requirement — NFR | Chất lượng/ràng buộc có cách kiểm chứng | Hiệu năng, bảo mật, tính sẵn sàng hoặc khả năng phục hồi với điều kiện đo rõ |
 | Transition requirement | Điều kiện chuyển sang giải pháp mới | Mapping, làm sạch, migration và đối soát dữ liệu |
@@ -102,10 +102,16 @@ Ghi quyết định theo mẫu: `Story/Epic — checklist hoặc Task — lý do
 | Story | Một lát cắt hành vi có kết quả quan sát và kiểm chứng được | Outcome, phạm vi, BR/AC, solution refs, dependency, estimate và DoR/DoD | Jira Story tham chiếu baseline Git |
 | Task | Công việc triển khai, kiểm chứng hoặc hỗ trợ kỹ thuật có đầu ra cụ thể, cần giao/theo dõi riêng | Owner, input, output, reviewer, tiêu chí hoàn tất và evidence | Jira Task |
 
+Trước khi chọn cấp, dùng [nguồn phạm vi cấp dự án](source-scope-and-decomposition-checkpoint.md#project-placement) để xác định vai trò của cấp cha và các nhóm liền kề.
+
+**Phản ví dụ** · `Capability Tra cứu Customer → Epic Tra cứu hồ sơ từ Customer List → Story Tìm Customer theo quyền`. Cả ba cấp lặp một mục tiêu tra cứu. Customer List là điểm vào và quyền xem là kiểm soát của mục tiêu đó.
+
+**Theo nguồn P3** · Quản lý hồ sơ Customer và Contact là Capability ứng viên. Epic ứng viên “Tra cứu Customer theo quyền” có Use Case “Xác định đúng Customer và xem thông tin được phép” qua List, Preview và Detail. Giữ quyền ở mức bản ghi và trường dữ liệu trong Use Case. Phân rã Story sau khi xác định phần có thể bàn giao và nghiệm thu. Ở dự án khác, nguồn có thể chứng minh một Capability tìm kiếm độc lập khi phạm vi và tiêu chí nghiệm thu riêng đủ rõ. [Hai cách phân cấp và ngoại lệ](source-scope-and-decomposition-checkpoint.md#phản-ví-dụ-và-ngoại-lệ).
+
 Ví dụ đào tạo mở rộng case [Customer–Contact trong BA Getting Started](ba-getting-started.md#walkthrough). Các mã `EX-*` là mã tham chiếu trong ví dụ. Khi lập hồ sơ thực, lấy ID từ workstream.
 
 ```text
-EX-C1  Capability · Quản lý Customer và Contact
+EX-C1  Capability · Quản lý hồ sơ Customer và Contact
 ├── EX-E2  Epic candidate · Tạo Customer thủ công
 │   ├── E03  Use Case · Tạo Customer thủ công
 │   └── EX-S2  Story candidate · AM tạo hồ sơ hợp lệ trong phạm vi đã chọn

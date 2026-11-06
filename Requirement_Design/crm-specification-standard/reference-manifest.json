@@ -1,6 +1,6 @@
 {
   "pack_id": "crm-specification-standard",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "date": "2026-11-06",
   "language": "vi",
   "scope": "Self-contained CRM workflow kit with deterministic local installation adapters; no automatic runtime discovery or external mutations",
@@ -255,7 +255,7 @@
     {
       "id": "E02",
       "kind": "catalog-item",
-      "title": "E02 — B — Actor, thuật ngữ, đối tượng",
+      "title": "E02 — B — Actor nghiệp vụ, bên liên quan nghiệp vụ và đối tượng",
       "path": "references/epic-specification-catalog.md",
       "anchor": "e02"
     },
@@ -598,7 +598,7 @@
     {
       "id": "C03",
       "kind": "catalog-item",
-      "title": "C03 — Stakeholder và authority",
+      "title": "C03 — Bên liên quan nghiệp vụ",
       "path": "references/capability-specification-catalog.md",
       "anchor": "c03"
     },
@@ -1062,6 +1062,12 @@
       "kind": "provenance",
       "title": "Kiểm chứng gói 2.0.0",
       "path": "provenance/pack-validation-report-v2.0.0.md"
+    },
+    {
+      "id": "CRM-VALIDATION-V201",
+      "kind": "provenance",
+      "title": "Kiểm chứng gói 2.0.1",
+      "path": "provenance/pack-validation-report-v2.0.1.md"
     }
   ],
   "source_archive": "provenance/original-epic-story-standard-and-workflow-v1.1.zip",
@@ -2097,7 +2103,7 @@
     {
       "id": "crm-define-capability",
       "title": "Define Capability",
-      "description": "Capability C01–C08, source/outcome/scope, acceptance method, Epic candidates và decisions cần authority.",
+      "description": "Xác định vị trí lát cắt theo nguồn dự án trước khi chọn cấp, cấp CAP ID hoặc soạn C01–C08.",
       "agent": "crm-requirements-analyst",
       "workflow": "workflows/crm-define-capability.md",
       "supported_targets": [

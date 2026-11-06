@@ -11,13 +11,15 @@ ID: TPL-ASSUMPTION · CRM Workflow Kit 1.10.0 · 05/11/2026
 
 Một statement có scope; basis là căn cứ hiện có, chưa là fact. Ghi source locator và evidence pin revision/hash.
 
+**Phạm vi áp dụng** · Nghiệp vụ / sản phẩm hoặc Dự án / SDLC. Ghi rõ điều cần kiểm về sản phẩm hoặc về kế hoạch/môi trường SDLC. [Cách phân loại](../../references/knowledge-records-and-evidence.md#record-applicability).
+
 ## Kế hoạch kiểm chứng
 
-Validation method, người kiểm/owner, review_due và evidence cần thu; chưa gán người/hạn giữ null.
+Ghi phương pháp, người thực hiện kiểm chứng, người phụ trách theo dõi nếu khác, review_due và evidence cần thu. Chưa gán người/hạn thì dùng null theo schema.
 
 ## Nếu giả định sai
 
-Nêu if_false, consumer áp dụng và ảnh hưởng tới requirement/model/AC/contract. Khai trace_links đúng nhánh; chưa dùng prose scope để né dependency.
+Nêu if_false và ảnh hưởng tới requirement/model/AC/contract hoặc kế hoạch bàn giao, theo đúng phạm vi áp dụng. Khai trace_links đúng nhánh; chưa dùng prose scope để né dependency.
 
 ## Kết quả và bàn giao
 
