@@ -1,0 +1,4 @@
+interface:
+  display_name: "UI Contract Reviewer"
+  short_description: "Validate mockup fields and generate task AC"
+  default_prompt: "Use $ui-contract-reviewer to validate each mockup field and generate detailed acceptance criteria for implementation and QA tasks."
