@@ -2,7 +2,7 @@
 
 ID: **CRM-ARTIFACT-LINT** · CRM Workflow Kit 1.5.0 · 03/11/2026
 
-Epic schema 1/2 có thể khai `epic_policy: "use-case-v1"` và đúng một `use_case` với MOD ID, level user-goal và locator tường minh trong E03. Epic phải khai MOD ID trong defined_ids. Lint nhận diện legacy, kiểm uniqueness toàn repo và chặn Epic legacy thuộc scope baseline/readiness. Trace MOD ID dẫn anchor E03 và revision của Epic. Xem [policy Epic–Use Case](epic-use-case-policy.md).
+Epic schema 1/2 có thể khai `epic_policy: "use-case-v1"` và đúng một `use_case` với level user-goal và locator tường minh trong E03. Trace hành vi dẫn `artifact_id` của Epic, revision và path có anchor E03. Lint kiểm trùng Epic ID và nhận diện binding có MOD ID theo mẫu cũ. Gate baseline/readiness chặn Epic thiếu policy thuộc scope. Xem [policy Epic–Use Case](epic-use-case-policy.md).
 
 ## Purpose
 

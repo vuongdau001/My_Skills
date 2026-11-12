@@ -23,9 +23,9 @@ Ví dụ đào tạo giả định. Các quyết định, mốc nghiệm thu và
 
 | Epic / Use Case | Actor và kết quả | Quan hệ |
 |---|---|---|
-| EPIC-CRM-001 / MOD-CRM-201 · Gửi yêu cầu mở mã dự án để chờ duyệt | Requester đưa request hợp lệ vào PendingApproval | Hồ sơ E01–E16 bên dưới |
-| EPIC-CRM-002 / MOD-CRM-202 · Xét duyệt yêu cầu mở mã dự án | Approver ghi một quyết định Approved hoặc Rejected | Nhận request PendingApproval từ Epic gửi |
-| EPIC-CRM-003 / MOD-CRM-203 · Đóng yêu cầu nháp không còn cần | Requester đánh dấu draft Cancelled để dừng xử lý | Dùng chung lifecycle và quyền sở hữu |
+| EPIC-CRM-001 · Gửi yêu cầu mở mã dự án để chờ duyệt | Requester đưa request hợp lệ vào PendingApproval | Hồ sơ E01–E16 bên dưới |
+| EPIC-CRM-002 · Xét duyệt yêu cầu mở mã dự án | Approver ghi một quyết định Approved hoặc Rejected | Nhận request PendingApproval từ Epic gửi |
+| EPIC-CRM-003 · Đóng yêu cầu nháp không còn cần | Requester đánh dấu draft Cancelled để dừng xử lý | Dùng chung lifecycle và quyền sở hữu |
 
 Capability giữ hành trình gửi → xét duyệt → chuyển giao cho nơi cấp mã. Một Epic kỹ thuật “xây worker thông báo” được phân bổ thành Task dưới Epic gửi, có links đến Story submit và Epic xét duyệt nếu chúng dùng đầu ra. Chia theo nút Lưu/Gửi hoặc màn hình List/Form chia nhỏ một mục tiêu. Gom gửi và xét duyệt vì cùng entity làm mất ranh giới trách nhiệm. Approve và Reject là hai kết cục của mục tiêu xét duyệt trong ví dụ này.
 
@@ -56,7 +56,7 @@ Requester là actor chính, cần biết request đã vào hàng đợi và có 
 
 <a id="submit-request"></a>
 
-**MOD-CRM-201 · Gửi yêu cầu mở mã dự án để chờ duyệt.** Trigger là Requester chọn bắt đầu đề nghị mới hoặc tiếp tục một draft. Precondition là CRM đã cung cấp entry point và Requester có ngữ cảnh đăng nhập để bắt đầu. Hệ thống kiểm lại authentication/authorization, ownership, state, version và dữ liệu tại bước gửi.
+**Gửi yêu cầu mở mã dự án để chờ duyệt.** Use Case thuộc EPIC-CRM-001. Trigger là Requester chọn bắt đầu đề nghị mới hoặc tiếp tục một draft. Precondition là CRM đã cung cấp entry point và Requester có ngữ cảnh đăng nhập để bắt đầu. Hệ thống kiểm lại authentication/authorization, ownership, state, version và dữ liệu tại bước gửi.
 
 ### Luồng chính
 
@@ -138,7 +138,7 @@ Requester có quyền và là owner mới đọc/sửa/gửi draft. Hết phiên
 
 ## E08 — UI và Prototype
 
-SCR-PC-LIST dẫn [bước chuẩn bị](#submit-prepare). SCR-PC-EDIT dẫn [gửi](#submit-check), [dữ liệu sai](#submit-invalid) và [xung đột](#submit-conflict). SCR-PC-RECEIPT dẫn [receipt](#submit-receipt) và [timeout/retry](#submit-retry). Prototype demo có fixture cho từng nhánh E14. Ví dụ manifest dùng refs như `MOD-CRM-201#submit-retry` trong allocation `EPIC-CRM-001 / r1 / initial-submit`. Baseline thật cần bundle runnable và walkthrough pin bytes.
+SCR-PC-LIST dẫn [bước chuẩn bị](#submit-prepare). SCR-PC-EDIT dẫn [gửi](#submit-check), [dữ liệu sai](#submit-invalid) và [xung đột](#submit-conflict). SCR-PC-RECEIPT dẫn [receipt](#submit-receipt) và [timeout/retry](#submit-retry). Prototype demo có fixture cho từng nhánh E14. Ví dụ manifest dùng refs như `EPIC-CRM-001#submit-retry` trong allocation `EPIC-CRM-001 / r1 / initial-submit`. Baseline thật cần bundle runnable và walkthrough pin bytes.
 
 ## E09 — Contract
 
@@ -182,15 +182,15 @@ Test conditions dự kiến. TestRun, walkthrough và nghiệm thu dùng evidenc
 
 | Story candidate | Use Case và lát bàn giao | Controls, dependency và phần còn lại |
 |---|---|---|
-| STORY-CRM-001 · Gửi draft qua CRM | MOD-CRM-201 r1, bước 1–4 và toàn bộ nhánh r1 ở E14 | Quyền, data, concurrency, retry, atomicity và kiểm receipt/queue tích hợp. Phụ thuộc hợp đồng queue và Task notification. |
-| STORY-CRM-002 · Đọc trạng thái nộp sau mất kết nối kéo dài | MOD-CRM-201 r2, delta từ [Chờ đối soát](#submit-unknown) | Dùng cùng ID, quyền và trạng thái bền vững; cần read contract và kiểm không lộ hồ sơ. Phân bổ r2, không đếm lại STORY-CRM-001. |
+| STORY-CRM-001 · Gửi draft qua CRM | EPIC-CRM-001 r1, [bước 1](#submit-prepare) tới [bước 4](#submit-receipt) và toàn bộ nhánh r1 ở E14 | Quyền, data, concurrency, retry, atomicity và kiểm receipt/queue tích hợp. Phụ thuộc hợp đồng queue và Task notification. |
+| STORY-CRM-002 · Đọc trạng thái nộp sau mất kết nối kéo dài | EPIC-CRM-001 r2, delta từ [Chờ đối soát](#submit-unknown) | Dùng cùng ID, quyền và trạng thái bền vững; cần read contract và kiểm không lộ hồ sơ. Phân bổ r2, không đếm lại STORY-CRM-001. |
 
 ## E16 — Policy, revision, baseline và thay đổi
 
 | Đợt minh họa | Scope và trạng thái | Evidence và review |
 |---|---|---|
 | BASE-CRM-001 · r1 | `initial-submit`, giả định đã nghiệm thu, Epic done ở mốc này | Snapshot r1, manifest/walkthrough r1, AC-CRM-101–109 và nghiệm thu EVID-PC-R1. |
-| BASE-CRM-002 · r2 | `submission-status`, baseline draft. Change EX-CHG-01 giả định đã được chấp nhận để làm; Epic mở lại inprogress theo workflow. | Giữ EPIC-CRM-001/MOD-CRM-201. Review lại timeout, quyền đọc, contract, UI và AC của delta. Pin evidence commit r1 để tái dùng cho invariant giữ nguyên, chạy lại phép kiểm tích hợp chịu tác động. |
+| BASE-CRM-002 · r2 | `submission-status`, baseline draft. Change EX-CHG-01 giả định đã được chấp nhận để làm; Epic mở lại inprogress theo workflow. | Giữ EPIC-CRM-001 và các anchor E03 còn cùng nghĩa. Review lại timeout, quyền đọc, contract, UI và AC của delta. Pin evidence commit r1 để tái dùng cho invariant giữ nguyên, chạy lại phép kiểm tích hợp chịu tác động. |
 
 Câu hỏi EX-Q5 của r2. Mốc freshness và cách hiển thị “đang đối soát” chờ Product, TL và QA xác nhận. Báo riêng phạm vi r1 đã nghiệm thu và r2 đang bổ sung. Block minh họa metadata của snapshot r1 bên dưới.
 
@@ -211,9 +211,9 @@ Xóa câu về dữ liệu và điểm kết thúc ở nhánh [Dữ liệu sai](
   "revision": "r1",
   "work_status": "done",
   "epic_policy": "use-case-v1",
-  "use_case": {"id": "MOD-CRM-201", "level": "user-goal", "locator": "#submit-request"},
+  "use_case": {"level": "user-goal", "locator": "#submit-request"},
   "defined_ids": [
-    "MOD-CRM-201", "BR-CRM-101", "BR-CRM-102", "BR-CRM-103",
+    "BR-CRM-101", "BR-CRM-102", "BR-CRM-103",
     "AC-CRM-101", "AC-CRM-102", "AC-CRM-103", "AC-CRM-104", "AC-CRM-105",
     "AC-CRM-106", "AC-CRM-107", "AC-CRM-108", "AC-CRM-109"
   ]

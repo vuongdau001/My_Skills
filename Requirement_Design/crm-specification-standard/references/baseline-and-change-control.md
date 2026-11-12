@@ -9,7 +9,7 @@ Mã tài liệu: **CRM-BASELINE** · Gói CRM 1.3.1 · 03/11/2026
 
 <a id="workflow-4"></a>
 
-Manifest pin Epic ID và Use Case ID, locator E03, scope, revision, các Story và evidence. Khi thay đổi cùng mục tiêu được nhận, tạo scope/revision/baseline mới, giữ baseline trước và evidence tương ứng. Ghi phần review lại và lý do tái dùng evidence. [Policy use-case-v1](epic-use-case-policy.md).
+Manifest pin Epic ID và locator E03, scope, revision, các Story và evidence. Khi thay đổi cùng mục tiêu được nhận, tạo scope/revision/baseline mới, giữ baseline trước và evidence tương ứng. Ghi phần review lại và lý do tái dùng evidence. [Policy use-case-v1](epic-use-case-policy.md).
 
 ## Baseline của cái gì?
 

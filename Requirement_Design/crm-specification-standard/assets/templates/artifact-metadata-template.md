@@ -11,7 +11,7 @@ Mẫu dưới minh họa Capability schema 1. Chọn đúng kind/schema, ID/revi
 artifact_id và defined_ids là definitions; references là links tương đối từ artifact. trace_links có ID/path/revision/relation để khai dependency; evidence schema 2 cần hash/revision đúng nguồn. Thay `<assigned-capability-id>` bằng ID được cấp theo quy ước của workstream trước khi dùng block này.
 
 
-Với Epic, bổ sung epic_policy và use_case theo [mẫu Epic](epic-specification-template.md). Story dẫn MOD ID, path#locator và revision bằng trace derived-from.
+Với Epic, bổ sung epic_policy và use_case theo [mẫu Epic](epic-specification-template.md). Story dùng Epic ID, revision và path có anchor E03 trong trace `derived-from`. Ví dụ, đặt `id: EPIC-CRM-003`, `revision: r1` và `path: ../02-epics/EPIC-CRM-003.md#e03-step-02` nếu đây là file và anchor thật.
 
 <details>
 <summary>Metadata mẫu — thay bằng giá trị thật</summary>

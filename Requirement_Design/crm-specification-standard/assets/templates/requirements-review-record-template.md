@@ -22,7 +22,7 @@ Index ngắn: item/check → verdict → finding/evidence. Với từng check d�
 - **Evidence và kết luận:** refs/revision, verdict scoped, reviewer.
 - **Finding:** ID, tác động/gate, owner/due; severity theo policy nếu đã chốt.
 
-Với Epic, pin policy, Epic/Use Case ID, selected scope và baseline/revision. Dùng E01–E03 để kiểm mục tiêu, boundary và từng đường đi tới outcome. Dùng E14–E16 để kiểm trace, phần còn lại, nghiệm thu đã có và evidence đúng đợt. Dẫn locator của từng finding.
+Với Epic, pin policy, Epic ID, locator E03 và phạm vi đợt và baseline/revision. Dùng E01–E03 để kiểm mục tiêu, boundary và từng đường đi tới outcome. Dùng E14–E16 để kiểm trace, phần còn lại, nghiệm thu đã có và evidence đúng đợt. Dẫn locator của từng finding.
 
 Nếu phát hiện lẫn vai trò hoặc phạm vi, ghi locator, vai trò đang bị gán, vai trò đúng theo evidence và ảnh hưởng tới Use Case, rule quyền hoặc gate bàn giao. [Quy ước vai trò](../../references/artifact-writing-standard.md#business-and-sdlc-roles).
 

@@ -28,7 +28,7 @@ Khi có meeting/chat/decision/assumption/constraint ảnh hưởng target, đọ
 
 ## Execution Steps
 
-Áp dụng [policy Epic–Use Case](../references/epic-use-case-policy.md). Pin Epic ID, Use Case ID/locator, selected scope, revision, Story/AC/Prototype và evidence trong manifest. Chạy lint baseline theo target, xử lý Epic legacy trong closure trước khi trình phạm vi. Giữ snapshot/evidence của baseline cũ và rationale cho phần tái dùng.
+Áp dụng [policy Epic–Use Case](../references/epic-use-case-policy.md). Pin Epic ID, locator E03, selected scope, revision, Story/AC/Prototype và evidence trong manifest. Chạy lint baseline theo target, xử lý Epic legacy trong closure trước khi trình phạm vi. Giữ snapshot/evidence của baseline cũ và rationale cho phần tái dùng.
 
 Prototype là điều kiện bắt buộc để bàn giao scope có UI. Pin Epic, bundle manifest và walkthrough hiện hành trong baseline package. Với scope không tác động UI, pin review N/A cùng lý do và contract. Thiếu evidence hoặc scope khác allocation thì giữ gate bị chặn. Xem [standard Prototype](../references/prototype-workflow-and-epic-gate.md).
 

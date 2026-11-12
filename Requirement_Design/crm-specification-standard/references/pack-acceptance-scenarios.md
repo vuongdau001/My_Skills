@@ -130,9 +130,9 @@ Dùng input dưới cho phiên mới với kit và context workstream tối thi�
 | UC02 | Requester gửi và Approver xét cùng ProjectCodeRequest. Có nút Approve và Reject. | Hai Epic theo hai mục tiêu. Approve/Reject cùng thuộc Use Case xét duyệt. Shared model giữ lifecycle và quyền áp dụng. |
 | UC03 | Worker dùng bởi Epic gửi và Epic xét duyệt. | Một Task, Epic gửi chịu trách nhiệm, hai consumer có trace tới đầu ra. |
 | UC04 | Use Case lớn có Story submit và Story phục hồi sau timeout. | Có allocation theo scenario/delta, giữ controls, E14 kiểm kết quả tích hợp và không đếm lặp. |
-| UC05 | Đợt đầu đã nghiệm thu. Đợt sau bổ sung tra trạng thái của cùng lần gửi. | Cặp ID ổn định, baseline/revision mới, evidence cũ truy được, review có impact và rationale tái dùng. |
+| UC05 | Đợt đầu đã nghiệm thu. Đợt sau bổ sung tra trạng thái của cùng lần gửi. | Epic ID và anchor còn cùng nghĩa giữ ổn định, baseline/revision mới, evidence cũ truy được, review có impact và rationale tái dùng. |
 | UC06 | Anchor nhánh dữ liệu sai hợp lệ nhưng expected result trống. | Lint có thể đạt. Reviewer ghi finding E03/E14, định vị nhánh và chặn verdict của scope. |
-| UC07 | Hai Epic ở hai spec_root dùng cùng MOD ID hoặc consumer trỏ revision cũ. | Lint phát hiện duplicate hoặc stale-revision. Snapshot ngoài spec_root không tham gia inventory hiện hành. |
+| UC07 | Hai Epic ở hai spec_root dùng cùng Epic ID hoặc consumer trỏ revision cũ. | Lint phát hiện duplicate hoặc stale-revision. Các Epic khác ID được dùng cùng anchor cục bộ. Snapshot ngoài spec_root nằm ngoài inventory hiện hành. |
 | UC08 | Draft legacy, gồm hồ sơ schema 1/2 và hồ sơ chỉ có heading. | Draft đọc được và báo legacy; baseline/readiness chặn target hoặc closure liên quan. Chuyển đổi giữ ID khi mục tiêu giữ nguyên. |
 | UC09 | Assessment crm-definition-v2 thiếu marker phương pháp. | Điểm giữ cách tính cũ, output gắn legacy và báo reassessment trước khi dùng cho readiness mới. |
 
@@ -160,3 +160,11 @@ Dùng input dưới cho phiên mới với kit và context workstream tối thi�
 | RL01 | Một quản lý Sales thao tác duyệt trong CRM và được giao ký xác nhận nghiệm thu. QA review các ca phân quyền. | C03 ghi bên liên quan nghiệp vụ. E02/E03 ghi quản lý Sales với vai trò actor duyệt và E07 ghi quyền runtime. Work Context hoặc C08/E16 ghi người xác nhận nghiệm thu và QA reviewer cùng trách nhiệm riêng. Hai loại quyền dẫn evidence riêng. |
 | RL02 | Một ghi chú yêu cầu CRM che email khi actor thiếu quyền xem trường, đồng thời yêu cầu QA chạy ca thiếu quyền và nộp kết quả trước handoff. | Intake tách hai phát biểu và giữ cùng locator nguồn. Rule thuộc Nghiệp vụ / sản phẩm và được dẫn trong E07/AC. Điều kiện thuộc Dự án / SDLC và được dẫn trong handoff hoặc policy. Mỗi phần ghi người xác nhận và evidence theo phạm vi. |
 | RL03 | Một Decision về quyền xem chỉ có chữ ký chốt bàn giao của PM. Epic đưa PM vào E02 vì PM đã ký và đưa bước QA nghiệm thu vào luồng E03. | Review ghi finding về thẩm quyền đối với rule quyền, vai trò thiếu tương tác trong Use Case và điều kiện SDLC đặt sai vị trí. Chỉ ghi nhận các phần được evidence hỗ trợ. |
+
+## Truy vết Use Case qua Epic — 2.1.0
+
+| ID | Đầu vào kiểm | Kết quả cần quan sát |
+|---|---|---|
+| UL01 | Epic mới khai `artifact_id`, revision và `use_case` có level cùng locator E03. Story dẫn `derived-from` tới Epic và anchor bước. | Lint chấp nhận Epic và trace khi target/revision/anchor khớp. Anchor ngoài E03, anchor thiếu hoặc revision cũ bị phát hiện. |
+| UL02 | Prototype dùng `EPIC-CRM-…#locator` và pin revision ở allocation. Hai Epic khác nhau dùng cùng tên anchor. | Kiểm locator theo đúng Epic và revision. Cùng tên anchor hợp lệ trong các file Epic khác nhau. |
+| UL03 | Epic revision cũ còn `use_case.id`, Story hoặc Prototype vẫn dẫn MOD đã cấp. | Trace hợp lệ tiếp tục đọc được, lint báo cảnh báo cho binding cũ. Khi đổi revision, cập nhật các trace áp dụng và giữ snapshot evidence đã pin. |

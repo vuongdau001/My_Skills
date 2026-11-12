@@ -99,15 +99,24 @@ def validate(api, root, dirs, path, epic, scope=None):
         allocated = set(matches[0]['scenarios'])
         epic_policy = api['support']('epics')
         if epic.get('epic_policy') == epic_policy.POLICY:
-            case_id = epic_policy.case_id(epic)
-            if not case_id:
-                fail('Prototype allocation requires a valid Epic Use Case binding')
             anchors = epic_policy.case_anchors(api, path.read_text(encoding='utf-8'))
+            binding = obj(epic.get('use_case'))
+            locator = binding.get('locator')
+            if binding.get('level') != 'user-goal' or not text(locator) or locator not in anchors:
+                fail('Prototype allocation requires a valid Epic Use Case binding')
+            epic_id = epic['artifact_id']
+            reference_ids = {epic_id}
+            legacy_id = epic_policy.legacy_case_id(epic)
+            if legacy_id:
+                reference_ids.add(legacy_id)
             for scenario in sorted(allocated):
-                locators = {ref[len(case_id):] for ref in scenarios[scenario]['refs']
-                            if ref == case_id or ref.startswith(case_id + '#')}
+                locators = set()
+                for ref in scenarios[scenario]['refs']:
+                    identity, separator, anchor = ref.partition('#')
+                    if identity in reference_ids:
+                        locators.add(separator + anchor)
                 if not locators or not locators <= anchors:
-                    fail(f'{scenario} must reference {case_id} at valid E03 locators')
+                    fail(f'{scenario} must reference {epic_id} at valid E03 locators')
         return allocated
 
     selection = obj(epic.get('prototype'))

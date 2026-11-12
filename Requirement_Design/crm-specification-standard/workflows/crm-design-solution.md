@@ -28,7 +28,7 @@ Khi có meeting/chat/decision/assumption/constraint ảnh hưởng target, đọ
 
 ## Execution Steps
 
-Áp dụng [policy Epic–Use Case](../references/epic-use-case-policy.md). Dẫn từng quyết định solution, boundary ghi, failure/recovery và interface về Use Case ID, step/branch và revision, cùng rule, data, state, quyền và NFR đã xác nhận. Giữ unknown và proposal tách khỏi hành vi đã chốt.
+Áp dụng [policy Epic–Use Case](../references/epic-use-case-policy.md). Dẫn từng quyết định solution, boundary ghi, failure/recovery và interface về Epic ID, anchor bước/nhánh E03 và revision, cùng rule, data, state, quyền và NFR đã xác nhận. Giữ unknown và proposal tách khỏi hành vi đã chốt.
 
 Sau khi Epic đủ rõ cho scope UI đã chọn, tạo bundle chạy được theo hành trình trong category prototypes của Work Context. Bàn giao từ chính bundle này. Ưu tiên tái dùng file nguồn phù hợp và ghi phần đã giữ hoặc thay đổi. Khi nguồn không dùng được, tạo từ BR/AC, UI contract và Story candidates. Xác nhận với người dùng phần chỉ dẫn/mẫu còn thiếu trước khi hoàn thiện nhánh bị ảnh hưởng. Chỉ ghi HTML/CSS/JS và fixture giả trong category prototypes khi được giao author. Xem [standard Prototype](../references/prototype-workflow-and-epic-gate.md).
 

@@ -4,7 +4,7 @@ ID **CRM-PROTOTYPE** · CRM Workflow Kit 1.12.2
 
 Một Prototype là bản chạy được để diễn tập hành vi UI trong phạm vi Epic đã đặc tả. E08 ghi UI cần làm, D06 đối chiếu hành vi với contract và walkthrough ghi kết quả quan sát. Gate bàn giao sang Story thực thi yêu cầu ba đầu ra này cho scope có tác động UI.
 
-Với Epic use-case-v1, mỗi scenario trong allocation khai refs dạng `MOD-CRM-…#locator` tới bước/nhánh E03 của đúng Epic/revision/scope. Một bundle hành trình có thể có nhiều allocation theo Epic. [Policy Epic–Use Case](epic-use-case-policy.md).
+Với Epic use-case-v1, mỗi scenario trong allocation khai refs dạng `EPIC-CRM-…#locator` tới bước/nhánh E03 của đúng Epic/revision/scope. Một bundle hành trình có thể có nhiều allocation theo Epic. [Policy Epic–Use Case](epic-use-case-policy.md).
 
 ## 1. Tìm nguồn trước khi viết đặc tả
 

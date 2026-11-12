@@ -17,7 +17,7 @@ def case_anchors(api, source):
     return {'#' + name for name in local_explicit if all_explicit.count(name) == 1}
 
 
-def case_id(meta):
+def legacy_case_id(meta):
     binding = meta.get('use_case')
     if meta.get('kind') == 'Epic' and isinstance(binding, dict):
         value = binding.get('id')
@@ -27,7 +27,7 @@ def case_id(meta):
 
 
 def audit(api, repo, cfg, ws, all_docs, metas, definitions, scope, issue, gate, selected):
-    claims = {}
+    legacy_claims = {}
     for stream in cfg['workstreams']:
         root = api['relative'](repo, stream['spec_root'])
         epic_dirs = (root / api['artifact_paths'](stream)['epics'], root / 'epics', root / '02-epics')
@@ -44,14 +44,14 @@ def audit(api, repo, cfg, ws, all_docs, metas, definitions, scope, issue, gate, 
                     issue('ERROR', 'epic-policy', name, 'Only an Epic can declare a Use Case binding')
                 continue
             binding = meta.get('use_case')
-            use_case_id = case_id(meta)
-            if use_case_id:
-                claims.setdefault(use_case_id, []).append(name)
+            legacy_id = legacy_case_id(meta)
+            if legacy_id:
+                legacy_claims.setdefault(legacy_id, []).append(name)
             if selected:
                 owned = api['legacy_definitions'](source) if not meta else {
                     i for i in scope if name in definitions.get(i, ())
                 }
-                applies = bool(scope & owned) or use_case_id in scope
+                applies = bool(scope & owned) or legacy_id in scope
             else:
                 applies = stream == ws and (gate == 'draft' or meta.get('work_status') != 'cancel')
             if not applies:
@@ -63,21 +63,25 @@ def audit(api, repo, cfg, ws, all_docs, metas, definitions, scope, issue, gate, 
             if meta.get('epic_policy') != POLICY:
                 issue('ERROR', 'epic-policy', name, 'Epic binding requires epic_policy=use-case-v1')
                 continue
-            if not use_case_id or binding.get('level') != 'user-goal':
-                issue('ERROR', 'epic-use-case', name, 'Expected one use_case object with a MOD ID and level=user-goal')
+            if not isinstance(binding, dict) or binding.get('level') != 'user-goal':
+                issue('ERROR', 'epic-use-case', name, 'Expected one use_case object with level=user-goal and an E03 locator')
                 continue
             identity, revision = meta.get('artifact_id'), meta.get('revision')
             if not (isinstance(identity, str) and re.fullmatch(r'EPIC-CRM-\d{3,}', identity)
                     and isinstance(revision, str) and revision.strip()):
                 issue('ERROR', 'epic-use-case', name, 'Use Case owner requires an Epic ID and nonempty revision')
-            declared = meta.get('defined_ids')
-            if not isinstance(declared, list) or declared.count(use_case_id) != 1:
-                issue('ERROR', 'epic-use-case-owner', name, 'Epic must define its Use Case ID exactly once in defined_ids')
+            if 'id' in binding:
+                declared = meta.get('defined_ids')
+                if not legacy_id or not isinstance(declared, list) or declared.count(legacy_id) != 1:
+                    issue('ERROR', 'epic-use-case-owner', name, 'Legacy Use Case ID must be a MOD ID defined once by the Epic')
+                else:
+                    issue('WARN', 'epic-use-case-legacy-id', name,
+                          'Use Epic ID, revision and an E03 locator for new Use Case references')
             locator = binding.get('locator')
             if not (isinstance(locator, str) and ANCHOR.fullmatch(locator)
                     and locator in case_anchors(api, source)):
                 issue('ERROR', 'epic-use-case-locator', name, 'Use Case locator must be a unique explicit anchor inside E03')
 
-    for identity, paths in claims.items():
+    for identity, paths in legacy_claims.items():
         if len(paths) > 1:
             issue('ERROR', 'duplicate-use-case', ', '.join(sorted(paths)), identity)

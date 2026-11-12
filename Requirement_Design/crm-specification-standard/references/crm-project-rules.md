@@ -10,7 +10,7 @@ Mã tài liệu: **CRM-RULES** · Gói CRM 1.3.1 · 03/11/2026
 
 
 
-Epic sở hữu một Use Case user-goal, giữ cặp ID qua các revision của cùng mục tiêu. Phạm vi nghiệm thu được xác định theo baseline của từng đợt. Xem [policy use-case-v1](epic-use-case-policy.md).
+Epic sở hữu một Use Case user-goal, dùng Epic ID và anchor E03 để truy vết qua các revision của cùng mục tiêu. Phạm vi nghiệm thu được xác định theo baseline của từng đợt. Xem [policy use-case-v1](epic-use-case-policy.md).
 
 ## Quy ước hiện hành và cách đọc
 

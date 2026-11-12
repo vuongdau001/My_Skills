@@ -21,7 +21,7 @@ Viết mỗi case thành mục riêng, giữ ID trong manifest.
 - **Actor và dữ liệu** — role, quyền, fixture và state ban đầu.
 - **Thao tác** — entrypoint và các bước.
 - **Kết quả mong đợi** — UI state và Command/Query/permission outcome theo BR/AC đã xác nhận.
-- **Đối chiếu** — Screen ID, MOD ID/locator E03, BR/AC/contract refs và gap ID nếu còn.
+- **Đối chiếu** — Screen ID, Epic ID và locator E03, BR/AC/contract refs và gap ID nếu còn.
 
 ## manifest.json
 
@@ -38,7 +38,7 @@ Thay mọi placeholder bằng giá trị từ scope đã đặc tả. Dùng path
     {"id": "SCR-CONTACT-CREATE", "path": "screens/contact-create.html"}
   ],
   "scenarios": [
-    {"id": "SCN-CONTACT-CREATE", "screens": ["SCR-CONTACT-CREATE"], "refs": ["<mod-id>#create-contact-step", "<business-rule-id>", "<acceptance-id>", "<create-contract-ref>"]}
+    {"id": "SCN-CONTACT-CREATE", "screens": ["SCR-CONTACT-CREATE"], "refs": ["<epic-id>#create-contact-step", "<business-rule-id>", "<acceptance-id>", "<create-contract-ref>"]}
   ],
   "files": {
     "scenarios.md": "<sha256>",

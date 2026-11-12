@@ -12,7 +12,7 @@ EPIC = 'EPIC-CRM-001'
 SCOPE = 'contact-create'
 SCENARIO = 'SCN-CONTACT-CREATE'
 SCREEN = 'SCR-CONTACT-CREATE'
-CASE = 'MOD-CRM-001'
+LEGACY_CASE = 'MOD-CRM-001'
 
 
 class PrototypeTests(unittest.TestCase):
@@ -60,7 +60,7 @@ class PrototypeTests(unittest.TestCase):
     def gate(self, target=EPIC, code=0):
         return self.cli('lint', '--gate', 'baseline', '--target', target, code=code)
 
-    def fixture(self, state='required', *, revision='r1', scenario_ref=CASE+'#create'):
+    def fixture(self, state='required', *, revision='r1', scenario_ref=EPIC+'#create', legacy=False):
         selection = dict(applicability=state, scope=SCOPE, review=self.review.removeprefix('spec/'))
         if state == 'required':
             selection['manifest'] = self.manifest.removeprefix('spec/')
@@ -75,9 +75,12 @@ class PrototypeTests(unittest.TestCase):
                 files={name: self.hash(self.bundle + name) for name in files}))
         else:
             selection['reason'] = 'Backend changes only'
+        binding = dict(level='user-goal', locator='#create')
+        if legacy:
+            binding['id'] = LEGACY_CASE
         self.put_meta(self.epic, kind='Epic', artifact_id=EPIC, revision='r1', prototype=selection,
-                      epic_policy='use-case-v1', defined_ids=[CASE],
-                      use_case=dict(id=CASE, level='user-goal', locator='#create'))
+                      epic_policy='use-case-v1', defined_ids=[LEGACY_CASE] if legacy else [],
+                      use_case=binding)
         evidence = dict(scope=SCOPE, epic_sha256=self.hash(self.epic), reviewer='Fixture reviewer',
                         observed_at='2026-11-05T10:00:00+07:00')
         if state == 'required':
@@ -106,10 +109,16 @@ class PrototypeTests(unittest.TestCase):
         self.gate('BASE-CRM-001')
 
     def test_use_case_allocation_checks_locator_and_revision(self):
-        self.fixture(scenario_ref=CASE+'#missing')
+        self.fixture(scenario_ref=EPIC+'#missing')
         self.assertIn('valid E03 locators', self.gate(code=1)['issues'][0]['message'])
         self.fixture(revision='r0')
         self.assertIn('Epic ID, revision and scope', self.gate(code=1)['issues'][0]['message'])
+
+    def test_model_ref_requires_legacy_binding_to_identify_a_use_case(self):
+        self.fixture(scenario_ref=LEGACY_CASE+'#create')
+        self.assertIn('valid E03 locators', self.gate(code=1)['issues'][0]['message'])
+        self.fixture(scenario_ref=LEGACY_CASE+'#create', legacy=True)
+        self.assertEqual({i['code'] for i in self.gate()['issues']}, {'epic-use-case-legacy-id'})
 
     def test_walkthrough_pins_runtime_assets(self):
         self.fixture()

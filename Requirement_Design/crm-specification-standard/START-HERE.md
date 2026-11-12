@@ -1,6 +1,6 @@
 # Start Here
 
-ID: **CRM-START** · CRM Workflow Kit 2.0.1 · 06/11/2026
+ID: **CRM-START** · CRM Workflow Kit 2.1.0 · 06/11/2026
 
 
 Khi scope có UI, tìm mockup hiện có trước khi specify. Hỏi người dùng mẫu và chỉ dẫn, sau đó tái dùng hoặc tạo bundle khi scope đủ rõ. Dùng [quy trình Prototype](references/prototype-workflow-and-epic-gate.md) để walkthrough và bàn giao.

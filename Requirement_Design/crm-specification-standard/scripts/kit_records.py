@@ -123,13 +123,13 @@ def audit(api, repo, cfg, ws, docs, definitions, issue, args):
                 owners[identity] = p
                 revisions[identity] = row.get('revision')
 
-    # Epic and Use Case share the same gate obligations regardless of which ID a consumer pins.
-    case_locations = {}
+    # Previously issued Use Case IDs remain aliases for the owning Epic in the gate graph.
+    legacy_case_locations = {}
     for p, meta in metas.items():
-        case = epic_policy.case_id(meta)
+        case = epic_policy.legacy_case_id(meta)
         epic = meta.get('artifact_id')
         if case and meta.get('epic_policy') == epic_policy.POLICY:
-            case_locations[p] = case
+            legacy_case_locations[p] = case
             name = p.relative_to(repo).as_posix()
             if (isinstance(epic, str) and name in definitions.get(case, ())
                     and name in definitions.get(epic, ())):
@@ -201,7 +201,13 @@ def audit(api, repo, cfg, ws, docs, definitions, issue, args):
             emit('ERROR','trace-unresolved',p,'Undefined target ID: '+identity)
         elif target.relative_to(repo).as_posix() not in definitions[identity]:
             emit('ERROR','trace-owner',p,'Target ID is not defined by referenced file: '+identity)
-        if case_locations.get(target) == identity:
+        target_meta = metas.get(target, {})
+        story_behavior = (
+            relation == 'derived-from' and metas.get(p, {}).get('kind') == 'Story'
+            and target_meta.get('kind') == 'Epic' and target_meta.get('epic_policy') == epic_policy.POLICY
+            and target_meta.get('artifact_id') == identity and target not in legacy_case_locations
+        )
+        if story_behavior or legacy_case_locations.get(target) == identity:
             if target not in anchors_by_path:
                 anchors_by_path[target] = epic_policy.case_anchors(api, all_docs[target])
             if '#' + unquote(url.fragment) not in anchors_by_path[target]:

@@ -8,7 +8,7 @@ import unittest
 
 KIT = Path(__file__).resolve().parents[2]
 EPIC = 'EPIC-CRM-001'
-CASE = 'MOD-CRM-001'
+LEGACY_CASE = 'MOD-CRM-001'
 STORY = 'STORY-CRM-001'
 EPIC_PATH = 'spec/02-epics/epic.md'
 BODY = """# Epic
@@ -48,12 +48,17 @@ class EpicUseCaseTests(unittest.TestCase):
 
     def epic(self, relative=EPIC_PATH, body=BODY, **overrides):
         meta = dict(schema_version=1, kind='Epic', artifact_id=EPIC, revision='r1',
-                    epic_policy='use-case-v1', defined_ids=[CASE],
-                    use_case=dict(id=CASE, level='user-goal', locator='#submit'))
+                    epic_policy='use-case-v1',
+                    use_case=dict(level='user-goal', locator='#submit'))
         meta.update(overrides)
         return self.artifact(relative, meta, body)
 
-    def story(self, *, revision='r1', locator='#commit', identity=CASE, relation='derived-from'):
+    def legacy_epic(self, relative=EPIC_PATH, **overrides):
+        fields = dict(defined_ids=[LEGACY_CASE],
+                      use_case=dict(id=LEGACY_CASE, level='user-goal', locator='#submit'))
+        return self.epic(relative, **(fields | overrides))
+
+    def story(self, *, revision='r1', locator='#commit', identity=EPIC, relation='derived-from'):
         self.artifact('spec/03-stories/story.md', dict(
             schema_version=2, kind='Story', artifact_id=STORY, revision='r1',
             trace_links=[dict(id=identity, path='../02-epics/epic.md'+locator,
@@ -76,16 +81,15 @@ class EpicUseCaseTests(unittest.TestCase):
                 self.story()
                 result = self.cli('lint', '--gate', 'readiness', '--target', STORY)
                 self.assertEqual(result['issues'], [])
-                self.assertEqual(set(result['gate_scope']['dependency_ids']), {STORY, EPIC, CASE})
+                self.assertEqual(set(result['gate_scope']['dependency_ids']), {STORY, EPIC})
 
     def test_binding_requires_one_object_with_valid_id_level_and_owner(self):
         cases = [
             (dict(use_case=None), 'epic-use-case'),
-            (dict(use_case=[dict(id=CASE, level='user-goal', locator='#submit')]*2), 'epic-use-case'),
-            (dict(use_case=dict(id='REQ-CRM-001', level='user-goal', locator='#submit')), 'epic-use-case'),
-            (dict(use_case=dict(id=CASE, level='summary', locator='#submit')), 'epic-use-case'),
-            (dict(defined_ids=[]), 'epic-use-case-owner'),
-            (dict(defined_ids=[CASE, CASE]), 'epic-use-case-owner'),
+            (dict(use_case=[dict(level='user-goal', locator='#submit')]*2), 'epic-use-case'),
+            (dict(use_case=dict(id='REQ-CRM-001', level='user-goal', locator='#submit')), 'epic-use-case-owner'),
+            (dict(use_case=dict(level='summary', locator='#submit')), 'epic-use-case'),
+            (dict(artifact_id='MOD-CRM-009'), 'epic-use-case'),
             (dict(revision=''), 'epic-use-case'),
             (dict(epic_policy='future'), 'epic-policy'),
         ]
@@ -111,16 +115,30 @@ class EpicUseCaseTests(unittest.TestCase):
                 self.epic(body=body)
                 self.assertIn('epic-use-case-locator', self.codes(code=1))
 
-    def test_cross_workstream_duplicate_claim_and_owner(self):
-        self.epic()
-        other_epic = 'next/02-epics/duplicate.md'
+    def test_anchors_are_local_but_epic_ids_are_unique_across_workstreams(self):
+        self.epic(defined_ids=['MOD-CRM-003'])
+        other_epic = 'next/02-epics/other.md'
         self.epic(other_epic, artifact_id='EPIC-CRM-002')
+        self.assertEqual(self.codes('--target', EPIC), set())
+        self.epic(other_epic)
+        self.assertIn('duplicate-id', self.codes('--target', EPIC, code=1))
+
+    def test_existing_model_id_is_readable_and_shares_epic_gate_scope(self):
+        self.legacy_epic()
+        self.story(identity=LEGACY_CASE)
+        result = self.cli('lint', '--gate', 'readiness', '--target', STORY)
+        self.assertEqual({i['code'] for i in result['issues']}, {'epic-use-case-legacy-id'})
+        self.assertEqual(set(result['gate_scope']['dependency_ids']), {STORY, EPIC, LEGACY_CASE})
+        self.story(identity=LEGACY_CASE, locator='#outside')
+        self.assertIn('trace-use-case-locator', self.codes('--target', STORY, code=1))
+
+    def test_existing_case_id_must_be_defined_once_and_unambiguous(self):
+        for declared in ([], [LEGACY_CASE, LEGACY_CASE]):
+            self.legacy_epic(defined_ids=declared)
+            self.assertIn('epic-use-case-owner', self.codes(code=1))
+        self.legacy_epic()
+        self.legacy_epic('next/02-epics/duplicate.md', artifact_id='EPIC-CRM-002')
         self.assertTrue({'duplicate-id', 'duplicate-use-case'} <= self.codes('--target', EPIC, code=1))
-        self.epic(other_epic, artifact_id='EPIC-CRM-002', defined_ids=[])
-        self.assertIn('duplicate-use-case', self.codes('--gate', 'readiness', '--target', EPIC, code=1))
-        (self.repo/other_epic).unlink()
-        self.artifact('next/model.md', dict(schema_version=2, kind='Model', artifact_id=CASE, revision='r1'))
-        self.assertIn('duplicate-id', self.codes(code=1))
 
     def test_legacy_warns_in_draft_and_only_relevant_gate_is_blocked(self):
         self.artifact(EPIC_PATH, dict(schema_version=1, kind='Epic', artifact_id=EPIC, revision='r1'))
@@ -147,8 +165,9 @@ class EpicUseCaseTests(unittest.TestCase):
         self.epic(revision='r2', work_status='inprogress')
         self.story()
         self.assertEqual(self.codes('--target', STORY, code=1), {'stale-revision'})
-        self.story(revision='r2', locator='#outside')
-        self.assertEqual(self.codes('--target', STORY, code=1), {'trace-use-case-locator'})
+        for locator in ('#outside', ''):
+            self.story(revision='r2', locator=locator)
+            self.assertEqual(self.codes('--target', STORY, code=1), {'trace-use-case-locator'})
         self.story(revision='r2')
         self.assertEqual(self.codes('--gate', 'baseline', '--target', STORY), set())
         self.assertIn('"revision": "r1"', snapshot.read_text(encoding='utf-8'))

@@ -6,7 +6,7 @@ Mã tài liệu: **TPL-PROGRESS** · Gói CRM 1.10.0 · 05/11/2026
 
 Mở bằng kết quả chính: scope đang ở đâu, blocker nào quan trọng và hành động tiếp theo. Dùng [measurement](../../references/progress-measurement-and-capability-rollup.md); đây là Full report, không ép lên recap/status/next step trong chat.
 
-Ghi Epic/Use Case ID, scope, baseline và revision của mỗi đợt. Tách phạm vi đã nghiệm thu khỏi delta hiện hành và ghi phần loại trừ khi đếm Story/coverage.
+Ghi Epic ID, locator E03 khi cần, scope, baseline và revision của mỗi đợt. Tách phạm vi đã nghiệm thu khỏi delta hiện hành và ghi phần loại trừ khi đếm Story/coverage.
 
 ## Phạm vi và snapshot
 

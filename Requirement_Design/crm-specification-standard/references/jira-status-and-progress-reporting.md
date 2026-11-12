@@ -81,7 +81,7 @@ Nếu review đã đồng thời đáp ứng DoD và người nhận xác nhận
 - Ghi status trước khi bị chặn và điều kiện resume. Khi có quyết định mới, quay về trạng thái phù hợp; đổi rule cần code lại thì về `inprogress`, không quay thẳng `done`.
 - Review/test không đạt mà owner có thể sửa ngay: quay `inprogress`; không tự coi mọi rework là blocker.
 - `cancel` cần authority/reason và tác động tới scope/estimate/child. Hủy child không tự loại requirement khỏi scope.
-- Mở lại Epic/Story đã Done theo workflow cho phép sau khi change được chấp nhận. Với cùng mục tiêu, giữ Epic/Use Case ID, ghi scope/revision/baseline mới và pin nghiệm thu cũ. Review phần chịu tác động và ghi lý do tái dùng evidence. [Vòng đời Epic](epic-use-case-policy.md).
+- Mở lại Epic/Story đã Done theo workflow cho phép sau khi change được chấp nhận. Với cùng mục tiêu, giữ Epic ID và các anchor E03 còn cùng nghĩa, ghi scope/revision/baseline mới và pin nghiệm thu cũ. Review phần chịu tác động và ghi lý do tái dùng evidence. [Vòng đời Epic](epic-use-case-policy.md).
 
 
 <a id="workflow-11-5"></a>

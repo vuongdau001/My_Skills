@@ -28,7 +28,7 @@ Ghi actor chính và actor hỗ trợ cùng bước tương tác ở E03. Ghi ri
 
 <a id="use-case"></a>
 
-**MOD ID, tên và mục tiêu.** Ghi trigger, preconditions và actor thực hiện. Dùng [D01](../../references/models/business-flows-and-use-cases.md).
+**Tên và mục tiêu Use Case.** Dùng Epic ID và revision khi dẫn đến anchor E03. Ghi trigger, preconditions và actor thực hiện. Dùng [D01](../../references/models/business-flows-and-use-cases.md).
 
 ### Luồng chính
 
@@ -88,7 +88,7 @@ Mỗi AC dùng điều kiện → thao tác → kết quả → truy vết/gap. 
 
 ## E15 — Story candidates và allocation
 
-Mỗi candidate nhận MOD ID và revision, scenario/bước hoặc delta, outcome, BR/model/AC, controls và dependency. Ghi phần còn lại và phép kiểm tích hợp. Link + activation nếu cùng outcome không tự tách thành API/UI Stories. Chưa đủ gate thì giữ candidate.
+Mỗi candidate dẫn Epic ID và revision, anchor của scenario/bước hoặc delta, outcome, BR/model/AC, controls và dependency. Ghi phần còn lại và phép kiểm tích hợp. Link + activation nếu cùng outcome không tự tách thành API/UI Stories. Chưa đủ gate thì giữ candidate.
 
 ## E16 — Applicability, quyết định và baseline
 
@@ -111,8 +111,7 @@ Theo [coverage/AC](../../references/coverage-inventories-and-traceability.md#spe
   "revision": "<epic-revision>",
   "review_verdict": "Chưa kiểm",
   "epic_policy": "use-case-v1",
-  "use_case": {"id": "<mod-id>", "level": "user-goal", "locator": "#use-case"},
-  "defined_ids": ["<mod-id>"]
+  "use_case": {"level": "user-goal", "locator": "#use-case"}
 }
 ```
 

@@ -88,8 +88,8 @@ class LayoutAndRecordTests(unittest.TestCase):
         self.config(layout='numbered')
         epic = self.put('02-epics/epic.md', dict(
             schema_version=1, kind='Epic', artifact_id='EPIC-CRM-001', revision='r1',
-            epic_policy='use-case-v1', defined_ids=['MOD-CRM-001'],
-            use_case=dict(id='MOD-CRM-001', level='user-goal', locator='#use-case')),
+            epic_policy='use-case-v1',
+            use_case=dict(level='user-goal', locator='#use-case')),
             body='\n## E03 — Use Case\n\n<a id="use-case"></a>\n')
         manual_path=self.root/'03-stories/manual.md'
         manual=self.story([self.trace(manual_path,epic,'EPIC-CRM-001','parent')],rel='03-stories/manual.md')

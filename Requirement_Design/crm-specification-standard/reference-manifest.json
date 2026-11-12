@@ -1,6 +1,6 @@
 {
   "pack_id": "crm-specification-standard",
-  "version": "2.0.1",
+  "version": "2.1.0",
   "date": "2026-11-06",
   "language": "vi",
   "scope": "Self-contained CRM workflow kit with deterministic local installation adapters; no automatic runtime discovery or external mutations",
@@ -1068,6 +1068,12 @@
       "kind": "provenance",
       "title": "Kiểm chứng gói 2.0.1",
       "path": "provenance/pack-validation-report-v2.0.1.md"
+    },
+    {
+      "id": "CRM-VALIDATION-V210",
+      "kind": "provenance",
+      "title": "Kiểm chứng gói 2.1.0",
+      "path": "provenance/pack-validation-report-v2.1.0.md"
     }
   ],
   "source_archive": "provenance/original-epic-story-standard-and-workflow-v1.1.zip",

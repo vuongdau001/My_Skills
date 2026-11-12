@@ -28,7 +28,7 @@ Khi có meeting/chat/decision/assumption/constraint ảnh hưởng target, đọ
 
 ## Execution Steps
 
-Áp dụng [policy Epic–Use Case](../references/epic-use-case-policy.md). Đối chiếu gói bàn giao với Epic/Use Case ID, scope/baseline/revision, phần scenario chuyển giao và receiver của từng dependency. Ghi finding nếu receipt, Prototype hoặc evidence trỏ đợt khác. Dùng lint readiness theo target cho closure bàn giao.
+Áp dụng [policy Epic–Use Case](../references/epic-use-case-policy.md). Đối chiếu gói bàn giao với Epic ID, locator E03, scope/baseline/revision, phần scenario chuyển giao và receiver của từng dependency. Ghi finding nếu receipt, Prototype hoặc evidence trỏ đợt khác. Dùng lint readiness theo target cho closure bàn giao.
 
 1. Xác định target Story, baseline scope và code/build/config/environment được bàn giao; mở các evidence refs được phép đọc.
 2. Đối chiếu Dev→QA gate: review, POL-CHECKS/POL-QUALITY versions, required tests/CI; skipped/not-run không là Pass.

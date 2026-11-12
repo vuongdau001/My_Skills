@@ -29,7 +29,7 @@ Khi có meeting/chat/decision/assumption/constraint ảnh hưởng target, đọ
 
 ## Execution Steps
 
-Áp dụng [policy Epic–Use Case](../references/epic-use-case-policy.md). Phân loại thay đổi theo mục tiêu. Cùng actor goal/boundary và chỉ đổi hành vi hay nhánh thì giữ Epic và Use Case ID, lập revision/scope/baseline mới khi change được chấp nhận. Mục tiêu độc lập cần cặp ID mới và crosswalk. Xác định dependency cần review và rationale tái dùng evidence.
+Áp dụng [policy Epic–Use Case](../references/epic-use-case-policy.md). Phân loại thay đổi theo mục tiêu. Cùng actor goal/boundary và chỉ đổi hành vi hay nhánh thì giữ Epic ID và các anchor E03 còn cùng nghĩa, lập revision/scope/baseline mới khi change được chấp nhận. Mục tiêu độc lập cần Epic ID mới và crosswalk. Xác định dependency cần review và rationale tái dùng evidence.
 
 Kiểm hai chiều từ delta Epic/Story đến Prototype và từ thay đổi Prototype đến Epic/Story. Xác định Screen/Scenario, fixtures, BR/AC, contracts, walkthrough và baseline pins cần cập nhật. Lập plan author/review lại cho phần bị ảnh hưởng. Xem [standard Prototype](../references/prototype-workflow-and-epic-gate.md).
 

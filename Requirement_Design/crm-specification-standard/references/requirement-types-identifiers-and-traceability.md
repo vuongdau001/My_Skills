@@ -4,7 +4,7 @@ Mã tài liệu: **CRM-IDENTIFIERS** · Gói CRM 1.3.1 · 03/11/2026
 
 **Đọc khi:** ghi nhận nguồn/yêu cầu, tạo model/AC, phân bổ sang backlog hoặc đổi scope. **Đầu vào:** nhu cầu/constraints, glossary, scope và authority. **Đầu ra:** requirement register, ID ổn định và quan hệ truy vết đúng phiên bản.
 
-Use Case user-goal có MOD ID do đúng một Epic sở hữu trong defined_ids. Trace target dùng ID, path có locator E03 và revision của Epic. Giữ ID qua revision và pin evidence cũ khi mở baseline mới. [Policy Epic–Use Case](epic-use-case-policy.md).
+Use Case user-goal thuộc đúng một Epic và dùng Epic ID, revision và path có locator E03 khi truy vết. Giữ Epic ID qua revision của cùng mục tiêu và pin evidence cũ khi mở baseline mới. [Policy Epic–Use Case](epic-use-case-policy.md).
 
 ## Loại nội dung không phải cấp ticket
 
