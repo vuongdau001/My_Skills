@@ -4,6 +4,8 @@ ID: **TPL-ARTIFACT-METADATA** · CRM Workflow Kit 1.10.0 · 05/11/2026
 
 Áp dụng [standard viết artifact](../../references/artifact-writing-standard.md). Đây là mẫu; thay hướng dẫn bằng dữ liệu thực, giữ gap khi thiếu input. Không suy approval từ việc điền đủ mục.
 
+**Bố cục:** Chỉ áp dụng phân cấp cho phần giải thích Markdown; block metadata vẫn đúng schema, không thêm separator/bullet/markup vào JSON. Xem [phân cấp Markdown chung](../../references/artifact-writing-standard.md#13-phân-cấp-thị-giác-bằng-markdown-thuần).
+
 Nội dung để người đọc nằm trước metadata: tiêu đề, ý chính, context, nội dung nghiệp vụ, gap và handoff. Thêm đúng một block cuối file; có thể thu gọn bằng details khi viewer hỗ trợ.
 
 Mẫu dưới minh họa Capability schema 1. Chọn đúng kind/schema, ID/revision và vocabulary. Không gán work_status cho Capability. Knowledge records mới dùng các template schema 2 riêng.

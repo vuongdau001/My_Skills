@@ -5,7 +5,7 @@ description: "Vận hành yêu cầu và backlog CRM theo workflow: tiếp nhậ
 
 # CRM Workflow Kit
 
-Phiên bản **2.4.0**. Một root skill, các agent profiles logic và workflows tự chứa. Người mới đọc [Start Here](START-HERE.md). Nguồn kit tên crm-specification-standard; helper đóng gói bản cài một root skill tên crm-spec-kit. Các function IDs bên dưới vẫn là workflow nội bộ, không phải 13 slash commands riêng.
+Phiên bản **2.6.0**. Một root skill, các agent profiles logic và workflows tự chứa. Người mới đọc [Start Here](START-HERE.md). Nguồn kit tên crm-specification-standard; helper đóng gói bản cài một root skill tên crm-spec-kit. Các function IDs bên dưới vẫn là workflow nội bộ, không phải 13 slash commands riêng.
 
 Khi Epic có UI, tìm mockup nguồn theo chỉ dẫn người dùng. Bàn giao bản chạy được trong category prototypes theo từng hành trình. Kiểm Prototype ở baseline, DoR và E08. Đọc [quy trình Prototype](references/prototype-workflow-and-epic-gate.md).
 
@@ -21,7 +21,9 @@ Khi user giao bỏ toàn bộ hồ sơ cũ, dùng [reset sạch dự án](refere
 
 ## Standard viết mọi artifact
 
-Mọi artifact soạn mới hoặc chỉnh sửa theo [standard viết artifact](references/artifact-writing-standard.md), không chỉ Capability/Epic hoặc một workstream. Context nạp standard chung; đọc nó trước khi tạo output. Giữ catalog/schema/ID/gate; không rewrite nguồn hoặc historical records chỉ vì update kit. JSON/config/assessment giữ hợp đồng máy đọc, báo cáo Markdown theo standard.
+Mọi artifact soạn mới hoặc chỉnh sửa theo [standard viết artifact](references/artifact-writing-standard.md), không chỉ Capability/Epic hoặc một workstream. Context nạp standard chung; đọc nó trước khi tạo output. Giữ catalog/schema/ID/gate; không rewrite nguồn hoặc historical records chỉ vì update kit. JSON/config/assessment giữ hợp đồng máy đọc, báo cáo Markdown theo standard. Tham chiếu hiển thị dùng tên có nghĩa kèm ID/link, không chỉ mã trần hoặc chuỗi mã rút gọn; hồ sơ mới dùng heading links Unicode NFC, không HTML anchor; legacy vẫn đọc được. Đổi heading cần cập nhật fragment và consumer theo scope. Một nguồn Markdown/model chuẩn; chỉ export bản đọc khác khi được yêu cầu, không bắt duy trì hai bản.
+
+Dùng [phân cấp Markdown chung](references/artifact-writing-standard.md#13-phân-cấp-thị-giác-bằng-markdown-thuần) cho mọi artifact trong scope: item có mã/tên nổi, field song song thành list gọn, gap có nhãn riêng và trace ở cuối. Giữ cấu trúc template theo loại, không ép mọi tài liệu thành một form hoặc tạo bản đọc phụ.
 
 Khi author hoặc review nội dung có nhiều bước/nhánh, điều kiện, quyền hoặc quan hệ khó đọc, áp dụng [minh họa để review và tra cứu](references/review-visualization-standard.md). Chọn diagram, bảng hoặc ví dụ theo câu hỏi review; giữ source text/model, ID/anchor và gap. Không bắt mọi mục có diagram.
 

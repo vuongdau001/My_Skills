@@ -2,6 +2,8 @@
 
 ID: TPL-ARTIFACT-DOCUMENT · CRM Workflow Kit 1.10.0
 
+**Bố cục:** Chọn heading theo cấu trúc thật, không giữ mục trống chỉ để đủ form; item có ID nổi bật, field song song dùng list, giải thích dùng đoạn và gap có nhãn riêng. Xem [phân cấp Markdown chung](../../references/artifact-writing-standard.md#13-phân-cấp-thị-giác-bằng-markdown-thuần).
+
 Dùng [standard viết artifact](../../references/artifact-writing-standard.md) và catalog/schema của loại đang soạn. Mẫu này dành cho loại chưa có template riêng, như source/question register, model/solution hoặc baseline/change record. Chỉ giữ mục áp dụng; không tạo artifact giả để điền mẫu.
 
 ## Tiêu đề và ý chính

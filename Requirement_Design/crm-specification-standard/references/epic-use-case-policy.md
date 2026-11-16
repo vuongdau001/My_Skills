@@ -1,6 +1,6 @@
 # Epic và Use Case ở cấp mục tiêu sử dụng
 
-Policy **use-case-v1** · CRM Workflow Kit 2.1.0
+Policy **use-case-v1** · CRM Workflow Kit 2.5.0
 
 Mỗi Epic sở hữu đúng một Use Case ở cấp `user-goal`. Epic giữ phạm vi nghiệp vụ, các mô hình áp dụng, acceptance và kế hoạch bàn giao. E03 đặc tả hành vi của mục tiêu ấy. Dùng [D01](models/business-flows-and-use-cases.md) để soạn hành vi và [catalog Epic](epic-specification-catalog.md) để hoàn thiện E01–E16.
 
@@ -20,7 +20,7 @@ Mỗi đợt dùng scope, revision và baseline riêng. `done` gắn với phạ
 
 ## Metadata và kiểm tra
 
-Trong metadata schema 1 hoặc 2 của Epic, khai `epic_policy: "use-case-v1"` và một object `use_case` gồm `level: "user-goal"` và `locator`, ví dụ `#use-case`. Dùng `artifact_id` của Epic và revision của hồ sơ để truy vết Use Case. Locator là anchor HTML tường minh, duy nhất trong file Epic và nằm trong E03. Đặt các anchor riêng cho bước, nhánh, kết quả và scenario cần được dẫn. Namespace `MOD` tiếp tục dùng cho model và model item, ví dụ lifecycle hoặc decision table.
+Trong metadata schema 1 hoặc 2 của Epic, khai `epic_policy: "use-case-v1"` và một object `use_case` gồm `level: "user-goal"` và `locator`, ví dụ `#e03-use-case`. Dùng `artifact_id` của Epic và revision của hồ sơ để truy vết Use Case. Hồ sơ mới dùng heading Markdown: `## E03 Use Case` có locator `#e03-use-case`; các luồng/bước/nhánh/kết quả dùng heading có tiền tố FLOW/STP/B/OUT và tên rõ theo [D01](models/business-flows-and-use-cases.md#mã-local-của-luồng-bước-nhánh-và-kết-quả). Locator phải trỏ tới heading E03 hoặc heading con thuộc E03. Không thêm thẻ HTML chỉ để tạo anchor. Hồ sơ cũ dùng explicit HTML anchor vẫn đọc được; chỉ migrate khi được giao và cập nhật toàn bộ consumer bị ảnh hưởng. Namespace `MOD` tiếp tục dùng cho model và model item, ví dụ lifecycle hoặc decision table.
 
 - Story dùng `parent` tới Epic và `derived-from` với cùng Epic ID, path có anchor E03 và revision áp dụng. Dùng `depends-on` cho dependency và `verifies` cho đối tượng được kiểm. AC trong Epic dẫn anchor E03 tại E14. Artifact xác minh riêng dẫn Epic ID, revision và anchor E03 bằng `verifies` khi kiểm hành vi đó.
 - Prototype giữ Epic ID, revision và scope trong allocation. Mỗi scenario thuộc allocation dẫn `EPIC-CRM-…#locator` tới bước hoặc nhánh E03 trong refs. Bundle và walkthrough được pin theo đúng phạm vi.
@@ -36,3 +36,13 @@ Epic đã có `use_case.id` theo mẫu cũ vẫn đọc được với trace MOD
 4. Chạy lint và gate theo target. Ghi disposition từng Epic, trace nào chuyển, evidence nào giữ hoặc cần review lại. Nếu inventory rỗng, ghi số 0 và kiểm quy trình bằng fixture. Package rollback và khôi phục artifact là hai thao tác riêng. Dùng backup/receipt cho package, snapshot/revision/crosswalk cho artifact.
 
 [Xem ví dụ Project Code](examples/project-code-request-specification.md).
+
+## Heading links, Unicode và chuyển đổi
+
+Heading mới dùng chữ thường/hoa theo nội dung và giữ ID nghiệp vụ; ưu tiên dạng `#### B02 Dữ liệu thiếu hoặc sai format`, không cần dấu trang trí giữa ID và tên. Dùng Unicode NFC cho chữ tiếng Việt, giữ nguyên dấu. Fragment theo quy ước GitHub-style của helper: chữ thường, bỏ dấu câu/markup, đổi dấu cách thành dấu gạch ngang và giữ chữ Unicode. URL literal Unicode hoặc mã hóa UTF-8 đều được kiểm sau khi decode và normalize NFC. Không tự bỏ dấu tiếng Việt hoặc đoán slug từ ID ngắn.
+
+Heading phải rõ và tránh trùng khi có thể. Slug trùng được đánh số theo thứ tự toàn file (`-1`, `-2`...), kể cả heading ở ngoài E03; không tính riêng từng section. Dùng ID trong heading giúp phân biệt các bước/rule/câu hỏi nhưng không khiến fragment độc lập với tên. Đổi tên hoặc thứ tự heading phải kiểm/cập nhật inbound links và metadata locator, tăng revision và review pin bị ảnh hưởng. Trace đang pin revision/hash cũ không tự được refresh để hết lỗi.
+
+Khi migrate: kiểm inventory anchor/consumer → lưu mapping old fragment sang heading mới → sửa target và consumer trong scope → lint link/E03 boundary/trace → kiểm viewer được chọn khi có. Bản ghi lịch sử vẫn giữ revision và kết luận cũ; thay link điều hướng tới tài liệu hiện hành phải được ghi rõ trong mapping và không chuyển approval sang revision mới. Không tạo HTML/PDF phụ. Các viewer có thuật toán slug khác nhau có thể cần kiểm thêm; lint theo quy ước kit không chứng nhận mọi viewer hỗ trợ giống nhau.
+
+Căn cứ về section links và đánh số heading trùng: [GitHub Docs](https://docs.github.com/en/get-started/writing-on-github/getting-started-with-writing-and-formatting-on-github/basic-writing-and-formatting-syntax#section-links). NFC và phạm vi lint là tailoring của kit.

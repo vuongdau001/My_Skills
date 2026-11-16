@@ -744,7 +744,7 @@ def lint(args):
         if not target.is_file():issue('ERROR','broken-link',name,href);continue
         if parsed.fragment and target.suffix=='.md':
             mod=load_validator();anchors,_=mod.anchors(target.read_text(encoding='utf-8'))
-            if unquote(parsed.fragment) not in anchors:issue('ERROR','broken-anchor',name,href)
+            if mod.normalize_fragment(parsed.fragment) not in anchors:issue('ERROR','broken-anchor',name,href)
     record_result=record_support.audit(globals(), repo, cfg, ws, docs, definitions, issue, args)
     support('prototypes').audit(globals(), repo, root, ws, dirs, docs, record_result['gate_scope'], issue)
     return {'workstream':ws['id'],'files':len(docs),'definitions':len(definitions),'issues':issues,

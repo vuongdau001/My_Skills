@@ -5,6 +5,8 @@ import hashlib
 import json
 import re
 import sys
+import unicodedata
+import html
 from urllib.parse import unquote, urlsplit
 import zipfile
 
@@ -25,17 +27,49 @@ def unfenced(text):
     return '\n'.join(result)
 
 
+def normalize_fragment(fragment):
+    """Decode UTF-8 URI fragments without stripping Vietnamese diacritics."""
+    return unicodedata.normalize('NFC', unquote(fragment))
+
+
+def heading_slug(title):
+    """GitHub-style ATX heading fragment for the kit's NFC Markdown sources."""
+    title = re.sub(r'\[([^]]+)\]\([^)]*\)', r'\1', title)
+    title = re.sub(r'<[^>]+>', '', title)
+    title = re.sub(r'\*+|`+|~+', '', title)
+    title = unicodedata.normalize('NFC', html.unescape(title)).strip().lower()
+    # Letters, combining marks and numbers preserve Unicode; punctuation and
+    # symbols are removed, while existing hyphens/underscores remain valid.
+    title = ''.join(c for c in title if c in ' _-' or unicodedata.category(c)[0] in 'LMN')
+    return title.replace(' ', '-')
+
+
+def heading_anchors(text):
+    """Return document-global unique slugs with level and zero-based line."""
+    visible = unfenced(text)
+    visible = re.sub(r'<!--.*?-->', lambda m: '\n' * m[0].count('\n'), visible, flags=re.S)
+    result, used, counters = [], set(), {}
+    for line_number, line in enumerate(visible.splitlines()):
+        match = re.match(r'^ {0,3}(#{1,6})[ \t]+(.+?)\s*$', line)
+        if not match:
+            continue
+        title = re.sub(r'[ \t]+#+[ \t]*$', '', match[2])
+        base = heading_slug(title)
+        slug = base
+        while slug in used:
+            counters[base] = counters.get(base, 0) + 1
+            slug = base + '-' + str(counters[base])
+        used.add(slug)
+        result.append((slug, len(match[1]), line_number))
+    return result
+
+
 def anchors(text):
     visible = unfenced(text)
+    visible = re.sub(r'<!--.*?-->', '', visible, flags=re.S)
     explicit = re.findall(r'<a\s+id="([^"]+)"', visible)
-    found, seen = set(explicit), {}
-    for heading in re.findall(r'^#{1,6}\s+(.+)$', visible, re.M):
-        heading = re.sub(r'\[([^]]+)\]\([^)]*\)', r'\1', heading)
-        heading = re.sub(r'<[^>]+>', '', heading)
-        slug = re.sub(r'[^\w\-\s]', '', heading.lower()).replace(' ', '-')
-        count = seen.get(slug, 0)
-        seen[slug] = count + 1
-        found.add(slug if not count else f'{slug}-{count}')
+    found = {normalize_fragment(value) for value in explicit}
+    found.update(slug for slug, _, _ in heading_anchors(text))
     return found, explicit
 
 
@@ -158,7 +192,7 @@ def validate(root):
             errors.append(f'Path outside pack: {origin}: {path}')
         elif not full.is_file():
             errors.append(f'Missing target: {origin}: {path}')
-        elif fragment and unquote(fragment) not in anchor_sets.get(full, set()):
+        elif fragment and normalize_fragment(fragment) not in anchor_sets.get(full, set()):
             errors.append(f'Missing anchor: {origin}: {path}#{fragment}')
     ids, registered = set(), set()
     for entry in manifest.get('entries', []):

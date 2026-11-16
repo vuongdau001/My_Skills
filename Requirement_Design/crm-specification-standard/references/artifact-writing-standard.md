@@ -1,6 +1,6 @@
 # Standard viết và trình bày artifact CRM
 
-ID: CRM-ARTIFACT-WRITING · CRM Workflow Kit 2.4.0 · 16/11/2026
+ID: CRM-ARTIFACT-WRITING · CRM Workflow Kit 2.6.0 · 16/11/2026
 
 Standard này áp dụng cho mọi artifact do kit soạn hoặc chỉnh sửa, ở mọi dự án và workstream. Người đọc phải tìm được nội dung chính, hiểu điều kiện/kết quả và biết việc cần làm tiếp. Standard điều chỉnh cách viết; nội dung bắt buộc, quyền và gate vẫn theo catalog/workflow tương ứng.
 
@@ -138,8 +138,67 @@ Khi byte/locator thay đổi: giữ lịch sử có thể truy lại và ghi rev
 
 Khi soạn hoặc review phần hành vi/điều kiện/quan hệ khó đọc, dùng [CRM-VISUAL-REVIEW](review-visualization-standard.md) để chọn diagram, bảng hoặc ví dụ theo mục đích. Bảng/văn bản có cấu trúc đã đủ rõ thì không cần thêm hình chỉ để đủ số lượng. Quyền, decision logic, dictionary và coverage thường cần matrix hơn diagram.
 
-Minh họa giữ source text/model có thể chỉnh sửa, tên/anchor và context ID/revision/scope, nhãn điều kiện/kết quả và trace tới nội dung chuẩn. Source cần công cụ riêng đi cùng render và mô tả text; ảnh không là nguồn duy nhất cho requirement mới. Unknown/proposal vẫn dẫn question/authority; không tự lấp hành vi để làm kín hình. Kiểm source/render và semantics riêng; chưa render phải ghi rõ giới hạn. Không tự sửa historical artifacts hoặc nâng gate do bổ sung minh họa.
+Minh họa giữ source text/model có thể chỉnh sửa, tên/anchor và context ID/revision/scope, nhãn điều kiện/kết quả và trace tới nội dung chuẩn. Ưu tiên đọc source ngay trong viewer hỗ trợ và giữ mô tả text trong artifact chuẩn; không bắt xuất hoặc lưu thêm file render. Ảnh không là nguồn duy nhất cho requirement mới. Unknown/proposal vẫn dẫn question/authority; không tự lấp hành vi để làm kín hình. Kiểm source/render và semantics riêng; chưa render phải ghi rõ giới hạn. Không tự sửa historical artifacts hoặc nâng gate do bổ sung minh họa.
 
 ## 11. Cấu trúc và state của DEC/ASM/CST
 
 Record tạo mới hoặc chỉnh trong scope được giao theo đúng template từng loại và [CRM-KNOWLEDGE current state](knowledge-records-and-evidence.md#record-current-state). Giữ thứ tự mục, bảng revision/state/scope/owner và một metadata block khớp nội dung. Một ID có một định nghĩa hiện hành. Cùng vấn đề A đổi sang B thì giữ ID, tăng revision và thay nội dung thành B; không giữ timeline hoặc bản A trong file. Rationale/basis/source hiện hành vẫn cần; lý do chuyển A → B giao cho commit message/PR description. Chưa commit thì nói rõ chưa lưu Git history, không tự commit hoặc tạo history file. Evidence/approval phải đúng statement mới; không tự nâng state hoặc refresh consumer pins để qua gate. Meeting/source evidence không phải record current-state và không bị viết lại theo quy tắc này.
+
+## 12. Tham chiếu phải đọc được, không chỉ có mã
+
+Trong prose, bảng review, gap, nhãn diagram và trace hiển thị cho người đọc, dùng **tên ngắn có nghĩa + ID + link**, ví dụ “Kiểm trùng Customer (BR-CRM-027)” hoặc “Xử lý đồng thời và phục hồi (CC-Q06)”. Nhãn phải đúng nội dung target, không suy thêm outcome hoặc approval. AC không có tên thì thêm tiêu đề mô tả kết quả đang kiểm; giữ ID. Với heading links, khi tên đổi phải kiểm và cập nhật fragment/consumer bị ảnh hưởng; HTML anchor legacy chỉ migrate trong scope được giao.
+
+Không dùng mã trần hoặc rút gọn prefix như `CC-Q03/06`, `BR-CRM-027/031`, `B05/B07` để thay lời giải thích. Dùng tên và link riêng, phân cách bằng dấu phẩy, chấm phẩy hoặc từ “và”; khi nhiều tham chiếu làm câu/bảng quá dài, nhóm theo ý nghĩa và dẫn tới index có tên. Luồng/bước/nhánh/kết quả dùng tiền tố FLOW/STP/B/OUT và tên theo [D01](models/business-flows-and-use-cases.md#mã-local-của-luồng-bước-nhánh-và-kết-quả); bước phải ghi STP03 và hành động, không chỉ “03”, và không dùng B03 cho một bước luồng chính. Câu hỏi giữ ID để tìm nhưng nhãn nêu điều cần xác nhận. Giải thích các cụm như “winner/conflict/response” thành yêu cầu nào được tạo, lỗi xung đột và kết quả phản hồi.
+
+ID trong heading định nghĩa, source locator, JSON, API/code và metadata vẫn giữ nguyên theo hợp đồng máy đọc; không đổi ID, field, path hoặc anchor chỉ để viết đẹp. Không bắt dịch các thuật ngữ domain/tech đã được dùng nhất quán. Rationale/điều kiện/kết quả không được thay nghĩa khi biên tập nhãn.
+
+Hồ sơ Markdown mới ưu tiên heading links và không chèn thẻ `<a id="…"></a>` để định vị. Heading chứa ID nghiệp vụ và tên dễ hiểu, viết Unicode NFC; lấy fragment từ heading theo [policy heading links](epic-use-case-policy.md#heading-links-unicode-và-chuyển-đổi). Giữ dấu tiếng Việt; literal Unicode và URL mã hóa UTF-8 được helper kiểm. Heading đổi tên/thứ tự có thể đổi fragment, phải cập nhật links/metadata/consumer đúng scope.
+
+HTML anchor trong hồ sơ cũ vẫn được helper đọc để tương thích. Khi được giao migrate, thay tags và cập nhật link cùng lúc, ghi mapping; không chỉ xóa tag, giấu vào comment hoặc giữ link cũ không có đích. Không tự migrate lịch sử hoặc thêm HTML/PDF phụ để khắc phục viewer. Lint không bảo đảm mọi viewer có cùng thuật toán slug; kiểm viewer cụ thể khi được giao và ghi phần chưa kiểm.
+
+**Một nguồn chuẩn:** Markdown/spec/model hiện hành là nơi đọc và chỉnh sửa nội dung chuẩn. Preview trong viewer không tạo artifact cần duy trì. Chỉ xuất HTML/PDF/ảnh hoặc bản trình bày khác khi người dùng yêu cầu hay scope bàn giao đã giao rõ; bản xuất là derivative theo revision, không thêm definition hiện hành. Không làm gate phụ thuộc việc có file export chỉ vì có diagram/anchor. Mockup/Prototype và test evidence được yêu cầu riêng theo scope/gate hiện hành không phải bản sao tài liệu và giữ nghĩa vụ riêng của chúng.
+
+Self-check/reviewer rà link labels, mã rút gọn, nhãn bước/nhánh và câu đầy slash trong scope được giao; thử tìm đích từ tên rồi kiểm ID/anchor còn khớp. Đây là quy định author/review về readability, không thêm approval gate hoặc tuyên bố lint tự hiểu mọi nhãn. Không tự rewrite tài liệu ngoài scope hoặc các record lịch sử.
+
+## 13. Phân cấp thị giác bằng Markdown thuần
+
+Áp dụng cho mọi artifact trong scope author/correction được giao. Mục tiêu là phân biệt phần chính, nhóm, item và dữ liệu hỗ trợ ngay cả khi viewer làm H3/H4 khá nhỏ. Không thêm CSS/HTML, bản đọc phụ hoặc thay đổi nghiệp vụ để đạt bố cục. Giữ catalog, thứ tự template, ID, state và approval semantics.
+
+### Cấp heading và nhãn
+
+| Cấp | Vai trò | Cách viết |
+|---|---|---|
+| H1 | Tên tài liệu | Một tiêu đề chính có ID/tên theo loại artifact |
+| H2 | Phần chính | Catalog C/E/S/T hoặc các mục bắt buộc của template; giữ E03 ở đầu heading để helper nhận diện |
+| H3 | Nhóm nội dung hoặc item trực thuộc phần chính | FLOW, nhóm review, mỗi BR/AC khi cấp cha phù hợp |
+| H4 | Item trực thuộc một nhóm | STP, B, OUT, câu hỏi hoặc finding nếu nằm dưới H3 |
+| Nhãn trong item | Điều kiện, thao tác, kết quả, người nhận… | Chữ đậm trong danh sách gọn, không tạo heading chỉ để phóng chữ |
+
+Heading của item có ID có thể in đậm cả **mã + tên** bên trong H3/H4, ví dụ `#### **B01 Không có quyền tạo**`; người đọc thấy rõ ranh giới, slug vẫn theo nội dung heading. Không bọc H2 E03 bằng markup làm che prefix mà helper cần nhận diện. Không nhảy cấp để chọn cỡ chữ, không dùng heading cho câu diễn giải bình thường. Heading đã pin không đổi text/fragment chỉ vì thêm nhấn mạnh; nếu thật sự đổi tên phải kiểm/cập nhật consumer theo policy.
+
+### Nội dung chính, điểm mở và truy vết
+
+- Gom các trường cùng cấp trong một item thành danh sách liên tiếp: **Điểm rẽ**, **Điều kiện**, **Thao tác**, **Kết quả**, **Tiếp tục/kết thúc** theo nội dung áp dụng. Không chèn dòng trống giữa các bullet ngắn chỉ để tạo khoảng cách. Nếu một trường chứa nhiều đoạn dài, dùng đoạn/mục riêng thay vì ép cả khối vào bullet.
+- Dùng blockquote có nhãn **Chưa chốt**, **Giới hạn** hoặc state thực tế cho phần cần phân biệt với kết quả đã có căn cứ. Không dùng màu hoặc icon làm kênh phân biệt duy nhất; không đổi Proposed/Unknown thành một kết luận đã duyệt. Không đặt mọi đoạn trong blockquote.
+- Đặt *Nguồn*, *Truy vết* và thông tin đối chiếu ở cuối item; có thể dùng nhãn nghiêng để bớt cạnh tranh với kết quả chính. Link vẫn có tên có nghĩa, ID và đích đúng. Rationale của quyết định hiện hành, điều kiện và expected result là nội dung chính, không hạ thành ghi chú mờ hoặc bỏ vào metadata.
+- Dùng `---` giữa các item dài cùng cấp hoặc các phần chính khi tài liệu dày. Không đặt đường phân cách giữa mọi dòng/bullet hoặc trong bảng; không dùng separator để bù cho cấp heading sai. Đặt dòng trống quanh separator để tránh bị hiểu là setext heading.
+- Dùng đoạn ngắn cho câu chuyện, mục tiêu, giải thích và lý do. Chỉ dùng list khi thông tin là các bước, thuộc tính hoặc các điểm song song; không biến toàn bộ văn bản thành checklist.
+- Dùng bảng cho so sánh/mapping/matrix. Nếu mỗi ô chứa nhiều câu, nguồn, gap và receiver, chuyển từng ID thành mục có cấu trúc; không nén nội dung để giữ bảng và không đặt giới hạn số cột thành gate nghiệp vụ.
+- Metadata nằm cuối theo schema, JSON/config và code fences giữ nguyên hợp đồng. Markdown là nguồn duy nhất; preview bằng viewer không tạo nghĩa vụ xuất/duy trì HTML/PDF.
+
+### Áp dụng theo loại tài liệu
+
+| Loại | Giữ cấu trúc riêng | Khối trình bày phù hợp |
+|---|---|---|
+| Capability | C01–C08, outcome, allocation, acceptance liên Epic | Mục tiêu bằng đoạn; allocation/matrix bằng bảng; mỗi CAP-AC dài là item rõ điều kiện/kết quả/nguồn |
+| Epic/Story | E01–E16 hoặc S01–S12, flow/rule/AC | FLOW/STP/B/OUT và BR/AC có mã/tên nổi; hành vi gọn, gap tách riêng, trace ở cuối |
+| Task | T01–T08 và output/verification | Danh sách output, ranh giới, điều kiện hoàn tất và evidence; không suy Done từ checklist đầy |
+| DEC/ASM/CST | Thứ tự mục của template và một state hiện hành | Bối cảnh ngắn; statement/rationale/basis/source rõ; blockquote cho phần chưa có authority/validation |
+| Review/check/pilot | Scope/revision, cách kiểm, observed/evidence và verdict | Mỗi finding/scenario một item; tách expected/observed/gap; không làm nổi verdict như đã có authority khi chỉ self-check |
+| Report/handoff/register | Kết quả scoped, nguồn, người nhận và việc tiếp theo | Tóm tắt trước; bảng index ngắn, mục chi tiết cho nội dung dài; status khác action/approval |
+
+Không ép các loại thành cùng một form. Template chuyên biệt quyết định các mục bắt buộc; quy tắc này chỉ điều chỉnh cách nhìn. Khi chỉnh artifact cũ, chỉ format phần được giao, giữ source/historical records và không rebaseline hoặc chuyển state do presentation.
+
+### Self-check và giới hạn công cụ
+
+Người soạn kiểm: ranh giới các item có nhìn thấy được, phần hành vi/expected result khác phần chưa chốt, list có gọn và bảng có cần tách không. So trước/sau để bảo toàn statement, state, ID, link destinations và heading fragments; tăng revision và xử lý consumer pin theo policy khi byte thay đổi. Reviewer ghi witness/locator cụ thể nếu khó đọc hoặc mất nghĩa, không chấm điểm dựa số bullet/separator/diagram. Lint kiểm cấu trúc/link/schema, không chứng nhận bố cục đẹp trên mọi viewer hoặc semantic approval.

@@ -4,6 +4,8 @@ Mã tài liệu: **TPL-PILOT** · Gói CRM 1.10.0 · 05/11/2026
 
 Áp dụng [standard viết artifact](../../references/artifact-writing-standard.md). Đây là mẫu; thay hướng dẫn bằng dữ liệu thực, giữ gap khi thiếu input. Không suy approval từ việc điền đủ mục.
 
+**Bố cục:** Scenario/finding có mã/tên nổi bật; expected/observed/evidence tách rõ; phần chưa chạy có nhãn riêng và không suy runtime Pass. Xem [phân cấp Markdown chung](../../references/artifact-writing-standard.md#13-phân-cấp-thị-giác-bằng-markdown-thuần).
+
 Nêu mục tiêu, bước cần kiểm và kết quả scoped nếu đã quan sát. Theo [pilot procedure](../../references/pilot-and-operational-validation.md); chưa có evidence giữ Chưa kiểm.
 
 ## Bối cảnh thử

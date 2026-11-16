@@ -4,6 +4,8 @@ Mã tài liệu: **TPL-REQUIREMENTS-REVIEW-RECORD-TEMPLATE** · Gói CRM 1.10.0 
 
 Áp dụng [standard viết artifact](../../references/artifact-writing-standard.md). Đây là mẫu; thay hướng dẫn bằng dữ liệu thực, giữ gap khi thiếu input. Không suy approval từ việc điền đủ mục.
 
+**Bố cục:** Mỗi finding dài là một item có ID/tên rõ; expected, observed, evidence và gap là các trường riêng. Tách phần chưa kiểm khỏi verdict; trace đặt cuối finding. Xem [phân cấp Markdown chung](../../references/artifact-writing-standard.md#13-phân-cấp-thị-giác-bằng-markdown-thuần).
+
 Mở bằng target/scope/revision và mục tiêu review. Nêu full/focused, checks/catalog/model áp dụng, phần chưa xét, người kiểm và mode author self-check/specialist/independent đúng thực tế.
 
 <a id="spec-3-13"></a>

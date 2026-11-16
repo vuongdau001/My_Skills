@@ -4,6 +4,8 @@ ID: TPL-CONSTRAINT · CRM Workflow Kit 2.4.0 · 16/11/2026
 
 Áp dụng [cấu trúc và current-state policy](../../references/knowledge-records-and-evidence.md#record-current-state) và [standard viết artifact](../../references/artifact-writing-standard.md). Giữ đúng thứ tự mục dưới đây; thay hướng dẫn bằng nội dung thực. Chỉ giữ phiên bản hiện hành, không thêm mục History/Changelog hoặc các statement của revision cũ. Cấp ID bằng next-id cho record mới; cùng vấn đề thì giữ ID và tăng revision. Thiếu dữ liệu ghi rõ; không suy approval từ template đầy đủ.
 
+**Bố cục:** Giữ đúng năm mục và một state hiện hành; statement, nguồn/hiệu lực và cách kiểm tuân thủ rõ ràng. Phần chưa xác nhận có nhãn, không thêm history. Xem [phân cấp Markdown chung](../../references/artifact-writing-standard.md#13-phân-cấp-thị-giác-bằng-markdown-thuần).
+
 # <ID> — <Tên nội dung hiện hành>
 
 Một câu statement hiện hành; phần này và metadata phải cùng nghĩa.

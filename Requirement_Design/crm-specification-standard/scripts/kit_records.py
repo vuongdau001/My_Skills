@@ -186,7 +186,7 @@ def audit(api, repo, cfg, ws, docs, definitions, issue, args):
         if sha and api['digest'](target) != sha:
             emit('ERROR','stale-reference',p,'Content hash mismatch: '+href)
         if url.fragment:
-            if target.suffix != '.md' or unquote(url.fragment) not in api['load_validator']().anchors(target.read_text(encoding='utf-8'))[0]:
+            if target.suffix != '.md' or api['load_validator']().normalize_fragment(url.fragment) not in api['load_validator']().anchors(target.read_text(encoding='utf-8'))[0]:
                 emit('ERROR','reference-anchor',p,'Missing Markdown anchor: '+href)
         if evidence:
             return
@@ -210,8 +210,8 @@ def audit(api, repo, cfg, ws, docs, definitions, issue, args):
         if story_behavior or legacy_case_locations.get(target) == identity:
             if target not in anchors_by_path:
                 anchors_by_path[target] = epic_policy.case_anchors(api, all_docs[target])
-            if '#' + unquote(url.fragment) not in anchors_by_path[target]:
-                emit('ERROR','trace-use-case-locator',p,'Use Case trace must point to an explicit E03 anchor: '+href)
+            if '#' + api['load_validator']().normalize_fragment(url.fragment) not in anchors_by_path[target]:
+                emit('ERROR','trace-use-case-locator',p,'Use Case trace must point to an E03 heading or legacy explicit anchor: '+href)
         target_revision = revisions.get(identity)
         if target_revision is not None and target_revision != revision:
             emit('ERROR','stale-revision',p,'Target revision mismatch: '+identity)

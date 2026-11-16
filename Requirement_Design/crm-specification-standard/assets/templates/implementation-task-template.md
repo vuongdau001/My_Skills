@@ -4,6 +4,8 @@ Mã tài liệu: **TPL-IMPLEMENTATION-TASK-TEMPLATE** · Gói CRM 1.10.0 · 05/1
 
 Áp dụng [standard viết artifact](../../references/artifact-writing-standard.md). Đây là mẫu; thay hướng dẫn bằng dữ liệu thực, giữ gap khi thiếu input. Không suy approval từ việc điền đủ mục.
 
+**Bố cục:** Giữ T01–T08. Làm rõ output, scope và cách kiểm bằng list gọn; phần chưa giao/thiếu dependency có nhãn riêng, không dùng presentation để suy Done. Xem [phân cấp Markdown chung](../../references/artifact-writing-standard.md#13-phân-cấp-thị-giác-bằng-markdown-thuần).
+
 Một đoạn nêu output của Task và giá trị với Story/Epic. ID/Jira mapping/revision ghi trong context ngắn; chưa có Jira giữ logical ID.
 
 Chỉ tạo khi có nhu cầu giao output thực tế; đọc [Task planning](../../references/task-planning-and-completion.md).

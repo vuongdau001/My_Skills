@@ -50,6 +50,10 @@ Các mã C01/E01/S01/T01/Q01/D01 của **bộ chuẩn** là checklist IDs, khôn
 
 Quy tắc giữ ID cũ áp dụng cho hồ sơ dự án đã tồn tại hoặc snapshot lịch sử, không dùng làm lý do giữ mẫu hướng dẫn sai quy ước. Nếu gặp `TR-`, `DAT-`, `PM-`, `DR-`, `SCN-` trong nguồn cũ: khai báo kind tương ứng transition, data, permission, decision rule, scenario; không hiểu PM là Project Manager hay TR là Transition requirement. Không đổi ID dự án thật chỉ để khớp ví dụ mới; duy trì mapping khi cần chuyển đổi có kiểm soát.
 
+## Mã local của Use Case/model
+
+Luồng, bước, nhánh, outcome và scenario dùng lần lượt FLOW01, STP01, B01, OUT01 và SCN01 theo [D01](models/business-flows-and-use-cases.md#mã-local-của-luồng-bước-nhánh-và-kết-quả). Đây là local IDs dưới Epic/model và revision, không phải các prefix CRM cấp dự án. Mã B03 không dùng làm bước thứ ba: bước tương tác đó là STP03. Giữ local IDs cũ/nguồn còn truy được; chuyển đổi phải có mapping, scope và kiểm consumer.
+
 ## Record và quan hệ tối thiểu
 
 Meeting/Decision/Assumption/Constraint mới dùng [schema-2 knowledge records](knowledge-records-and-evidence.md). Giữ source locators cũ; register không tạo duplicate definitions. Thư mục dùng [layout policy](artifact-layout-and-migration.md), ID không đổi theo thứ tự folder hoặc parent.

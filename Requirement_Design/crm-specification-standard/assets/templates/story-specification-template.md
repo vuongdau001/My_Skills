@@ -4,6 +4,8 @@ Mã tài liệu: **TPL-STORY-SPECIFICATION-TEMPLATE** · Gói CRM 1.10.0 · 05/1
 
 Áp dụng [standard viết artifact](../../references/artifact-writing-standard.md). Đây là mẫu; thay hướng dẫn bằng dữ liệu thực, giữ gap khi thiếu input. Không suy approval từ việc điền đủ mục.
 
+**Bố cục:** Giữ S01–S12. Scenario/AC có heading mã + tên, điều kiện/thao tác/kết quả thành list khi phù hợp; gap tách khỏi expected result và planned khác TestRun. Xem [phân cấp Markdown chung](../../references/artifact-writing-standard.md#13-phân-cấp-thị-giác-bằng-markdown-thuần).
+
 Mở bằng ID/tên và một câu actor → outcome. Dùng bảng context ngắn cho parent/revision, baseline, người nhận việc và trạng thái evidence. Đọc [Story catalog](../../references/story-specification-catalog.md).
 
 <a id="spec-10-2"></a>

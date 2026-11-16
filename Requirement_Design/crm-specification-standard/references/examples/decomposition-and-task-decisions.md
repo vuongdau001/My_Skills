@@ -11,7 +11,7 @@ Mã tài liệu: **EX-DECOMPOSITION** · Gói CRM 1.3.1 · 03/11/2026
 
 Mọi tên/rule ở đây là giả định để học cách chia. Không có baseline CRM thật được duyệt. [Ví dụ ProjectCodeRequest](project-code-request-specification.md) mô phỏng hai đợt với câu hỏi freshness/hiển thị còn mở ở r2.
 
-Capability **Quản lý Project Code** có các Epic gửi, xét duyệt và đóng nháp. [Bảng phân bổ](project-code-request-specification.md#spec-9-1) ghi mục tiêu, actor, outcome và shared model. Lưu nháp là bước chuẩn bị trong Use Case gửi; Approve/Reject là hai kết cục của Use Case xét duyệt. Kiểm đường đưa request vào hàng đợi trước khi chốt lát Story gửi.
+Capability **Quản lý Project Code** có các Epic gửi, xét duyệt và đóng nháp. [Bảng phân bổ](project-code-request-specification.md#phân-bổ-dưới-capability-quản-lý-project-code) ghi mục tiêu, actor, outcome và shared model. Lưu nháp là bước chuẩn bị trong Use Case gửi; Approve/Reject là hai kết cục của Use Case xét duyệt. Kiểm đường đưa request vào hàng đợi trước khi chốt lát Story gửi.
 
 ## Story trực tiếp, không Task
 

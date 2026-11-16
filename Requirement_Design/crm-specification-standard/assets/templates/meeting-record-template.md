@@ -4,6 +4,8 @@ ID: TPL-MEETING · CRM Workflow Kit 1.10.0 · 05/11/2026
 
 Áp dụng [standard viết artifact](../../references/artifact-writing-standard.md). Đây là mẫu; thay hướng dẫn bằng dữ liệu thực, giữ gap khi thiếu input. Không suy approval từ việc điền đủ mục.
 
+**Bố cục:** Giữ sự kiện/participants và nguồn; discussion, quyết định tham chiếu, câu hỏi và action có nhóm riêng. Mỗi action rõ người/hạn nếu đã giao; không biến thành product Task. Xem [phân cấp Markdown chung](../../references/artifact-writing-standard.md#13-phân-cấp-thị-giác-bằng-markdown-thuần).
+
 Đọc [knowledge records](../../references/knowledge-records-and-evidence.md). Cấp ID bằng next-id; giữ null nếu chưa có owner/thời điểm.
 
 

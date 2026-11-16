@@ -4,6 +4,8 @@ ID: **TPL-WORK-CONTEXT** · CRM Workflow Kit 1.10.0 · 05/11/2026
 
 Áp dụng [standard viết artifact](../../references/artifact-writing-standard.md). Đây là mẫu; thay hướng dẫn bằng dữ liệu thực, giữ gap khi thiếu input. Không suy approval từ việc điền đủ mục.
 
+**Bố cục:** Tóm tắt output và receiver trước; các mục đã soạn/đã kiểm/đã duyệt/đã thực hiện tách rõ. Gap có nhãn và references đặt cuối phần tương ứng. Xem [phân cấp Markdown chung](../../references/artifact-writing-standard.md#13-phân-cấp-thị-giác-bằng-markdown-thuần).
+
 Một đoạn nêu việc được giao hoặc output đang bàn giao. Dùng [protocol](../../references/workflow-execution-protocol.md); có thể là section trong hồ sơ hiện hành.
 
 ## Bối cảnh cần biết

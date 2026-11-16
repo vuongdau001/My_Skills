@@ -1,5 +1,7 @@
 # Mẫu biên bản walkthrough Prototype
 
+**Bố cục:** Mỗi scenario có scope/ID/revision, expected/observed/evidence rõ; dùng bảng ngắn để index và mục riêng cho finding dài. Xem [phân cấp Markdown chung](../../references/artifact-writing-standard.md#13-phân-cấp-thị-giác-bằng-markdown-thuần).
+
 ID **TPL-PROTOTYPE-WALKTHROUGH** · CRM Workflow Kit 1.12.0
 
 Dùng [standard Prototype](../../references/prototype-workflow-and-epic-gate.md) và [standard viết artifact](../../references/artifact-writing-standard.md). Ghi biên bản mới trong reviews của workstream. Chỉ pin evidence đã đối chiếu.

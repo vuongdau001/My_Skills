@@ -43,13 +43,13 @@ Các section được giữ nội dung và chuyển liên kết. Metadata cũ th
 | spec §8 | Quy trình review: bảo đảm nội dung được xác nhận bởi đúng người | [Mở nội dung](../references/requirements-review-process-and-verdicts.md#spec-8) | retained-and-relinked |
 | spec §8.1 | Cổng trước tạo Story và cổng trước code | [Mở nội dung](../references/requirements-review-process-and-verdicts.md#spec-8-1) | retained-and-relinked |
 | spec §8.2 | Kiểm máy được và phần cần con người | [Mở nội dung](../references/requirements-review-process-and-verdicts.md#spec-8-2) | retained-and-relinked |
-| spec §9 | Ví dụ liên kết Epic → Story → model → AC → test condition | [Mở nội dung](../references/examples/project-code-request-specification.md#spec-9) | retained-and-relinked |
-| spec §9.1 | Epic: Gửi và xét duyệt yêu cầu mở mã dự án | [Mở nội dung](../references/examples/project-code-request-specification.md#spec-9-1) | retained-and-relinked |
-| spec §9.2 | Business state và transition | [Mở nội dung](../references/examples/project-code-request-specification.md#spec-9-2) | retained-and-relinked |
-| spec §9.3 | Story: Owner gửi draft để chờ duyệt | [Mở nội dung](../references/examples/project-code-request-specification.md#spec-9-3) | retained-and-relinked |
-| spec §9.4 | Vì sao ví dụ này rõ hơn một Story chỉ có mô tả? | [Mở nội dung](../references/examples/project-code-request-specification.md#spec-9-4) | retained-and-relinked |
-| spec §10 | Mẫu cấu trúc hồ sơ để sử dụng | [Mở nội dung](../assets/templates/epic-specification-template.md#spec-10) | retained-and-relinked |
-| spec §10.1 | Epic specification | [Mở nội dung](../assets/templates/epic-specification-template.md#spec-10-1) | retained-and-relinked |
+| spec §9 | Ví dụ liên kết Epic → Story → model → AC → test condition | [Mở nội dung](../references/examples/project-code-request-specification.md#từ-nguồn-đến-quyết-định-ba) | retained-and-relinked |
+| spec §9.1 | Epic: Gửi và xét duyệt yêu cầu mở mã dự án | [Mở nội dung](../references/examples/project-code-request-specification.md#phân-bổ-dưới-capability-quản-lý-project-code) | retained-and-relinked |
+| spec §9.2 | Business state và transition | [Mở nội dung](../references/examples/project-code-request-specification.md#shared-model-projectcoderequest-r1) | retained-and-relinked |
+| spec §9.3 | Story: Owner gửi draft để chờ duyệt | [Mở nội dung](../references/examples/project-code-request-specification.md#e14-acceptance-criteria-và-test-conditions) | retained-and-relinked |
+| spec §9.4 | Vì sao ví dụ này rõ hơn một Story chỉ có mô tả? | [Mở nội dung](../references/examples/project-code-request-specification.md#bài-tập-review) | retained-and-relinked |
+| spec §10 | Mẫu cấu trúc hồ sơ để sử dụng | [Mở nội dung](../assets/templates/epic-specification-template.md#cách-dùng-mẫu) | retained-and-relinked |
+| spec §10.1 | Epic specification | [Mở nội dung](../assets/templates/epic-specification-template.md#e01-bối-cảnh-mục-tiêu-và-phạm-vi) | retained-and-relinked |
 | spec §10.2 | Story specification | [Mở nội dung](../assets/templates/story-specification-template.md#spec-10-2) | retained-and-relinked |
 | spec §11 | Ví dụ cách kết luận review đạt hoặc chưa đạt | [Mở nội dung](../references/examples/review-findings-and-counterexamples.md#spec-11) | retained-and-relinked |
 | spec §12 | Các quyết định cần thống nhất trước khi thiết kế skill | [Mở nội dung](../references/pack-acceptance-scenarios.md#spec-12) | updated-to-pilot-guidance-after-pack-creation |

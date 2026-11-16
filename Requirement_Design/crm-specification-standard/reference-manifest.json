@@ -1,6 +1,6 @@
 {
   "pack_id": "crm-specification-standard",
-  "version": "2.4.0",
+  "version": "2.6.0",
   "date": "2026-11-16",
   "language": "vi",
   "scope": "Self-contained CRM workflow kit with deterministic local installation adapters; no automatic runtime discovery or external mutations",
@@ -1469,7 +1469,7 @@
       "title": "Ví dụ liên kết Epic → Story → model → AC → test condition",
       "source_sha256": "084118d516ab6535778f2fd93f517b7e475a7a00939305551cfc44e1ace79288",
       "target": "references/examples/project-code-request-specification.md",
-      "anchor": "spec-9",
+      "anchor": "từ-nguồn-đến-quyết-định-ba",
       "disposition": "retained-and-relinked"
     },
     {
@@ -1478,7 +1478,7 @@
       "title": "Epic: Gửi và xét duyệt yêu cầu mở mã dự án",
       "source_sha256": "5f838ef1bc6930abc21689677bf596eaa72d9924d1af40c0b83eed8e1c163e68",
       "target": "references/examples/project-code-request-specification.md",
-      "anchor": "spec-9-1",
+      "anchor": "phân-bổ-dưới-capability-quản-lý-project-code",
       "disposition": "retained-and-relinked"
     },
     {
@@ -1487,7 +1487,7 @@
       "title": "Business state và transition",
       "source_sha256": "446933601fb5a905f3deeabc2d7cdd6c7afb10d088ee08c84748e61e0d8b8f63",
       "target": "references/examples/project-code-request-specification.md",
-      "anchor": "spec-9-2",
+      "anchor": "shared-model-projectcoderequest-r1",
       "disposition": "retained-and-relinked"
     },
     {
@@ -1496,7 +1496,7 @@
       "title": "Story: Owner gửi draft để chờ duyệt",
       "source_sha256": "df87dbb451302619f84d94b231c6238a5f5c0cb99c0be4a2bf975e3c3226eeeb",
       "target": "references/examples/project-code-request-specification.md",
-      "anchor": "spec-9-3",
+      "anchor": "e14-acceptance-criteria-và-test-conditions",
       "disposition": "retained-and-relinked"
     },
     {
@@ -1505,7 +1505,7 @@
       "title": "Vì sao ví dụ này rõ hơn một Story chỉ có mô tả?",
       "source_sha256": "9637f4e9fec9639a476c44bc200700bf5ba63a4f77b8ea62ecf388ccf975affb",
       "target": "references/examples/project-code-request-specification.md",
-      "anchor": "spec-9-4",
+      "anchor": "bài-tập-review",
       "disposition": "retained-and-relinked"
     },
     {
@@ -1514,7 +1514,7 @@
       "title": "Mẫu cấu trúc hồ sơ để sử dụng",
       "source_sha256": "e5a9c05d0ed9cff1b1c0026360fa38b79c211a87336ee6a8ce1b09c63a4cce73",
       "target": "assets/templates/epic-specification-template.md",
-      "anchor": "spec-10",
+      "anchor": "cách-dùng-mẫu",
       "disposition": "retained-and-relinked"
     },
     {
@@ -1523,7 +1523,7 @@
       "title": "Epic specification",
       "source_sha256": "26dddd6a889c59f5aac149b0e00fc6d0d16966fac4290737be4b250a6a4c0aed",
       "target": "assets/templates/epic-specification-template.md",
-      "anchor": "spec-10-1",
+      "anchor": "e01-bối-cảnh-mục-tiêu-và-phạm-vi",
       "disposition": "retained-and-relinked"
     },
     {

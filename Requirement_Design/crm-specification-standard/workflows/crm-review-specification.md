@@ -67,6 +67,8 @@ Review minh họa theo [CRM-VISUAL-REVIEW](../references/review-visualization-st
 
 Khi review DEC/ASM/CST hoặc dependency của chúng, kiểm [cấu trúc/current-state policy](../references/knowledge-records-and-evidence.md#record-current-state): template đủ mục, prose và metadata cùng state/revision, evidence đúng statement hiện hành, không có timeline/statement cũ cạnh tranh. Kiểm source/Git revision đúng pin khi cần audit; helper không tự đọc commit cũ để đóng stale-reference. Chỉ ghi findings.
 
+Kiểm [phân cấp Markdown](../references/artifact-writing-standard.md#13-phân-cấp-thị-giác-bằng-markdown-thuần) trong scope review: heading phản ánh cấu trúc, item có mã/tên rõ, hành vi khác gap và trace không che kết quả. Ghi witness cụ thể khi khó đọc/mất nghĩa; không đánh giá bằng số bullet/separator và không sửa target trong lượt review.
+
 ## Outputs
 
 Soạn output theo [standard viết artifact](../references/artifact-writing-standard.md), bao gồm review/check/report/handoff; giữ độ sâu theo mode và write boundary của function.

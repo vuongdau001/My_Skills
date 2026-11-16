@@ -4,31 +4,27 @@ Mã tài liệu: **TPL-EPIC-SPECIFICATION-TEMPLATE** · Gói CRM 2.0.0 · 05/11/
 
 Áp dụng [standard viết artifact](../../references/artifact-writing-standard.md). Đây là mẫu; thay hướng dẫn bằng dữ liệu thực, giữ gap khi thiếu input. Không suy approval từ việc điền đủ mục.
 
-ID/tên Epic và một đoạn về mục tiêu. Bảng context ngắn ghi Capability, phạm vi đợt, revision/baseline, nguồn và bước hiện tại. Dẫn Work Context cho trách nhiệm soạn, review và bàn giao. Đọc [Epic catalog](../../references/epic-specification-catalog.md).
+**Bố cục:** Giữ E01–E16. FLOW/STP/B/OUT và BR/AC có heading mã + tên nổi bật; gom các thuộc tính hành vi thành list gọn, tách Chưa chốt bằng blockquote và để truy vết cuối item. Xem [phân cấp Markdown chung](../../references/artifact-writing-standard.md#13-phân-cấp-thị-giác-bằng-markdown-thuần).
 
-<a id="spec-10"></a>
+ID/tên Epic và một đoạn về mục tiêu. Bảng context ngắn ghi Capability, phạm vi đợt, revision/baseline, nguồn và bước hiện tại. Dẫn Work Context cho trách nhiệm soạn, review và bàn giao. Đọc [Epic catalog](../../references/epic-specification-catalog.md).
 
 ## Cách dùng mẫu
 
-Áp dụng [CRM-VISUAL-REVIEW](../../references/review-visualization-standard.md): chọn diagram, bảng hoặc ví dụ theo câu hỏi review, giữ source và trace. Không phải mỗi mục đều cần diagram.
+Áp dụng [CRM-VISUAL-REVIEW](../../references/review-visualization-standard.md): chọn diagram, bảng hoặc ví dụ theo câu hỏi review, giữ source và trace. Không phải mỗi mục đều cần diagram. Mọi link hiển thị dùng tên nội dung kèm ID; nhánh/câu hỏi/rule/AC phải nhận biết được mà không cần thuộc mã. Dùng heading links Markdown với ID và tên có nghĩa, chữ tiếng Việt NFC; luồng/bước/nhánh/kết quả dùng FLOW/STP/B/OUT theo D01; không chèn HTML anchor vào hồ sơ mới. Giữ metadata; ưu tiên viewer hỗ trợ Markdown/Mermaid. Không tự tạo hoặc yêu cầu duy trì HTML/PDF song song với Markdown vì giới hạn viewer.
 
 Giữ E01–E16 và điền sâu theo scope đang xét. Mỗi mục có nội dung hoặc ref đúng revision; có thể thêm mục con, không ép một dòng checklist thay toàn bộ model.
 
-<a id="spec-10-1"></a>
-
-## E01 — Bối cảnh, mục tiêu và phạm vi
+## E01 Bối cảnh, mục tiêu và phạm vi
 
 Giải thích vì sao scope thuộc Capability này và cần Epic riêng so với Epic lân cận. Nêu model/control/acceptance chung, delta dự kiến của Story và rationale gom/tách theo checkpoint. Nếu chỉ có một Story, giải thích vai trò hồ sơ Epic; không chép lại cùng một outcome/AC để lấp cấp.
 
 Ghi mục tiêu duy nhất ở cấp user-goal và outcome có ý nghĩa với actor. Tách boundary hệ thống, hành vi đầy đủ của Use Case và selected scope của đợt. Ghi exclusions, các nhánh làm sau và cách nghiệm thu outcome.
 
-## E02 — Actor nghiệp vụ, bên liên quan nghiệp vụ và domain model
+## E02 Actor nghiệp vụ, bên liên quan nghiệp vụ và domain model
 
 Ghi actor chính và actor hỗ trợ cùng bước tương tác ở E03. Ghi riêng bên liên quan nghiệp vụ và quyền lợi cần bảo vệ. Định nghĩa object, identity và invariants. Dẫn E07 cho quyền trong hệ thống và E16 hoặc Work Context cho người xác nhận nội dung, reviewer và người chốt bàn giao.
 
-## E03 — Use Case
-
-<a id="use-case"></a>
+## E03 Use Case
 
 **Tên và mục tiêu Use Case.** Dùng Epic ID và revision khi dẫn đến anchor E03. Ghi trigger, preconditions và actor thực hiện. Dùng [D01](../../references/models/business-flows-and-use-cases.md).
 
@@ -36,67 +32,67 @@ Ghi actor chính và actor hỗ trợ cùng bước tương tác ở E03. Ghi ri
 
 Đặt flowchart/Activity Diagram hoặc BPMN theo đặc điểm flow. Ghi scope/giới hạn, nối node với locator bước/nhánh/outcome. Giữ Unknown và questions; không chọn trước thứ tự kiểm hoặc retry/rollback.
 
-### Luồng chính
+### FLOW01 Luồng chính
 
-Mỗi bước có locator tường minh, chủ thể, tương tác và phản hồi quan sát. Dẫn state, BR, data và permission đúng ID/revision ở E04–E07.
+Mỗi bước có heading như `#### STP01 Bắt đầu hành vi`, có locator từ heading, chủ thể, tương tác và phản hồi quan sát. Dẫn state, BR, data và permission đúng ID/revision ở E04–E07.
 
 ### Nhánh thay thế và ngoại lệ
 
-Mỗi nhánh có locator, bước gốc, điều kiện, hành vi, điểm quay lại hoặc outcome kết thúc. Xét hủy, timeout, retry, concurrency và partial failure khi áp dụng. Với phần chưa rõ, ghi question, tác động và authority.
+Mỗi nhánh có heading như `#### B01 Không có quyền`, locator, bước STP gốc, điều kiện, hành vi, điểm quay lại hoặc outcome kết thúc. Xét hủy, timeout, retry, concurrency và partial failure khi áp dụng. Với phần chưa rõ, ghi question, tác động và authority.
 
 ### Kết quả cuối
 
-Ghi success, failure và bảo đảm tối thiểu về dữ liệu, quyền, trạng thái và side effects. Gắn locator để E10/E14/E15 dẫn lại.
+Đặt heading OUT01, OUT02… cho từng kết quả được định nghĩa riêng. Ghi success, failure và bảo đảm tối thiểu về dữ liệu, quyền, trạng thái và side effects. Gắn locator để E10/E14/E15 dẫn lại.
 
-## E04 — Trạng thái và chuyển trạng thái
+## E04 Trạng thái và chuyển trạng thái
 
 Định nghĩa state và command disposition; tách guard tại thời điểm thao tác với invariant liên tục.
 
-## E05 — Business Rules
+## E05 Business Rules
 
 Mỗi BR có statement/điều kiện/kết quả và REQ/decision/source refs. Rule dài dùng mục riêng. Khi nhiều điều kiện quyết định kết quả, thêm decision table có condition domains, overlap/default/priority và Unknown; ví dụ dữ liệu dẫn BR và kết quả nguồn hoặc gap. Bảng index không thay bảng quyết định.
 
-## E06 — Dữ liệu và validation
+## E06 Dữ liệu và validation
 
 Dictionary/type/boundary, normalization, null/default/uniqueness và fields bắt buộc; chưa biết thì ghi gap, không tự đặt schema.
 
-## E07 — Permission và data scope
+## E07 Permission và data scope
 
 Lập ma trận principal/actor nghiệp vụ × action × resource/data scope × điều kiện, gồm trạng thái và quyền cấp trường khi áp dụng. Tách role và scope chưa xác nhận; không mặc định role được phép hoặc default allow/deny. Ghi allow/deny/visibility, ca từ chối và điểm còn thiếu. Dẫn nguồn quyền runtime và evidence về người có thẩm quyền xác nhận rule.
 
-## E08 — UI/UX và trạng thái tương tác
+## E08 UI/UX và trạng thái tương tác
 
 Dẫn bước/nhánh E03, Screen/Scenario IDs, UI contract, inventory và binding tới Prototype/walkthrough đúng selected scope. Ghi N/A có reason, contract và người xác nhận khi scope không tác động UI. Xem [mẫu bundle](prototype-bundle-template.md). Dùng UI-state table và mockup có chú thích để đối chiếu loading/empty/error/disabled/success/unknown outcome; sketch có proposal/gap không thay contract hoặc walkthrough.
 
-## E09 — API và tích hợp
+## E09 API và tích hợp
 
 Dẫn step/scenario E03, contract ID/revision, input/output, permission, error, sequence/consistency, retry/idempotency, read-back/freshness và side effects. Không đặt endpoint/DTO giả. Dùng contract inventory; thêm sequence khi thứ tự/commit/callback/concurrency khó hiểu. Boundary chưa chốt có thể thể hiện như sketch khái niệm với question, không gán service/operation giả thành solution.
 
-## E10 — Ngoại lệ và tình huống biên
+## E10 Ngoại lệ và tình huống biên
 
 Mỗi case dẫn nhánh và kết quả E03, cùng rule/gap. Ghi disposition cho các chiều rủi ro đã rà.
 
-## E11 — NFR và yêu cầu kiểm soát
+## E11 NFR và yêu cầu kiểm soát
 
 Ghi workload/measurement/control, threshold nếu authority chọn, policy refs và acceptance method. Unknown chưa là N/A.
 
-## E12 — Migration và vận hành
+## E12 Migration và vận hành
 
 Ghi applicability, mapping/cutover/reconcile/restore và dữ liệu/owner cần; chưa khảo sát thì nêu thiếu input.
 
-## E13 — Solution, dependency và feasibility
+## E13 Solution, dependency và feasibility
 
 Nêu options/trade-offs/constraints, contract của hai đầu và evidence khả thi. Giữ solution/authority pending nếu chưa xác nhận.
 
-## E14 — AC và planned verification
+## E14 AC và planned verification
 
 Dùng coverage matrix scenario/outcome E03 → BR/model → AC → test condition/evidence. Hiện cả nhánh chưa có AC hoặc chỉ bao phủ một phần và expected result còn thiếu. Mỗi AC dùng điều kiện → thao tác → kết quả → truy vết/gap. Dẫn scenario và outcome E03 tới test condition/setup/observation/evidence; tách planned coverage khỏi TestRun thật.
 
-## E15 — Story candidates và allocation
+## E15 Story candidates và allocation
 
 Mỗi candidate dẫn Epic ID và revision, anchor của scenario/bước hoặc delta, outcome, BR/model/AC, controls và dependency. Ghi phần còn lại và phép kiểm tích hợp. Link + activation nếu cùng outcome không tự tách thành API/UI Stories. Chưa đủ gate thì giữ candidate.
 
-## E16 — Applicability, quyết định và baseline
+## E16 Applicability, quyết định và baseline
 
 Ghi policy use-case-v1, scope/revision/baseline, phần đã nghiệm thu, questions/decisions, review và manifest. Giữ mục áp dụng/Unknown/N/A có reason; chỉ dẫn approval/merge khi có evidence.
 
@@ -117,7 +113,7 @@ Theo [coverage/AC](../../references/coverage-inventories-and-traceability.md#spe
   "revision": "<epic-revision>",
   "review_verdict": "Chưa kiểm",
   "epic_policy": "use-case-v1",
-  "use_case": {"level": "user-goal", "locator": "#use-case"}
+  "use_case": {"level": "user-goal", "locator": "#e03-use-case"}
 }
 ```
 

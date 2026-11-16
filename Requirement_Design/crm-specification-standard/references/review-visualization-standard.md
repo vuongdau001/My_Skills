@@ -52,13 +52,13 @@ Story, Capability và solution tái dùng model đúng scope/revision; không t�
 
 ## 3. Hợp đồng đọc bằng người và AI
 
-- **Giữ source có thể chỉnh sửa và tìm kiếm.** Mermaid/PlantUML giữ code; BPMN giữ model như `.bpmn`; bảng giữ dạng text có cấu trúc. Với source cần công cụ riêng, kèm render để review và bản mô tả text về hành vi/điều kiện/kết quả. Không giao ảnh-only cho nội dung yêu cầu mới; ảnh nguồn chỉ đọc được dẫn kèm phần mô tả cần thiết.
+- **Giữ source có thể chỉnh sửa và tìm kiếm.** Mermaid/PlantUML giữ code; BPMN giữ model như `.bpmn`; bảng giữ dạng text có cấu trúc. Ưu tiên preview source bằng viewer hỗ trợ, giữ mô tả text về hành vi/điều kiện/kết quả trong artifact chuẩn. Không bắt lưu file render riêng hoặc duy trì đồng thời Markdown và HTML/PDF; chỉ export khi người dùng yêu cầu hoặc scope bàn giao đã giao rõ. Không giao ảnh-only cho nội dung yêu cầu mới; ảnh nguồn chỉ đọc được dẫn kèm phần mô tả cần thiết.
 - **Ghi danh tính và phạm vi.** Mỗi hình/bảng độc lập có tên hoặc caption/anchor rõ, artifact ID, revision và scope (có thể kế thừa context ngay phía trên trong cùng file). Ghi mục đích và giới hạn nếu chỉ là overview. Không sinh namespace/requirement ID mới cho từng node chỉ để vẽ.
-- **Giữ liên kết tới nội dung chuẩn.** Dùng ID/anchor bước, nhánh, outcome, BR/AC/contract đã có. Nếu node chỉ dùng nhãn ngắn, có mapping text gần hình. Giữ anchor qua revision khi cùng nghĩa; trace sang artifact khác phải pin revision theo policy hiện hành.
+- **Giữ liên kết tới nội dung chuẩn.** Dùng ID/anchor bước, nhánh, outcome, BR/AC/contract đã có. Nhãn node/cạnh và link dùng ý nghĩa dễ hiểu, kèm ID khi cần; không chỉ ghi mã B05/CC-Q03. Nếu node dùng nhãn rút gọn, có mapping text gần hình. Áp dụng [quy định tham chiếu đọc được](artifact-writing-standard.md#12-tham-chiếu-phải-đọc-được-không-chỉ-có-mã). Giữ anchor qua revision khi cùng nghĩa; trace sang artifact khác phải pin revision theo policy hiện hành.
 - **Một nơi định nghĩa nghĩa nghiệp vụ.** Diagram là view của flow/rule/model, dẫn tới nội dung chuẩn để tra chi tiết. Decision table có thể là nơi định nghĩa logic nếu artifact chọn nó làm chuẩn; prose và diagram khác dẫn lại, không duy trì nhiều bản logic độc lập.
 - **Giữ evidence và uncertainty.** Phân biệt source, suy luận, proposal và authority approval trong caption/text/legend. Có thể vẽ sketch khái niệm với đoạn chưa xác nhận được đánh dấu và nối question/authority; không tự thêm endpoint, thứ tự kiểm, commit, rollback, retry, role grant, SLA hoặc transition để khép hình.
 - **Đọc được khi không thấy màu hoặc render.** Đặt nhãn điều kiện trên cạnh và nhãn outcome/Unknown bằng text; màu không phải kênh duy nhất. Dùng contrast/theme theo dự án, chia overview và zoom-in khi hình quá dày. Caption và phần text phải đủ để tìm nhánh/kết quả khi viewer không hỗ trợ diagram.
-- **Metadata giữ schema hiện hành.** Code diagram và chú thích ở phần nội dung; không đặt prose/HTML vào JSON metadata hoặc thêm field/schema không được hỗ trợ. Tách source/render nếu cần nhưng giữ path và revision có thể đối chiếu.
+- **Metadata giữ schema hiện hành.** Code diagram và chú thích ở phần nội dung; không đặt prose/HTML vào JSON metadata hoặc thêm field/schema không được hỗ trợ. Bản export, nếu được yêu cầu, dẫn source/path/revision để đối chiếu và không thay nguồn chuẩn.
 
 ## 4. Các trường hợp dễ minh họa sai
 

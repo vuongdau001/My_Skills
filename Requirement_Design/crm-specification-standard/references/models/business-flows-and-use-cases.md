@@ -22,7 +22,7 @@ Dùng khi soạn E03, review hành vi hoặc phân bổ Story. Mỗi Epic sở h
 
 ## Cách trình bày
 
-Đặt một anchor tường minh trong E03 cho Use Case và các anchor riêng cho bước/nhánh/kết quả cần dẫn. Giữ nhãn ổn định qua revision nếu cùng nghĩa. Ví dụ, ở bước chọn đối tượng, “Actor chọn hồ sơ A; hệ thống hiển thị trạng thái và trường actor được phép xem” kiểm được cả tương tác và phản hồi. Nhánh “hồ sơ đã đổi phiên bản tại bước gửi” cần chỉ rõ phản hồi, dữ liệu giữ lại và đường quay về hoặc kết thúc.
+Hồ sơ mới dùng heading Markdown cho E03 và cho từng bước/nhánh/kết quả cần dẫn. Heading có ID và tên rõ, chuẩn Unicode NFC; link lấy đúng slug của heading. Khi đổi tên heading, cập nhật fragment và các consumer trong scope thay vì giả định anchor không đổi. HTML anchor cũ vẫn đọc được theo [policy migration](../epic-use-case-policy.md#heading-links-unicode-và-chuyển-đổi). Ví dụ, ở bước chọn đối tượng, “Actor chọn hồ sơ A; hệ thống hiển thị trạng thái và trường actor được phép xem” kiểm được cả tương tác và phản hồi. Nhánh “hồ sơ đã đổi phiên bản tại bước gửi” cần chỉ rõ phản hồi, dữ liệu giữ lại và đường quay về hoặc kết thúc.
 
 Dùng danh sách bước cho luồng ngắn. Swimlane hoặc BPMN hữu ích khi nhiều phòng ban/hệ thống phối hợp. Đặt quy trình nhiều mục tiêu tại Capability hoặc shared model, dẫn Use Case của Epic chịu trách nhiệm mỗi chặng. Giữ nghĩa chuẩn trong E03 và models được pin. [Review và verdict](../requirements-review-process-and-verdicts.md).
 
@@ -33,3 +33,19 @@ Inventory có actor/trigger, mỗi step/decision, main/alternate/exception paths
 ## Minh họa và truy vết flow
 
 Dùng [CRM-VISUAL-REVIEW](../review-visualization-standard.md) khi chọn flowchart, Activity Diagram, swimlane hoặc BPMN. Flowchart phù hợp để đọc trình tự/nhánh; BPMN hữu ích khi cần ngữ nghĩa bàn giao, message, chờ, timer hoặc gián đoạn. Giữ mô tả bước/nhánh và kết quả có anchor làm nơi tra chi tiết; overview dẫn nhánh đã biết và đánh dấu gap, không tự quyết thứ tự kiểm hoặc recovery để nối kín hình.
+
+## Mã local của luồng, bước, nhánh và kết quả
+
+Trong hồ sơ mới hoặc phần được giao chuẩn hóa, đặt heading theo mẫu `MÃ Tên dễ hiểu`. Không dùng số đứng riêng như `03 Gửi yêu cầu`, vì không nhận biết được loại item.
+
+| Tiền tố local | Hạng mục | Ví dụ heading |
+|---|---|---|
+| FLOW | Luồng được định nghĩa riêng | `### FLOW01 Luồng chính` |
+| STP | Bước tương tác trong luồng | `#### STP03 Gửi yêu cầu và kiểm điều kiện tạo` |
+| B | Nhánh thay thế hoặc ngoại lệ | `#### B03 Phát hiện Customer trùng` |
+| OUT | Kết quả cuối có thể dẫn tới | `#### OUT01 Thành công dự kiến` |
+| SCN | Scenario cụ thể khi cần quản lý riêng | `#### SCN01 Tạo hồ sơ với dữ liệu hợp lệ` |
+
+Đây là mã **local dưới Epic/Use Case hoặc model**, không phải namespace `PREFIX-CRM-NNN`; không dùng next-id để cấp số và không đổi Epic thành MOD. Định danh đầy đủ khi dẫn xuyên hồ sơ gồm Epic ID, revision và fragment heading. Số duy nhất trong mỗi prefix của cùng Epic; không cấp lại số của item đã bỏ hoặc đánh lại hàng loạt chỉ để liền số. Luồng/bước/nhánh cùng số vẫn khác loại (`STP03` khác `B03`). Giữ B01… đang tồn tại và những local IDs nguồn khác khi duy nhất/truy được; khi cần chuyển quy ước cũ, có mapping và cập nhật consumer trong scope, không tự đổi ID nguồn hàng loạt.
+
+Dùng cùng mã/tên ở heading, diagram, điểm rẽ/quay lại, outcome và coverage. Nhánh chỉ rõ rẽ ở STP nào và quay về STP/FLOW hoặc kết thúc ở OUT nào; chưa xác định thì giữ gap/question, không gán kết quả để làm kín bảng. Scenario không tự là Story/AC và không bắt tạo thêm mã khi không có scenario độc lập. Các heading nhóm như “Tóm tắt” hoặc “Câu hỏi” không phải flow item và không cần cấp mã giả.

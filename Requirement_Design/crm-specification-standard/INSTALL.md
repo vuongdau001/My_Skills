@@ -161,3 +161,15 @@ Helper `reset --scope project` xóa outputs/reservations toàn namespace dự á
 ## Hồ sơ Decision/Assumption/Constraint — 2.4
 
 [Current-state policy](references/knowledge-records-and-evidence.md#record-current-state) và ba template thống nhất cấu trúc, cùng một ID/revision hiện hành, evidence đúng statement và lịch sử qua Git. Source prose và metadata phải cùng state; không tự commit/push, tạo snapshot/history file cho mỗi lần sửa hoặc chuyển approval cũ sang nội dung mới. Schema 2, supersession legacy và record-obligation gates giữ tương thích. Update package không migrate records dự án hoặc commit lịch sử của chúng; áp dụng khi author/correction được giao. Git history chưa được helper tự resolve khi kiểm baseline pin cũ.
+
+## Tham chiếu dễ đọc — 2.4.1
+
+[Standard viết artifact](references/artifact-writing-standard.md#12-tham-chiếu-phải-đọc-được-không-chỉ-có-mã) yêu cầu nhãn có nghĩa kèm ID/link, tránh chuỗi mã trần và ưu tiên viewer hỗ trợ Markdown/Mermaid. Markdown/model là nguồn chuẩn; không tự tạo HTML/PDF song song hoặc coi có bản export là điều kiện gate. Giữ nguyên ID/anchor/schema; không thêm gate hay tự rewrite các spec ngoài scope.
+
+## Heading links tiếng Việt — 2.5
+
+[Policy heading links](references/epic-use-case-policy.md#heading-links-unicode-và-chuyển-đổi) dùng Markdown thuần cho hồ sơ mới, Unicode NFC và fragment theo heading. Helper kiểm literal Unicode/UTF-8 URI, slug trùng theo toàn file, E03 binding và consumer trace. Legacy HTML anchors vẫn đọc được. Không thêm schema/function, không auto migrate spec hoặc tạo HTML phụ. Kiểm link bằng helper không chứng nhận mọi viewer có cùng thuật toán heading slug.
+
+## Phân cấp Markdown — 2.6
+
+[Standard phân cấp chung](references/artifact-writing-standard.md#13-phân-cấp-thị-giác-bằng-markdown-thuần) được nạp qua standard viết của 13 functions và dẫn từ mọi template. Heading/list/blockquote/separator giúp nhìn rõ item, nội dung chính, gap và trace; không đổi schema, function, state hoặc approval gate. Update kit không tự format hồ sơ ngoài scope, không tạo HTML/PDF phụ.

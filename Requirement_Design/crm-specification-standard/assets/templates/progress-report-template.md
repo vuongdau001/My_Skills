@@ -4,6 +4,8 @@ Mã tài liệu: **TPL-PROGRESS** · Gói CRM 1.10.0 · 05/11/2026
 
 Áp dụng [standard viết artifact](../../references/artifact-writing-standard.md). Đây là mẫu; thay hướng dẫn bằng dữ liệu thực, giữ gap khi thiếu input. Không suy approval từ việc điền đủ mục.
 
+**Bố cục:** Tóm tắt kết quả scoped trước; bảng index ngắn, blocker/action dài có mục riêng. Tách state, forecast, evidence và việc cần người nhận. Xem [phân cấp Markdown chung](../../references/artifact-writing-standard.md#13-phân-cấp-thị-giác-bằng-markdown-thuần).
+
 Mở bằng kết quả chính: scope đang ở đâu, blocker nào quan trọng và hành động tiếp theo. Dùng [measurement](../../references/progress-measurement-and-capability-rollup.md); đây là Full report, không ép lên recap/status/next step trong chat.
 
 Ghi Epic ID, locator E03 khi cần, scope, baseline và revision của mỗi đợt. Tách phạm vi đã nghiệm thu khỏi delta hiện hành và ghi phần loại trừ khi đếm Story/coverage.

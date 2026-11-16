@@ -3,18 +3,28 @@ import re
 
 POLICY = 'use-case-v1'
 LEGACY = 'legacy'
-ANCHOR = re.compile(r'#[a-z][a-z0-9-]*')
+ANCHOR = re.compile(r'#[^\s#]+')
 
 
 def case_anchors(api, source):
     validator = api['load_validator']()
     visible = validator.unfenced(source)
+    visible = re.sub(r'<!--.*?-->', lambda m: '\n' * m[0].count('\n'), visible, flags=re.S)
     match = re.search(r'^## E03\b[^\n]*\n(.*?)(?=^## |\Z)', visible, re.M | re.S)
     if not match:
         return set()
     _, all_explicit = validator.anchors(visible)
     _, local_explicit = validator.anchors(match[1])
-    return {'#' + name for name in local_explicit if all_explicit.count(name) == 1}
+    result = {'#' + validator.normalize_fragment(name) for name in local_explicit
+              if all_explicit.count(name) == 1}
+    # Compute slugs once over the whole document, so repeated headings outside
+    # E03 cannot make a local slug accidentally bind to a different section.
+    lines = visible.splitlines()
+    start = next(i for i, line in enumerate(lines) if re.match(r'^## E03\b', line))
+    end = next((i for i in range(start + 1, len(lines)) if lines[i].startswith('## ')), len(lines))
+    result.update('#' + slug for slug, _, line in validator.heading_anchors(source)
+                  if start <= line < end)
+    return result
 
 
 def legacy_case_id(meta):
@@ -79,8 +89,8 @@ def audit(api, repo, cfg, ws, all_docs, metas, definitions, scope, issue, gate, 
                           'Use Epic ID, revision and an E03 locator for new Use Case references')
             locator = binding.get('locator')
             if not (isinstance(locator, str) and ANCHOR.fullmatch(locator)
-                    and locator in case_anchors(api, source)):
-                issue('ERROR', 'epic-use-case-locator', name, 'Use Case locator must be a unique explicit anchor inside E03')
+                    and '#' + api['load_validator']().normalize_fragment(locator[1:]) in case_anchors(api, source)):
+                issue('ERROR', 'epic-use-case-locator', name, 'Use Case locator must resolve to an E03 heading or a unique legacy explicit anchor')
 
     for identity, paths in legacy_claims.items():
         if len(paths) > 1:

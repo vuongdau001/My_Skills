@@ -4,6 +4,8 @@ Mã tài liệu: **TPL-CAPABILITY** · Gói CRM 1.10.0 · 05/11/2026
 
 Áp dụng [standard viết artifact](../../references/artifact-writing-standard.md). Đây là mẫu; thay hướng dẫn bằng dữ liệu thực, giữ gap khi thiếu input. Không suy approval từ việc điền đủ mục.
 
+**Bố cục:** Giữ C01–C08. Allocation/matrix dùng bảng; mỗi tình huống acceptance dài có heading mã + tên in đậm, các trường điều kiện/kết quả là list gọn, gap có nhãn riêng và nguồn ở cuối. Xem [phân cấp Markdown chung](../../references/artifact-writing-standard.md#13-phân-cấp-thị-giác-bằng-markdown-thuần).
+
 Mở đầu bằng ID/tên Capability và một đoạn về năng lực, người nhận lợi ích. Dùng bảng hai cột cho revision, bước đang xét và nguồn. Dẫn Work Context cho người soạn, reviewer và người điều phối bàn giao.
 
 Đọc [Capability catalog](../../references/capability-specification-catalog.md); giữ C01–C08. Chỉ soạn đến độ sâu của bước: giao làm rõ, chốt scope Epic, hoàn tất phân tích hoặc acceptance.

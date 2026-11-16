@@ -4,6 +4,8 @@ Mã tài liệu: **TPL-POLICY** · Gói CRM 1.10.0 · 05/11/2026
 
 Áp dụng [standard viết artifact](../../references/artifact-writing-standard.md). Đây là mẫu; thay hướng dẫn bằng dữ liệu thực, giữ gap khi thiếu input. Không suy approval từ việc điền đủ mục.
 
+**Bố cục:** Bảng chỉ làm index ngắn; policy dài tách từng ID với applicability/authority/evidence/gap. Không làm Pending trông như Approved. Xem [phân cấp Markdown chung](../../references/artifact-writing-standard.md#13-phân-cấp-thị-giác-bằng-markdown-thuần).
+
 Mở bằng mục đích, phạm vi và tình trạng hiệu lực chung. Ghi project/workstream, revision, owner/authority, nguồn tổ chức/hợp đồng, effective date và baseline nào dùng register.
 
 Đọc [policy guide](../../references/project-policy-register.md); dùng các POL IDs chuẩn. Không lấy policy của kit/ví dụ làm policy dự án đã duyệt.

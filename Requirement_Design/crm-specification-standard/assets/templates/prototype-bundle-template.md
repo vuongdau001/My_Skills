@@ -1,5 +1,7 @@
 # Mẫu bundle Prototype
 
+**Bố cục:** Giữ allocation/contracts/evidence đúng schema; dùng nhóm/heading/list cho phần hướng dẫn Markdown, không format lại JSON/code của bundle. Xem [phân cấp Markdown chung](../../references/artifact-writing-standard.md#13-phân-cấp-thị-giác-bằng-markdown-thuần).
+
 ID **TPL-PROTOTYPE-BUNDLE** · CRM Workflow Kit 1.12.2
 
 Dùng [standard Prototype](../../references/prototype-workflow-and-epic-gate.md) và [standard viết artifact](../../references/artifact-writing-standard.md). ID và giá trị dưới đây chỉ minh họa. Lấy đường dẫn category prototypes từ Work Context. Đặt bundle bàn giao trong thư mục hành trình ngay dưới category này, ví dụ `09-prototypes/contact-create/` cho một scenario tạo Contact độc lập. Dùng tên thư mục ổn định, ghi revision trong hồ sơ và pin bằng manifest cùng walkthrough.

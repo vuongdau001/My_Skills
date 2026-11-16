@@ -4,6 +4,8 @@ ID: TEMPLATE-DEFINITION-ASSESSMENT · CRM Workflow Kit 1.10.0
 
 Áp dụng [standard viết artifact](../../references/artifact-writing-standard.md). JSON giữ schema gốc; báo cáo Markdown đọc kết quả chính trước, rationale/evidence chi tiết sau. Không bọc JSON assessment bằng HTML.
 
+**Bố cục:** Giữ hợp đồng assessment JSON và rubric; hướng dẫn/report Markdown có index và phần giải thích rõ. Không format lại dữ liệu để tạo cảm giác đã đạt. Xem [phân cấp Markdown chung](../../references/artifact-writing-standard.md#13-phân-cấp-thị-giác-bằng-markdown-thuần).
+
 Dùng cùng [scoring guideline](../../references/definition-maturity-scoring.md). Tạo JSON hợp lệ/pin hiện hành bằng score --init; không chép hash hoặc reviewer minh họa vào dự án thật.
 
 ## Thông tin cần có trong assessment

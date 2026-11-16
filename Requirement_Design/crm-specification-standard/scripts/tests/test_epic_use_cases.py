@@ -1,5 +1,8 @@
 """Epic policy lint and context checks in disposable workstreams."""
 import json
+import re
+import unicodedata
+from urllib.parse import quote
 from pathlib import Path
 import subprocess
 import sys
@@ -104,7 +107,7 @@ class EpicUseCaseTests(unittest.TestCase):
         path.write_text(body.replace('"use_case":', '"use_case": {}, "use_case":'), encoding='utf-8')
         self.assertIn('metadata', self.codes(code=1))
 
-    def test_locator_requires_unique_explicit_anchor_inside_e03(self):
+    def test_locator_requires_e03_heading_or_unique_legacy_anchor(self):
         for body in (
             BODY.replace('<a id="submit"></a>', ''),
             BODY.replace('<a id="outside"></a>', '<a id="submit"></a>'),
@@ -175,8 +178,8 @@ class EpicUseCaseTests(unittest.TestCase):
     def test_example_is_structurally_valid_even_if_expected_result_is_missing(self):
         example = KIT/'references/examples/project-code-request-specification.md'
         body = example.read_text(encoding='utf-8')
-        draft, removed = body.split('- **Tại 2 · Dữ liệu sai.**', 1)
-        incomplete = draft + removed[removed.index('\n'):]
+        incomplete = re.sub(r'(#### B03 Dữ liệu sai\n\n).*?(?=\n\n#### B04)', r'\1', body, count=1, flags=re.S)
+        self.assertNotEqual(incomplete, body)
         self.put(EPIC_PATH, incomplete)
         self.assertEqual(self.codes('--gate', 'readiness', '--target', 'EPIC-CRM-001'), set())
 
@@ -198,3 +201,44 @@ class EpicUseCaseTests(unittest.TestCase):
                 if workflow == 'specify-epic':
                     self.assertIn('references/models/business-flows-and-use-cases.md', paths)
                     self.assertIn('assets/templates/epic-specification-template.md', paths)
+
+
+    def test_vietnamese_heading_binding_and_utf8_or_decomposed_trace(self):
+        title = 'B02 Dữ liệu thiếu hoặc sai format'
+        fragment = 'b02-dữ-liệu-thiếu-hoặc-sai-format'
+        body = '# Epic\n\n## E03 Use Case\n\n### ' + title + '\n'
+        for value in (fragment, quote(fragment), unicodedata.normalize('NFD', fragment)):
+            with self.subTest(fragment=value):
+                self.epic(body=body, use_case=dict(level='user-goal', locator='#e03-use-case'))
+                self.story(locator='#'+value)
+                self.assertEqual(self.codes('--gate', 'readiness', '--target', STORY), set())
+
+    def test_heading_suffix_is_global_and_must_stay_inside_e03(self):
+        body = '# Epic\n\n## E01 Scope\n\n### Kết quả\n\n## E03 Use Case\n\n### Kết quả\n'
+        self.epic(body=body, use_case=dict(level='user-goal', locator='#kết-quả-1'))
+        self.story(locator='#kết-quả-1')
+        self.assertEqual(self.codes('--gate', 'readiness', '--target', STORY), set())
+        self.story(locator='#kết-quả')
+        self.assertIn('trace-use-case-locator', self.codes('--target', STORY, code=1))
+        self.epic(body=body, use_case=dict(level='user-goal', locator='#kết-quả'))
+        self.assertIn('epic-use-case-locator', self.codes('--target', EPIC, code=1))
+
+    def test_fenced_or_commented_heading_does_not_satisfy_binding(self):
+        for hidden in ('```markdown\n### Giả định\n```', '<!--\n### Giả định\n-->'):
+            with self.subTest(hidden=hidden):
+                body = '# Epic\n\n## E03 Use Case\n\n' + hidden + '\n'
+                self.epic(body=body, use_case=dict(level='user-goal', locator='#giả-định'))
+                self.assertIn('epic-use-case-locator', self.codes(code=1))
+
+    def test_renamed_heading_rejects_stale_trace_until_updated(self):
+        body = '# Epic\n\n## E03 Use Case\n\n### B02 Dữ liệu sai\n'
+        self.epic(body=body, use_case=dict(level='user-goal', locator='#e03-use-case'))
+        self.story(locator='#b02-dữ-liệu-sai')
+        self.assertEqual(self.codes('--target', STORY), set())
+        self.epic(body=body.replace('Dữ liệu sai', 'Dữ liệu thiếu'),
+                  use_case=dict(level='user-goal', locator='#e03-use-case'))
+        codes = self.codes('--target', STORY, code=1)
+        self.assertIn('reference-anchor', codes)
+        self.assertIn('trace-use-case-locator', codes)
+        self.story(locator='#b02-dữ-liệu-thiếu')
+        self.assertEqual(self.codes('--target', STORY), set())
