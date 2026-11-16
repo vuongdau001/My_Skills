@@ -63,6 +63,10 @@ Khi review có actor, thẩm quyền hoặc Decision/Assumption/Constraint, đ�
 
 Đọc [definition scoring guideline](../references/definition-maturity-scoring.md) và dùng [assessment template](../assets/templates/definition-assessment-template.md). Ghi record riêng pin target/scope/revision/evidence; không sửa target đang kiểm. Có thể chấm một hạng mục hoặc toàn catalog; focused score không nâng thành full score. Helper score chỉ tính rubric đã ghi, không chứng nhận semantics, reviewer authority hay Ready. AI self-check không tự xác nhận mức 3. Tổng hợp giữ riêng catalog obligations và canonical requirement IDs, hiện Unknown/N/A/blockers và scope inventory chưa đầy đủ; không báo % requirement đúng hoặc % sản phẩm hoàn thành.
 
+Review minh họa theo [CRM-VISUAL-REVIEW](../references/review-visualization-standard.md): so source/render với flow/rule/permission/contract/AC; thử nhánh rủi ro và witness. Ghi finding có locator khi thiếu hoặc mâu thuẫn nghĩa, che gap hay ngầm thêm quyết định. Không đánh trượt chỉ vì thiếu diagram nếu bảng/text đã đủ rõ; parse/render và semantic review là các kiểm khác nhau. Chỉ ghi record/findings, không tự sửa target.
+
+Khi review DEC/ASM/CST hoặc dependency của chúng, kiểm [cấu trúc/current-state policy](../references/knowledge-records-and-evidence.md#record-current-state): template đủ mục, prose và metadata cùng state/revision, evidence đúng statement hiện hành, không có timeline/statement cũ cạnh tranh. Kiểm source/Git revision đúng pin khi cần audit; helper không tự đọc commit cũ để đóng stale-reference. Chỉ ghi findings.
+
 ## Outputs
 
 Soạn output theo [standard viết artifact](../references/artifact-writing-standard.md), bao gồm review/check/report/handoff; giữ độ sâu theo mode và write boundary của function.

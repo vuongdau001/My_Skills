@@ -1,6 +1,6 @@
 # Start Here
 
-ID: **CRM-START** · CRM Workflow Kit 2.1.0 · 06/11/2026
+ID: **CRM-START** · CRM Workflow Kit 2.2.0 · 16/11/2026
 
 
 Khi scope có UI, tìm mockup hiện có trước khi specify. Hỏi người dùng mẫu và chỉ dẫn, sau đó tái dùng hoặc tạo bundle khi scope đủ rõ. Dùng [quy trình Prototype](references/prototype-workflow-and-epic-gate.md) để walkthrough và bàn giao.
@@ -8,6 +8,10 @@ Khi scope có UI, tìm mockup hiện có trước khi specify. Hỏi người d�
 ## Standard viết artifact dùng chung
 
 Đọc [standard viết artifact](references/artifact-writing-standard.md) khi soạn/sửa bất kỳ hồ sơ nào. Templates đã áp dụng cách viết này; loại chưa có mẫu riêng dùng [artifact chung](assets/templates/artifact-document-template.md). Đọc nghiệp vụ trước metadata, tách điều kiện/kết quả/gap và giữ nguyên evidence/approval semantics.
+
+## Khi muốn bắt đầu lại từ đầu
+
+Phân biệt tiếp tục chỉnh hồ sơ với bỏ hồ sơ cũ. Trường hợp bỏ toàn bộ, làm theo [reset sạch dự án](references/clean-project-reset.md) trước Setup: xóa output/history/reservations, không archive, ID cấp lại từ 001 sau kiểm sạch. Không xóa nguồn đầu vào hoặc tự reset khi chỉ chạy lại workflow.
 
 ## BA mới bắt đầu từ đây
 

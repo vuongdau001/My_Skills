@@ -1,6 +1,6 @@
 # Meeting, Decision, Assumption và Constraint
 
-ID: CRM-KNOWLEDGE · CRM Workflow Kit 1.7.0 · 04/11/2026
+ID: CRM-KNOWLEDGE · CRM Workflow Kit 2.4.0 · 16/11/2026
 
 Đọc khi nhận notes/chat/email, ghi nhận lựa chọn hoặc assumption/constraint, review dependency, xét readiness hoặc baseline. Đây là hồ sơ workstream có thể dùng qua nhiều Capability/Epic/Story, không phải cấp ticket mới. Một public skill, 13 function giữ nguyên.
 
@@ -9,6 +9,46 @@ ID: CRM-KNOWLEDGE · CRM Workflow Kit 1.7.0 · 04/11/2026
 Dùng project path từ artifact_paths: 01-meetings, 02-decisions, 03-assumptions, 04-constraints bên dưới project. Meeting/Decision thường file riêng. Assumption/Constraint có thể file riêng hoặc từng record trong register; mỗi ID có một nơi định nghĩa hiện hành. Không sao chép statement chuẩn vào nhiều Epic để duy trì song song. Localized summaries phải dẫn ID/revision nguồn.
 
 crm-setup-project tiếp nhận nguồn và chuẩn bị records/register. define-capability/specify-epic/design-solution/prepare-stories có thể tạo/cập nhật record thuộc scope authoring đã giao. review/check chỉ ghi findings/record của mình; không đổi decision hay target đang kiểm. report-status tổng hợp obligations; assess-change lập impact khi có thay đổi sau baseline. Không tự gửi biên bản, tạo Jira hoặc cập nhật state dự án.
+
+<a id="record-current-state"></a>
+## DEC/ASM/CST: một bản hiện hành, lịch sử trong Git
+
+Mỗi Decision, Assumption và Constraint có một ID và một nơi định nghĩa hiện hành. File hoặc mục register chỉ mô tả **statement, state, revision, scope và evidence mới nhất của record đó**. “Mới nhất” không có nghĩa đã được Approved/Validated/Confirmed. Không đưa timeline, changelog, bảng revision cũ, strike-through hoặc các block A/B của nhiều lần quyết định vào hồ sơ hiện hành.
+
+Cùng một vấn đề/giả thuyết/ràng buộc và cùng danh tính scope: giữ ID và path/anchor, tăng revision, thay nội dung bằng phiên bản mới nhất. Ví dụ DEC đã chọn A rồi authority quyết định B: cùng DEC ID, file chỉ trình bày B và state/evidence của B. Không tạo thêm DEC hoặc bản `*-old`/history/snapshot chỉ để lưu lần chọn A. Cấp ID mới khi là vấn đề/giả thuyết/ràng buộc độc lập hoặc scope cần tồn tại đồng thời, không dùng revision để nhập hai nghĩa độc lập.
+
+**Phân biệt hai loại lý do:** rationale trong Decision giải thích vì sao lựa chọn hiện hành phù hợp; basis trong Assumption và source trong Constraint vẫn cần để hiểu hồ sơ. Diễn biến “trước A, nay B, đổi vì…” và so sánh với revision cũ ghi trong commit message/PR description của thay đổi, không chép vào nội dung hiện hành. Các options trong Decision là những phương án liên quan tới bài toán hiện tại, không phải nhật ký những lần chọn trước.
+
+Lịch sử các revision và lý do chuyển state lưu bằng Git diff/log và commit message có ID, revision, lý do thay đổi, authority/evidence liên quan và impact. Truy lịch sử chỉ khi được yêu cầu audit/change analysis hoặc giải quyết pin cũ; đọc record hiện hành trước trong công việc thường ngày. Git history chứng minh thay đổi đã được ghi, không tự chứng minh approval nghiệp vụ. Commit ID chỉ được ghi khi đã tồn tại và đọc được; không tự commit/push để hoàn tất hồ sơ.
+
+Nếu thay đổi chưa commit hoặc file chưa được Git theo dõi, báo rõ **chưa có Git history cho thay đổi** và bàn giao lý do/commit message đề xuất trong chat hoặc PR description khi được giao. Không tạo thêm history file để giả lập Git và không nói lý do đã được lưu trong Git. Với baseline/approval đã pin, phải bảo đảm revision cũ có thể truy lại theo change control trước khi thay thế nội dung được bảo vệ; không xóa evidence gốc hoặc sửa commit cũ. Task cập nhật kit không tự chuyển đổi record dự án.
+
+### Cấu trúc nội dung thống nhất
+
+Dùng đúng template của từng loại; giữ các mục theo thứ tự dưới đây cho record tạo mới hoặc chỉnh trong scope được giao. Không xóa mục vì chưa có dữ liệu: ghi “Chưa xác định”, câu hỏi và người cần xác nhận; metadata dùng null/[] ở các field cho phép. Không bắt lập record nếu input chưa đủ để phân loại.
+
+| Phần chung, đứng trước các mục chi tiết | Nội dung |
+|---|---|
+| Tiêu đề | ID và tên thể hiện vấn đề/giả thuyết/ràng buộc hiện hành |
+| Câu tóm tắt | Statement hiện hành, không kể diễn biến thay đổi |
+| Bảng bối cảnh | Revision, state hiện hành, phạm vi áp dụng, scope cụ thể và owner; authority hoặc người kiểm chứng dẫn tại mục chi tiết |
+| Metadata cuối file | Một block schema 2; statement/state/revision/scope/owner và evidence khớp phần đọc được |
+
+| Loại | Các mục chi tiết theo thứ tự | Trường schema chính |
+|---|---|---|
+| Decision | 1. Nội dung quyết định hiện hành; 2. Bối cảnh và phương án; 3. Căn cứ lựa chọn và hệ quả; 4. Thẩm quyền và evidence; 5. Ảnh hưởng và bước tiếp | statement, context, options, rationale, consequences, authority, decided_at, evidence, trace_links |
+| Assumption | 1. Giả định hiện hành và căn cứ; 2. Cách kiểm chứng; 3. Kết quả kiểm chứng hiện hành; 4. Ảnh hưởng nếu sai; 5. Nơi sử dụng và bước tiếp | statement, basis, validation_method, review_due, validation_result, if_false, owner, evidence, trace_links |
+| Constraint | 1. Ràng buộc hiện hành và loại; 2. Nguồn, thẩm quyền và hiệu lực; 3. Cách kiểm tuân thủ; 4. Phạm vi ảnh hưởng; 5. Điểm mở và bước tiếp | statement, constraint_type, authority, effective_from, verification_method, owner, evidence, trace_links |
+
+Template chuẩn: [Decision](../assets/templates/decision-record-template.md), [Assumption](../assets/templates/assumption-record-template.md), [Constraint](../assets/templates/constraint-record-template.md). Với register, mỗi record vẫn theo cùng cấu trúc và có anchor riêng theo ID; không lặp fixed anchor giữa nhiều records.
+
+### Evidence và thay đổi statement
+
+Thay statement/scope/điều kiện có ý nghĩa thì kiểm lại authority và evidence cho revision mới. B chưa được approval thì Decision hiện hành là Pending/Proposed theo thực tế, không giữ Approved của A. Assumption đổi giả thuyết không kế thừa Validated; giữ kết quả kiểm mới nhất đúng giả thuyết, chưa kiểm thì Unverified và validation_result null. Constraint đổi nội dung/hiệu lực chưa có xác nhận tương ứng thì Proposed. Cùng statement mà chỉ chuyển state vẫn tăng revision và giữ một state hiện hành.
+
+Evidence trong record phục vụ statement/state hiện hành. Có thể dẫn nguồn cũ còn liên quan, nhưng không dùng approval hoặc kết quả kiểm của A làm bằng chứng cho B; không nhúng toàn bộ biên bản/timeline vào record. Nguồn gốc, Meeting và evidence gốc vẫn được giữ theo quyền; chúng là sự kiện/bằng chứng, không phải các phiên bản cạnh tranh của record hiện hành.
+
+Consumer cần review impact và cập nhật pin đúng revision sau khi chấp nhận thay đổi; không refresh pin hàng loạt chỉ để hết lỗi. Baseline cũ được đọc tại Git revision/checkout đúng pin. Helper hiện chỉ kiểm file trong checkout được chỉ định, không tự resolve nội dung từ commit cũ; stale-revision/stale-reference phải được xử lý, không coi Git history tự làm gate hiện hành đạt. Terminal state như Rejected/Invalidated/Retired vẫn có thể là state hiện hành hợp lệ của record, nhưng không tự đóng dependency.
 
 <a id="record-applicability"></a>
 
@@ -32,7 +72,7 @@ Khi nguồn dùng một chức danh cho nhiều trách nhiệm, xác định ng�
 Dùng cùng một lượt intake trong Setup Project và Define Capability, kể cả khi mở thẳng Define Capability. Đọc nguồn người dùng chỉ định trong yêu cầu, attachment hoặc chat, sources trong Work Context và hồ sơ hiện hành. Kiểm các mục assumption/constraint/decision, các đoạn đã chốt và những phát biểu có cùng nghĩa dù mang tiêu đề khác.
 
 1. **Ghi claim và locator.** Giữ ID nguồn như BA-D1, statement, revision/hash hoặc định danh snapshot, phạm vi áp dụng, scope cụ thể, thời điểm, người phụ trách hoặc người xác nhận và trạng thái được khai báo. Phân biệt fact đã có evidence, giả định cần kiểm, ràng buộc bắt buộc, lựa chọn đã quyết và câu hỏi. Một câu hỏi hoặc đề xuất chỉ thành record khi đã đủ căn cứ phân loại.
-2. **Đối chiếu hồ sơ chuẩn.** Tìm theo ID và theo nghĩa, scope, hiệu lực. Hồ sơ đang hiệu lực và phù hợp được dùng ngay bằng đúng ID/revision. Nếu trùng, dùng một bản chuẩn và giữ các locator nguồn. Nếu khác nghĩa hoặc khác revision, ghi cả hai nguồn, tác động và authority cần phân xử. Giữ bản đã baseline theo change control cho đến khi có quyết định thay thế.
+2. **Đối chiếu hồ sơ chuẩn.** Tìm theo ID và theo nghĩa, scope, hiệu lực. Hồ sơ đang hiệu lực và phù hợp được dùng ngay bằng đúng ID/revision. Nếu trùng, dùng một bản chuẩn và giữ các locator nguồn. Nếu khác nghĩa hoặc khác revision, ghi cả hai nguồn, tác động và authority cần phân xử. Baseline đã pin vẫn theo change control và Git revision của nó; hồ sơ hiện hành dùng quy định [current state](#record-current-state), không chép các lần quyết định cũ vào file.
 3. **Đăng ký khi có quyền author.** Với claim mới đủ trường, chuẩn hóa một record schema 2 và pin evidence nguồn. Tái dùng ID CRM nếu nguồn sở hữu đúng ID, chưa có định nghĩa khác và được phép tiếp nhận; nếu nguồn dùng ID riêng, giữ mapping và cấp ID CRM. Khi thiếu trường bắt buộc hoặc quyền ghi, ghi claim, scope, authority và next action trong intake/handoff; chưa cần tạo record cho đủ số lượng.
 4. **Áp dụng theo trạng thái.** Dùng ngay Decision Approved và Constraint Confirmed nếu authority, hiệu lực, scope và evidence khớp. Assumption Validated cần validation result và evidence. Các trạng thái còn mở như Unverified, Proposed và Pending có thể làm cơ sở có điều kiện cho bản nháp; ghi hệ quả nếu sai, phương pháp/owner xác nhận và nghĩa vụ còn chặn. Nội dung nguồn tự gắn nhãn “approved/confirmed” là claim cần đối chiếu. Dùng lại approval có evidence cho đúng statement và scope; thay statement, scope hoặc authority cần kiểm lại.
 5. **Ghi nơi sử dụng.** Setup Project tách input nghiệp vụ/sản phẩm khỏi policy và điều kiện SDLC trong context. Define Capability dùng cùng ID/revision ở C04 cho phạm vi và giả định sản phẩm, C05 cho ràng buộc và controls sản phẩm, C06 cho allocation và dependency. C08 dẫn quyết định, evidence và điều kiện bàn giao theo từng phạm vi. Tạo `depends-on` hoặc `derived-from` cho consumer thực sự dựa vào record, hoặc `applies-to` từ record khi phù hợp. Chưa có consumer thì ghi scope và pending allocation để nối sau. Giữ dữ liệu gốc read-only.
@@ -101,7 +141,7 @@ Approved/Rejected Decision cần authority, decided_at có timezone và evidence
 
 ## Thay thế và nghĩa vụ còn mở
 
-Quyết định đảo ngược quan trọng: tạo DEC mới, giữ record cũ Superseded, nối superseded-by tới record mới; record mới dẫn supersedes tới record cũ. Không xóa lịch sử hoặc tái dùng số. Supersession graph không được vòng. Scope khác nhau cần ghi rõ; không tự kết luận hai statements trái nhau chỉ từ graph. Khi sửa nội dung đã được approve, tăng revision và giữ evidence lịch sử; không giữ approval cũ cho statement mới.
+Với thay đổi của cùng record, áp dụng [current state](#record-current-state): giữ ID, tăng revision, chỉ lưu nội dung mới nhất và bàn giao lý do đổi cho Git. Superseded và quan hệ supersedes/superseded-by tiếp tục được đọc cho hồ sơ legacy hoặc thay thế giữa các record có danh tính độc lập; không tạo chuỗi record chỉ để lưu từng lần A → B. Supersession graph legacy vẫn không được vòng và consumer còn pin record hết hiệu lực vẫn bị chặn. Không migrate hoặc xóa hồ sơ legacy ngoài scope được giao.
 
 Workflow khi nhận source mới: pin source → phân loại fact/question/decision/assumption/constraint → xác định authority và scope → lưu record chuẩn → liên kết consumer → author update theo quyền → review lại revision. Chat workshop cũ giữ BA-D* như source locators; khi tạo DEC mới phải map, không đổi tên/xóa lịch sử BA-D*.
 
@@ -119,7 +159,7 @@ Output lint có record_impacts (record/revision và affected_ids qua dependency 
 
 ## Cơ sở thiết kế
 
-[Atlassian meeting notes](https://www.atlassian.com/software/confluence/templates/meeting-notes) hướng dẫn lưu participants, summary, decisions và action items. [Nygard ADR](https://www.cognitect.com/blog/2011/11/15/documenting-architecture-decisions) cung cấp cấu trúc context/decision/status/consequences và giữ record bị supersede; CRM mở rộng cách ghi này sang business decisions, không coi mọi DEC là architectural ADR. [NASA System Design Processes](https://www.nasa.gov/reference/4-0-system-design-processes/) nhấn mạnh capture rationale/assumptions và traceability; đây là nguồn tham khảo thiết kế, không áp policy NASA lên CRM.
+[Atlassian meeting notes](https://www.atlassian.com/software/confluence/templates/meeting-notes) hướng dẫn lưu participants, summary, decisions và action items. [Nygard ADR](https://www.cognitect.com/blog/2011/11/15/documenting-architecture-decisions) cung cấp cấu trúc context/decision/status/consequences và cách giữ record bị supersede. CRM dùng các thành phần nội dung đó cho business decisions nhưng tailoring hiện hành là một bản current state và lịch sử qua Git theo yêu cầu sử dụng; không tuyên bố đây là quy tắc nguyên bản của ADR. Không coi mọi DEC là architectural ADR. [NASA System Design Processes](https://www.nasa.gov/reference/4-0-system-design-processes/) nhấn mạnh capture rationale/assumptions và traceability; đây là nguồn tham khảo thiết kế, không áp policy NASA lên CRM.
 
 ## Phân bổ dependency khi chỉ bàn giao một phần Epic
 
@@ -137,7 +177,7 @@ Quy trình: ghi statement/basis/scope/if_false → giao cách kiểm và owner/d
 
 Ví dụ A: giả định “API hiện hữu kiểm được quyền từng Customer”. TL kiểm contract/run có evidence; đúng thì ASM Validated, không bắt tạo DEC. Sai thì ASM Invalidated; có thể cần DEC riêng để chọn thay API hoặc bổ sung capability.
 
-Ví dụ B: giả định “chỉ Customer Active được gắn Contact” thực chất còn là lựa chọn policy. Business chọn rule thì tạo DEC riêng với options/rationale/consequences/authority/evidence. ASM ban đầu có thể Retired khi không còn làm cơ sở giả định; giữ lịch sử. Nếu DEC vẫn derived-from/depends-on/resolves ASM chưa Validated thì closure vẫn chặn: không dùng relation dependency cho một liên kết chỉ mang nghĩa lịch sử. Dẫn lịch sử bằng prose/Markdown/references và giữ evidence; review lại graph trước khi bỏ dependency. Không bỏ link khi nội dung vẫn thực sự dựa vào giả định.
+Ví dụ B: giả định “chỉ Customer Active được gắn Contact” thực chất còn là lựa chọn policy. Business chọn rule thì tạo DEC riêng với options/rationale/consequences/authority/evidence. ASM ban đầu có thể Retired khi không còn làm cơ sở giả định; file chỉ giữ state/kết luận hiện hành, lịch sử chuyển state nằm trong Git. Nếu DEC vẫn derived-from/depends-on/resolves ASM chưa Validated thì closure vẫn chặn: không dùng relation dependency cho một liên kết chỉ mang nghĩa lịch sử. Khi cần audit, tra Git revision và evidence nguồn; không thêm timeline vào record hiện hành. Review lại graph trước khi bỏ dependency. Không bỏ link khi nội dung vẫn thực sự dựa vào giả định.
 
 Decision chấp nhận rủi ro không chứng minh assumption đúng. Approval không thay validation_result; kit chưa hỗ trợ exception/waiver tự miễn ASM ở gate. ASM sai hoặc Retired mà consumer vẫn dựa vào nó vẫn chặn. Validated không tự nâng điểm consumer lên mức 3; cần reassess/review đúng revision.
 

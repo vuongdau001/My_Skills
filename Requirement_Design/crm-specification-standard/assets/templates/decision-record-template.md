@@ -1,60 +1,69 @@
-# Mẫu quyết định nghiệp vụ/kỹ thuật
+# Mẫu Decision — trạng thái hiện hành
 
-ID: TPL-DECISION · CRM Workflow Kit 1.10.0 · 05/11/2026
+ID: TPL-DECISION · CRM Workflow Kit 2.4.0 · 16/11/2026
 
-Áp dụng [standard viết artifact](../../references/artifact-writing-standard.md). Đây là mẫu; thay hướng dẫn bằng dữ liệu thực, giữ gap khi thiếu input. Không suy approval từ việc điền đủ mục.
+Áp dụng [cấu trúc và current-state policy](../../references/knowledge-records-and-evidence.md#record-current-state) và [standard viết artifact](../../references/artifact-writing-standard.md). Giữ đúng thứ tự mục dưới đây; thay hướng dẫn bằng nội dung thực. Chỉ giữ phiên bản hiện hành, không thêm mục History/Changelog hoặc các statement của revision cũ. Cấp ID bằng next-id cho record mới; cùng vấn đề thì giữ ID và tăng revision. Thiếu dữ liệu ghi rõ; không suy approval từ template đầy đủ.
 
-Đọc [knowledge records](../../references/knowledge-records-and-evidence.md). Cấp ID bằng next-id; giữ null nếu chưa có owner/thời điểm.
+# <ID> — <Tên nội dung hiện hành>
 
+Một câu statement hiện hành; phần này và metadata phải cùng nghĩa.
 
-## Nội dung cần quyết định
+| Bối cảnh | Giá trị hiện hành |
+|---|---|
+| Revision | r1 hoặc revision thực tế |
+| State | State đúng loại và evidence hiện có |
+| Phạm vi áp dụng | Nghiệp vụ / sản phẩm **hoặc** Dự án / SDLC; chọn một |
+| Scope cụ thể | Nội dung/consumer thực sự chịu tác động |
+| Owner record | Người được giao; chưa giao ghi Chưa xác định, metadata null |
 
-Nêu một câu hỏi/lựa chọn rõ, scope/revision và context có nguồn. Tách nội dung đề xuất với quyết định authority đã chọn.
+## 1. Nội dung quyết định hiện hành
 
-## Phương án và đánh đổi
+Ghi lựa chọn hiện tại và điều kiện áp dụng. Nếu Pending/Proposed, ghi rõ chưa được authority chọn/duyệt; không gọi là quyết định đã có hiệu lực.
 
-Mỗi phương án có điều kiện, lợi ích/bất lợi. Ghi rationale và consequences của phương án được đề xuất/chọn; chưa chọn thì giữ Pending/Proposed.
+## 2. Bối cảnh và phương án
 
-**Phạm vi áp dụng** · Nghiệp vụ / sản phẩm hoặc Dự án / SDLC. Ghi rõ quyết định điều chỉnh hành vi sản phẩm hay cách thực hiện/bàn giao. [Cách phân loại](../../references/knowledge-records-and-evidence.md#record-applicability).
+Ghi context có nguồn và các options/trade-off còn liên quan đến bài toán hiện tại. Đây là các phương án của lần xem xét hiện hành, không liệt kê lịch sử từng lần chọn A/B.
 
-## Authority, evidence và ảnh hưởng
+## 3. Căn cứ lựa chọn và hệ quả
 
-Ghi người phụ trách record và người có thẩm quyền quyết nội dung đó, cùng thời điểm và evidence khi có thật. Approved/Rejected cần authority, decided_at có timezone và nguồn pin đúng revision. Nối trace đến hồ sơ nghiệp vụ hoặc hồ sơ SDLC thực sự sử dụng quyết định.
+**Rationale hiện hành:** vì sao phương án hiện tại phù hợp với mục tiêu và điều kiện áp dụng.
 
-## Lịch sử và bước tiếp
+**Consequences:** tác động tích cực, tiêu cực, giới hạn và nghĩa vụ phát sinh. Diễn biến chuyển A → B và lý do thay đổi thuộc commit message/PR description, không đặt ở mục này.
 
-Khi thay quyết định: giữ record cũ Superseded, nối superseded-by; record mới nối supersedes, nêu scope/rationale. Không cấp lại ID hoặc sao approval cũ cho statement mới. Người soạn cập nhật consumers rồi review lại; reviewer không tự sửa target.
+## 4. Thẩm quyền và evidence
 
-## Nếu dùng register
+Ghi authority, decided_at và nguồn pin path/revision/hash cho statement hiện hành. Approved/Rejected cần authority, thời điểm có timezone và evidence. Chưa có thì null/[] theo schema và giữ state thực tế. Approval của statement cũ không được tái dùng cho statement mới chưa được xác nhận.
 
-Đưa record vào records của metadata Project schema 2, bổ sung id/kind; không giữ đồng thời hai nơi định nghĩa. Dùng anchor ổn định khi cần dẫn mục.
+## 5. Ảnh hưởng và bước tiếp
 
+Dẫn typed trace_links tới consumer hiện hành, impact cần review, gap, receiver và bước tiếp. Cùng vấn đề đổi lựa chọn thì sửa record này với revision mới. Không tạo record Superseded/new-ID chỉ để giữ lịch sử. Không tự cập nhật consumer hoặc Git ngoài quyền được giao.
 
-<details>
-<summary>Metadata mẫu — thay bằng giá trị thật</summary>
+## Metadata
+
+Dùng một block schema 2 cuối file, giá trị khớp nội dung trên. Nếu dùng register: thêm id/kind vào record trong records của metadata Project, giữ một nơi định nghĩa và anchor riêng theo ID. Không sao chép statement cũ hoặc thêm history array. Khi khai cả revision cấp artifact và cấp record, hai giá trị phải khớp.
 
 ```crm-spec-kit
 {
   "schema_version": 2,
   "artifact_id": "DEC-CRM-001",
   "kind": "Decision",
+  "revision": "r1",
   "references": [],
   "record": {
     "revision": "r1",
-    "scope": "Phạm vi cần xác nhận",
+    "scope": "Scope cụ thể cần điền",
+    "owner": null,
+    "applicability": "Nghiệp vụ / sản phẩm",
     "evidence": [],
     "trace_links": [],
-    "owner": null,
     "decision_state": "Proposed",
-    "statement": "Lựa chọn cần được quyết định",
-    "context": "Vấn đề và nguồn cần giải quyết",
-    "options": "Các lựa chọn và trade-off cần review",
-    "rationale": "Căn cứ của phương án đề xuất",
-    "consequences": "Tác động tích cực, tiêu cực và trung lập",
+    "statement": "Phương án hiện hành cần xác nhận",
+    "context": "Vấn đề và nguồn hiện hành",
+    "options": "Các lựa chọn và trade-off còn liên quan",
+    "rationale": "Căn cứ của phương án hiện hành",
+    "consequences": "Tác động và nghĩa vụ của phương án hiện hành",
     "authority": null,
     "decided_at": null
   }
 }
 ```
-
-</details>

@@ -46,6 +46,8 @@ Sau khi Epic đủ rõ cho scope UI đã chọn, tạo bundle chạy được th
 - [Mapping Epic/Story với phép kiểm, mô hình và evidence](../references/catalog-check-model-mapping.md)
 - [Q07 — Khả thi và sẵn sàng bàn giao](../references/checks/feasibility-and-handoff-readiness.md)
 
+Dùng [CRM-VISUAL-REVIEW](../references/review-visualization-standard.md) để minh họa boundary, dependency, UI states và sequence theo câu hỏi cần review. Sketch khái niệm phải ghi proposal/unknown cùng question; source/model, render nếu cần và text trace cùng revision. Không biến diagram thành evidence provider/commit/retry mechanism đã được chọn.
+
 ## Outputs
 
 Soạn output theo [standard viết artifact](../references/artifact-writing-standard.md), bao gồm review/check/report/handoff; giữ độ sâu theo mode và write boundary của function.

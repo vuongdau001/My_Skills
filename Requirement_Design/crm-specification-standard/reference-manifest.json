@@ -1,7 +1,7 @@
 {
   "pack_id": "crm-specification-standard",
-  "version": "2.1.0",
-  "date": "2026-11-06",
+  "version": "2.4.0",
+  "date": "2026-11-16",
   "language": "vi",
   "scope": "Self-contained CRM workflow kit with deterministic local installation adapters; no automatic runtime discovery or external mutations",
   "entries": [
@@ -1074,6 +1074,36 @@
       "kind": "provenance",
       "title": "Kiểm chứng gói 2.1.0",
       "path": "provenance/pack-validation-report-v2.1.0.md"
+    },
+    {
+      "id": "CRM-CLEAN-RESET",
+      "kind": "reference",
+      "title": "Reset sạch toàn dự án",
+      "path": "references/clean-project-reset.md"
+    },
+    {
+      "id": "CRM-RESET-HELPER",
+      "kind": "script",
+      "title": "Clean Reset Helper",
+      "path": "scripts/kit_reset.py"
+    },
+    {
+      "id": "CRM-RESET-TESTS",
+      "kind": "test-script",
+      "title": "Clean Reset Regression Tests",
+      "path": "scripts/tests/test_clean_reset.py"
+    },
+    {
+      "id": "CRM-VALIDATION-2-2-0",
+      "kind": "provenance",
+      "title": "Kiểm chứng reset sạch 2.2.0",
+      "path": "provenance/pack-validation-report-v2.2.0.md"
+    },
+    {
+      "id": "CRM-VISUAL-REVIEW",
+      "kind": "reference",
+      "title": "Minh họa đặc tả để review và tra cứu",
+      "path": "references/review-visualization-standard.md"
     }
   ],
   "source_archive": "provenance/original-epic-story-standard-and-workflow-v1.1.zip",
@@ -2123,7 +2153,8 @@
         "references/knowledge-records-and-evidence.md",
         "references/artifact-writing-standard.md",
         "references/source-scope-and-decomposition-checkpoint.md",
-        "references/epic-use-case-policy.md"
+        "references/epic-use-case-policy.md",
+        "references/review-visualization-standard.md"
       ],
       "templates": [
         "assets/templates/capability-specification-template.md",
@@ -2157,7 +2188,8 @@
         "references/source-scope-and-decomposition-checkpoint.md",
         "references/prototype-workflow-and-epic-gate.md",
         "references/epic-use-case-policy.md",
-        "references/models/business-flows-and-use-cases.md"
+        "references/models/business-flows-and-use-cases.md",
+        "references/review-visualization-standard.md"
       ],
       "templates": [
         "assets/templates/epic-specification-template.md",
@@ -2191,7 +2223,8 @@
         "references/knowledge-records-and-evidence.md",
         "references/artifact-writing-standard.md",
         "references/prototype-workflow-and-epic-gate.md",
-        "references/epic-use-case-policy.md"
+        "references/epic-use-case-policy.md",
+        "references/review-visualization-standard.md"
       ],
       "templates": [
         "assets/templates/meeting-record-template.md",
@@ -2228,7 +2261,8 @@
         "references/artifact-writing-standard.md",
         "references/source-scope-and-decomposition-checkpoint.md",
         "references/prototype-workflow-and-epic-gate.md",
-        "references/epic-use-case-policy.md"
+        "references/epic-use-case-policy.md",
+        "references/review-visualization-standard.md"
       ],
       "templates": [
         "assets/templates/story-specification-template.md",
@@ -2270,7 +2304,8 @@
         "references/artifact-writing-standard.md",
         "references/source-scope-and-decomposition-checkpoint.md",
         "references/prototype-workflow-and-epic-gate.md",
-        "references/epic-use-case-policy.md"
+        "references/epic-use-case-policy.md",
+        "references/review-visualization-standard.md"
       ],
       "templates": [
         "assets/templates/requirements-review-record-template.md",

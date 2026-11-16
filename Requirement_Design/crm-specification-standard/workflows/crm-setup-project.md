@@ -20,6 +20,10 @@ Nguồn dự án, ràng buộc tổ chức/hợp đồng, vai trò nghiệp vụ
 
 Context chung: target/logical ID, selected scope, input revision/canonical locations, policy refs/effective scope và quyền đọc/sửa. Sources chưa có thì ghi chưa xác định; không bịa commit/Jira key/actor hoặc evidence.
 
+## Trước khi Setup lại từ đầu
+
+Nếu user yêu cầu bỏ hồ sơ cũ, thực hiện [reset sạch toàn dự án](../references/clean-project-reset.md) và kiểm allocator từ 001 trước bước intake. Giữ sources/config/kit/instructions; không tạo archive hoặc phục hồi approval/maturity cũ. Nếu chỉ tiếp tục/cập nhật Setup thì không reset. Đọc đủ output roots và giải quyết nguồn nằm trong output cũ trước apply; không chỉ xóa spec_root rồi giữ reservation/historical IDs.
+
 ## Input Check
 
 Khi tiếp nhận function list/WBS/estimation/screen list, dùng [checkpoint nguồn scope](../references/source-scope-and-decomposition-checkpoint.md): xác định đơn vị/mục đích nguồn, giữ counts có provenance và gaps. Chưa mặc định inventory nguồn là phân cấp Capability/Epic/Story đã được review.
@@ -37,6 +41,8 @@ Phân loại Decision, Assumption và Constraint theo [phạm vi áp dụng](../
 Thực hiện [intake hồ sơ đã có](../references/knowledge-records-and-evidence.md#tái-dùng-hồ-sơ-từ-đầu-vào) trước khi soạn policy register. Đọc nguồn và đối chiếu `knowledge_intake` với hồ sơ chuẩn. Dùng lại ID/revision, pin evidence và áp dụng ngay record đã có hiệu lực đúng phạm vi. Ghi phần có điều kiện, nguồn xung đột và việc cần người có thẩm quyền xác nhận.
 
 Ở intake, tìm Prototype/mockup trong Work Context và các vị trí người dùng chỉ định mà bạn có quyền đọc. Nhắc người dùng cung cấp chỉ dẫn, mẫu, link hoặc ví dụ dữ liệu cho Prototype. Ghi candidate/revision và input còn thiếu trong Work Context. Xem [standard Prototype](../references/prototype-workflow-and-epic-gate.md).
+
+Với DEC/ASM/CST, dùng đúng [template/current-state policy](../references/knowledge-records-and-evidence.md#record-current-state). Đọc bản hiện hành trước, không khôi phục lựa chọn cũ chỉ vì xuất hiện trong nguồn cũ. Cùng vấn đề giữ ID và tăng revision; file chỉ giữ nội dung/state/evidence mới nhất. Lý do chuyển state giao cho Git commit message/PR description khi được giao, không tự commit hoặc tạo history file.
 
 0. Nếu có notes/chat/email, pin source evidence; phân loại record, chọn template, ghi scope/owner/gaps và liên kết consumer. Không tạo biên bản giả nếu chỉ có chat, không tự gửi notes.
 1. Kiểm nguồn hiện hành, phân biệt quy ước đã duyệt với đề xuất; tìm canonical locations trước khi tạo hồ sơ.

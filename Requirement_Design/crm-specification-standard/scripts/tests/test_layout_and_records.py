@@ -399,6 +399,62 @@ class LayoutAndRecordTests(unittest.TestCase):
         before=self.hashes();self.cli('install','--apply',code=2)
         self.assertEqual(before,self.hashes())
 
+    def assert_current_record_revision_flow(self, kind, active, pending, **approval_fields):
+        # Updating one canonical record must invalidate old consumer pins and keep
+        # readiness blocked until the current statement has its own evidence.
+        self.config()
+        prefix = dict(Decision='DEC', Assumption='ASM', Constraint='CST')[kind]
+        identity = prefix + '-CRM-001'
+        rel = '00-project/current.md'
+        path = self.root / rel
+        source = self.root / '00-project/evidence-a.txt'
+        source.parent.mkdir(parents=True, exist_ok=True)
+        source.write_text('Fixture evidence for statement A only.')
+        evidence_a = dict(path='evidence-a.txt', revision='source-r1',
+                          sha256=hashlib.sha256(source.read_bytes()).hexdigest())
+        meta = self.record(kind, active, statement='Statement A',
+                           evidence=[evidence_a], **approval_fields)
+        self.put(rel, meta)
+        story = self.root / '03-stories/story.md'
+        self.story([self.trace(story, path, identity)])
+        gate = ('--gate', 'readiness', '--target', 'STORY-CRM-001')
+        self.assertTrue(self.lint(*gate)['valid'])
+
+        current = self.record(kind, pending, revision='r2', statement='Statement B',
+                              evidence=[])
+        self.put(rel, current)
+        self.assertNotIn('Statement A', path.read_text())
+        self.assertIn('stale-revision', self.codes(self.lint(code=1)))
+        self.story([self.trace(story, path, identity, revision='r2')])
+        result = self.lint(*gate, code=1)
+        self.assertIn('record-obligation', self.codes(result))
+        self.assertEqual([row['id'] for row in result['record_obligations']], [identity])
+
+        source_b = self.root / '00-project/evidence-b.txt'
+        source_b.write_text('Fixture evidence for current statement B.')
+        evidence_b = dict(path='evidence-b.txt', revision='source-r2',
+                          sha256=hashlib.sha256(source_b.read_bytes()).hexdigest())
+        current = self.record(kind, active, revision='r3', statement='Statement B',
+                              evidence=[evidence_b], **approval_fields)
+        self.put(rel, current)
+        self.story([self.trace(story, path, identity, revision='r3')])
+        self.assertTrue(self.lint(*gate)['valid'])
+        definitions = [p for p in self.root.rglob('*.md')
+                       if '"artifact_id": "' + identity + '"' in p.read_text()]
+        self.assertEqual(definitions, [path])
+
+    def test_decision_in_place_revision_requires_current_approval_and_pin(self):
+        self.assert_current_record_revision_flow('Decision', 'Approved', 'Proposed',
+            authority='Business owner (fixture)', decided_at='2026-11-16T10:00:00+07:00')
+
+    def test_assumption_in_place_revision_requires_current_validation_and_pin(self):
+        self.assert_current_record_revision_flow('Assumption', 'Validated', 'Unverified',
+            owner='Provider reviewer (fixture)', validation_result='Current statement verified')
+
+    def test_constraint_in_place_revision_requires_current_confirmation_and_pin(self):
+        self.assert_current_record_revision_flow('Constraint', 'Confirmed', 'Proposed',
+            authority='Control owner (fixture)', effective_from='2026-11-16')
+
 
 if __name__=='__main__':
     unittest.main()

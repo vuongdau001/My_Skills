@@ -50,6 +50,8 @@ Trước khi viết E08, đọc candidate Prototype/mockup đã có và hỏi ng
 - [Mapping Epic/Story với phép kiểm, mô hình và evidence](../references/catalog-check-model-mapping.md)
 - [Inventory, coverage, AC và truy vết](../references/coverage-inventories-and-traceability.md)
 
+Chọn hình thức E01–E16 theo [CRM-VISUAL-REVIEW](../references/review-visualization-standard.md): diagram cho trình tự/quan hệ khó đọc; decision table, permission matrix và coverage matrix cho điều kiện/quyền/AC. Giữ source có thể tìm kiếm, locator và gap; không nhân bản shared model hoặc tự chọn kết quả để khép hình.
+
 ## Outputs
 
 Soạn output theo [standard viết artifact](../references/artifact-writing-standard.md), bao gồm review/check/report/handoff; giữ độ sâu theo mode và write boundary của function.

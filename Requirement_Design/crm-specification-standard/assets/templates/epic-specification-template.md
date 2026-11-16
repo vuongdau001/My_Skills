@@ -10,6 +10,8 @@ ID/tên Epic và một đoạn về mục tiêu. Bảng context ngắn ghi Capab
 
 ## Cách dùng mẫu
 
+Áp dụng [CRM-VISUAL-REVIEW](../../references/review-visualization-standard.md): chọn diagram, bảng hoặc ví dụ theo câu hỏi review, giữ source và trace. Không phải mỗi mục đều cần diagram.
+
 Giữ E01–E16 và điền sâu theo scope đang xét. Mỗi mục có nội dung hoặc ref đúng revision; có thể thêm mục con, không ép một dòng checklist thay toàn bộ model.
 
 <a id="spec-10-1"></a>
@@ -30,6 +32,10 @@ Ghi actor chính và actor hỗ trợ cùng bước tương tác ở E03. Ghi ri
 
 **Tên và mục tiêu Use Case.** Dùng Epic ID và revision khi dẫn đến anchor E03. Ghi trigger, preconditions và actor thực hiện. Dùng [D01](../../references/models/business-flows-and-use-cases.md).
 
+### Sơ đồ tổng quan khi hữu ích
+
+Đặt flowchart/Activity Diagram hoặc BPMN theo đặc điểm flow. Ghi scope/giới hạn, nối node với locator bước/nhánh/outcome. Giữ Unknown và questions; không chọn trước thứ tự kiểm hoặc retry/rollback.
+
 ### Luồng chính
 
 Mỗi bước có locator tường minh, chủ thể, tương tác và phản hồi quan sát. Dẫn state, BR, data và permission đúng ID/revision ở E04–E07.
@@ -48,7 +54,7 @@ Ghi success, failure và bảo đảm tối thiểu về dữ liệu, quyền, t
 
 ## E05 — Business Rules
 
-Mỗi BR có statement/điều kiện/kết quả và REQ/decision/source refs. Bảng chỉ giữ index ngắn; rule dài dùng mục riêng.
+Mỗi BR có statement/điều kiện/kết quả và REQ/decision/source refs. Rule dài dùng mục riêng. Khi nhiều điều kiện quyết định kết quả, thêm decision table có condition domains, overlap/default/priority và Unknown; ví dụ dữ liệu dẫn BR và kết quả nguồn hoặc gap. Bảng index không thay bảng quyết định.
 
 ## E06 — Dữ liệu và validation
 
@@ -56,15 +62,15 @@ Dictionary/type/boundary, normalization, null/default/uniqueness và fields bắ
 
 ## E07 — Permission và data scope
 
-Lập ma trận actor nghiệp vụ × action × resource × điều kiện, gồm trạng thái và quyền cấp trường khi áp dụng. Ghi allow/deny/visibility, ca từ chối và điểm còn thiếu. Dẫn nguồn quyền runtime và evidence về người có thẩm quyền xác nhận rule.
+Lập ma trận principal/actor nghiệp vụ × action × resource/data scope × điều kiện, gồm trạng thái và quyền cấp trường khi áp dụng. Tách role và scope chưa xác nhận; không mặc định role được phép hoặc default allow/deny. Ghi allow/deny/visibility, ca từ chối và điểm còn thiếu. Dẫn nguồn quyền runtime và evidence về người có thẩm quyền xác nhận rule.
 
 ## E08 — UI/UX và trạng thái tương tác
 
-Dẫn bước/nhánh E03, Screen/Scenario IDs, UI contract, inventory và binding tới Prototype/walkthrough đúng selected scope. Ghi N/A có reason, contract và người xác nhận khi scope không tác động UI. Xem [mẫu bundle](prototype-bundle-template.md).
+Dẫn bước/nhánh E03, Screen/Scenario IDs, UI contract, inventory và binding tới Prototype/walkthrough đúng selected scope. Ghi N/A có reason, contract và người xác nhận khi scope không tác động UI. Xem [mẫu bundle](prototype-bundle-template.md). Dùng UI-state table và mockup có chú thích để đối chiếu loading/empty/error/disabled/success/unknown outcome; sketch có proposal/gap không thay contract hoặc walkthrough.
 
 ## E09 — API và tích hợp
 
-Dẫn step/scenario E03, contract ID/revision, input/output, permission, error, sequence/consistency, retry/idempotency, read-back/freshness và side effects. Không đặt endpoint/DTO giả.
+Dẫn step/scenario E03, contract ID/revision, input/output, permission, error, sequence/consistency, retry/idempotency, read-back/freshness và side effects. Không đặt endpoint/DTO giả. Dùng contract inventory; thêm sequence khi thứ tự/commit/callback/concurrency khó hiểu. Boundary chưa chốt có thể thể hiện như sketch khái niệm với question, không gán service/operation giả thành solution.
 
 ## E10 — Ngoại lệ và tình huống biên
 
@@ -84,7 +90,7 @@ Nêu options/trade-offs/constraints, contract của hai đầu và evidence kh�
 
 ## E14 — AC và planned verification
 
-Mỗi AC dùng điều kiện → thao tác → kết quả → truy vết/gap. Dẫn scenario và outcome E03 tới test condition/setup/observation/evidence; tách planned coverage khỏi TestRun thật.
+Dùng coverage matrix scenario/outcome E03 → BR/model → AC → test condition/evidence. Hiện cả nhánh chưa có AC hoặc chỉ bao phủ một phần và expected result còn thiếu. Mỗi AC dùng điều kiện → thao tác → kết quả → truy vết/gap. Dẫn scenario và outcome E03 tới test condition/setup/observation/evidence; tách planned coverage khỏi TestRun thật.
 
 ## E15 — Story candidates và allocation
 

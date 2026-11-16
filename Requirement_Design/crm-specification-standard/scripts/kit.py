@@ -770,10 +770,14 @@ def all_used_ids(repo,cfg):
         root=relative(repo,ws['spec_root'])
         if root.exists():
             for p in root.rglob('*.md'):
-                if p.is_file() and not p.is_symlink():used.update(re.findall(r'\b'+id_pattern()+r'\b',p.read_text(encoding='utf-8')))
+                if p.is_file() and not p.is_symlink() and p.name not in {'AGENTS.md','AGENTS.override.md','CLAUDE.md'}:used.update(re.findall(r'\b'+id_pattern()+r'\b',p.read_text(encoding='utf-8')))
     ledger=relative(repo,'.agents/crm-spec-kit-id-reservations.json')
     if ledger.exists():used.update(read_json(ledger).get('reservations',{}))
     return used
+
+
+def reset(args):
+    return support('reset').run(globals(), args)
 
 
 def next_id(args):
@@ -887,7 +891,7 @@ def operation_lock(repo):
 def parser():
     p=argparse.ArgumentParser(description=__doc__)
     sub=p.add_subparsers(dest='command',required=True)
-    for command in ['install','doctor','context','lint','next-id','update','smoke-prompt','plan-layout','score']:
+    for command in ['install','doctor','context','lint','next-id','update','smoke-prompt','plan-layout','score','reset']:
         s=sub.add_parser(command);s.add_argument('--repo',type=Path,required=True)
         if command in {'install','context','lint','smoke-prompt','plan-layout','score'}:s.add_argument('--workstream')
         if command in {'doctor','context','lint','smoke-prompt','plan-layout','score'}:s.add_argument('--config',type=Path,help='Explicit read-only config for migration/audit; paths still resolve within --repo')
@@ -920,6 +924,10 @@ def parser():
             s.add_argument('function');s.add_argument('--agent',choices=list(AGENT_ROOTS),required=True)
             s.add_argument('--target',required=True);s.add_argument('--target-kind',required=True);s.add_argument('--revision',required=True)
             s.add_argument('--format',choices=['markdown','json'],default='markdown')
+        elif command=='reset':
+            s.add_argument('--scope', choices=['project'], required=True)
+            s.add_argument('--apply', action='store_true')
+            s.add_argument('--plan-sha256', help='Exact dry-run plan digest required for deletion')
         elif command=='next-id':
             s.add_argument('prefix');s.add_argument('--reserve',action='store_true');s.add_argument('--owner');s.add_argument('--apply',action='store_true')
         elif command=='update':
@@ -933,7 +941,7 @@ def main(argv=None):
     args=parser().parse_args(argv)
     try:
         handler=globals()[args.command.replace('-','_')]
-        if args.command in {'install','update'} and args.apply:
+        if args.command in {'install','update','reset'} and args.apply:
             with operation_lock(args.repo):
                 result=handler(args)
         else:

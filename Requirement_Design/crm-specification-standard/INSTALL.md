@@ -149,3 +149,15 @@ Backup update được giữ tại `.agents/crm-spec-kit-backups/<installation-k
 ## Checkpoint nguồn scope — 1.11
 
 [Checkpoint nguồn scope và phân rã](references/source-scope-and-decomposition-checkpoint.md) được nạp mặc định cho sáu function liên quan. Trigger và độ sâu được quyết trong workflow: status ngắn chỉ đọc evidence hiện hành, không tự chia lại scope. `--reference CRM-SCOPE-CHECKPOINT` mở tài liệu từ các context khác khi áp dụng. Helper không phân tích semantic nội dung nguồn, không tự chọn số Capability/Epic hoặc chứng nhận allocation; lint giữ giới hạn structural/record obligations. Không thêm CLI/function, schema hoặc gate approval mới.
+
+## Reset sạch — 2.2.0
+
+Helper `reset --scope project` xóa outputs/reservations toàn namespace dự án, không archive; dry-run trước, apply cần plan digest. Xem [policy và lệnh reset](references/clean-project-reset.md) để khai `generated_output_paths`, bảo vệ nguồn và kiểm ID trở về 001. Không thay install/update hoặc tự reset khi update kit. Instructions không chiếm số trong allocator.
+
+## Minh họa đặc tả — 2.3
+
+[CRM-VISUAL-REVIEW](references/review-visualization-standard.md) quy định cách chọn diagram/matrix/ví dụ để review và giữ source/model, ID/anchor, text trace, uncertainty và revision. Standard viết chung truyền nguyên tắc tối thiểu trong context của 13 functions; reference chi tiết đọc theo nhu cầu hoặc `--reference CRM-VISUAL-REVIEW`. Template Epic, D01 và workflows tác giả/review dẫn cùng một standard. Không thêm CLI, schema, gate approval hoặc tự rewrite spec đang có. Update package theo dry-run/apply hiện hành.
+
+## Hồ sơ Decision/Assumption/Constraint — 2.4
+
+[Current-state policy](references/knowledge-records-and-evidence.md#record-current-state) và ba template thống nhất cấu trúc, cùng một ID/revision hiện hành, evidence đúng statement và lịch sử qua Git. Source prose và metadata phải cùng state; không tự commit/push, tạo snapshot/history file cho mỗi lần sửa hoặc chuyển approval cũ sang nội dung mới. Schema 2, supersession legacy và record-obligation gates giữ tương thích. Update package không migrate records dự án hoặc commit lịch sử của chúng; áp dụng khi author/correction được giao. Git history chưa được helper tự resolve khi kiểm baseline pin cũ.

@@ -29,3 +29,7 @@ Dùng danh sách bước cho luồng ngắn. Swimlane hoặc BPMN hữu ích khi
 ## Inventory, phép kiểm và điều kiện dừng
 
 Inventory có actor/trigger, mỗi step/decision, main/alternate/exception paths, success/failure outcomes và các tình huống rủi ro có disposition. Reviewer dùng nguồn và witness/counterexample tại từng điểm rẽ hoặc ghi dữ liệu. Bước chờ và retry áp dụng có giới hạn hoặc điều kiện dừng. Điều kiện đầu/cuối nhất quán với state, permission, contract và AC. Gap chặn phạm vi vẫn hiển thị trong E16 cùng question, authority, ảnh hưởng và bước xác nhận.
+
+## Minh họa và truy vết flow
+
+Dùng [CRM-VISUAL-REVIEW](../review-visualization-standard.md) khi chọn flowchart, Activity Diagram, swimlane hoặc BPMN. Flowchart phù hợp để đọc trình tự/nhánh; BPMN hữu ích khi cần ngữ nghĩa bàn giao, message, chờ, timer hoặc gián đoạn. Giữ mô tả bước/nhánh và kết quả có anchor làm nơi tra chi tiết; overview dẫn nhánh đã biết và đánh dấu gap, không tự quyết thứ tự kiểm hoặc recovery để nối kín hình.

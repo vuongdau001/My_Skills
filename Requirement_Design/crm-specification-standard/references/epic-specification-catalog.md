@@ -37,6 +37,10 @@ Ví dụ E04 có thể N/A cho sửa copy thuần túy, nhưng không được N
 
 E01/E15 áp dụng [checkpoint chọn cấp và quan hệ cha–con](source-scope-and-decomposition-checkpoint.md#level-selection) khi tạo/đổi allocation: nêu parent, phạm vi model/acceptance chung và delta từng Story. Entry point, role hay màn hình riêng chưa đủ lý do tạo Epic.
 
+## Hình thức hỗ trợ review
+
+Chọn cách trình bày E01–E16 theo [CRM-VISUAL-REVIEW](review-visualization-standard.md#2-áp-dụng-cho-epic-e01e16). Với flow phức tạp cân nhắc diagram; rule tổ hợp dùng decision table; quyền dùng permission matrix; E14 dùng coverage matrix. Dẫn model dùng chung thay vì vẽ lại. Hình thức không thay nội dung/authority của từng item và không tạo gate đếm diagram.
+
 ## Dùng catalog để tạo Story
 
 E01–E02 giữ mục tiêu/ranh giới; E03–E05 giữ hành vi dùng chung; E06–E09 dữ liệu/giao tiếp; E10–E12 ngoại lệ/vận hành; E13–E14 solution/kiểm chứng; E15–E16 phân rã/phê duyệt. Nội dung có thể kế thừa qua ref đúng phiên bản; không bắt 16 file riêng.

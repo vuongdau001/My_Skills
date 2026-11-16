@@ -33,3 +33,7 @@ Tag [INFERRED] kèm question là quy ước binding tùy chọn. Nếu workstrea
 ERROR trả exit 1; WARN cho legacy/missing structured coverage. `semantic_approval: false` luôn hiện. Không sửa artifact tự động. Lint lỗi thì tác giả sửa đúng nguồn và chạy lại; check/review workflows chỉ ghi record và đề xuất correction.
 
 Sources/config/kit không tự trở thành writable chỉ vì helper đọc được. Path config và ID reservation là repo-owned tooling records; spec outputs tuân write boundary workflow. Không có hook Git/Jira/CI tự động trong bản này.
+
+## DEC/ASM/CST hiện hành và Git history
+
+[Cấu trúc/current-state policy](knowledge-records-and-evidence.md#record-current-state) giữ schema 2 và vocabulary state hiện có. Cùng ID được cập nhật in-place với revision mới; lint báo stale-revision/hash cho consumer pin cũ cho đến khi author review và cập nhật đúng. Helper kiểm file của checkout, không resolve Git history hoặc chứng thực commit message đã chứa lý do đổi. Supersession legacy vẫn đọc được; không yêu cầu tạo chain Superseded cho mỗi lần sửa record. Template order, nội dung timeline, tính phù hợp của authority và ý nghĩa approval được reviewer kiểm; lint valid không chứng minh các nội dung đó đúng.

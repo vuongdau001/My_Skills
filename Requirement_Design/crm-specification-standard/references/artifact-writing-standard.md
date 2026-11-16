@@ -1,6 +1,6 @@
 # Standard viết và trình bày artifact CRM
 
-ID: CRM-ARTIFACT-WRITING · CRM Workflow Kit 1.10.0 · 05/11/2026
+ID: CRM-ARTIFACT-WRITING · CRM Workflow Kit 2.4.0 · 16/11/2026
 
 Standard này áp dụng cho mọi artifact do kit soạn hoặc chỉnh sửa, ở mọi dự án và workstream. Người đọc phải tìm được nội dung chính, hiểu điều kiện/kết quả và biết việc cần làm tiếp. Standard điều chỉnh cách viết; nội dung bắt buộc, quyền và gate vẫn theo catalog/workflow tương ứng.
 
@@ -121,7 +121,7 @@ Helper stdout kỹ thuật, JSON và tài liệu nguồn nhập vào được gi
 
 Áp dụng khi tạo hoặc sửa artifact thuộc scope đã giao. Update package không tự rewrite toàn bộ dự án, source hoặc historical records. Project có template/policy riêng thì giữ requirements được duyệt, chỉ điều chỉnh presentation trong quyền; nêu xung đột cần giải quyết, không tự xóa field bắt buộc.
 
-Khi byte/locator thay đổi: giữ snapshot hoặc lịch sử có thể truy lại, ghi revision mới, đối chiếu các refs/pins/consumer bị ảnh hưởng và review lại đúng scope. Review/check chỉ tạo record, không sửa target đang kiểm. Giữ verdict/approval cũ đúng revision; sửa format không tự cấp lại sign-off.
+Khi byte/locator thay đổi: giữ lịch sử có thể truy lại và ghi revision mới, đối chiếu các refs/pins/consumer bị ảnh hưởng và review lại đúng scope. Riêng DEC/ASM/CST áp dụng [current-state policy](knowledge-records-and-evidence.md#record-current-state): file chỉ giữ nội dung/state mới nhất; revision và lý do đổi lưu trong Git, không tạo snapshot/history file để lưu từng lần thay record. Review/check chỉ tạo record, không sửa target đang kiểm. Giữ verdict/approval cũ đúng revision; sửa format không tự cấp lại sign-off.
 
 ## 9. Tự kiểm trước khi giao
 
@@ -133,3 +133,13 @@ Khi byte/locator thay đổi: giữ snapshot hoặc lịch sử có thể truy l
 - Metadata/reference/ID/record links còn đọc được; lint đã chạy trong phạm vi cần thiết?
 
 Đây là kiểm presentation của tác giả và reviewer, không là DoR/DoD/Business approval. Lint cấu trúc không tự đánh giá độ dễ đọc hoặc tính đúng nghiệp vụ. Không tự thêm readability score hoặc gate số học.
+
+## 10. Minh họa hỗ trợ review và AI tra cứu
+
+Khi soạn hoặc review phần hành vi/điều kiện/quan hệ khó đọc, dùng [CRM-VISUAL-REVIEW](review-visualization-standard.md) để chọn diagram, bảng hoặc ví dụ theo mục đích. Bảng/văn bản có cấu trúc đã đủ rõ thì không cần thêm hình chỉ để đủ số lượng. Quyền, decision logic, dictionary và coverage thường cần matrix hơn diagram.
+
+Minh họa giữ source text/model có thể chỉnh sửa, tên/anchor và context ID/revision/scope, nhãn điều kiện/kết quả và trace tới nội dung chuẩn. Source cần công cụ riêng đi cùng render và mô tả text; ảnh không là nguồn duy nhất cho requirement mới. Unknown/proposal vẫn dẫn question/authority; không tự lấp hành vi để làm kín hình. Kiểm source/render và semantics riêng; chưa render phải ghi rõ giới hạn. Không tự sửa historical artifacts hoặc nâng gate do bổ sung minh họa.
+
+## 11. Cấu trúc và state của DEC/ASM/CST
+
+Record tạo mới hoặc chỉnh trong scope được giao theo đúng template từng loại và [CRM-KNOWLEDGE current state](knowledge-records-and-evidence.md#record-current-state). Giữ thứ tự mục, bảng revision/state/scope/owner và một metadata block khớp nội dung. Một ID có một định nghĩa hiện hành. Cùng vấn đề A đổi sang B thì giữ ID, tăng revision và thay nội dung thành B; không giữ timeline hoặc bản A trong file. Rationale/basis/source hiện hành vẫn cần; lý do chuyển A → B giao cho commit message/PR description. Chưa commit thì nói rõ chưa lưu Git history, không tự commit hoặc tạo history file. Evidence/approval phải đúng statement mới; không tự nâng state hoặc refresh consumer pins để qua gate. Meeting/source evidence không phải record current-state và không bị viết lại theo quy tắc này.
