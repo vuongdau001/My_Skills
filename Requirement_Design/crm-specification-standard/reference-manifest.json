@@ -1,7 +1,7 @@
 {
   "pack_id": "crm-specification-standard",
-  "version": "2.6.0",
-  "date": "2026-11-16",
+  "version": "2.7.1",
+  "date": "2026-11-17",
   "language": "vi",
   "scope": "Self-contained CRM workflow kit with deterministic local installation adapters; no automatic runtime discovery or external mutations",
   "entries": [
@@ -902,10 +902,10 @@
       "path": "references/knowledge-records-and-evidence.md"
     },
     {
-      "id": "TPL-MEETING",
-      "kind": "template",
-      "title": "Meeting Record Template",
-      "path": "assets/templates/meeting-record-template.md"
+      "id": "CRM-MEETING-INPUT",
+      "kind": "reference",
+      "title": "Xử lý nguồn biên bản, không tạo Meeting record",
+      "path": "references/meeting-input-guide.md"
     },
     {
       "id": "TPL-DECISION",
@@ -2121,11 +2121,11 @@
         "references/knowledge-records-and-evidence.md",
         "references/artifact-writing-standard.md",
         "references/source-scope-and-decomposition-checkpoint.md",
-        "references/prototype-workflow-and-epic-gate.md"
+        "references/prototype-workflow-and-epic-gate.md",
+        "references/meeting-input-guide.md"
       ],
       "templates": [
         "assets/templates/project-policy-register-template.md",
-        "assets/templates/meeting-record-template.md",
         "assets/templates/decision-record-template.md",
         "assets/templates/assumption-record-template.md",
         "assets/templates/constraint-record-template.md",
@@ -2154,11 +2154,11 @@
         "references/artifact-writing-standard.md",
         "references/source-scope-and-decomposition-checkpoint.md",
         "references/epic-use-case-policy.md",
-        "references/review-visualization-standard.md"
+        "references/review-visualization-standard.md",
+        "references/meeting-input-guide.md"
       ],
       "templates": [
         "assets/templates/capability-specification-template.md",
-        "assets/templates/meeting-record-template.md",
         "assets/templates/decision-record-template.md",
         "assets/templates/assumption-record-template.md",
         "assets/templates/constraint-record-template.md"
@@ -2189,11 +2189,11 @@
         "references/prototype-workflow-and-epic-gate.md",
         "references/epic-use-case-policy.md",
         "references/models/business-flows-and-use-cases.md",
-        "references/review-visualization-standard.md"
+        "references/review-visualization-standard.md",
+        "references/meeting-input-guide.md"
       ],
       "templates": [
         "assets/templates/epic-specification-template.md",
-        "assets/templates/meeting-record-template.md",
         "assets/templates/decision-record-template.md",
         "assets/templates/assumption-record-template.md",
         "assets/templates/constraint-record-template.md"
@@ -2224,10 +2224,10 @@
         "references/artifact-writing-standard.md",
         "references/prototype-workflow-and-epic-gate.md",
         "references/epic-use-case-policy.md",
-        "references/review-visualization-standard.md"
+        "references/review-visualization-standard.md",
+        "references/meeting-input-guide.md"
       ],
       "templates": [
-        "assets/templates/meeting-record-template.md",
         "assets/templates/decision-record-template.md",
         "assets/templates/assumption-record-template.md",
         "assets/templates/constraint-record-template.md",
@@ -2262,12 +2262,12 @@
         "references/source-scope-and-decomposition-checkpoint.md",
         "references/prototype-workflow-and-epic-gate.md",
         "references/epic-use-case-policy.md",
-        "references/review-visualization-standard.md"
+        "references/review-visualization-standard.md",
+        "references/meeting-input-guide.md"
       ],
       "templates": [
         "assets/templates/story-specification-template.md",
         "assets/templates/implementation-task-template.md",
-        "assets/templates/meeting-record-template.md",
         "assets/templates/decision-record-template.md",
         "assets/templates/assumption-record-template.md",
         "assets/templates/constraint-record-template.md"

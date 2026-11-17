@@ -133,7 +133,7 @@ class LayoutAndRecordTests(unittest.TestCase):
     def test_explicit_legacy_for_new_stream(self):
         self.cli('install','--layout','legacy','--apply')
         self.assertTrue((self.root/'epics').is_dir())
-        self.assertTrue((self.root/'00-project/01-meetings').is_dir())
+        self.assertFalse((self.root/'00-project/01-meetings').exists())
 
     def test_custom_paths_context_doctor_and_lint_inference(self):
         self.config(layout='numbered',artifact_paths={'stories':'delivery/user-stories'})
@@ -196,7 +196,8 @@ class LayoutAndRecordTests(unittest.TestCase):
 
     def test_new_prefixes_are_allocated_across_streams_and_reservations(self):
         self.config();self.put('00-project/notes.md',body='MTG-CRM-007 ASM-CRM-009 CST-CRM-004')
-        for prefix,expected in [('MTG','008'),('ASM','010'),('CST','005')]:
+        self.cli('next-id','MTG',code=2)
+        for prefix,expected in [('ASM','010'),('CST','005')]:
             self.assertEqual(self.cli('next-id',prefix)['id'],prefix+'-CRM-'+expected)
         r=self.cli('next-id','ASM','--reserve','--owner','BA','--apply')
         self.assertTrue(r['reserved']);self.assertEqual(self.cli('next-id','ASM')['id'],'ASM-CRM-011')

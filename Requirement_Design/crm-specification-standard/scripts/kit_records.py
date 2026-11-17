@@ -1,4 +1,4 @@
-"""Schema-2 knowledge records, pinned trace links and scoped obligation checks.
+"""Stateless knowledge records, legacy readers and pinned source evidence.
 
 Checks declarations and locally available evidence only; never authenticates an approver.
 """
@@ -56,7 +56,7 @@ def intake(api, repo, ws, inputs):
             if kind not in kinds:
                 continue
             fields = {'id': row.get('id'), 'revision': row.get('revision'),
-                      'scope': row.get('scope'), 'declared_state': row.get(STATES[kind][0])}
+                      'scope': row.get('scope'), **({'declared_state': row.get(STATES[kind][0])} if meta.get('schema_version') != 3 else {})}
             records.append(dict(kind=kind, **{k: v if isinstance(v, str) else None for k, v in fields.items()}))
         return ('structured' if records else 'review-source'), hashlib.sha256(content).hexdigest(), records
 
@@ -74,10 +74,23 @@ def intake(api, repo, ws, inputs):
     supplied = [dict(path=raw) for raw in inputs]
     if ws.get('input_root'):
         supplied.append(dict(path=ws['input_root']))
-    source_rows, seen = [], set()
+    # Directory sources are read-only discovery roots, never scaffold targets.
+    # Keep the directory entry for manual/non-Markdown review and pin each note.
+    discovered = []
     for source in configured + supplied:
+        directory = api['relative'](repo, source['path'])
+        if not directory.is_dir() or directory.is_symlink():
+            continue
+        for child in sorted(directory.rglob('*.md')):
+            if (not child.is_file() or child.is_symlink()
+                    or any(parent.is_symlink() for parent in child.parents if parent != repo and parent.is_relative_to(repo))
+                    or not child.resolve().is_relative_to(directory)):
+                continue
+            discovered.append(dict(source, path=child.relative_to(repo).as_posix()))
+    source_rows, seen = [], set()
+    for source in configured + supplied + discovered:
         path = api['relative'](repo, source['path'])
-        if 'id' not in source and path in seen:
+        if path in seen:
             continue
         seen.add(path)
         entry = dict(path=source['path'], source_id=source.get('id'))
@@ -225,12 +238,14 @@ def audit(api, repo, cfg, ws, docs, definitions, issue, args):
 
     for p,meta in metas.items():
         # Do not impose schema-2 record fields on legacy schema-1 decisions.
-        if meta.get('kind') in {'Meeting','Assumption','Constraint'} and meta.get('schema_version') != 2:
+        if meta.get('kind') in {'Meeting','Assumption','Constraint'} and meta.get('schema_version') not in (2, 3):
             if p in docs:
                 emit('ERROR','record-schema',p,'New knowledge record kinds require metadata schema_version=2')
-        elif ('record' in meta or 'records' in meta) and meta.get('schema_version') != 2:
+        elif ('record' in meta or 'records' in meta) and meta.get('schema_version') not in (2, 3):
             emit('ERROR','record-schema',p,'Structured record/records require metadata schema_version=2')
-        if meta.get('schema_version') == 2:
+        if ws.get('record_schema_version') == 3 and meta.get('kind') == 'Meeting':
+            emit('ERROR','meeting-input-only',p,'Move meeting notes to configured input sources; extract ASM/DEC/CST, do not store Meeting records in spec')
+        if meta.get('schema_version') in (2, 3):
             if 'records' in meta and (not isinstance(meta['records'],list) or not all(isinstance(r,dict) for r in meta['records'])):
                 emit('ERROR','record-list',p,'records must be a list of record objects')
             if meta.get('kind') in KINDS and not isinstance(meta.get('record'),dict):
@@ -246,11 +261,17 @@ def audit(api, repo, cfg, ws, docs, definitions, issue, args):
                 seen.add(identity)
                 for field in ('revision','scope'):
                     text_field(row,field,p)
+                simple = meta.get('schema_version') == 3 and kind != 'Meeting'
                 state_field, states = STATES[kind]
-                if not isinstance(row.get(state_field),str) or row[state_field] not in states:
-                    emit('ERROR','record-state',p,identity+': invalid '+state_field)
-                state = row.get(state_field)
-                state = state if isinstance(state,str) else None
+                if simple:
+                    if any(key in row for key in ('decision_state','assumption_state','constraint_state')):
+                        emit('ERROR','record-state-removed',p,identity+': schema 3 records have no state field')
+                    state = None
+                else:
+                    if not isinstance(row.get(state_field),str) or row[state_field] not in states:
+                        emit('ERROR','record-state',p,identity+': invalid '+state_field)
+                    state = row.get(state_field)
+                    state = state if isinstance(state,str) else None
                 if kind != 'Meeting':
                     text_field(row,'statement',p)
                     if 'owner' not in row or (row['owner'] is not None and (not isinstance(row['owner'],str) or not row['owner'].strip())):
@@ -272,13 +293,13 @@ def audit(api, repo, cfg, ws, docs, definitions, issue, args):
                                 emit('ERROR','meeting-action',p,'Action requires description, owner and due (null if unknown); no automatic product Task')
                     if state == 'Amended':
                         text_field(row,'amendment_reason',p)
-                elif kind == 'Decision':
+                elif kind == 'Decision' and not simple:
                     for field in ('context','options','rationale','consequences'):
                         text_field(row,field,p)
                     if state in {'Approved','Rejected'}:
                         text_field(row,'authority',p)
                         time_field(row,'decided_at',p)
-                elif kind == 'Assumption':
+                elif kind == 'Assumption' and not simple:
                     for field in ('basis','validation_method','if_false'):
                         text_field(row,field,p)
                     if 'review_due' not in row:
@@ -291,7 +312,7 @@ def audit(api, repo, cfg, ws, docs, definitions, issue, args):
                     if state in {'Validated','Invalidated'}:
                         text_field(row,'owner',p)
                         text_field(row,'validation_result',p)
-                elif kind == 'Constraint':
+                elif kind == 'Constraint' and not simple:
                     text_field(row,'constraint_type',p)
                     text_field(row,'verification_method',p)
                     if state == 'Confirmed':
@@ -313,6 +334,13 @@ def audit(api, repo, cfg, ws, docs, definitions, issue, args):
                 else:
                     for ref in trace:
                         reference(p,ref,source=identity)
+        if meta.get('kind') not in KINDS:
+            evidence = meta.get('evidence', [])
+            if not isinstance(evidence, list):
+                emit('ERROR','record-evidence',p,'Artifact evidence must be a list')
+            else:
+                for ref in evidence:
+                    reference(p, ref, evidence=True, source=meta.get('artifact_id'))
         trace = meta.get('trace_links',[])
         if not isinstance(trace,list):
             emit('ERROR','trace-list',p,'trace_links must be a list')
@@ -337,7 +365,7 @@ def audit(api, repo, cfg, ws, docs, definitions, issue, args):
                 old = records[older][1]
                 if newer in records and records[newer][1].get('kind') != old.get('kind'):
                     emit('ERROR','supersession-kind',p,'Replacement record must have the same kind: '+older)
-                if old.get(STATES.get(old.get('kind'),('',set()))[0]) != 'Superseded':
+                if metas.get(records[older][0],{}).get('schema_version') != 3 and old.get(STATES.get(old.get('kind'),('',set()))[0]) != 'Superseded':
                     emit('ERROR','supersession-state',p,'Old record must be marked Superseded: '+older)
     visiting, visited = set(), set()
     def cycle(node):
@@ -377,9 +405,17 @@ def audit(api, repo, cfg, ws, docs, definitions, issue, args):
         if kind not in STATES:
             continue
         state = row.get(STATES[kind][0])
-        blocked = ((kind=='Assumption' and state!='Validated') or
-                   (kind=='Decision' and state!='Approved') or
-                   (kind=='Constraint' and state!='Confirmed'))
+        simple = metas[p].get('schema_version') == 3 and kind != 'Meeting'
+        if simple:
+            # Existence means an unresolved hypothesis. Confirmed assumptions become
+            # a Decision with references rewritten before removing the ASM record.
+            blocked = (kind == 'Assumption' or
+                       (kind == 'Decision' and not (row.get('statement') and row.get('evidence'))) or
+                       (kind == 'Constraint' and not (row.get('statement') and row.get('evidence'))))
+        else:
+            blocked = ((kind=='Assumption' and state!='Validated') or
+                       (kind=='Decision' and state!='Approved') or
+                       (kind=='Constraint' and state!='Confirmed'))
         # Reverse dependency closure exposes declared consumers needing refinement/review.
         affected, pending = set(), [identity]
         while pending:
@@ -390,11 +426,13 @@ def audit(api, repo, cfg, ws, docs, definitions, issue, args):
                     pending.append(consumer)
         impact = {'id':identity,'kind':kind,'state':state,'revision':row.get('revision'),
                   'path':p.relative_to(repo).as_posix(),'affected_ids':sorted(affected)}
+        if simple:
+            impact.pop('state', None)
         impacts.append(impact)
         if blocked:
             obligations.append(impact)
             emit('WARN' if gate=='draft' else 'ERROR','record-obligation',p,
-                 identity+': '+str(state)+'; resolve or explicitly remove dependency with reviewed rationale before '+gate)
+                 identity+': '+('unresolved assumption or missing confirmation/source' if simple else str(state))+'; resolve or update actual dependencies before '+gate)
     if gate != 'draft':
         for identity in sorted(scope & unverified):
             p = owners[identity]

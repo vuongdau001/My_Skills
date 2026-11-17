@@ -6,7 +6,7 @@ Standard này áp dụng cho mọi artifact do kit soạn hoặc chỉnh sửa, 
 
 ## Phạm vi áp dụng
 
-Áp dụng cho Capability, Epic, Story, Task; requirement/BR/AC; model, solution, UI/API/read contract; project/source/scope/policy/question registers; Meeting/Decision/Assumption/Constraint; Review, Baseline, change assessment, Report, TestCase/TestRun, Pilot và handoff.
+Áp dụng cho Capability, Epic, Story, Task; requirement/BR/AC; model, solution, UI/API/read contract; project/source/scope/policy/question registers; Decision/Assumption/Constraint; Review, Baseline, change assessment, Report, TestCase/TestRun, Pilot và handoff.
 
 Markdown dùng chuẩn dưới đây. JSON/config/assessment/evidence giữ schema gốc, không thêm prose hoặc HTML vào dữ liệu máy đọc. Tóm tắt chat dùng cùng nguyên tắc ngôn ngữ và phân biệt evidence nhưng không bắt tạo file hay đủ mọi mục của template.
 
@@ -83,7 +83,7 @@ Flow trình bày các bước chính, sau đó tách nhánh thay thế/ngoại l
 
 Tách rõ nguồn ghi nhận, suy luận, đề xuất, quyết định nghiệp vụ và approval có evidence. Nêu source locator/revision; suy luận theo quy ước question binding của dự án. Khi nguồn khác nhau, giữ witness và câu hỏi cần authority xử lý.
 
-Giữ vocabulary của schema: Pending, Proposed, Approved, Unverified, Validated, Chưa kiểm… Không dùng bố cục đẹp, checklist đầy, điểm cao hoặc đổi agent profile để nâng trạng thái. Thiếu owner/due thì ghi chưa được giao hoặc null theo schema; không biến thành N/A nếu chưa có reason/authority.
+DEC/ASM/CST schema 3 không state; review_verdict và lifecycle của Epic/Story/Task vẫn theo schema riêng. Không dùng bố cục đẹp, checklist đầy, điểm cao hoặc đổi agent profile để nâng trạng thái. Thiếu owner/due thì ghi chưa được giao hoặc null theo schema; không biến thành N/A nếu chưa có reason/authority.
 
 ## 6. Cách tổ chức theo loại artifact
 
@@ -97,7 +97,7 @@ Giữ vocabulary của schema: Pending, Proposed, Approved, Unverified, Validate
 | Model/solution/UI/API/read contract | Mục đích và consumers; assumptions/constraints; options/contract; flows/data/quyền/errors; verification và quyết định còn thiếu |
 | Project/source/scope/policy register | Bối cảnh; danh mục tra; phạm vi/authority/evidence; tình trạng và câu hỏi; mapping giữ một nơi định nghĩa |
 | Question register | Một mục mỗi ID; câu hỏi cụ thể; scope bị ảnh hưởng; người/nhóm cần trả lời; record liên quan |
-| Meeting/chat/email | Sự kiện và participants thật; nguồn; nội dung ghi nhận; decisions/questions/actions tách riêng; trạng thái xác nhận biên bản |
+| Nguồn meeting/chat/email | Đọc tại sources đã cấu hình; giữ locator/evidence, phân loại sang ASM/DEC/CST hoặc câu hỏi mở. Không soạn Meeting record đầu ra hoặc thêm state cho biên bản. |
 | Decision | Câu cần quyết và phạm vi áp dụng; context/options/rationale/consequences; authority/state/evidence; ảnh hưởng và bước tiếp |
 | Assumption | Statement/basis và phạm vi áp dụng; cách kiểm, người phụ trách và hạn; if-false; kết quả/evidence và consumer cần xem lại |
 | Constraint | Ràng buộc, loại và phạm vi áp dụng; nguồn, thẩm quyền và hiệu lực; applies-to; cách kiểm tuân thủ và gaps |
@@ -113,7 +113,7 @@ Chọn template cụ thể trong kit; dùng [mẫu artifact chung](../assets/tem
 
 Với Markdown mới, đặt đúng một block crm-spec-kit ở cuối; có thể dùng details/summary để thu gọn khi viewer hỗ trợ. Viewer không hỗ trợ vẫn đọc được nghiệp vụ trước JSON. Block mở/đóng fence ở đầu dòng, không indent trong HTML.
 
-Schema 1 vẫn dùng cho loại được hỗ trợ; knowledge records mới theo schema 2. Giữ ID, source locators, evidence hash và typed dependency links. Không thêm prose/HTML vào JSON/config/assessment hoặc đổi schema vì đổi format. [Metadata/lint](artifact-metadata-and-lint.md) định nghĩa hợp đồng máy đọc.
+Schema 1 vẫn dùng cho loại được hỗ trợ; DEC/ASM/CST mới theo schema 3 không state; biên bản chỉ là nguồn đầu vào, không tạo Meeting record. Giữ ID, source locators, evidence hash và typed dependency links. Không thêm prose/HTML vào JSON/config/assessment hoặc đổi schema vì đổi format. [Metadata/lint](artifact-metadata-and-lint.md) định nghĩa hợp đồng máy đọc.
 
 Helper stdout kỹ thuật, JSON và tài liệu nguồn nhập vào được giữ theo hợp đồng gốc. Bản báo cáo Markdown do helper sinh cũng theo thứ tự đọc này; không sửa kết quả tính hoặc evidence cho đẹp.
 
@@ -140,9 +140,9 @@ Khi soạn hoặc review phần hành vi/điều kiện/quan hệ khó đọc, d
 
 Minh họa giữ source text/model có thể chỉnh sửa, tên/anchor và context ID/revision/scope, nhãn điều kiện/kết quả và trace tới nội dung chuẩn. Ưu tiên đọc source ngay trong viewer hỗ trợ và giữ mô tả text trong artifact chuẩn; không bắt xuất hoặc lưu thêm file render. Ảnh không là nguồn duy nhất cho requirement mới. Unknown/proposal vẫn dẫn question/authority; không tự lấp hành vi để làm kín hình. Kiểm source/render và semantics riêng; chưa render phải ghi rõ giới hạn. Không tự sửa historical artifacts hoặc nâng gate do bổ sung minh họa.
 
-## 11. Cấu trúc và state của DEC/ASM/CST
+## 11. DEC/ASM/CST không state
 
-Record tạo mới hoặc chỉnh trong scope được giao theo đúng template từng loại và [CRM-KNOWLEDGE current state](knowledge-records-and-evidence.md#record-current-state). Giữ thứ tự mục, bảng revision/state/scope/owner và một metadata block khớp nội dung. Một ID có một định nghĩa hiện hành. Cùng vấn đề A đổi sang B thì giữ ID, tăng revision và thay nội dung thành B; không giữ timeline hoặc bản A trong file. Rationale/basis/source hiện hành vẫn cần; lý do chuyển A → B giao cho commit message/PR description. Chưa commit thì nói rõ chưa lưu Git history, không tự commit hoặc tạo history file. Evidence/approval phải đúng statement mới; không tự nâng state hoặc refresh consumer pins để qua gate. Meeting/source evidence không phải record current-state và không bị viết lại theo quy tắc này.
+Record mới dùng template schema 3 và [mô hình đơn giản](knowledge-records-and-evidence.md#record-current-state). Giữ nội dung hiện hành, nguồn và nơi sử dụng. Cùng vấn đề thì giữ ID, tăng revision khi sửa. ASM được xác nhận chuyển sang DEC ID, cập nhật mọi consumer rồi xóa ASM. Decision/Constraint hết áp dụng thì cập nhật nơi dùng trước khi bỏ. Không thêm state, bảng lifecycle, timeline hoặc field trạng thái thay thế. Lịch sử qua Git khi được giao; chưa commit thì nói rõ, không tự commit. Các loại artifact khác giữ schema riêng; biên bản là input source, không tạo Meeting record.
 
 ## 12. Tham chiếu phải đọc được, không chỉ có mã
 

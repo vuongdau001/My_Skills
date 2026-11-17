@@ -41,7 +41,7 @@ Severity, risk, SLA, required checks là các policy khác nhau. Không dùng m�
 ## Các bước kiểm register trước sử dụng
 
 1. Mở policy ref và kiểm nội dung/version/effective date/scope; không chỉ kiểm link tồn tại.
-2. Kiểm trạng thái decision: Pending/Proposed/Approved/Superseded cùng evidence và authority. Đây là metadata tài liệu, không là Jira status mới.
+2. Kiểm nội dung Decision hiện hành và evidence/người xác nhận; DEC/ASM/CST schema 3 không có state. Không dùng sự tồn tại của file làm proof đã chốt.
 3. Đối chiếu policy với constraints cấp cao hơn và gate đang xét; khi mâu thuẫn ghi conflict và đúng authority giải quyết, không tự chọn policy dễ đạt hơn.
 4. Kiểm policy có phương pháp đánh giá, dữ liệu đầu vào, người chịu trách nhiệm và expected disposition cho thiếu evidence/failed/skipped.
 5. Ghi policy IDs/versions được áp dụng vào review/gate record. Thay policy phải impact review các công việc đang làm; approval/evidence cũ giữ lịch sử, không tự tái sử dụng cho version mới.

@@ -77,6 +77,8 @@ class CleanResetTests(unittest.TestCase):
         self.assertFalse((self.repo/'old-output').exists())
         self.assertFalse((self.repo/'phase-3/spec/00-project/history').exists())
         self.assertFalse((self.repo/'.agents/crm-spec-kit-id-reservations.json').exists())
+        self.assertNotIn('MTG', result['next_ids'])
+        self.assertIn('Meeting notes are input sources', self.cli('next-id', 'MTG', code=2)['error'])
         for prefix in result['next_ids']:
             self.assertEqual(self.cli('next-id', prefix)['id'], f'{prefix}-CRM-001')
         for n,h in protected.items():

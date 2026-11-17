@@ -29,4 +29,4 @@ Mỗi gap có ID/locator, câu hỏi, phần bị ảnh hưởng và người c�
 
 ## Metadata cuối artifact
 
-Thêm một block từ [metadata template](artifact-metadata-template.md), chọn đúng kind/schema. Knowledge records dùng template schema 2 tương ứng. Có thể bọc bằng details/summary; không sao chép ID minh họa hoặc biến template này thành một definition dự án thật.
+Thêm một block từ [metadata template](artifact-metadata-template.md), chọn đúng kind/schema. DEC/ASM/CST dùng template schema 3 không state; biên bản chỉ là nguồn đầu vào, không tạo Meeting record. Có thể bọc bằng details/summary; không sao chép ID minh họa hoặc biến template này thành một definition dự án thật.

@@ -31,7 +31,7 @@ Có thể yêu cầu agent: “Đọc INSTALL.md trong kit và chuẩn bị cài
 
 ## Thư mục và hồ sơ trao đổi
 
-Workstream mới có thư mục 00-project, 01-capabilities đến 09-prototypes; config cũ tiếp tục dùng layout legacy. Xem [layout/migration](references/artifact-layout-and-migration.md). Khi nhận notes/chat, dùng crm-setup-project trên Project/workstream; khi chỉnh rule thuộc Epic, dùng crm-specify-epic và dẫn [Meeting/Decision/Assumption/Constraint records](references/knowledge-records-and-evidence.md). Không cần bốn slash commands mới.
+Workstream mới có thư mục 00-project, 01-capabilities đến 09-prototypes; config cũ tiếp tục dùng layout legacy. Xem [layout/migration](references/artifact-layout-and-migration.md). Khi nhận notes/chat, dùng crm-setup-project trên Project/workstream; khi chỉnh rule thuộc Epic, dùng crm-specify-epic và dẫn [Decision/Assumption/Constraint và nguồn biên bản](references/knowledge-records-and-evidence.md). Không cần bốn slash commands mới.
 
 > Dùng crm-setup-project trên workstream p3 để tiếp nhận notes workshop này. Ghi đúng source/event type, chuẩn bị các Decision/Assumption/Constraint records và trace các Epic liên quan; phần chưa xác nhận giữ draft.
 

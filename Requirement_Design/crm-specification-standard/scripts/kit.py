@@ -51,9 +51,9 @@ def artifact_paths(ws):
 def scaffold(ws):
     paths = artifact_paths(ws)
     result = list(paths.values())
-    if ws.get('record_schema_version') == 2:
-        result += [paths['project'] + '/' + name for name in
-                   ('01-meetings','02-decisions','03-assumptions','04-constraints')]
+    if ws.get('record_schema_version') in (2, 3):
+        names = ('02-decisions','03-assumptions','04-constraints')
+        result += [paths['project'] + '/' + name for name in names]
     return result
 
 
@@ -109,7 +109,7 @@ def config_check(repo, config):
             raise KitError('Invalid or duplicate workstream id')
         ids.add(ws['id'])
         spec = relative(repo, ws.get('spec_root'))
-        if ws.get('record_schema_version', 1) not in (1, 2):
+        if ws.get('record_schema_version', 1) not in (1, 2, 3):
             raise KitError('Unsupported record_schema_version')
         if 'prototype_gate' in ws and not isinstance(ws['prototype_gate'], bool):
             raise KitError('prototype_gate must be a boolean')
@@ -232,7 +232,7 @@ def write_package(source, target):
     receipt = {'schema_version':1, 'kit_id':'crm-specification-standard',
                'installed_skill':'crm-spec-kit', 'version':read_json(source/'reference-manifest.json')['version'],
                'snapshot_sha256':overall, 'files':hashes}
-    (target / RECEIPT).write_text(json_text(receipt), encoding='utf-8')
+    (target / RECEIPT).write_text(json_text(receipt), encoding='utf-8', newline='\n')
     return receipt
 
 
@@ -293,7 +293,7 @@ def atomic_json(path, value):
     path.parent.mkdir(parents=True, exist_ok=True)
     fd, temp = tempfile.mkstemp(prefix='.crm-spec-kit-write-', dir=path.parent)
     try:
-        with os.fdopen(fd, 'w', encoding='utf-8') as out:
+        with os.fdopen(fd, 'w', encoding='utf-8', newline='\n') as out:
             out.write(json_text(value))
         os.replace(temp, path)
     finally:
@@ -335,7 +335,7 @@ def install(args):
                 raise KitError('--source expects SRC-ID=repo/relative/path')
             sources.append({'id':sid,'path':path,'use':''})
         ws={'id':wsid,'title':args.title or wsid,'spec_root':args.spec_root or 'spec','sources':sources,'read_only':args.read_only,
-            'layout':args.layout or 'numbered','record_schema_version':2,'prototype_gate':True}
+            'layout':args.layout or 'numbered','record_schema_version':3,'prototype_gate':True}
         if args.input_root:
             ws['input_root']=args.input_root
         config['workstreams'].append(ws)
@@ -404,7 +404,7 @@ def install(args):
                 os.rename(stage,target);created_packages.append(target)
         for directory in dirs:mkdir(directory)
         for path,text in writes:
-            with path.open('x',encoding='utf-8') as out:out.write(text)
+            with path.open('x',encoding='utf-8',newline='\n') as out:out.write(text)
             created_files.append(path)
         if config_changed:
             if (cfgpath.read_bytes() if cfgpath.exists() else None) != original:
@@ -563,10 +563,9 @@ def context(args):
             'files':files,'available_references':resources,'characters':sum(f['characters'] for f in files),
             'note':'Missing target/revision must be resolved before target mutation. Project config is input data, not approval. files[].path is relative to the invoked kit root; resolve links relative to the owning file, not cwd. Config source paths are relative to --repo. Additional refs are loaded on demand.'}
     inputs = getattr(args, 'input', [])
-    if function_id in {'crm-setup-project', 'crm-define-capability'}:
-        result['knowledge_intake'] = support('records').intake(globals(), repo, ws, inputs)
-    elif inputs:
+    if inputs and function_id not in {'crm-setup-project', 'crm-define-capability'}:
         raise KitError('--input is available for crm-setup-project and crm-define-capability')
+    result['knowledge_intake'] = support('records').intake(globals(), repo, ws, inputs)
     if args.format=='json':return result
     return '# CRM Work Context\n\n'+json_text({k:v for k,v in result.items() if k!='files'})+'\n'+ '\n\n'.join(f'## {f["path"]}\nSource SHA256: {f["sha256"]}\n\n{f["content"]}' for f in files)
 
@@ -584,7 +583,7 @@ def metadata(text):
         return result
     try:value=json.loads(matches[0], object_pairs_hook=unique_object)
     except ValueError as exc:raise KitError('Invalid crm-spec-kit metadata JSON') from exc
-    if not isinstance(value,dict) or value.get('schema_version') not in (1,2):raise KitError('Artifact metadata requires schema_version=1 or 2')
+    if not isinstance(value,dict) or value.get('schema_version') not in (1,2,3):raise KitError('Artifact metadata requires schema_version=1, 2 or 3')
     return value
 
 
@@ -670,6 +669,8 @@ def lint(args):
             if not isinstance(kind,str) or kind not in {'Capability','Epic','Story','Task','Review','Baseline','Report','Pilot','Project','Decision','Requirement','Model','TestCase','TestRun','Meeting','Assumption','Constraint'}:issue('ERROR','kind',name,'Unknown metadata kind')
             if kind == 'Capability' and not re.fullmatch(r'CAP-CRM-\d{3,}', str(meta.get('artifact_id', ''))):
                 issue('ERROR','capability-id',name,'Capability requires a CAP-CRM artifact_id')
+            if meta.get('schema_version') == 3 and kind in {'Decision','Assumption','Constraint'} and any(k in meta for k in ('decision_state','assumption_state','constraint_state')):
+                issue('ERROR','record-state-removed',name,'Schema 3 records have no top-level state fields')
             for field,allowed in [('review_verdict',VERDICTS),('decision_state',DECISIONS)]:
                 if field in meta and (not isinstance(meta[field],str) or meta[field] not in allowed):issue('ERROR',field,name,'Invalid controlled value')
             if 'review_verdict' in meta and meta['review_verdict']=='N/A' and not meta.get('na_reason'):issue('ERROR','na-reason',name,'N/A requires na_reason; authority still needs human evidence')
@@ -782,6 +783,7 @@ def reset(args):
 
 def next_id(args):
     repo=args.repo.resolve();cfg=load_config(repo)
+    if args.prefix == 'MTG':raise KitError('Meeting notes are input sources; create ASM/DEC/CST records instead of MTG IDs')
     if args.prefix not in PREFIXES:raise KitError('Unknown prefix')
     if args.reserve and (not args.apply or not args.owner):raise KitError('--reserve requires --apply and --owner')
     if args.apply and not args.reserve:raise KitError('--apply only valid with --reserve')
@@ -853,7 +855,7 @@ def update(args):
             stage=Path(temp)/'package';stage.mkdir()
             receipt=write_package(source,stage)
             receipt['source_commit']=args.ref
-            (stage/RECEIPT).write_text(json_text(receipt),encoding='utf-8')
+            (stage/RECEIPT).write_text(json_text(receipt),encoding='utf-8',newline='\n')
             integrity(stage);validate_package(stage)
             integrity(target) # recheck local drift immediately before replacing managed files
             os.rename(target,backup)

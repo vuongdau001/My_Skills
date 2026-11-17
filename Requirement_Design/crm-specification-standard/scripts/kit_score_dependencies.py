@@ -11,7 +11,7 @@ def snapshot(api,args,identity):
     records=[]
     for r in audit['record_impacts']:
         if r['kind'] not in {'Assumption','Decision','Constraint'}:continue
-        records.append(dict(id=r['id'],kind=r['kind'],state=r['state'],revision=r['revision'],path=r['path'],
+        records.append(dict(id=r['id'],kind=r['kind'],**({'state':r['state']} if 'state' in r else {}),revision=r['revision'],path=r['path'],
                             sha256=api['digest'](args.repo.resolve()/r['path']),unresolved=r['id'] in blocked))
     return sorted(records,key=lambda r:r['id'])
 

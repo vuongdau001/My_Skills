@@ -5,7 +5,7 @@ description: "Vận hành yêu cầu và backlog CRM theo workflow: tiếp nhậ
 
 # CRM Workflow Kit
 
-Phiên bản **2.6.0**. Một root skill, các agent profiles logic và workflows tự chứa. Người mới đọc [Start Here](START-HERE.md). Nguồn kit tên crm-specification-standard; helper đóng gói bản cài một root skill tên crm-spec-kit. Các function IDs bên dưới vẫn là workflow nội bộ, không phải 13 slash commands riêng.
+Phiên bản **2.7.1**. Một root skill, các agent profiles logic và workflows tự chứa. Người mới đọc [Start Here](START-HERE.md). Nguồn kit tên crm-specification-standard; helper đóng gói bản cài một root skill tên crm-spec-kit. Các function IDs bên dưới vẫn là workflow nội bộ, không phải 13 slash commands riêng.
 
 Khi Epic có UI, tìm mockup nguồn theo chỉ dẫn người dùng. Bàn giao bản chạy được trong category prototypes theo từng hành trình. Kiểm Prototype ở baseline, DoR và E08. Đọc [quy trình Prototype](references/prototype-workflow-and-epic-gate.md).
 
@@ -33,7 +33,7 @@ Mỗi Epic sở hữu một Use Case cấp `user-goal` theo [policy use-case-v1]
 
 Khi nhận function list/WBS/estimation/screen list, chia lại scope hoặc dùng allocation để báo tiến độ, áp dụng [checkpoint nguồn scope và cách phân rã](references/source-scope-and-decomposition-checkpoint.md). Khi tạo/đổi allocation, đọc cây hiện có, giải thích cấp/parent và kiểm cha–con có lặp cùng outcome theo checkpoint; không tạo đủ ba tầng chỉ để khớp template. Không mặc định một dòng nguồn là một Epic/Story; kiểm căn cứ ranh giới và giao thoa theo độ sâu nhiệm vụ. Context của các function liên quan nạp checkpoint này mặc định. Khi cần onboarding BA, mapping BRD/SRS/Use Case hoặc giải thích cách chọn ranh giới, đọc thêm [BA Getting Started](references/ba-getting-started.md); guide không thay catalog/gate.
 
-Khi cần xử lý Assumption, Constraint hoặc Decision, đọc [knowledge records](references/knowledge-records-and-evidence.md) và dùng đúng template/current-state policy: một ID, một nội dung/state mới nhất; lịch sử và lý do thay đổi qua Git, không timeline trong file, không tự commit. Cùng vấn đề giữ ID và tăng revision; approval/validation phải đúng statement hiện hành; ASM Validated không bắt chuyển DEC, risk acceptance không thay validation. Score v2 tự audit/pin record closure và yêu cầu allocation ảnh hưởng.
+Khi cần xử lý Assumption, Constraint hoặc Decision, đọc [knowledge records](references/knowledge-records-and-evidence.md) và dùng đúng template/current-state policy: một ID, một nội dung hiện hành; lịch sử và lý do thay đổi qua Git, không timeline trong file, không tự commit. Cùng vấn đề giữ ID và tăng revision; approval/validation phải đúng statement hiện hành; DEC/ASM/CST dùng schema 3 không state. ASM được xác nhận chuyển sang DEC, cập nhật consumer rồi xóa ASM; không coi chấp nhận rủi ro là xác nhận. Score v2 tự audit/pin record closure và yêu cầu allocation ảnh hưởng.
 
 Khi cần điểm Story/Epic/Capability, từng mục E/S hoặc canonical requirement, đọc [definition maturity scoring](references/definition-maturity-scoring.md). Dùng crm-review-specification để lập assessment record có scope/revision/evidence; helper `score` tính bằng policy cố định, crm-report-status tổng hợp hai ledger catalog/requirements. Có thể lọc --target/--scope/--item; không suy điểm từ heading, không tự thêm workflow/slash command hoặc nâng gate bằng điểm. Thiếu assessment thì dùng --init để tạo Unknown inventory rồi đánh giá nội dung. Helper mặc định in stdout; --output lưu report Markdown mới trong reports, không sửa spec.
 
@@ -76,7 +76,7 @@ Các câu “vừa làm gì xong/đang tới đâu/làm gì tiếp” dùng các
 
 ## Layout và knowledge records
 
-Workstream mới dùng thư mục đánh số; config cũ giữ legacy. Khi chọn nơi ghi/migrate, đọc [layout policy](references/artifact-layout-and-migration.md) và artifact_paths từ context. Khi nhận meeting/chat, quyết định, giả định hoặc ràng buộc, đọc [knowledge records](references/knowledge-records-and-evidence.md); dùng schema 2 cho records mới, không tự đổi schema 1. Source evidence không là approval. Review/check chỉ ghi record của mình, không sửa knowledge record/target đang kiểm.
+Workstream mới dùng thư mục đánh số; config cũ giữ legacy. Khi chọn nơi ghi/migrate, đọc [layout policy](references/artifact-layout-and-migration.md) và artifact_paths từ context. Khi nhận meeting/chat, quyết định, giả định hoặc ràng buộc, đọc [knowledge records](references/knowledge-records-and-evidence.md); dùng schema 3 cho DEC/ASM/CST mới (biên bản chỉ là nguồn đầu vào, không tạo Meeting record), không tự đổi schema 1. Source evidence không là approval. Review/check chỉ ghi record của mình, không sửa knowledge record/target đang kiểm.
 
 ## Registry & Verification
 
@@ -85,3 +85,5 @@ Workstream mới dùng thư mục đánh số; config cũ giữ legacy. Khi ch�
 Chạy `python3 scripts/validate_reference_pack.py` từ folder này hoặc gọi bằng đường dẫn script. Validator kiểm cấu trúc/refs/registry/migration, không cấp DoR/DoD approval hoặc chứng minh phần mềm đạt.
 
 Kiểm chứng reset sạch: [report 2.2.0](provenance/pack-validation-report-v2.2.0.md).
+
+Biên bản/ghi chú họp là input source; không tạo folder meeting, Meeting record hoặc MTG ID trong spec. Đọc từ workstream.sources trong config/context, gồm các file mới trong thư mục nguồn đã khai báo. Khi tiếp nhận, đọc [hướng dẫn nguồn họp](references/meeting-input-guide.md), rồi phân loại vào ASM/DEC/CST hoặc giữ gap theo căn cứ.

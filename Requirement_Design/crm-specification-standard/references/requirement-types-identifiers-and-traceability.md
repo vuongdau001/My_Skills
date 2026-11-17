@@ -37,7 +37,7 @@ Dùng dạng `PREFIX-CRM-NNN` (NNN là số có ít nhất ba chữ số; cấp 
 | AC | Acceptance criterion | Có scope/parent refs, điều kiện và expected result; liên requirement/model |
 | MOD | Model hoặc model item | Ghi kind: flow/state/transition/data/permission/UI/contract…; item có ID đầy đủ hoặc local ID dưới model ID |
 | DEC | Quyết định | Người quyết, nguồn, reason, version/scope bị ảnh hưởng |
-| MTG | Meeting/workshop/chat/email record | Ghi đúng event type; source evidence, participants và action items, không tự thành approval |
+| MTG | Locator legacy của biên bản | Chỉ đọc dữ liệu cũ; không cấp ID hoặc tạo Meeting record mới. Nguồn họp nằm ngoài spec, được dẫn làm evidence cho ASM/DEC/CST. |
 | ASM | Assumption | Căn cứ, owner/cách xác minh, revision, kết quả và scope bị ảnh hưởng nếu sai |
 | CST | Constraint | Ràng buộc có source/authority, scope/hiệu lực và cách kiểm; không thay BR/MOD data constraints đã có |
 | BASE | Baseline manifest | Selected scope, refs/commit và approval; không dùng làm code SHA |
@@ -56,7 +56,7 @@ Luồng, bước, nhánh, outcome và scenario dùng lần lượt FLOW01, STP01
 
 ## Record và quan hệ tối thiểu
 
-Meeting/Decision/Assumption/Constraint mới dùng [schema-2 knowledge records](knowledge-records-and-evidence.md). Giữ source locators cũ; register không tạo duplicate definitions. Thư mục dùng [layout policy](artifact-layout-and-migration.md), ID không đổi theo thứ tự folder hoặc parent.
+Decision/Assumption/Constraint mới dùng [schema-3 records không state](knowledge-records-and-evidence.md). Biên bản là nguồn đầu vào ngoài spec, không tạo Meeting record. Giữ source locators cũ; register không tạo duplicate definitions. Thư mục dùng [layout policy](artifact-layout-and-migration.md), ID không đổi theo thứ tự folder hoặc parent.
 
 Mỗi requirement: ID/title, type, statement hoặc canonical ref, source/rationale, authority, applies_to, version/decision state, verification method và allocation refs. Mỗi model item: ID/kind/definition + parent model revision + source requirement/rule. Mỗi allocation: source ID/revision → target ID/revision + nghĩa quan hệ (refines/implements/verifies/applies-to) và selected scope.
 

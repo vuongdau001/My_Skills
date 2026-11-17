@@ -11,7 +11,6 @@ Workstream mới mặc định layout numbered:
 ```text
 spec/
   00-project/
-    01-meetings/
     02-decisions/
     03-assumptions/
     04-constraints/
@@ -30,7 +29,7 @@ Số ở folder là thứ tự đọc theo nhóm, không priority hoặc tiến 
 
 Config schema 1 tiếp tục được đọc. Workstream thiếu layout được hiểu là legacy, dùng 00-project/capabilities/epics/stories/tasks/reviews/baselines/reports/pilot/prototypes. Prototype scaffold được tạo khi `prototype_gate: true`. Workstream mới bật mặc định. Với workstream cũ, bật trong config theo [quy trình Prototype](prototype-workflow-and-epic-gate.md), rồi scaffold lại bằng install --apply. Install lại hoặc update package không tự thêm field, đổi path hoặc rewrite hồ sơ của workstream cũ. `--layout legacy` chọn layout không đánh số cho workstream mới. Cả hai layout dùng category capabilities.
 
-Workstream mới ghi layout và record_schema_version=2. Field artifact_paths tùy chọn override theo category; mọi giá trị là path POSIX tương đối từ spec_root, không overlap, không ẩn/tool directory hoặc thoát repo. Ví dụ cấu hình workstream:
+Workstream mới ghi layout và record_schema_version=3. Field artifact_paths tùy chọn override theo category; mọi giá trị là path POSIX tương đối từ spec_root, không overlap, không ẩn/tool directory hoặc thoát repo. Ví dụ cấu hình workstream:
 
 ```json
 {
@@ -38,7 +37,7 @@ Workstream mới ghi layout và record_schema_version=2. Field artifact_paths t�
   "title": "CRM Phase 3",
   "spec_root": "phase-3/spec",
   "layout": "numbered",
-  "record_schema_version": 2,
+  "record_schema_version": 3,
   "artifact_paths": {"reports": "07-reports"},
   "sources": [],
   "read_only": []
@@ -46,6 +45,8 @@ Workstream mới ghi layout và record_schema_version=2. Field artifact_paths t�
 ```
 
 Helper context trả artifact_paths đã resolve trong workstream. Dùng map này khi ghi; không hardcode epics hoặc 02-epics trong workflow. Lint nhận cả hai tên chuẩn và custom map để migration không làm mất cảnh báo metadata. Doctor kiểm scaffold theo config, không suy layout từ số lượng thư mục tồn tại. Không chạy helper 1.5/1.6 cho config numbered hoặc hồ sơ schema 2; dùng package đã nâng lên 1.7 trên từng adapter.
+
+Biên bản nằm ngoài spec, đọc từ `sources` đã cấu hình. Helper không tạo thư mục meeting cho cả config cũ và mới. Không tự xóa thư mục legacy đã có nếu chưa được giao migration.
 
 ## Migration chỉ lập kế hoạch
 
