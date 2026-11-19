@@ -91,8 +91,8 @@ def source_sections(text):
 EXPECTED_FUNCTIONS = {
     'crm-setup-project', 'crm-define-capability', 'crm-specify-epic',
     'crm-design-solution', 'crm-prepare-stories', 'crm-review-specification',
-    'crm-prepare-baseline', 'crm-check-readiness', 'crm-check-handoff',
-    'crm-check-completion', 'crm-assess-change', 'crm-report-status', 'crm-run-pilot',
+    'crm-check-readiness', 'crm-check-handoff',
+    'crm-check-completion', 'crm-assess-change',
 }
 EXPECTED_AGENTS = {
     'crm-guide', 'crm-requirements-analyst', 'crm-solution-architect',

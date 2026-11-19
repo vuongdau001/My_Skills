@@ -11,8 +11,8 @@ import unittest
 sys.dont_write_bytecode = True
 PACK = Path(__file__).resolve().parents[2]
 TOOL = PACK/'scripts/kit.py'
-NUMBERED = ['00-project','01-capabilities','02-epics','03-stories','04-tasks','05-reviews','06-baselines','07-reports','08-pilot','09-prototypes']
-LEGACY = ['00-project','capabilities','epics','stories','tasks','reviews','baselines','reports','pilot']
+NUMBERED = ['00-project','01-capabilities','02-epics','03-stories','04-tasks','05-reviews','06-prototypes']
+LEGACY = ['00-project','capabilities','epics','stories','tasks','reviews']
 
 
 class LayoutAndRecordTests(unittest.TestCase):
@@ -179,7 +179,7 @@ class LayoutAndRecordTests(unittest.TestCase):
         self.assertTrue(any(r['suggested_link']=='../02-epics/e.md' for r in result['link_rewrites']))
         self.assertTrue(any(r['path']=='README.md' for r in result['link_rewrites']))
         self.assertTrue(result['locator_or_hash_impacts'])
-        self.assertIn('spec/baselines/b.md',result['historical_records_to_preserve'])
+        self.assertIn('spec/baselines/b.md',result['evidence_to_recheck'])
         self.assertEqual(result['snapshot_sha256'],self.cli('plan-layout')['snapshot_sha256'])
 
     def test_plan_reports_collision_and_symlink_without_merging(self):
@@ -266,7 +266,7 @@ class LayoutAndRecordTests(unittest.TestCase):
     def test_invalidated_assumption_and_risk_acceptance_are_not_validation(self):
         self.config();p=self.put('00-project/a.md',self.record(state='Invalidated',owner='BA',validation_result='Provider absent',evidence=[self.evidence(self.root/'00-project/a.md')],risk_acceptance='Approved'))
         s=self.root/'03-stories/story.md';self.story([self.trace(s,p,'ASM-CRM-001')])
-        self.assertIn('record-obligation',self.codes(self.lint('--gate','baseline','--target','STORY-CRM-001',code=1)))
+        self.assertIn('record-obligation',self.codes(self.lint('--gate','readiness','--target','STORY-CRM-001',code=1)))
 
     def test_gate_target_closure_excludes_unrelated_open_record(self):
         self.config();self.put('00-project/a.md',self.record());self.story()
@@ -297,7 +297,7 @@ class LayoutAndRecordTests(unittest.TestCase):
         meta=self.record('Decision','Approved',authority='Owner',decided_at='2026-11-04T10:00:00+07:00',evidence=[dict(path='https://example.invalid/notes',revision='r1',sha256='0'*64)])
         self.put('00-project/d.md',meta)
         self.assertIn('external-evidence-unverified',self.codes(self.lint()))
-        self.assertIn('gate-evidence-unverified',self.codes(self.lint('--gate','baseline','--target','DEC-CRM-001',code=1)))
+        self.assertIn('gate-evidence-unverified',self.codes(self.lint('--gate','readiness','--target','DEC-CRM-001',code=1)))
         meta['record']['evidence'][0]['path']='../../../../escape.md';self.put('00-project/d.md',meta)
         self.assertIn('reference-path',self.codes(self.lint(code=1)))
 
@@ -314,9 +314,9 @@ class LayoutAndRecordTests(unittest.TestCase):
         old_meta=self.record('Decision','Superseded',trace_links=[self.trace(old,new,'DEC-CRM-002',relation='superseded-by')])
         new_meta=self.record('Decision','Approved',identity='DEC-CRM-002',authority='Business',decided_at='2026-11-04T10:00:00+07:00',evidence=[self.evidence(new)],trace_links=[self.trace(new,old,'DEC-CRM-001',relation='supersedes')])
         self.put('00-project/old.md',old_meta);self.put('00-project/new.md',new_meta)
-        self.assertTrue(self.lint('--gate','baseline')['valid'])
+        self.assertTrue(self.lint('--gate','readiness')['valid'])
         s=self.root/'03-stories/story.md';self.story([self.trace(s,old,'DEC-CRM-001')])
-        self.assertIn('record-obligation',self.codes(self.lint('--gate','baseline','--target','STORY-CRM-001',code=1)))
+        self.assertIn('record-obligation',self.codes(self.lint('--gate','readiness','--target','STORY-CRM-001',code=1)))
 
     def test_supersession_cycle_and_missing_replacement_detected(self):
         self.config();self.put('00-project/old.md',self.record('Decision','Superseded'))

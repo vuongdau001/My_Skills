@@ -149,18 +149,18 @@ class EpicUseCaseTests(unittest.TestCase):
         self.story(identity=EPIC, relation='parent', locator='')
         self.assertIn('epic-legacy', self.codes())
         self.assertIn('epic-legacy', self.codes('--gate', 'readiness', '--target', STORY, code=1))
-        self.assertIn('epic-legacy', self.codes('--gate', 'baseline', '--target', 'EPIC-CRM-099', code=1))
+        self.assertIn('epic-legacy', self.codes('--gate', 'readiness', '--target', 'EPIC-CRM-099', code=1))
         self.epic()
         self.story()
-        self.assertNotIn('epic-legacy', self.codes('--gate', 'baseline', '--target', STORY))
-        self.assertIn('epic-legacy', self.codes('--gate', 'baseline', code=1))
+        self.assertNotIn('epic-legacy', self.codes('--gate', 'readiness', '--target', STORY))
+        self.assertIn('epic-legacy', self.codes('--gate', 'readiness', code=1))
 
     def test_verification_link_includes_epic_in_gate_closure(self):
         self.artifact(EPIC_PATH, dict(schema_version=2, kind='Epic', artifact_id=EPIC, revision='r1'))
         self.artifact('spec/06-baselines/baseline.md', dict(
             schema_version=2, kind='Baseline', artifact_id='BASE-CRM-001', revision='r1',
             trace_links=[dict(id=EPIC, path='../02-epics/epic.md', relation='verifies', revision='r1')]))
-        self.assertIn('epic-legacy', self.codes('--gate', 'baseline', '--target', 'BASE-CRM-001', code=1))
+        self.assertIn('epic-legacy', self.codes('--gate', 'readiness', '--target', 'BASE-CRM-001', code=1))
 
     def test_reopen_preserves_id_and_excludes_snapshot_but_rejects_stale_story(self):
         old = self.epic(work_status='done')
@@ -172,7 +172,7 @@ class EpicUseCaseTests(unittest.TestCase):
             self.story(revision='r2', locator=locator)
             self.assertEqual(self.codes('--target', STORY, code=1), {'trace-use-case-locator'})
         self.story(revision='r2')
-        self.assertEqual(self.codes('--gate', 'baseline', '--target', STORY), set())
+        self.assertEqual(self.codes('--gate', 'readiness', '--target', STORY), set())
         self.assertIn('"revision": "r1"', snapshot.read_text(encoding='utf-8'))
 
     def test_example_is_structurally_valid_even_if_expected_result_is_missing(self):
@@ -187,9 +187,9 @@ class EpicUseCaseTests(unittest.TestCase):
         self.epic()
         workflows = {
             'define-capability': 'Capability', 'specify-epic': 'Epic', 'design-solution': 'Epic',
-            'prepare-stories': 'Epic', 'review-specification': 'Epic', 'prepare-baseline': 'Epic',
+            'prepare-stories': 'Epic', 'review-specification': 'Epic',
             'check-readiness': 'Story', 'check-handoff': 'Story', 'check-completion': 'Story',
-            'assess-change': 'Epic', 'report-status': 'Epic',
+            'assess-change': 'Epic',
         }
         for workflow, kind in workflows.items():
             with self.subTest(workflow=workflow):

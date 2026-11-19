@@ -16,7 +16,7 @@ Quality Reviewer chủ trì góc nhìn AI. Quyền nội dung và gate theo [aut
 
 ## Required Inputs
 
-Target Story/Task, selected scope/revision, baseline refs khi áp dụng, policy/approval evidence, plan/checklist, owners/dependencies/capacity và data/env/access.
+Target Story/Task, selected scope/revision, revision áp dụng refs khi áp dụng, policy/approval evidence, plan/checklist, owners/dependencies/capacity và data/env/access.
 
 Context chung: target/logical ID, selected scope, input revision/canonical locations, policy refs/effective scope và quyền đọc/sửa. Sources chưa có thì ghi chưa xác định; không bịa commit/Jira key/actor hoặc evidence.
 
@@ -28,13 +28,13 @@ Biên bản là input: đọc file trong thư mục nguồn đã khai ở workst
 
 ## Execution Steps
 
-Áp dụng [policy Epic–Use Case](../references/epic-use-case-policy.md). Kiểm baseline hiện hành và quan hệ Story → Epic → Use Case, scope, revision, nhánh, controls và evidence đúng delta. Chạy lint readiness theo target. Assessment legacy chỉ chứng minh phép đánh giá theo phương pháp cũ, cần reassessment theo use-case-v1 để dùng cho readiness mới.
+Áp dụng [policy Epic–Use Case](../references/epic-use-case-policy.md). Kiểm revision áp dụng hiện hành và quan hệ Story → Epic → Use Case, scope, revision, nhánh, controls và evidence đúng delta. Chạy lint readiness theo target. Assessment legacy chỉ chứng minh phép đánh giá theo phương pháp cũ, cần reassessment theo use-case-v1 để dùng cho readiness mới.
 
-Với Story UI, kiểm đúng Prototype và walkthrough trong baseline đã xác nhận, đối chiếu Screen/Scenario IDs và BR/AC với scope Story. Nếu thiếu hoặc stale, ghi DoR bị chặn và chuyển lại author/baseline theo impact. Khi scope không có UI, dùng disposition và contract từ baseline. Xem [standard Prototype](../references/prototype-workflow-and-epic-gate.md).
+Với Story UI, kiểm đúng Prototype và walkthrough trong revision áp dụng đã xác nhận, đối chiếu Screen/Scenario IDs và BR/AC với scope Story. Nếu thiếu hoặc stale, ghi DoR bị chặn và chuyển lại author/revision áp dụng theo impact. Khi scope không có UI, dùng disposition và contract từ revision áp dụng. Xem [standard Prototype](../references/prototype-workflow-and-epic-gate.md).
 
 Chạy helper lint --gate readiness --target <target-id> với đúng repo/workstream khi có config; ghi record_obligations, record_impacts và stale refs vào check record. Nếu không chạy được thì ghi phần chưa kiểm. Helper chỉ kiểm cấu trúc/declared record dependencies; các điều kiện DoR và authority bên dưới vẫn phải được xét riêng. Không sửa target/record nguồn để đóng findings trong workflow này.
 
-1. Mở canonical refs và xác nhận input revision đúng baseline scope; Task spike dùng brief/output/timebox phù hợp, không ép có solution biết trước.
+1. Mở canonical refs và xác nhận input revision đúng revision áp dụng scope; Task spike dùng brief/output/timebox phù hợp, không ép có solution biết trước.
 2. Chọn DoR Story hoặc Task; đối chiếu từng điều kiện với actual evidence, không dựa chỉ Jira todo hoặc label ready.
 3. Với Story kiểm S01–S12 và relevant model/check findings còn hiệu lực; với Task dùng T01–T08 và input/output dependency.
 4. Kiểm kế hoạch thực hiện hiện có, owners/reviewers/capacity và dependency tại bước bắt đầu; policy bắt buộc Pending thì giữ phần gate chưa đạt.
@@ -67,14 +67,16 @@ Dev/QA xác nhận sẵn sàng, PM chốt planning theo gate; agent record khôn
 
 Tách output prepared / review performed / authority approval / actual action confirmed. Thiếu evidence thì verdict đúng phần là Chưa kiểm; có gap/counterexample là Không đạt; N/A cần reason/reviewer. Không dùng workflow complete thay gate verdict. Next function là đề xuất, không là quyền thực hiện bước mới.
 
-**Next functions:** [crm-prepare-stories](crm-prepare-stories.md), [crm-design-solution](crm-design-solution.md), [crm-prepare-baseline](crm-prepare-baseline.md)
+**Next functions:** [crm-prepare-stories](crm-prepare-stories.md), [crm-design-solution](crm-design-solution.md), crm-check-readiness
 
 ## Failure & Rework
 
-Thiếu baseline/policy/access thì ghi điều kiện thiếu; không tạo Task hay tự điền rule để làm target Ready. Sau correction, đọc lại affected revision và kiểm lại scope liên quan. Giữ old findings/approval/evidence như lịch sử, không tự tái dùng cho nội dung mới. Khi thiếu quyền/tool/access, ghi giới hạn thay vì báo đã làm.
+Thiếu revision áp dụng/policy/access thì ghi điều kiện thiếu; không tạo Task hay tự điền rule để làm target Ready. Sau correction, đọc lại affected revision và kiểm lại scope liên quan. Kết quả cũ không áp dụng cho revision mới; đánh giá lại trong record hiện hành, lịch sử qua Git. Khi thiếu quyền/tool/access, ghi giới hạn thay vì báo đã làm.
 
 ## Usage Examples
 
-> Dùng crm-check-readiness kiểm Story này theo baseline, ghi evidence từng điều kiện; Story nhỏ hiện chỉ có checklist và không có Task.
+> Dùng crm-check-readiness kiểm Story này theo revision áp dụng, ghi evidence từng điều kiện; Story nhỏ hiện chỉ có checklist và không có Task.
 
 Kết quả mong đợi: DoR check record, evidence/gap list, gate impact và next actions; không thay target hoặc Jira state. Record phải chỉ đúng scope/revision, evidence đã xem và phần chưa kiểm. Phản ví dụ cần tránh: kết luận gate/ticket Done chỉ vì agent đã hoàn tất câu trả lời hoặc đổi profile.
+
+Áp dụng [hồ sơ hiện hành](../references/current-state-and-history.md): cập nhật vị trí canonical theo target/scope, không tạo file theo lần chạy hoặc timeline. Review/check không tự sửa target; evidence stale phải được đánh giá lại.

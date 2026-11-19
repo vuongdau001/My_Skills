@@ -23,7 +23,7 @@ Context chung: target/logical ID, selected scope, input revision/canonical locat
 
 ## Input Check
 
-Bắt đầu bằng [xác định vị trí lát cắt trong dự án](../references/source-scope-and-decomposition-checkpoint.md#project-placement). Đọc Function List, capability map hoặc baseline liên quan và đối chiếu Capability/Epic hiện có cùng các nhóm liền kề. Khi cây trống, dùng nguồn dự án để đề xuất cấp cha. Với prompt hẹp, chỉ rà phần cần để chọn cấp và giải thích ranh giới. Nếu chưa có ID, có thể nạp context để đọc hướng dẫn và nguồn trước khi xác định target ghi.
+Bắt đầu bằng [xác định vị trí lát cắt trong dự án](../references/source-scope-and-decomposition-checkpoint.md#project-placement). Đọc Function List, capability map hoặc revision áp dụng liên quan và đối chiếu Capability/Epic hiện có cùng các nhóm liền kề. Khi cây trống, dùng nguồn dự án để đề xuất cấp cha. Với prompt hẹp, chỉ rà phần cần để chọn cấp và giải thích ranh giới. Nếu chưa có ID, có thể nạp context để đọc hướng dẫn và nguồn trước khi xác định target ghi.
 
 Chọn một đầu ra **trước khi đề xuất Capability mới, gọi `next-id CAP`, soạn C01–C08 hoặc ghi file**:
 
@@ -82,10 +82,12 @@ Tách output prepared / review performed / authority approval / actual action co
 
 ## Failure & Rework
 
-Outcome/authority chưa rõ thì ghi missing decision; không ép KPI số hoặc baseline toàn Capability trước khi có scope độc lập. Sau correction, đọc lại affected revision và kiểm lại scope liên quan. Giữ old findings/approval/evidence như lịch sử, không tự tái dùng cho nội dung mới. Khi thiếu quyền/tool/access, ghi giới hạn thay vì báo đã làm.
+Outcome/authority chưa rõ thì ghi missing decision; không ép KPI số hoặc revision áp dụng toàn Capability trước khi có scope độc lập. Sau correction, đọc lại affected revision và kiểm lại scope liên quan. Kết quả cũ không áp dụng cho revision mới; đánh giá lại trong record hiện hành, lịch sử qua Git. Khi thiếu quyền/tool/access, ghi giới hạn thay vì báo đã làm.
 
 ## Usage Examples
 
 > Dùng crm-define-capability làm rõ nhu cầu này, chỉ ra outcome, scope và Epic candidates; giữ các quyết định chưa xác nhận.
 
 Kết quả mong đợi là phân loại có căn cứ trước khi soạn. Nếu nguồn chỉ ra một mục tiêu sử dụng trong năng lực rộng hơn, trả Epic ứng viên, cấp cha và phần còn cần xác nhận.
+
+Áp dụng [hồ sơ hiện hành](../references/current-state-and-history.md): cập nhật vị trí canonical theo target/scope, không tạo file theo lần chạy hoặc timeline. Review/check không tự sửa target; evidence stale phải được đánh giá lại.

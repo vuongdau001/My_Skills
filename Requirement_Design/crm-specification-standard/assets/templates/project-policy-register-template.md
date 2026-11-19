@@ -6,7 +6,7 @@ Mã tài liệu: **TPL-POLICY** · Gói CRM 1.10.0 · 05/11/2026
 
 **Bố cục:** Bảng chỉ làm index ngắn; policy dài tách từng ID với applicability/authority/evidence/gap. Không làm Pending trông như Approved. Xem [phân cấp Markdown chung](../../references/artifact-writing-standard.md#13-phân-cấp-thị-giác-bằng-markdown-thuần).
 
-Mở bằng mục đích, phạm vi và tình trạng hiệu lực chung. Ghi project/workstream, revision, owner/authority, nguồn tổ chức/hợp đồng, effective date và baseline nào dùng register.
+Mở bằng mục đích, phạm vi và tình trạng hiệu lực chung. Ghi project/workstream, revision, owner/authority, nguồn tổ chức/hợp đồng, effective date và revision áp dụng nào dùng register.
 
 Đọc [policy guide](../../references/project-policy-register.md); dùng các POL IDs chuẩn. Không lấy policy của kit/ví dụ làm policy dự án đã duyệt.
 
@@ -33,3 +33,5 @@ Mỗi policy một mục:
 Ghi điều khoản/version, scope/revision, lý do/tác động, compensating checks, điều kiện không được miễn, authority/decision, expiry và owner xem lại. Chưa duyệt thì chưa được coi đã miễn.
 
 Kết thúc bằng metadata Project/record phù hợp; chưa có approval vẫn giữ Pending.
+
+Áp dụng [hồ sơ hiện hành](../../references/current-state-and-history.md): cập nhật vị trí canonical theo target/scope, không tạo file theo lần chạy hoặc timeline. Review/check không tự sửa target; evidence stale phải được đánh giá lại.

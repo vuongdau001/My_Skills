@@ -22,13 +22,13 @@ class PrototypeTests(unittest.TestCase):
         self.repo = Path(temp.name)
         self.epic = 'spec/02-epics/contact.md'
         self.review = 'spec/05-reviews/contact.md'
-        self.bundle = 'spec/09-prototypes/customer-contact/'
+        self.bundle = 'spec/06-prototypes/customer-contact/'
         self.manifest = self.bundle + 'manifest.json'
         self.asset = self.bundle + 'assets/style.css'
         self.config()
 
     def config(self, enabled=True):
-        workstream = dict(id='p3', spec_root='spec', layout='numbered', sources=[], read_only=[])
+        workstream = dict(id='p3', spec_root='spec', layout='numbered', layout_version=3, sources=[], read_only=[])
         if enabled:
             workstream['prototype_gate'] = True
         self.put_json('.agents/crm-spec-kit.json', dict(schema_version=1, kit_id='crm-specification-standard',
@@ -58,7 +58,7 @@ class PrototypeTests(unittest.TestCase):
         return json.loads(result.stdout)
 
     def gate(self, target=EPIC, code=0):
-        return self.cli('lint', '--gate', 'baseline', '--target', target, code=code)
+        return self.cli('lint', '--gate', 'readiness', '--target', target, code=code)
 
     def fixture(self, state='required', *, revision='r1', scenario_ref=EPIC+'#create', legacy=False):
         selection = dict(applicability=state, scope=SCOPE, review=self.review.removeprefix('spec/'))
@@ -99,14 +99,14 @@ class PrototypeTests(unittest.TestCase):
         self.assertEqual(self.gate(code=1)['issues'][0]['code'], 'epic-legacy')
         self.cli('lint')
 
-    def test_baseline_requires_trace_to_epic(self):
+    def test_readiness_requires_trace_to_epic(self):
         self.fixture()
-        package = 'spec/06-baselines/contact.md'
-        self.put_meta(package, kind='Baseline', artifact_id='BASE-CRM-001', revision='r1')
-        self.gate('BASE-CRM-001', code=1)
-        self.put_meta(package, kind='Baseline', artifact_id='BASE-CRM-001', revision='r1',
+        package = 'spec/05-reviews/contact-check.md'
+        self.put_meta(package, kind='Review', artifact_id='RUN-CRM-001', revision='r1')
+        self.gate('RUN-CRM-001', code=1)
+        self.put_meta(package, kind='Review', artifact_id='RUN-CRM-001', revision='r1',
                       trace_links=[dict(id=EPIC, path='../02-epics/contact.md', revision='r1', relation='depends-on')])
-        self.gate('BASE-CRM-001')
+        self.gate('RUN-CRM-001')
 
     def test_use_case_allocation_checks_locator_and_revision(self):
         self.fixture(scenario_ref=EPIC+'#missing')
@@ -155,4 +155,4 @@ class PrototypeTests(unittest.TestCase):
         standard = next(file for file in context['files'] if file['path'].endswith('prototype-workflow-and-epic-gate.md'))
         self.assertIn('nhắc người dùng cung cấp chỉ dẫn và mẫu', standard['content'])
         self.assertIn('Tái dùng file', standard['content'])
-        self.assertEqual(context['workstream']['artifact_paths']['prototypes'], '09-prototypes')
+        self.assertEqual(context['workstream']['artifact_paths']['prototypes'], '06-prototypes')

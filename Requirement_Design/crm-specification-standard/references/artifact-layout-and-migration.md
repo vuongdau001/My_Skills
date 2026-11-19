@@ -1,66 +1,36 @@
-# Thứ tự thư mục và chuyển layout
+# Layout và migration hồ sơ
 
-ID: CRM-LAYOUT · CRM Workflow Kit 1.7.0 · 04/11/2026
+ID: CRM-LAYOUT · CRM Workflow Kit 3.0.0
 
-Đọc khi cài mới, chọn vị trí ghi hoặc chuyển cấu trúc tài liệu. Cấu trúc áp dụng chung mọi adapter; không phụ thuộc Codex UI.
+Lấy path từ context artifact_paths, không hard-code số thư mục trong workflow.
 
-## Layout và ID
-
-Workstream mới mặc định layout numbered:
+## Workstream mới
 
 ```text
-spec/
-  00-project/
-    02-decisions/
-    03-assumptions/
-    04-constraints/
-  01-capabilities/
-  02-epics/
-  03-stories/
-  04-tasks/
-  05-reviews/
-  06-baselines/
-  07-reports/
-  08-pilot/
-  09-prototypes/
+00-project/
+  02-decisions/
+  03-assumptions/
+  04-constraints/
+01-capabilities/
+02-epics/
+03-stories/
+04-tasks/
+05-reviews/
+06-prototypes/
 ```
 
-Số ở folder là thứ tự đọc theo nhóm, không priority hoặc tiến độ. File dùng ID ổn định, ví dụ EPIC-CRM-002-contact-relationships.md; không thêm số thứ tự thứ hai. Story có thể đổi parent mà giữ ID. Cây thư mục phẳng theo loại; hierarchy và dependency nằm ở allocation/trace_links, không suy từ số hoặc tên file. Task chỉ được tạo khi có nhu cầu giao việc thật.
+Workstream mới có layout_version: 3, record_schema_version: 3 và prototype_gate: true. Nếu tắt prototype_gate mà không override prototypes thì helper không scaffold category này. Legacy layout dùng các tên không đánh số: capabilities, epics, stories, tasks, reviews, prototypes và 00-project.
 
-Config schema 1 tiếp tục được đọc. Workstream thiếu layout được hiểu là legacy, dùng 00-project/capabilities/epics/stories/tasks/reviews/baselines/reports/pilot/prototypes. Prototype scaffold được tạo khi `prototype_gate: true`. Workstream mới bật mặc định. Với workstream cũ, bật trong config theo [quy trình Prototype](prototype-workflow-and-epic-gate.md), rồi scaffold lại bằng install --apply. Install lại hoặc update package không tự thêm field, đổi path hoặc rewrite hồ sơ của workstream cũ. `--layout legacy` chọn layout không đánh số cho workstream mới. Cả hai layout dùng category capabilities.
+## Workstream hiện hữu
 
-Workstream mới ghi layout và record_schema_version=3. Field artifact_paths tùy chọn override theo category; mọi giá trị là path POSIX tương đối từ spec_root, không overlap, không ẩn/tool directory hoặc thoát repo. Ví dụ cấu hình workstream:
+Config thiếu layout tiếp tục là legacy; config thiếu layout_version giữ vị trí Prototype numbered cũ là 09-prototypes. Update/install không tự đổi config, rename thư mục, xóa dữ liệu hoặc rewrite scoped instructions. Layout version chỉ nhận 2 hoặc 3; migration có chủ đích mới chuyển lên 3. DEC/ASM/CST schema cũ vẫn đọc; update không chuyển business records sang schema mới.
 
-```json
-{
-  "id": "p3",
-  "title": "CRM Phase 3",
-  "spec_root": "phase-3/spec",
-  "layout": "numbered",
-  "record_schema_version": 3,
-  "artifact_paths": {"reports": "07-reports"},
-  "sources": [],
-  "read_only": []
-}
-```
+Không còn keys baselines, reports, pilot trong artifact_paths. Config override các key đã bỏ cần được chủ repo đối soát và bỏ trước nâng cấp; helper báo lỗi rõ, không đoán vị trí thay thế. Các thư mục cũ vẫn nằm nguyên và doctor cảnh báo để migration riêng.
 
-Helper context trả artifact_paths đã resolve trong workstream. Dùng map này khi ghi; không hardcode epics hoặc 02-epics trong workflow. Lint nhận cả hai tên chuẩn và custom map để migration không làm mất cảnh báo metadata. Doctor kiểm scaffold theo config, không suy layout từ số lượng thư mục tồn tại. Không chạy helper 1.5/1.6 cho config numbered hoặc hồ sơ schema 2; dùng package đã nâng lên 1.7 trên từng adapter.
+Các override còn lại phải là thư mục tương đối bên trong spec_root, không overlap nguồn, read_only, tool directory hoặc category khác. Không dùng symlink để vượt boundary.
 
-Biên bản nằm ngoài spec, đọc từ `sources` đã cấu hình. Helper không tạo thư mục meeting cho cả config cũ và mới. Không tự xóa thư mục legacy đã có nếu chưa được giao migration.
+## Plan migration
 
-## Migration chỉ lập kế hoạch
+Chạy kit.py plan-layout --repo <repo> --workstream <id> --to numbered. Helper chỉ trả candidate config (layout_version 3), moves, link rewrites, pin impacts và blockers; không có apply flag. Tên ổn định và ID giữ nguyên khi nghĩa không đổi.
 
-```text
-python3 scripts/kit.py plan-layout --repo <repo-root> --workstream p3 --to numbered
-```
-
-Lệnh này chỉ đọc, không có --apply. Output gồm moves, candidate_config, link_rewrites gợi ý, locator/hash impacts, historical records, blockers và snapshot_sha256 của input/config. Path/ID/hash là dữ liệu, không approval. Custom artifact_paths được bỏ khỏi candidate khi chuyển về một preset; config thật không đổi. Destination có sẵn hoặc symlink cần kiểm riêng, không merge/overwrite tự động.
-
-Các gợi ý link không phải parser hoàn chỉnh cho prose, scripts, HTML hoặc mọi định dạng nguồn. Trước khi chuyển thực tế:
-
-1. Lưu plan; đối chiếu scope và inbound refs ngoài spec_root. Chỉ thực hiện khi user đã giao migration, không coi yêu cầu update package là quyền chuyển hồ sơ.
-2. Xác định snapshots/records đang pin revision/hash/path nào. Giữ bản lịch sử đúng byte tại path cũ hoặc archive có mapping được review; không rewrite receipt/approval cũ và không tạo hai definition hiện hành cùng ID trong spec_root.
-3. Di chuyển bản hiện hành và sửa refs/config theo thay đổi thực tế. File có ref đổi sẽ đổi hash; lập revision mới và đánh giá lại evidence/approval bị ảnh hưởng. Với baseline phải dùng change control; không tự cấp lại approval.
-4. Chạy lại plan trên input mới nếu có thay đổi, rồi doctor/lint và checks của project. Rebaseline scope bị ảnh hưởng chỉ khi đủ authority/evidence. Dùng snapshot read-only ngoài vùng artifact hiện hành nếu cần tránh duplicate definitions.
-
-Không có automatic migration trong bản 1.7. Planner giúp chuẩn bị thay đổi review được, không cam kết baseline cũ còn hiệu lực sau khi move/rewrite. [Baseline/change control](baseline-and-change-control.md) tiếp tục áp dụng.
+Migration riêng phải kiểm file còn dùng trong category đã bỏ, inbound links, revision/hash và kết quả review bị ảnh hưởng. Dữ liệu cũ không tự được archive. Đối chiếu [current-state policy](current-state-and-history.md) và [impact workflow](../workflows/crm-assess-change.md). Sau migration chạy doctor/lint và đánh giá lại evidence đúng scope.

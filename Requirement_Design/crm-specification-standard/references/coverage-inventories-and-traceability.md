@@ -83,7 +83,7 @@ Nhu cầu/Capability
 | MOD-CRM-201 (kind: permission) — deny wrong owner | Không đổi state/data; response đúng | Story… / AC… | Test condition ref cần điền | … |
 | MOD-CRM-202 (kind: data constraint) — maximum length | Biên hợp lệ và vượt biên | Story… / AC… | Test condition ref cần điền | … |
 
-Trước baseline chỉ có thể xác nhận **planned coverage**, chưa được ghi test đã pass. Khi code/test chạy mới có executed coverage và evidence.
+Trước revision áp dụng chỉ có thể xác nhận **planned coverage**, chưa được ghi test đã pass. Khi code/test chạy mới có executed coverage và evidence.
 
 
 <a id="spec-7-3"></a>

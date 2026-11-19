@@ -80,10 +80,12 @@ Tách output prepared / review performed / authority approval / actual action co
 
 ## Failure & Rework
 
-Chưa biết repo hoặc authority thì ghi thiếu input; không tạo repo/project policy đã Approved để lấp khoảng trống. Sau correction, đọc lại affected revision và kiểm lại scope liên quan. Giữ old findings/approval/evidence như lịch sử, không tự tái dùng cho nội dung mới. Khi thiếu quyền/tool/access, ghi giới hạn thay vì báo đã làm.
+Chưa biết repo hoặc authority thì ghi thiếu input; không tạo repo/project policy đã Approved để lấp khoảng trống. Sau correction, đọc lại affected revision và kiểm lại scope liên quan. Kết quả cũ không áp dụng cho revision mới; đánh giá lại trong record hiện hành, lịch sử qua Git. Khi thiếu quyền/tool/access, ghi giới hạn thay vì báo đã làm.
 
 ## Usage Examples
 
 > Tôi là PM. Dùng crm-setup-project rà soát tài liệu dự án này và chuẩn bị policy register cùng các quyết định cần chốt.
 
 Kết quả mong đợi: Draft policy register/context, artifact-location map và missing-decision queue; approval để riêng. Record phải chỉ đúng scope/revision, evidence đã xem và phần chưa kiểm. Phản ví dụ cần tránh: kết luận gate/ticket Done chỉ vì agent đã hoàn tất câu trả lời hoặc đổi profile.
+
+Áp dụng [hồ sơ hiện hành](../references/current-state-and-history.md): cập nhật vị trí canonical theo target/scope, không tạo file theo lần chạy hoặc timeline. Review/check không tự sửa target; evidence stale phải được đánh giá lại.

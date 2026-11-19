@@ -38,3 +38,5 @@ Mảng evidence rỗng ở ví dụ phải được điền trước khi tính; 
 ## Snapshot dependency và báo cáo
 
 Dùng --init của kit 1.9+ để lấy record_dependencies hiện hành; không tự tạo IDs/hash giả. Với record unresolved, map items cần cap, allocation.rationale/reviewer/evidence. items=null giữ Unknown impact và không cấp chỉ số. Sau thay đổi record/evidence, reassess snapshot mới; Validated không tự làm consumer lên 3. Báo cáo --format markdown có declared/effective/rationale/evidence và có thể --output tới file mới trong reports. Không ghi đè record cũ.
+
+Áp dụng [hồ sơ hiện hành](../../references/current-state-and-history.md): cập nhật vị trí canonical theo target/scope, không tạo file theo lần chạy hoặc timeline. Review/check không tự sửa target; evidence stale phải được đánh giá lại.

@@ -4,13 +4,13 @@ Mã tài liệu: **CRM-IDENTIFIERS** · Gói CRM 1.3.1 · 03/11/2026
 
 **Đọc khi:** ghi nhận nguồn/yêu cầu, tạo model/AC, phân bổ sang backlog hoặc đổi scope. **Đầu vào:** nhu cầu/constraints, glossary, scope và authority. **Đầu ra:** requirement register, ID ổn định và quan hệ truy vết đúng phiên bản.
 
-Use Case user-goal thuộc đúng một Epic và dùng Epic ID, revision và path có locator E03 khi truy vết. Giữ Epic ID qua revision của cùng mục tiêu và pin evidence cũ khi mở baseline mới. [Policy Epic–Use Case](epic-use-case-policy.md).
+Use Case user-goal thuộc đúng một Epic và dùng Epic ID, revision và path có locator E03 khi truy vết. Giữ Epic ID qua revision của cùng mục tiêu và pin evidence cũ khi mở revision áp dụng mới. [Policy Epic–Use Case](epic-use-case-policy.md).
 
 ## Loại nội dung không phải cấp ticket
 
 | Loại | Thông tin phải làm rõ và cách kiểm | Nơi duy trì nguồn chuẩn/phạm vi áp dụng | Authority và evidence |
 |---|---|---|---|
-| Business | Vấn đề/cơ hội, kết quả mong muốn, đối tượng hưởng lợi, cách đánh giá; nếu là KPI có baseline/target/method/window hoặc decision pending | Capability hoặc register dùng chung; có thể liên nhiều Capability/Epic | Business/Sponsor theo quyền; source/rationale và phương pháp xác nhận outcome |
+| Business | Vấn đề/cơ hội, kết quả mong muốn, đối tượng hưởng lợi, cách đánh giá; nếu là KPI có revision áp dụng/target/method/window hoặc decision pending | Capability hoặc register dùng chung; có thể liên nhiều Capability/Epic | Business/Sponsor theo quyền; source/rationale và phương pháp xác nhận outcome |
 | Stakeholder | Bên liên quan nghiệp vụ, hoàn cảnh, nhu cầu, kết quả có thể xác nhận và xung đột giữa các nhóm | Capability/Epic hoặc register chung; Story cụ thể hóa phần hành vi | Đại diện và người có thẩm quyền xác nhận nhu cầu đó, cùng ví dụ/read-back và cách xử lý xung đột |
 | Functional | Điều kiện/trigger, action, outcome, quyền/state/data/error áp dụng | Epic/shared models, Story chọn subset/delta | Business chốt nghĩa, TL feasibility, QA testability; model/AC/test conditions |
 | Non-functional | Quality/control, scope, điều kiện đo/inspection, threshold hoặc chuẩn bắt buộc, owner | Shared requirement hoặc Capability/Epic/Story theo phạm vi thật | Business/control/TL tùy nội dung; measurement/control method và evidence yêu cầu |
@@ -20,7 +20,7 @@ Mỗi requirement có `type` từ năm loại trên và `applies_to` theo scope 
 
 ## Chất lượng Business và Stakeholder requirement
 
-Business: đối chiếu source → vấn đề → outcome; hỏi ai nhận lợi ích và điều gì cho thấy đạt. Outcome định lượng có đơn vị, baseline quan sát hoặc kế hoạch thu thập, target được authority chốt, population/window/method. Outcome định tính có điều kiện chấp nhận quan sát được hoặc phương pháp đánh giá rõ. Không ép mọi outcome thành KPI số và không invent target.
+Business: đối chiếu source → vấn đề → outcome; hỏi ai nhận lợi ích và điều gì cho thấy đạt. Outcome định lượng có đơn vị, revision áp dụng quan sát hoặc kế hoạch thu thập, target được authority chốt, population/window/method. Outcome định tính có điều kiện chấp nhận quan sát được hoặc phương pháp đánh giá rõ. Không ép mọi outcome thành KPI số và không invent target.
 
 Với Stakeholder requirement, xác định bên liên quan nghiệp vụ, người đại diện, hoàn cảnh, nhu cầu và ví dụ đáp ứng hoặc phản ví dụ; yêu cầu Dev/QA diễn giải lại. Khi hai nhóm muốn kết quả trái nhau, ghi conflict/authority và đóng decision trước bàn giao scope bị ảnh hưởng.
 
@@ -40,7 +40,7 @@ Dùng dạng `PREFIX-CRM-NNN` (NNN là số có ít nhất ba chữ số; cấp 
 | MTG | Locator legacy của biên bản | Chỉ đọc dữ liệu cũ; không cấp ID hoặc tạo Meeting record mới. Nguồn họp nằm ngoài spec, được dẫn làm evidence cho ASM/DEC/CST. |
 | ASM | Assumption | Căn cứ, owner/cách xác minh, revision, kết quả và scope bị ảnh hưởng nếu sai |
 | CST | Constraint | Ràng buộc có source/authority, scope/hiệu lực và cách kiểm; không thay BR/MOD data constraints đã có |
-| BASE | Baseline manifest | Selected scope, refs/commit và approval; không dùng làm code SHA |
+| BASE | ID legacy đã ngừng cấp mới | Chỉ đọc dữ liệu migration; consumer mới dẫn artifact ID/revision trực tiếp |
 | CAP / EPIC / STORY / TASK | Logical work/scope object | Jira key là mapping riêng; Task chỉ khi cần |
 | TC / RUN | Test case / test run | TC liên AC/requirement; RUN pin testcase/build/config/environment |
 

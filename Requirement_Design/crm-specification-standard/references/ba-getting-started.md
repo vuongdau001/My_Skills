@@ -143,7 +143,7 @@ Khi chuẩn bị Story, chọn subset và pin shared model/rule revision; viết
 
 Dev/QA lập kế hoạch: API/data, UI integration, verification có thể là checklist hoặc Task riêng nếu có nhu cầu giao đầu ra. [Ví dụ quyết định Task](examples/decomposition-and-task-decisions.md) giải thích cả hai cách. Task Done chưa chứng minh Story đáp ứng AC tích hợp.
 
-Review ghi findings, tác giả sửa bằng workflow authoring, rồi review lại revision. Chuẩn bị baseline và approval/merge theo [baseline/change control](baseline-and-change-control.md); kiểm DoR theo [gate](readiness-completion-and-approval-gates.md). Tạo draft, review đặc tả, baseline approval, đủ DoR và runtime acceptance là các kết luận riêng. [Walkthrough baseline → delivery](examples/baseline-to-delivery-walkthrough.md) tiếp tục phần sau của bài học.
+Review ghi findings, tác giả sửa bằng workflow authoring, rồi review lại revision. Chuẩn bị revision áp dụng và approval/merge theo [revision áp dụng/change control](revision-and-change-impact.md); kiểm DoR theo [gate](readiness-completion-and-approval-gates.md). Tạo draft, review đặc tả, revision áp dụng approval, đủ DoR và runtime acceptance là các kết luận riêng. [Walkthrough revision áp dụng → delivery](examples/spec-to-delivery-walkthrough.md) tiếp tục phần sau của bài học.
 
 <a id="depth"></a>
 
@@ -153,13 +153,13 @@ Review ghi findings, tác giả sửa bằng workflow authoring, rồi review l�
 |---|---|---|
 | Mới nhận nhu cầu | Hiểu vấn đề, nguồn, bên liên quan nghiệp vụ, scope sơ bộ và câu hỏi ưu tiên | Chi tiết flow/solution, acceptance chưa chốt ghi Pending |
 | Chọn phạm vi Epic | Có outcome, ranh giới, dependencies và shared controls cần điều tra | Những phạm vi tương lai chưa được chọn có thể giữ draft |
-| Chuẩn bị selected slice để baseline | Requirement/model/solution/AC ảnh hưởng lát cắt đủ rõ, review và decisions đúng authority | Phần độc lập ngoài baseline tiếp tục refinement; ghi disposition và impact |
-| Nhận Story để triển khai | Có baseline/scope, đủ điều kiện DoR, input/quyền/dependency/capacity tương ứng | Dev quyết chi tiết tổ chức code trong constraints; không tự quyết business behavior còn thiếu |
+| Chuẩn bị selected slice để revision áp dụng | Requirement/model/solution/AC ảnh hưởng lát cắt đủ rõ, review và decisions đúng authority | Phần độc lập ngoài revision áp dụng tiếp tục refinement; ghi disposition và impact |
+| Nhận Story để triển khai | Có revision áp dụng/scope, đủ điều kiện DoR, input/quyền/dependency/capacity tương ứng | Dev quyết chi tiết tổ chức code trong constraints; không tự quyết business behavior còn thiếu |
 | Hoàn tất | Có evidence đúng build/revision và acceptance theo gate áp dụng | Lợi ích sau sử dụng được đo theo kế hoạch riêng nếu authority cho phép |
 
 Đây là bảng chỉ đường, không thay gate. Không đòi đóng mọi câu hỏi của cả Capability trước khi làm một scope độc lập. Đồng thời, tất cả yêu cầu áp dụng cho scope được chọn phải được xét: hạng mục “có điều kiện” cần quyết applicability, không tự bỏ vì chưa có thông tin. [Capability theo từng bước](capability-specification-catalog.md), [Epic catalog](epic-specification-catalog.md).
 
-Sau mỗi lượt làm việc, BA nên nói được: “Tôi đang làm target/revision nào; đã làm rõ điều gì; còn quyết định nào chặn phần nào; ai cần trả lời; bước tiếp theo là gì.” Có thể dùng `crm-report-status` để hỏi next step từ hồ sơ hiện hành, không cần tạo report file cho mỗi câu hỏi.
+Sau mỗi lượt làm việc, BA nên nói được: “Tôi đang làm target/revision nào; đã làm rõ điều gì; còn quyết định nào chặn phần nào; ai cần trả lời; bước tiếp theo là gì.” Có thể dùng `hướng dẫn status theo yêu cầu` để hỏi next step từ hồ sơ hiện hành, không cần tạo report file cho mỗi câu hỏi.
 
 ## 5. Nhận ra cách dùng sai và sửa ngay
 
@@ -184,7 +184,7 @@ Bài tập chuyển tình huống: Business yêu cầu “Cho AM xuất danh sá
 
 1. Ba câu hỏi nào cần ưu tiên và vì sao?
 2. Đề xuất một Story outcome, nêu dependency và hai AC candidate.
-3. Có cần Task riêng ngay không? Nội dung nào còn chặn baseline/DoR?
+3. Có cần Task riêng ngay không? Nội dung nào còn chặn revision áp dụng/DoR?
 4. Nếu nhận được một file SRS hiện có, bạn sẽ tái sử dụng nó thế nào?
 
 Gợi ý đối chiếu: ưu tiên data/field permission, nghĩa filter/current-history và giới hạn volume/output. Story có thể là “AM có quyền xuất Contact trong phạm vi được phép theo bộ lọc được chọn”; AC candidate gồm dữ liệu khớp filter trong scope quyền và không lộ field ngoài quyền, nhưng oracle cụ thể vẫn Pending. Task tùy đầu ra/phân công. Tái sử dụng sections/requirements đúng revision của SRS, rà khoảng trống và phân bổ theo outcome; không tạo một Story cho mỗi chương. Có thể có nhiều cách chia hợp lý, miễn giải thích được giá trị và coverage.

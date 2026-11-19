@@ -6,13 +6,13 @@ Mã tài liệu: **CRM-GATES** · Gói CRM 1.3.1 · 03/11/2026
 
 **Đọc khi:** Review chuyển bước; đọc Task guide cho cổng Task.
 
-Dùng các workflows [Check Readiness](../workflows/crm-check-readiness.md), [Check Handoff](../workflows/crm-check-handoff.md), [Check Completion](../workflows/crm-check-completion.md). Chúng lập record đối chiếu, không tự chuyển status hoặc thay authority. [Prepare Baseline](../workflows/crm-prepare-baseline.md) tách package/review/approval/confirmed merge.
+Dùng các workflows [Check Readiness](../workflows/crm-check-readiness.md), [Check Handoff](../workflows/crm-check-handoff.md), [Check Completion](../workflows/crm-check-completion.md). Chúng lập record đối chiếu, không tự chuyển status hoặc thay authority. Readiness đọc trực tiếp spec/revision/evidence hiện hành, không cần package hoặc confirmed merge mặc định.
 
 
 
 <a id="workflow-7"></a>
 
-Gate của phạm vi đang trình áp dụng [policy Epic–Use Case](epic-use-case-policy.md). Kiểm binding, scope/revision, E01–E16 và evidence đúng baseline. Epic legacy thuộc closure cần được chuyển đổi. Assessment theo phương pháp cũ cần được đánh giá lại trước khi dùng cho readiness mới.
+Gate của phạm vi đang trình áp dụng [policy Epic–Use Case](epic-use-case-policy.md). Kiểm binding, scope/revision, E01–E16 và evidence đúng revision áp dụng. Epic legacy thuộc closure cần được chuyển đổi. Assessment theo phương pháp cũ cần được đánh giá lại trước khi dùng cho readiness mới.
 
 ## DoR, AC và DoD của Capability
 
@@ -45,7 +45,7 @@ AC mô tả kết quả nghiệp vụ tổng thể và các luồng liên Epic p
 
 | Mốc | Điều kiện |
 |---|---|
-| Hoàn tất phân tích/phạm vi được khóa | Toàn bộ phạm vi hiện hành đã có yêu cầu, solution, AC và kế hoạch Epic/Story được duyệt tại các baseline tương ứng; không còn câu hỏi chặn |
+| Hoàn tất phân tích/phạm vi được khóa | Toàn bộ phạm vi hiện hành đã có yêu cầu, solution, AC và kế hoạch Epic/Story được duyệt tại các revision áp dụng tương ứng; không còn câu hỏi chặn |
 | Capability Accepted — hoàn tất bàn giao nghiệp vụ | Đủ Epic/phạm vi hiện hành hoàn thành; AC tổng thể và luồng liên Epic đạt; Business nghiệm thu; tài liệu hiện hành cập nhật; vấn đề còn lại được xử lý đúng quyền |
 
 Khóa một phần Capability để làm trước không được báo thành hoàn tất phân tích toàn Capability hoặc Capability Accepted.
@@ -75,15 +75,15 @@ Khóa một phần Capability để làm trước không được báo thành ho
 
 Đây là cổng bàn giao requirement → development của phần scope được chọn:
 
-- [ ] Bộ hồ sơ tại mục [Bộ hồ sơ phải review và merge trước khi tạo Story](baseline-and-change-control.md#workflow-5) đã đủ cho phần được chọn.
+- [ ] Bộ hồ sơ tại mục [Đầu vào Story hiện hành](revision-and-change-impact.md#workflow-5) đã đủ cho phần được chọn.
 - [ ] Đã review các hạng mục E01–E16 của [chuẩn đặc tả](epic-specification-catalog.md); phần áp dụng có output/verdict, N/A có lý do và người xác nhận.
 - [ ] [Prototype](prototype-workflow-and-epic-gate.md) chạy được và walkthrough Đạt đúng scope/revision nếu có tác động UI, hoặc review N/A có evidence nếu scope không tác động UI.
 - [ ] Không còn câu hỏi chặn, bao gồm các rule dùng chung có tác động.
 - [ ] Business/BA xác nhận nội dung; Dev/TL xác nhận solution; QA xác nhận testability theo applicability.
 - [ ] Story candidates có outcome, BR/AC, scope, dependency và estimate; đã review cách chia.
 - [ ] PM đã chốt manifest và bộ đầu ra trên đúng revision.
-- [ ] **PR chứa bộ yêu cầu + solution + manifest của phần scope được chọn đã merge vào Git.**
-- [ ] Có baseline ID, artifact refs, commit và approval refs để ghi vào Story.
+- [ ] Nếu policy dự án yêu cầu merge/approval trước thực thi, đã có evidence đúng scope/revision; kit không mặc định bắt bước này.
+- [ ] Có target ID, artifact refs/revision và approval evidence theo policy dự án; commit refs khi thực tế áp dụng.
 
 Epic vẫn `inprogress` sau khi đạt cổng này. Đạt điều kiện tạo Story không có nghĩa Epic đã Done và không thay DoR Story.
 
@@ -122,10 +122,10 @@ Nếu Capability chỉ có một Epic và đủ cùng phạm vi, có thể dùng
 
 ### DoR để bắt đầu triển khai: `todo` → `inprogress`
 
-- [ ] Story liên kết đúng Epic, Capability và baseline ID/commit.
-- [ ] Các hạng mục S01–S12 của [Catalog Story](story-specification-catalog.md) có nội dung cụ thể hoặc ref hợp lệ; không sao chép làm lệch baseline Epic.
+- [ ] Story liên kết đúng Epic, Capability và revision được sử dụng; commit reference khi có.
+- [ ] Các hạng mục S01–S12 của [Catalog Story](story-specification-catalog.md) có nội dung cụ thể hoặc ref hợp lệ; không sao chép làm lệch revision áp dụng Epic.
 - [ ] Outcome, trong/ngoài scope rõ; BR/AC và ví dụ có expected result.
-- [ ] Solution/contract/UI/data refs phù hợp phạm vi, còn hiệu lực. Với Story UI, mở Prototype/walkthrough đã pin trong baseline và kiểm Screen/Scenario IDs theo scope Story.
+- [ ] Solution/contract/UI/data refs phù hợp phạm vi, còn hiệu lực. Với Story UI, mở Prototype/walkthrough đã pin trong revision áp dụng và kiểm Screen/Scenario IDs theo scope Story.
 - [ ] Dev và QA đã đọc, hiểu khớp; không còn câu hỏi chặn.
 - [ ] Dependency phải có trước khi bắt đầu đã sẵn sàng; dependency cho bước sau có cam kết/kế hoạch rõ và không chặn công việc đang nhận.
 - [ ] Có dữ liệu/môi trường/quyền cần cho bước thực hiện; điều kiện kiểm thử phía sau có owner và lịch sẵn sàng.
@@ -155,11 +155,11 @@ Nếu cần ngưỡng hiệu năng hoặc định nghĩa cụ thể về chuẩn
 
 ### Điều kiện Dev bàn giao QA: `inprogress` → `resolved`
 
-- [ ] Code phù hợp baseline và AC của Story.
+- [ ] Code phù hợp revision áp dụng và AC của Story.
 - [ ] Peer/TL review cần thiết đã đạt trên đúng revision.
 - [ ] Unit/API/permission tests và required CI checks đạt theo [POL-CHECKS — Required checks](project-policy-register.md#pol-checks) và [POL-QUALITY](project-policy-register.md#pol-quality), có ref/version được dự án phê duyệt và evidence đúng revision/build; skipped/not-run không tính Pass.
 - [ ] Build đã được deploy vào môi trường nhận QA; smoke đạt.
-- [ ] Có baseline, code SHA, build/config/environment và hướng dẫn kiểm tra liên quan.
+- [ ] Có revision áp dụng, code SHA, build/config/environment và hướng dẫn kiểm tra liên quan.
 - [ ] QA nhận được bộ bàn giao và dữ liệu/slot kiểm thử cần thiết.
 
 Đây là mốc Dev hoàn tất để QA kiểm chứng, **chưa phải DoD của toàn Story**.
@@ -174,8 +174,8 @@ Nếu cần ngưỡng hiệu năng hoặc định nghĩa cụ thể về chuẩn
 - [ ] Không còn Critical/Major mở, phân loại theo [POL-SEVERITY — Phân loại ảnh hưởng lỗi](project-policy-register.md#pol-severity) và điều kiện đóng theo [POL-QUALITY — Chất lượng và completion](project-policy-register.md#pol-quality); cả hai phải có ref/version và phê duyệt có hiệu lực trong register dự án. Không hạ severity để qua gate.
 - [ ] Minor/known issue còn lại được phân loại theo [POL-SEVERITY](project-policy-register.md#pol-severity), có đánh giá tác động và quyết định xử lý đúng thẩm quyền theo [POL-QUALITY](project-policy-register.md#pol-quality), cùng ref/version/decision evidence của dự án.
 - [ ] Code, migration/config và tài liệu liên quan hoàn tất trong phạm vi Story.
-- [ ] Evidence truy được baseline → code/review/CI → build → test/defect/verdict.
-- [ ] QA xác nhận Pass đúng baseline/build còn hiệu lực.
+- [ ] Evidence truy được revision áp dụng → code/review/CI → build → test/defect/verdict.
+- [ ] QA xác nhận Pass đúng revision áp dụng/build còn hiệu lực.
 - [ ] PM hoặc người được ủy quyền chốt bộ đầu ra đủ điều kiện đóng Story.
 
 Các link POL ở checklist dẫn tới định nghĩa nhóm policy trong bộ chuẩn. Hồ sơ Story phải bổ sung ref/version của policy **thực tế đã được dự án phê duyệt**; link tới hướng dẫn này không tự thay approval. Thiếu policy bắt buộc thì chưa đủ điều kiện đóng.
@@ -192,7 +192,7 @@ Không bắt Business nghiệm thu từng Story; Business nghiệm thu Epic/Capa
 | Khung Capability, Epic và kế hoạch phân tích | BA + PM | Business và leads theo phạm vi | PM trong thẩm quyền; vượt quyền trình Sponsor |
 | Rule/AC nghiệp vụ | BA | Business có thẩm quyền; Dev/QA phản biện | Business quyết nội dung; PM kiểm đủ điều kiện bàn giao |
 | Solution/contract | Dev | Peer/TL theo rủi ro; QA review testability | Technical authority xác nhận; PM không ký thay kết luận kỹ thuật |
-| Baseline trước tạo Story | BA điều phối, Dev/QA bổ sung | Các reviewer theo scope/delta | PM chốt manifest và output; merge theo quyền Git |
+| Nội dung được bàn giao | BA điều phối, Dev/QA bổ sung | Review đúng scope/revision | Authority theo policy dự án; không có package/merge gate mặc định |
 | DoR Story và kế hoạch triển khai | Dev + QA | Leads xác nhận dependency/capacity khi cần | PM chốt planning |
 | DoD Task | Task owner | Reviewer/người nhận được giao | Người được phân công; không mặc định PM cho mọi Task |
 | Story `done` | Dev + QA cung cấp evidence | QA xác nhận AC/test; Dev hoàn tất nghĩa vụ kỹ thuật | PM hoặc backup được ủy quyền chốt output |
@@ -209,7 +209,7 @@ DoR bắt đầu phân tích Epic khác DoR bắt đầu triển khai Story. AC 
 
 **Input kiểm gate:** target/scope/revision, các review records, blocker/dependency, authority/ủy quyền và evidence của bước đó. **Output:** gate decision với bước được phép, revision, reviewer/approver, evidence và reason. Đủ dữ liệu mới xét nội dung; thiếu input hoặc authority không được đi tiếp. Không lấy điểm trung bình bù cho một phép kiểm ngữ nghĩa không đạt.
 
-PM chốt scope/manifest Story; cho phép phân rã Task trong phạm vi đã ủy quyền. Task thường do reviewer/receiver đóng; đổi scope/cam kết/dependency đáng kể phải trình lại PM. Xem [Task DoR/DoD](task-planning-and-completion.md#workflow-10), [status](jira-status-and-progress-reporting.md) và [hard gates](ai-handoff-and-hard-gates.md).
+PM chốt scope/manifest Story; cho phép phân rã Task trong phạm vi đã ủy quyền. Task thường do reviewer/receiver đóng; đổi scope/cam kết/dependency đáng kể phải trình lại PM. Xem [Task DoR/DoD](task-planning-and-completion.md#workflow-10), [status](delivery-status-evidence.md) và [hard gates](ai-handoff-and-hard-gates.md).
 
 
 ## Đầu vào policy và nội dung Capability

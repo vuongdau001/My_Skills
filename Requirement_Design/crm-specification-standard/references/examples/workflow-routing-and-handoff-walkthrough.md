@@ -45,14 +45,12 @@ Với mỗi input: chọn function từ mục tiêu, đọc Input Check/Executio
 
 <a id="wk04"></a>
 
-### WK04 — Approved but Not Merged
+### WK04 — Approval và revision hiện hành
 
-- **Input fixture:** Package scope/reviews/PM decision có refs tại draft r7; chưa có merge receipt/commit đã xác nhận.
-- **Selected function/profile:** crm-prepare-baseline.
-- **Observed decision in desk walkthrough:** Package được chuẩn bị và approval được ghi riêng; thiếu confirmed merge, chưa tạo baseline receipt hợp lệ hoặc cho phép Jira Story thực thi.
-- **Artifacts:** record trong scenario này; không sửa target hoặc thực hiện external action.
-- **Rule evidence:** [crm-prepare-baseline.md](../../workflows/crm-prepare-baseline.md), [baseline-and-change-control.md](../../references/baseline-and-change-control.md).
-- **Handoff:** người nhận đọc target/scope/current revision và thực hiện next action theo protocol; không tự cấp approval.
+- **Input fixture:** Spec r7 và review/authority evidence; chưa có commit đã merge.
+- **Selected function/profile:** crm-check-readiness.
+- **Expected decision:** Kiểm trực tiếp target/scope/revision và policy dự án. Không dựng package/receipt hoặc chặn vì chưa merge nếu policy không yêu cầu. Approval r6 không dùng cho r7.
+- **Write boundary:** findings/readiness record hiện hành; không sửa target hoặc làm external action.
 
 <a id="wk05"></a>
 
@@ -81,21 +79,21 @@ Với mỗi input: chọn function từ mục tiêu, đọc Input Check/Executio
 ### WK07 — Stale Approval
 
 - **Input fixture:** Target draft r8 đã thay quyền; approval chỉ cho r7.
-- **Selected function/profile:** crm-prepare-baseline.
+- **Selected function/profile:** crm-check-readiness.
 - **Observed decision in desk walkthrough:** Giữ approval r7 như lịch sử, không tính cho r8; xác định scope phải impact/review lại.
 - **Artifacts:** record trong scenario này; không sửa target hoặc thực hiện external action.
-- **Rule evidence:** [crm-prepare-baseline.md](../../workflows/crm-prepare-baseline.md), [workflow-execution-protocol.md](../../references/workflow-execution-protocol.md).
+- **Rule evidence:** crm-check-readiness.md, [workflow-execution-protocol.md](../../references/workflow-execution-protocol.md).
 - **Handoff:** người nhận đọc target/scope/current revision và thực hiện next action theo protocol; không tự cấp approval.
 
 <a id="wk08"></a>
 
-### WK08 — Changed Rule After Baseline
+### WK08 — Changed Rule After revision áp dụng
 
 - **Input fixture:** BR trong BASE-CRM-901 được đề nghị đổi; có links tới model, Story và test.
 - **Selected function/profile:** crm-assess-change.
-- **Observed decision in desk walkthrough:** Tạo affected-artifact/evidence list và correction/revalidation plan; không tự áp dụng vào canonical baseline hoặc pin mọi Story sang latest.
+- **Observed decision in desk walkthrough:** Tạo affected-artifact/evidence list và correction/revalidation plan; không tự áp dụng vào canonical revision áp dụng hoặc pin mọi Story sang latest.
 - **Artifacts:** record trong scenario này; không sửa target hoặc thực hiện external action.
-- **Rule evidence:** [crm-assess-change.md](../../workflows/crm-assess-change.md), [baseline-and-change-control.md](../../references/baseline-and-change-control.md).
+- **Rule evidence:** [crm-assess-change.md](../../workflows/crm-assess-change.md), [revision-and-change-impact.md](../../references/revision-and-change-impact.md).
 - **Handoff:** người nhận đọc target/scope/current revision và thực hiện next action theo protocol; không tự cấp approval.
 
 <a id="wk09"></a>
@@ -125,10 +123,10 @@ Với mỗi input: chọn function từ mục tiêu, đọc Input Check/Executio
 ### WK11 — Done Status, Missing Evidence
 
 - **Input fixture:** Jira snapshot ghi Done nhưng evidence QA/acceptance không được cung cấp.
-- **Selected function/profile:** crm-report-status.
+- **Selected function/profile:** hướng dẫn status theo yêu cầu.
 - **Observed decision in desk walkthrough:** Báo discrepancy và dữ liệu chưa xác minh, không tự sửa Jira hoặc suy evidence từ status. Có thể đề xuất check-completion.
 - **Artifacts:** record trong scenario này; không sửa target hoặc thực hiện external action.
-- **Rule evidence:** [crm-report-status.md](../../workflows/crm-report-status.md), [progress-measurement-and-capability-rollup.md](../../references/progress-measurement-and-capability-rollup.md).
+- **Rule evidence:** conversational-status-and-next-step.md, [progress-measurement-and-capability-rollup.md](../../references/progress-measurement-and-capability-rollup.md).
 - **Handoff:** người nhận đọc target/scope/current revision và thực hiện next action theo protocol; không tự cấp approval.
 
 <a id="wk12"></a>
@@ -166,23 +164,20 @@ Với mỗi input: chọn function từ mục tiêu, đọc Input Check/Executio
 
 <a id="wk15"></a>
 
-### WK15 — Missing Pilot Participants
+### WK15 — Commit message trước external action
 
-- **Input fixture:** Có procedure nhưng chưa có Epic thật/participants/authority hoặc quyền.
-- **Selected function/profile:** crm-run-pilot.
-- **Observed decision in desk walkthrough:** Chỉ chuẩn bị kế hoạch và missing input; không ghi pilot thành công hay test hook đã chạy.
-- **Artifacts:** record trong scenario này; không sửa target hoặc thực hiện external action.
-- **Rule evidence:** [crm-run-pilot.md](../../workflows/crm-run-pilot.md), [pilot-and-operational-validation.md](../../references/pilot-and-operational-validation.md).
-- **Handoff:** người nhận đọc target/scope/current revision và thực hiện next action theo protocol; không tự cấp approval.
+- **Input fixture:** User giao commit; message là update, hook chưa bật.
+- **Expected decision:** Đọc commit policy, inspect staged diff và chạy shared validator. Message sai bị từ chối, sửa rồi validate lại. Không dùng --no-verify hoặc tự ghi PASS.
+- **Limits:** Đây là expected behavior cho fixture; không chứng minh một agent bất kỳ hoặc CI thực tế đã được kiểm.
 
 ## Concrete Handoff Record — Missing QA Evidence
 
-Function: crm-check-completion; profile: Quality Reviewer; target: STORY-CRM-901, scope submit; input revision: fixture r7, baseline BASE-CRM-901. Đây chỉ là fixture, không có commit/approval thật.
+Function: crm-check-completion; profile: Quality Reviewer; target: STORY-CRM-901, scope submit; input revision: fixture r7, revision áp dụng BASE-CRM-901. Đây chỉ là fixture, không có commit/approval thật.
 
 | Điều kiện | Evidence trong fixture | Kết quả bàn giấy | Receiver/action |
 |---|---|---|---|
 | CI đúng SHA | Fixture nêu có CI Pass; không truy cập run thật | Có input khai báo, chưa xác minh external run | Dev cung cấp run/build refs để đối soát |
-| QA AC/test matrix | Không có report/run/verdict | Chưa kiểm, không tự coi Pass | QA cung cấp kết quả đúng baseline/build |
+| QA AC/test matrix | Không có report/run/verdict | Chưa kiểm, không tự coi Pass | QA cung cấp kết quả đúng revision áp dụng/build |
 | PM closure | Không có decision | Chưa kiểm | PM chốt khi đủ điều kiện |
 
 Output prepared: check record này. Review performed: desk self-check của tác giả kit. Authority approval: chưa có. Actual closure/action confirmed: chưa có. Next action: bổ sung evidence và chạy lại crm-check-completion; receiver QA/PM theo gate. Không sửa target, không chuyển status, không bịa runtime test.

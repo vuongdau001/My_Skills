@@ -62,14 +62,14 @@ Các section được giữ nội dung và chuyển liên kết. Metadata cũ th
 | workflow §3 | Phân loại và phân cấp requirement | [Mở nội dung](../references/backlog-hierarchy-and-decomposition.md#workflow-3) | retained-and-relinked |
 | workflow §3.1 | Phân loại theo bản chất nội dung | [Mở nội dung](../references/backlog-hierarchy-and-decomposition.md#workflow-3-1) | retained-and-relinked |
 | workflow §3.2 | Phân cấp theo phạm vi và công việc | [Mở nội dung](../references/backlog-hierarchy-and-decomposition.md#workflow-3-2) | retained-and-relinked |
-| workflow §4 | Baseline của cái gì? | [Mở nội dung](../references/baseline-and-change-control.md#workflow-4) | retained-and-relinked |
-| workflow §4.1 | Câu phải dùng trước khi tạo Story | [Mở nội dung](../references/baseline-and-change-control.md#workflow-4-1) | retained-and-relinked |
-| workflow §4.2 | Phân biệt ba tập nội dung được chốt ở ba thời điểm | [Mở nội dung](../references/baseline-and-change-control.md#workflow-4-2) | retained-and-relinked |
-| workflow §4.3 | Phạm vi của một baseline | [Mở nội dung](../references/baseline-and-change-control.md#workflow-4-3) | retained-and-relinked |
-| workflow §5 | Bộ hồ sơ phải review và merge trước khi tạo Story | [Mở nội dung](../references/baseline-and-change-control.md#workflow-5) | retained-and-relinked |
-| workflow §5.1 | Cấu trúc lưu trữ đề xuất | [Mở nội dung](../references/baseline-and-change-control.md#workflow-5-1) | retained-and-relinked |
-| workflow §5.2 | Ví dụ manifest trước khi tạo Story | [Mở nội dung](../references/baseline-and-change-control.md#workflow-5-2) | retained-and-relinked |
-| workflow §6 | Quy trình từ Feature đến Story thực thi | [Mở nội dung](../references/baseline-and-change-control.md#workflow-6) | retained-and-relinked |
+| workflow §4 | Baseline của cái gì? | [Mở nội dung](../references/revision-and-change-impact.md#workflow-4) | retained-and-relinked |
+| workflow §4.1 | Câu phải dùng trước khi tạo Story | [Mở nội dung](../references/revision-and-change-impact.md#workflow-4-1) | retained-and-relinked |
+| workflow §4.2 | Phân biệt ba tập nội dung được chốt ở ba thời điểm | [Mở nội dung](../references/revision-and-change-impact.md#workflow-4-2) | retained-and-relinked |
+| workflow §4.3 | Phạm vi của một baseline | [Mở nội dung](../references/revision-and-change-impact.md#workflow-4-3) | retained-and-relinked |
+| workflow §5 | Bộ hồ sơ phải review và merge trước khi tạo Story | [Mở nội dung](../references/revision-and-change-impact.md#workflow-5) | retained-and-relinked |
+| workflow §5.1 | Cấu trúc lưu trữ đề xuất | [Mở nội dung](../references/revision-and-change-impact.md#workflow-5-1) | retained-and-relinked |
+| workflow §5.2 | Ví dụ manifest trước khi tạo Story | [Mở nội dung](../references/revision-and-change-impact.md#workflow-5-2) | retained-and-relinked |
+| workflow §6 | Quy trình từ Feature đến Story thực thi | [Mở nội dung](../references/revision-and-change-impact.md#workflow-6) | retained-and-relinked |
 | workflow §7 | DoR, AC và DoD của Feature | [Mở nội dung](../references/readiness-completion-and-approval-gates.md#workflow-7) | retained-and-relinked |
 | workflow §7.1 | DoR để bắt đầu làm rõ/phân rã Feature | [Mở nội dung](../references/readiness-completion-and-approval-gates.md#workflow-7-1) | retained-and-relinked |
 | workflow §7.2 | AC cấp Feature | [Mở nội dung](../references/readiness-completion-and-approval-gates.md#workflow-7-2) | retained-and-relinked |
@@ -89,26 +89,26 @@ Các section được giữ nội dung và chuyển liên kết. Metadata cũ th
 | workflow §10.2 | DoD dùng chung | [Mở nội dung](../references/task-planning-and-completion.md#workflow-10-2) | retained-and-relinked |
 | workflow §10.3 | DoD bổ sung theo đầu ra triển khai | [Mở nội dung](../references/task-planning-and-completion.md#workflow-10-3) | retained-and-relinked |
 | workflow §10.4 | Hoạt động refinement và trường hợp nghiên cứu độc lập | [Mở nội dung](../references/task-planning-and-completion.md#workflow-10-4) | retained-and-relinked |
-| workflow §11 | Ý nghĩa từng status Jira và quy tắc chuyển | [Mở nội dung](../references/jira-status-and-progress-reporting.md#workflow-11) | retained-and-relinked |
-| workflow §11.1 | Epic | [Mở nội dung](../references/jira-status-and-progress-reporting.md#workflow-11-1) | retained-and-relinked |
-| workflow §11.2 | Story | [Mở nội dung](../references/jira-status-and-progress-reporting.md#workflow-11-2) | retained-and-relinked |
-| workflow §11.3 | Task | [Mở nội dung](../references/jira-status-and-progress-reporting.md#workflow-11-3) | retained-and-relinked |
-| workflow §11.4 | Dùng `pending`, trả sửa và `cancel` | [Mở nội dung](../references/jira-status-and-progress-reporting.md#workflow-11-4) | retained-and-relinked |
-| workflow §11.5 | Status `resolved` khác trường Resolution của Jira | [Mở nội dung](../references/jira-status-and-progress-reporting.md#workflow-11-5) | retained-and-relinked |
+| workflow §11 | Ý nghĩa từng status Jira và quy tắc chuyển | [Mở nội dung](../references/delivery-status-evidence.md#workflow-11) | retained-and-relinked |
+| workflow §11.1 | Epic | [Mở nội dung](../references/delivery-status-evidence.md#workflow-11-1) | retained-and-relinked |
+| workflow §11.2 | Story | [Mở nội dung](../references/delivery-status-evidence.md#workflow-11-2) | retained-and-relinked |
+| workflow §11.3 | Task | [Mở nội dung](../references/delivery-status-evidence.md#workflow-11-3) | retained-and-relinked |
+| workflow §11.4 | Dùng `pending`, trả sửa và `cancel` | [Mở nội dung](../references/delivery-status-evidence.md#workflow-11-4) | retained-and-relinked |
+| workflow §11.5 | Status `resolved` khác trường Resolution của Jira | [Mở nội dung](../references/delivery-status-evidence.md#workflow-11-5) | retained-and-relinked |
 | workflow §12 | Ai review và ai có quyền chốt? | [Mở nội dung](../references/readiness-completion-and-approval-gates.md#workflow-12) | retained-and-relinked |
 | workflow §13 | Bàn giao baseline cho người và AI như thế nào? | [Mở nội dung](../references/ai-handoff-and-hard-gates.md#workflow-13) | retained-and-relinked |
 | workflow §13.1 | Sau merge, trước và sau tạo ticket | [Mở nội dung](../references/ai-handoff-and-hard-gates.md#workflow-13-1) | retained-and-relinked |
 | workflow §13.2 | Bộ context tối thiểu cho Dev/QA/AI | [Mở nội dung](../references/ai-handoff-and-hard-gates.md#workflow-13-2) | retained-and-relinked |
 | workflow §13.3 | Gate kiểm bằng máy | [Mở nội dung](../references/ai-handoff-and-hard-gates.md#workflow-13-3) | retained-and-relinked |
-| workflow §14 | Thay đổi sau baseline | [Mở nội dung](../references/baseline-and-change-control.md#workflow-14) | retained-and-relinked |
-| workflow §15 | Theo dõi Requirement Backlog và Development Backlog | [Mở nội dung](../references/jira-status-and-progress-reporting.md#workflow-15) | retained-and-relinked |
-| workflow §15.1 | Requirement Backlog | [Mở nội dung](../references/jira-status-and-progress-reporting.md#workflow-15-1) | retained-and-relinked |
-| workflow §15.2 | Development Backlog | [Mở nội dung](../references/jira-status-and-progress-reporting.md#workflow-15-2) | retained-and-relinked |
-| workflow §16 | Ví dụ đi hết một vòng: baseline cụ thể của phần manual | [Mở nội dung](../references/examples/baseline-to-delivery-walkthrough.md#workflow-16) | retained-and-relinked |
-| workflow §16.1 | Feature và Epic | [Mở nội dung](../references/examples/baseline-to-delivery-walkthrough.md#workflow-16-1) | retained-and-relinked |
-| workflow §16.2 | Đầu ra phân tích và solution | [Mở nội dung](../references/examples/baseline-to-delivery-walkthrough.md#workflow-16-2) | retained-and-relinked |
-| workflow §16.3 | PR phải chứa gì? | [Mở nội dung](../references/examples/baseline-to-delivery-walkthrough.md#workflow-16-3) | retained-and-relinked |
-| workflow §16.4 | Sau merge và khi triển khai | [Mở nội dung](../references/examples/baseline-to-delivery-walkthrough.md#workflow-16-4) | retained-and-relinked |
+| workflow §14 | Thay đổi sau baseline | [Mở nội dung](../references/revision-and-change-impact.md#workflow-14) | retained-and-relinked |
+| workflow §15 | Theo dõi Requirement Backlog và Development Backlog | [Mở nội dung](../references/delivery-status-evidence.md#workflow-15) | retained-and-relinked |
+| workflow §15.1 | Requirement Backlog | [Mở nội dung](../references/delivery-status-evidence.md#workflow-15-1) | retained-and-relinked |
+| workflow §15.2 | Development Backlog | [Mở nội dung](../references/delivery-status-evidence.md#workflow-15-2) | retained-and-relinked |
+| workflow §16 | Ví dụ đi hết một vòng: baseline cụ thể của phần manual | [Mở nội dung](../references/examples/spec-to-delivery-walkthrough.md#workflow-16) | retained-and-relinked |
+| workflow §16.1 | Feature và Epic | [Mở nội dung](../references/examples/spec-to-delivery-walkthrough.md#workflow-16-1) | retained-and-relinked |
+| workflow §16.2 | Đầu ra phân tích và solution | [Mở nội dung](../references/examples/spec-to-delivery-walkthrough.md#workflow-16-2) | retained-and-relinked |
+| workflow §16.3 | PR phải chứa gì? | [Mở nội dung](../references/examples/spec-to-delivery-walkthrough.md#workflow-16-3) | retained-and-relinked |
+| workflow §16.4 | Sau merge và khi triển khai | [Mở nội dung](../references/examples/spec-to-delivery-walkthrough.md#workflow-16-4) | retained-and-relinked |
 | workflow §17 | Checklist trước khi áp dụng | [Mở nội dung](../references/pack-acceptance-scenarios.md#workflow-17) | retained-and-relinked |
 | workflow §18 | Tài liệu tham khảo | [Mở nội dung](../references/standards-and-crm-tailoring.md#workflow-18) | retained-and-relinked |
 

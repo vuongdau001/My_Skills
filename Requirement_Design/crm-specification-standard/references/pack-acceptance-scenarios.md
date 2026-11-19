@@ -4,19 +4,19 @@ Mã tài liệu: **CRM-PACK-ACCEPTANCE** · Gói CRM 1.3.1 · 03/11/2026
 
 **Mục đích:** Kiểm tính nhất quán của các tuyến đọc và quyết định.
 
-**Đọc khi:** Kiểm gói sau sửa hoặc pilot bằng hồ sơ thật.
+**Đọc khi:** Kiểm gói sau sửa hoặc kiểm context/scaffold trên repo tạm.
 
 
 <a id="spec-12"></a>
 
-## Các điểm cần xác nhận khi pilot quy trình
+## Các điểm cần xác nhận khi kiểm chất lượng kit
 
 1. Chấp thuận E01–E16 và S01–S12 như bộ kiểm nội dung của dự án, cùng applicability/N/A policy.
 2. Chọn mẫu flow/state/decision/data/permission/AC phù hợp; không ép mọi trường hợp có mọi loại sơ đồ.
 3. Chỉ định authority theo nội dung, người review và cách chốt expected result.
-4. Thống nhất một nguồn chuẩn, pin/ref/ID và planned coverage trước baseline.
+4. Thống nhất một nguồn chuẩn, pin/ref/ID và planned coverage trước revision áp dụng.
 5. Thử review một Epic và một Story thực tế bằng bộ tiêu chí này; sửa những phần thiếu hoặc gây effort không có ích.
-6. Gói hiện tại định nghĩa tuyến đọc, template và giới hạn kiểm máy. Pilot trên hồ sơ thật để điều chỉnh trước khi tích hợp thao tác Jira/Git/CI.
+6. Gói hiện tại định nghĩa tuyến đọc, template và giới hạn kiểm máy. Dùng fixture để kiểm helper; external integration có scope và authority riêng.
 
 Thứ tự này giữ trách nhiệm quyết định ở người có thẩm quyền. Skill hỗ trợ đạt một chuẩn đã hiểu rõ; việc sinh đủ section không được dùng để tự xác nhận requirement đúng và đủ.
 
@@ -28,12 +28,12 @@ Thứ tự này giữ trách nhiệm quyết định ở người có thẩm quy
 - [ ] Thống nhất định nghĩa Capability/Epic/Story/Task và quyền của từng người.
 - [ ] Xác nhận quan hệ Epic–Story–Task thực tế; chọn link nếu không có parent–child phù hợp.
 - [ ] Kiểm transition/status category/Resolution field; bảo đảm `resolved` chưa bị tính thành Story Done theo quy ước dự án.
-- [ ] Chọn repo/branch/path; có template Capability/Epic và baseline manifest.
+- [ ] Chọn repo/branch/path; có template Capability/Epic và revision áp dụng manifest.
 - [ ] Phân công BA/Business/Dev/TL/QA/PM, reviewer và backup có ủy quyền.
 - [ ] Chốt policy DoR/DoD, test/coverage/severity theo phạm vi; không coi ví dụ trong tài liệu là ngưỡng đã duyệt.
 - [ ] Chốt nguồn evidence, quyền và retention; cấu hình required checks/validator/service và các đường bypass.
-- [ ] Pilot một Epic nhỏ, có cả đường bình thường và trường hợp thiếu input/đổi rule/API retry.
-- [ ] Kiểm người nhận tìm được đúng baseline, hiểu đúng AC, biết ai quyết và không bị kẹt ở vòng approval.
+- [ ] Dùng fixture Epic nhỏ, có cả đường bình thường và trường hợp thiếu input/đổi rule/API retry.
+- [ ] Kiểm người nhận tìm được đúng revision áp dụng, hiểu đúng AC, biết ai quyết và không bị kẹt ở vòng approval.
 
 
 ## Acceptance scenarios cho gói 1.2.0
@@ -43,10 +43,10 @@ Các scenario sau là walkthrough quy tắc, không là kết quả thử trên 
 | ID | Input/tình huống | Kết quả bắt buộc | Tuyến kiểm |
 |---|---|---|---|
 | AT01 | Story nhỏ, mọi DoR evidence hợp lệ, không Task | Cho phép nhận triển khai với checklist | Story catalog → gate Story → decomposition |
-| AT02 | Story chưa rõ chống trùng, đã có nhiều Task | Chặn phần liên quan; trả requirement về refinement | Q02/Q07 → baseline change |
+| AT02 | Story chưa rõ chống trùng, đã có nhiều Task | Chặn phần liên quan; trả requirement về refinement | Q02/Q07 → revision áp dụng change |
 | AT03 | Frontend/backend/test được đặt thành ba Story của cùng hành vi | Review lại outcome và chia thành Story hành vi; cân nhắc Task kỹ thuật | Decomposition/INVEST |
-| AT04 | Epic chỉ rõ một scope độc lập; shared rules scope đó đã chốt | Có thể baseline scope đó; phần còn lại chưa Ready | Baseline selected scope → Epic gate |
-| AT05 | Task cần đổi quyền hoặc contract | Change control và review lại; không tự quyết trong Task | Task T01/T03 → baseline change |
+| AT04 | Epic chỉ rõ một scope độc lập; shared rules scope đó đã chốt | Có thể revision áp dụng scope đó; phần còn lại chưa Ready | revision áp dụng selected scope → Epic gate |
+| AT05 | Task cần đổi quyền hoặc contract | Change control và review lại; không tự quyết trong Task | Task T01/T03 → revision áp dụng change |
 | AT06 | Tất cả Task Done, AC tích hợp fail | Story chưa Done | Task guide → Story DoD |
 | AT07 | Story pin revision khác revision được duyệt | Không qua gate cho đến khi đánh giá/đối soát | Q05 → hard gate |
 | AT08 | Chỉ review state transition | Verdict scoped; không cả Story PASS | Review process → D02 |
@@ -59,7 +59,7 @@ Các scenario sau là walkthrough quy tắc, không là kết quả thử trên 
 | AT15 | Story kế thừa shared rule đúng pinned revision | Dẫn subset/ID; không copy tạo rule riêng | Story catalog → Q05 |
 | AT16 | Test hoặc approval cũ của build/revision khác | Không dùng làm evidence Pass cho output mới | Handoff → change control |
 
-**Cách chạy walkthrough:** đọc input và tuyến quy tắc; ghi observed decision, evidence là ref cụ thể, verdict và phần chưa kiểm. Structural validator chỉ kiểm refs/manifest/migration, không tự đánh giá 16 quyết định này. Pilot thực tế cần hồ sơ CRM đã xác định nguồn, đúng authority và cấu hình hệ thống thực tế; không dùng ví dụ thay thế.
+**Cách chạy walkthrough:** đọc input và tuyến quy tắc; ghi observed decision, evidence là ref cụ thể, verdict và phần chưa kiểm. Structural validator chỉ kiểm refs/manifest/migration, không tự đánh giá 16 quyết định này. Kiểm ngữ nghĩa cần source và authority đúng phạm vi; fixtures không thay evidence dự án.
 
 
 ## Kịch bản bổ sung cho gói 1.3
@@ -74,9 +74,9 @@ Các scenario sau là walkthrough quy tắc, không là kết quả thử trên 
 | AT22 | Không có item áp dụng, còn applicability Unknown, hoặc scope tăng trong kỳ | Zero denominator=N/A; Unknown hiện riêng; scope delta và mẫu số phải giải thích | Measurement |
 | AT23 | Task dùng chung, Story cancel nhưng requirement chưa loại khỏi scope | Không đếm effort lặp; giữ scope gap và cancel riêng; không tăng completion giả | Roll-up |
 | AT24 | SLA chưa duyệt hoặc review quá hạn | Báo elapsed age/clock; không tự gán SLA, không tự Approved | Policy → report |
-| AT25 | Gói có hướng dẫn pilot nhưng chưa có hồ sơ/người tham gia thật | Kết luận chưa pilot; không đánh dấu requirement handoff hoặc hook đã đạt | Pilot procedure |
+| AT25 | User hỏi chạy pilot workflow đã bỏ | Báo function không còn hỗ trợ; không tạo Pilot record hoặc folder | Registry 3.0.0 |
 
-Dùng [pilot procedure](pilot-and-operational-validation.md) và [record](../assets/templates/pilot-review-record-template.md) khi có input thật. Structural checks không tự đánh giá các quyết định ngữ nghĩa này.
+Không có pilot procedure/record trong workflow dự án. Structural checks không tự đánh giá các quyết định ngữ nghĩa này.
 
 
 ---
@@ -85,7 +85,7 @@ Dùng [pilot procedure](pilot-and-operational-validation.md) và [record](../ass
 
 ## Workflow Kit Acceptance — 1.4.0
 
-Các case WK01–WK15, input fixtures, quyết định và giới hạn walkthrough nằm ở [Workflow Routing and Handoff Walkthrough](examples/workflow-routing-and-handoff-walkthrough.md). Chúng bao phủ routing, scope, rework, quyền của check workflows, handoff/resume và tính portable; không tự thay pilot thật.
+Các case WK01–WK15, input fixtures, quyết định và giới hạn walkthrough nằm ở [Workflow Routing and Handoff Walkthrough](examples/workflow-routing-and-handoff-walkthrough.md). Chúng bao phủ routing, scope, rework, quyền của check workflows, handoff/resume và tính portable; không chứng minh runtime/authority dự án.
 
 Để review bản phát hành: đọc [Start Here](../START-HERE.md), dùng registry để mở từng function, đối chiếu workflow với case tương ứng; kiểm mỗi function có input/steps/output/receiver/next action, và correction được route về tác giả thay vì check tự sửa target.
 
@@ -103,7 +103,7 @@ Các tình huống này cần agent/reviewer thực hiện khi đánh giá hành
 |---|---|
 | Nguồn công bố 12 dòng estimation; có preview, quyền, approval + downstream và hai dòng cùng nhắc một create form. User yêu cầu chia Capability/Epic/Story. | Kiểm số công bố/đối soát riêng, nhận ra đơn vị không đồng đều và overlap; không tạo 12 Story mặc định; có rationale nhóm và mapping fragment/shared contract, gaps giữ nguyên. Không đòi luôn phải có ít hơn 12 nhóm. |
 | User đề nghị gom import/export vì đều dùng file; actor/quyền, error semantics và acceptance còn khác hoặc chưa biết. | Không coi tên kênh là đủ căn cứ. Giữ phương án có điều kiện hoặc hỏi quyết định ảnh hưởng; lý do chọn/tách truy được. Không tự cấp Approved/Ready. |
-| User chỉ hỏi tiến độ; có số dòng nguồn và allocation draft nhưng chưa có evidence review. | Trả status có nguồn/revision và giới hạn; phân biệt số dòng với scope đã baseline/Ready. Không tự tạo file, rewrite allocation hoặc chạy lại full decomposition. |
+| User chỉ hỏi tiến độ; có số dòng nguồn và allocation draft nhưng chưa có evidence review. | Trả status có nguồn/revision và giới hạn; phân biệt số dòng với scope đã được sử dụng/Ready. Không tự tạo file, rewrite allocation hoặc chạy lại full decomposition. |
 | Có review allocation đúng revision; chỉ một rule thay đổi trong Epic. | Xét delta/impact, tái dùng evidence còn hiệu lực và chỉ kiểm phần liên quan; không bắt làm lại toàn inventory. |
 | Một ví dụ dùng ID đã cấp cho Customer–Contact nhưng gán nghĩa “Tiếp nhận khách hàng mới”. | Phân biệt ví dụ và hồ sơ dự án. Đối chiếu cùng case qua cây phân rã, walkthrough và manifest. Giữ ID nguồn. |
 | Bảng ProjectCodeRequest ghi Denied cho cancel khi PendingApproval, nhưng finding báo thiếu kết quả. | Đối chiếu guard, disposition, contract, AC và finding. Ghi gap contract nếu có, giữ hành vi từ chối đã được mô tả. |
@@ -116,7 +116,7 @@ Dùng input dưới cho phiên mới với kit và context workstream tối thi�
 |---|---|---|
 | LV01 | Đề xuất Capability Tra cứu Customer → Epic Tra cứu hồ sơ từ Customer List → Story Tìm Customer theo quyền. Cả ba cấp chỉ có cùng một lookup và kiểm quyền xem. Review phương án. | Ghi đây là phản ví dụ lặp một mục tiêu. Tên màn hình và điều kiện quyền chưa tạo ranh giới Capability. Chỉ ghi findings và đề xuất đối chiếu cấp cha từ nguồn dự án. |
 | LV02 | Sản phẩm cần tìm kiếm Customer trên nhiều nguồn, tìm cơ bản/nâng cao, lưu truy vấn và quản trị nguồn tìm kiếm; có consumer, contract, phạm vi nghiệm thu riêng. Đề xuất phân cấp. | Cho phép Capability tìm kiếm khi nguồn dự án chứng minh ranh giới, trách nhiệm và tiêu chí nghiệm thu riêng. So với các năng lực liền kề và ghi phần bàn giao đầu tiên. |
-| LV03 | Epic có model/contract và hồ sơ baseline riêng; release này chỉ chọn một Story. Chưa có nhu cầu đã xác nhận cho Story khác. | Không bịa con hoặc reject chỉ vì một–một; giải thích vai trò hồ sơ cha, selected scope và refs kế thừa. |
+| LV03 | Epic có model/contract và hồ sơ revision áp dụng riêng; release này chỉ chọn một Story. Chưa có nhu cầu đã xác nhận cho Story khác. | Không bịa con hoặc reject chỉ vì một–một; giải thích vai trò hồ sơ cha, selected scope và refs kế thừa. |
 | LV04 | Yêu cầu bổ sung filter trạng thái cho danh sách Customer đã có Epic tra cứu. Chỉ author phần thay đổi. | Tìm parent, đề xuất delta trong Epic hiện có và xét sizing có cần Story riêng không; không dựng Capability mới hoặc phân rã lại cả CRM. Giữ policy quyền hiện có. |
 | LV05 | Nguồn có hai màn hình preview/detail nhưng người dùng chỉ đạt mục tiêu xác định đúng hồ sơ khi dùng cả hai; chưa có lợi ích độc lập hay sizing. | Không mặc định hai Story theo screen; giữ lát tích hợp hoặc candidate có điều kiện, nêu gap thực. Không invent value/sizing để tách. |
 | LV06 | Có Epic hồ sơ và Epic quan hệ Customer–Contact. Hành trình tạo Contact rồi gắn vào Customer; thao tác gắn phải tự Active theo rule đã xác nhận. Chọn Use Case và Story. | Phân biệt hành trình xuyên Epic với Use Case/Story; giữ owner/model và dependency tạo Contact. Gắn + auto Active cùng outcome, đọc lại thuộc verification. Không tách kiểm quyền/activation thành Story rời để bỏ control. |
@@ -130,10 +130,10 @@ Dùng input dưới cho phiên mới với kit và context workstream tối thi�
 | UC02 | Requester gửi và Approver xét cùng ProjectCodeRequest. Có nút Approve và Reject. | Hai Epic theo hai mục tiêu. Approve/Reject cùng thuộc Use Case xét duyệt. Shared model giữ lifecycle và quyền áp dụng. |
 | UC03 | Worker dùng bởi Epic gửi và Epic xét duyệt. | Một Task, Epic gửi chịu trách nhiệm, hai consumer có trace tới đầu ra. |
 | UC04 | Use Case lớn có Story submit và Story phục hồi sau timeout. | Có allocation theo scenario/delta, giữ controls, E14 kiểm kết quả tích hợp và không đếm lặp. |
-| UC05 | Đợt đầu đã nghiệm thu. Đợt sau bổ sung tra trạng thái của cùng lần gửi. | Epic ID và anchor còn cùng nghĩa giữ ổn định, baseline/revision mới, evidence cũ truy được, review có impact và rationale tái dùng. |
+| UC05 | Đợt đầu đã nghiệm thu. Đợt sau bổ sung tra trạng thái của cùng lần gửi. | Epic ID và anchor còn cùng nghĩa giữ ổn định, revision mới, evidence cũ truy được, review có impact và rationale tái dùng. |
 | UC06 | Anchor nhánh dữ liệu sai hợp lệ nhưng expected result trống. | Lint có thể đạt. Reviewer ghi finding E03/E14, định vị nhánh và chặn verdict của scope. |
-| UC07 | Hai Epic ở hai spec_root dùng cùng Epic ID hoặc consumer trỏ revision cũ. | Lint phát hiện duplicate hoặc stale-revision. Các Epic khác ID được dùng cùng anchor cục bộ. Snapshot ngoài spec_root nằm ngoài inventory hiện hành. |
-| UC08 | Draft legacy, gồm hồ sơ schema 1/2 và hồ sơ chỉ có heading. | Draft đọc được và báo legacy; baseline/readiness chặn target hoặc closure liên quan. Chuyển đổi giữ ID khi mục tiêu giữ nguyên. |
+| UC07 | Hai Epic ở hai spec_root dùng cùng Epic ID hoặc consumer trỏ revision cũ. | Lint phát hiện duplicate hoặc stale-revision. Các Epic khác ID được dùng cùng anchor cục bộ. Không tạo snapshot song song; lịch sử qua Git. |
+| UC08 | Draft legacy, gồm hồ sơ schema 1/2 và hồ sơ chỉ có heading. | Draft đọc được và báo legacy; revision áp dụng/readiness chặn target hoặc closure liên quan. Chuyển đổi giữ ID khi mục tiêu giữ nguyên. |
 | UC09 | Assessment crm-definition-v2 thiếu marker phương pháp. | Điểm giữ cách tính cũ, output gắn legacy và báo reassessment trước khi dùng cho readiness mới. |
 
 ## Capability và tiếp nhận hồ sơ đã có
@@ -167,4 +167,4 @@ Dùng input dưới cho phiên mới với kit và context workstream tối thi�
 |---|---|---|
 | UL01 | Epic mới khai `artifact_id`, revision và `use_case` có level cùng locator E03. Story dẫn `derived-from` tới Epic và anchor bước. | Lint chấp nhận Epic và trace khi target/revision/anchor khớp. Anchor ngoài E03, anchor thiếu hoặc revision cũ bị phát hiện. |
 | UL02 | Prototype dùng `EPIC-CRM-…#locator` và pin revision ở allocation. Hai Epic khác nhau dùng cùng tên anchor. | Kiểm locator theo đúng Epic và revision. Cùng tên anchor hợp lệ trong các file Epic khác nhau. |
-| UL03 | Epic revision cũ còn `use_case.id`, Story hoặc Prototype vẫn dẫn MOD đã cấp. | Trace hợp lệ tiếp tục đọc được, lint báo cảnh báo cho binding cũ. Khi đổi revision, cập nhật các trace áp dụng và giữ snapshot evidence đã pin. |
+| UL03 | Epic revision cũ còn `use_case.id`, Story hoặc Prototype vẫn dẫn MOD đã cấp. | Trace hợp lệ tiếp tục đọc được, lint báo cảnh báo cho binding cũ. Khi đổi revision, cập nhật các trace áp dụng và lịch sử qua Git và đánh giá lại evidence hiện hành. |

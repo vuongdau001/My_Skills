@@ -88,14 +88,16 @@ Kết luận theo review protocol; focused Đạt không thành full PASS. Ngư�
 
 Tách output prepared / review performed / authority approval / actual action confirmed. Thiếu evidence thì verdict đúng phần là Chưa kiểm; có gap/counterexample là Không đạt; N/A cần reason/reviewer. Không dùng workflow complete thay gate verdict. Next function là đề xuất, không là quyền thực hiện bước mới.
 
-**Next functions:** [crm-specify-epic](crm-specify-epic.md), [crm-design-solution](crm-design-solution.md), [crm-prepare-stories](crm-prepare-stories.md), [crm-prepare-baseline](crm-prepare-baseline.md)
+**Next functions:** [crm-specify-epic](crm-specify-epic.md), [crm-design-solution](crm-design-solution.md), [crm-prepare-stories](crm-prepare-stories.md), crm-check-readiness
 
 ## Failure & Rework
 
-Thiếu source/reviewer ghi Chưa kiểm; contradiction/gap ghi Không đạt. Không hạ criterion hoặc N/A unknown để có kết quả đẹp. Sau correction, đọc lại affected revision và kiểm lại scope liên quan. Giữ old findings/approval/evidence như lịch sử, không tự tái dùng cho nội dung mới. Khi thiếu quyền/tool/access, ghi giới hạn thay vì báo đã làm.
+Thiếu source/reviewer ghi Chưa kiểm; contradiction/gap ghi Không đạt. Không hạ criterion hoặc N/A unknown để có kết quả đẹp. Sau correction, đọc lại affected revision và kiểm lại scope liên quan. Kết quả cũ không áp dụng cho revision mới; đánh giá lại trong record hiện hành, lịch sử qua Git. Khi thiếu quyền/tool/access, ghi giới hạn thay vì báo đã làm.
 
 ## Usage Examples
 
 > Dùng crm-review-specification chỉ kiểm permission của Story này; ghi phần chưa xét và không kết luận toàn Story Ready.
 
 Kết quả mong đợi: Review record, inventory/evidence refs, findings với witness, verdict scoped và correction/handoff actions. Record phải chỉ đúng scope/revision, evidence đã xem và phần chưa kiểm. Phản ví dụ cần tránh: kết luận gate/ticket Done chỉ vì agent đã hoàn tất câu trả lời hoặc đổi profile.
+
+Áp dụng [hồ sơ hiện hành](../references/current-state-and-history.md): cập nhật vị trí canonical theo target/scope, không tạo file theo lần chạy hoặc timeline. Review/check không tự sửa target; evidence stale phải được đánh giá lại.

@@ -1,0 +1,26 @@
+# TEMPLATE ONLY: adapt the installed package path and pin action commit SHAs.
+# Protect this workflow and the validator/policy with appropriate reviews.
+# Required checks + PR rules + restricted bypass must be configured separately.
+name: commit-policy
+on: [pull_request]
+permissions:
+  contents: read
+jobs:
+  commit-policy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4 # Replace with a reviewed immutable action SHA.
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v5 # Replace with a reviewed immutable action SHA.
+        with:
+          python-version: '3.11'
+      - name: Validate every PR commit
+        env:
+          BASE_SHA: ${{ github.event.pull_request.base.sha }}
+          HEAD_SHA: ${{ github.event.pull_request.head.sha }}
+        run: >-
+          python .agents/skills/crm-spec-kit/scripts/commit_policy.py range
+          --repo . --base "$BASE_SHA" --head "$HEAD_SHA"
+# This validates commits already present in the PR, not the final squash message.
+# Enforce final squash/merge messages in the chosen merge mechanism as well.

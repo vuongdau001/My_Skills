@@ -18,7 +18,7 @@ Nêu ai gặp nhu cầu/vấn đề gì, source locator và rationale. Giữ sou
 
 ## C02 — Outcome và cách đánh giá
 
-Mỗi outcome một mục: loại acceptance/lợi ích sau sử dụng, điều kiện quan sát, cách đánh giá, nhóm quan sát, thời gian đo và người phụ trách đo kết quả. KPI có baseline/target/unit nếu được chọn; thiếu thì ghi quyết định Pending.
+Mỗi outcome một mục: loại acceptance/lợi ích sau sử dụng, điều kiện quan sát, cách đánh giá, nhóm quan sát, thời gian đo và người phụ trách đo kết quả. KPI có giá trị ban đầu (baseline), target và đơn vị đo nếu được chọn; thiếu thì ghi quyết định Pending.
 
 ## C03 — Bên liên quan nghiệp vụ
 
@@ -42,10 +42,12 @@ Bảng tra scope unit → Epic/candidate → source/REQ. Giải thích overlap/s
 
 Mỗi tình huống nêu điều kiện, hành vi và kết quả quan sát. Ghi cách kiểm và dependency; chưa coi các ví dụ là test đã thực thi.
 
-## C08 — Quyết định, baseline và bàn giao
+## C08 — Quyết định, revision áp dụng và bàn giao
 
-Ghi riêng quyết định và người có thẩm quyền xác nhận nghiệp vụ, cùng ID, revision, phạm vi và evidence. Đặt vai trò review, người chốt baseline và người nhận bàn giao ở phần SDLC hoặc dẫn Work Context. Nếu một người kiêm vai trò, ghi từng trách nhiệm. Giữ các câu hỏi và quyết định còn mở đúng nhóm.
+Ghi riêng quyết định và người có thẩm quyền xác nhận nghiệp vụ, cùng ID, revision, phạm vi và evidence. Đặt vai trò review, người chốt revision áp dụng và người nhận bàn giao ở phần SDLC hoặc dẫn Work Context. Nếu một người kiêm vai trò, ghi từng trách nhiệm. Giữ các câu hỏi và quyết định còn mở đúng nhóm.
 
 ## Theo dõi review của từng mục
 
 Dùng index ngắn Item → output/revision → work signal/verdict. Với mỗi mục cần giải thích dài, ghi riêng applicability/reason, reviewer/authority, evidence và gap/owner/due. Work signal không thay verdict. Kết thúc artifact bằng metadata đúng loại, không copy phần hướng dẫn template như nội dung đã đạt.
+
+Áp dụng [hồ sơ hiện hành](../../references/current-state-and-history.md): cập nhật vị trí canonical theo target/scope, không tạo file theo lần chạy hoặc timeline. Review/check không tự sửa target; evidence stale phải được đánh giá lại.

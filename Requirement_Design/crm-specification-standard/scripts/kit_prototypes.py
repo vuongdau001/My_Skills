@@ -160,7 +160,7 @@ def validate(api, root, dirs, path, epic, scope=None):
 
 
 def audit(api, repo, root, ws, dirs, docs, scope, issue):
-    if not ws.get('prototype_gate') or scope['gate'] != 'baseline':
+    if not ws.get('prototype_gate') or scope['gate'] != 'readiness':
         return
 
     error = api['KitError']
@@ -182,7 +182,7 @@ def audit(api, repo, root, ws, dirs, docs, scope, issue):
             candidates.append((path, meta))
     if selected and not candidates:
         issue('ERROR', 'prototype-gate', ws['spec_root'],
-              'Prototype baseline check needs a local Epic target or a baseline trace dependency on a local Epic')
+              'Prototype readiness check needs a local Epic target or a trace dependency on a local Epic')
     for path, epic in candidates:
         try:
             if epic.get('kind') != 'Epic' or not isinstance(epic.get('artifact_id'), str):

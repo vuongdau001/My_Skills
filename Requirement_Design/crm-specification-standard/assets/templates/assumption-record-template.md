@@ -40,3 +40,5 @@ Sửa cùng vấn đề giữ ID và tăng revision. ASM được xác nhận th
   }
 }
 ```
+
+Áp dụng [hồ sơ hiện hành](../../references/current-state-and-history.md): cập nhật vị trí canonical theo target/scope, không tạo file theo lần chạy hoặc timeline. Review/check không tự sửa target; evidence stale phải được đánh giá lại.

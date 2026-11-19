@@ -4,7 +4,7 @@
 
 ID **TPL-PROTOTYPE-BUNDLE** · CRM Workflow Kit 1.12.2
 
-Dùng [standard Prototype](../../references/prototype-workflow-and-epic-gate.md) và [standard viết artifact](../../references/artifact-writing-standard.md). ID và giá trị dưới đây chỉ minh họa. Lấy đường dẫn category prototypes từ Work Context. Đặt bundle bàn giao trong thư mục hành trình ngay dưới category này, ví dụ `09-prototypes/contact-create/` cho một scenario tạo Contact độc lập. Dùng tên thư mục ổn định, ghi revision trong hồ sơ và pin bằng manifest cùng walkthrough.
+Dùng [standard Prototype](../../references/prototype-workflow-and-epic-gate.md) và [standard viết artifact](../../references/artifact-writing-standard.md). ID và giá trị dưới đây chỉ minh họa. Lấy đường dẫn category prototypes từ Work Context. Đặt bundle bàn giao trong thư mục hành trình ngay dưới category này, ví dụ `06-prototypes/contact-create/` cho một scenario tạo Contact độc lập. Dùng tên thư mục ổn định, ghi revision trong hồ sơ và pin bằng manifest cùng walkthrough.
 
 ## README.md
 
@@ -12,7 +12,7 @@ Dùng [standard Prototype](../../references/prototype-workflow-and-epic-gate.md)
 - **Chỉ dẫn người dùng** — mục tiêu demo, sample/link/ảnh được cung cấp, câu hỏi hoặc input đang chờ.
 - **Nguồn UI** — vị trí của bản đã xem, kể cả file ngoài repo, tệp đính kèm hoặc link. Ghi revision hoặc hash nếu có, phần tái dùng và phần thay đổi.
 - **Cách chạy** — entrypoint, fixture, cách mở theo môi trường đã review và giới hạn.
-- **Bàn giao** — scenario index, review record và baseline refs khi có.
+- **Bàn giao** — scenario index, review record và revision áp dụng refs khi có.
 
 ## scenarios.md
 
@@ -52,17 +52,19 @@ Thay mọi placeholder bằng giá trị từ scope đã đặc tả. Dùng path
 
 ## Binding trong Epic
 
-Thêm trường prototype vào block metadata crm-spec-kit đang có. Path manifest và review tương đối từ spec_root. Mỗi revision Epic khai báo binding cho scope hiện trình gate. Baseline package dẫn Epic ID/revision/scope và SHA của file Epic, manifest và walkthrough tương ứng.
+Thêm trường prototype vào block metadata crm-spec-kit đang có. Path manifest và review tương đối từ spec_root. Mỗi revision Epic khai báo binding cho scope hiện trình gate. bộ spec hiện hành dẫn Epic ID/revision/scope và SHA của file Epic, manifest và walkthrough tương ứng.
 
 ```json
 {
   "prototype": {
     "applicability": "required",
     "scope": "contact-create",
-    "manifest": "09-prototypes/contact-create/manifest.json",
+    "manifest": "06-prototypes/contact-create/manifest.json",
     "review": "05-reviews/contact-create-walkthrough.md"
   }
 }
 ```
 
 Với scope backend không tác động UI, dùng applicability not_applicable, scope, reason và review. Dẫn contract/evidence trong E08 và review. Bản ghi cần verdict N/A và na_reason.
+
+Áp dụng [hồ sơ hiện hành](../../references/current-state-and-history.md): cập nhật vị trí canonical theo target/scope, không tạo file theo lần chạy hoặc timeline. Review/check không tự sửa target; evidence stale phải được đánh giá lại.

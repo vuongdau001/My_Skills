@@ -17,7 +17,6 @@ CONSUMERS = {
     'crm-specify-epic': 'Epic',
     'crm-prepare-stories': 'Epic',
     'crm-review-specification': 'Capability',
-    'crm-report-status': 'Project',
 }
 
 

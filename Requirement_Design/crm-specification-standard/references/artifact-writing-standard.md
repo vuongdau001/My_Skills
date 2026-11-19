@@ -6,7 +6,7 @@ Standard này áp dụng cho mọi artifact do kit soạn hoặc chỉnh sửa, 
 
 ## Phạm vi áp dụng
 
-Áp dụng cho Capability, Epic, Story, Task; requirement/BR/AC; model, solution, UI/API/read contract; project/source/scope/policy/question registers; Decision/Assumption/Constraint; Review, Baseline, change assessment, Report, TestCase/TestRun, Pilot và handoff.
+Áp dụng cho Capability, Epic, Story, Task; requirement/BR/AC; model, solution, UI/API/read contract; project/source/scope/policy/question registers; Decision/Assumption/Constraint; Review, revision áp dụng, change assessment, Report, TestCase/TestRun, Pilot và handoff.
 
 Markdown dùng chuẩn dưới đây. JSON/config/assessment/evidence giữ schema gốc, không thêm prose hoặc HTML vào dữ liệu máy đọc. Tóm tắt chat dùng cùng nguyên tắc ngôn ngữ và phân biệt evidence nhưng không bắt tạo file hay đủ mọi mục của template.
 
@@ -102,9 +102,9 @@ DEC/ASM/CST schema 3 không state; review_verdict và lifecycle của Epic/Story
 | Assumption | Statement/basis và phạm vi áp dụng; cách kiểm, người phụ trách và hạn; if-false; kết quả/evidence và consumer cần xem lại |
 | Constraint | Ràng buộc, loại và phạm vi áp dụng; nguồn, thẩm quyền và hiệu lực; applies-to; cách kiểm tuân thủ và gaps |
 | Review/check | Target/scope/revision; cách kiểm/witness; expected/observed; findings; verdict scoped; closure/receiver |
-| Baseline/change assessment | Scope và manifest/version; approvals/evidence; thay đổi/impact; người thực hiện; actual action/merge receipt và việc còn thiếu |
-| Report/assessment | Snapshot/mẫu số/nguồn; kết quả chính; chi tiết theo target; blocker/uncertainty; next actions; tách declared/effective khi có scoring |
-| TestCase/TestRun/Pilot | Input/setup và scope/version; bước/expected; observed nếu đã thực thi; build/config/evidence; verdict và retest |
+| revision áp dụng/change assessment | Scope và manifest/version; approvals/evidence; thay đổi/impact; người thực hiện; actual action/merge receipt và việc còn thiếu |
+| Assessment | Snapshot/mẫu số/nguồn; kết quả chính; chi tiết theo target; blocker/uncertainty; next actions; tách declared/effective khi có scoring |
+| TestCase/TestRun | Input/setup và scope/version; bước/expected; observed nếu đã thực thi; build/config/evidence; verdict và retest |
 | Handoff | Đầu ra/revision; đã làm/kiểm/duyệt/thực hiện thực tế; gap; receiver; bước tiếp và điều kiện bắt đầu |
 
 Chọn template cụ thể trong kit; dùng [mẫu artifact chung](../assets/templates/artifact-document-template.md) cho loại chưa có template riêng. Không tạo thêm file chỉ để đủ các nhóm trên, không ép mọi loại artifact theo cùng một form. Catalog vẫn quyết định nội dung bắt buộc.
@@ -194,7 +194,7 @@ Heading của item có ID có thể in đậm cả **mã + tên** bên trong H3/
 | Epic/Story | E01–E16 hoặc S01–S12, flow/rule/AC | FLOW/STP/B/OUT và BR/AC có mã/tên nổi; hành vi gọn, gap tách riêng, trace ở cuối |
 | Task | T01–T08 và output/verification | Danh sách output, ranh giới, điều kiện hoàn tất và evidence; không suy Done từ checklist đầy |
 | DEC/ASM/CST | Thứ tự mục của template và một state hiện hành | Bối cảnh ngắn; statement/rationale/basis/source rõ; blockquote cho phần chưa có authority/validation |
-| Review/check/pilot | Scope/revision, cách kiểm, observed/evidence và verdict | Mỗi finding/scenario một item; tách expected/observed/gap; không làm nổi verdict như đã có authority khi chỉ self-check |
+| Review/check | Scope/revision, cách kiểm, observed/evidence và verdict | Mỗi finding/scenario một item; tách expected/observed/gap; không làm nổi verdict như đã có authority khi chỉ self-check |
 | Report/handoff/register | Kết quả scoped, nguồn, người nhận và việc tiếp theo | Tóm tắt trước; bảng index ngắn, mục chi tiết cho nội dung dài; status khác action/approval |
 
 Không ép các loại thành cùng một form. Template chuyên biệt quyết định các mục bắt buộc; quy tắc này chỉ điều chỉnh cách nhìn. Khi chỉnh artifact cũ, chỉ format phần được giao, giữ source/historical records và không rebaseline hoặc chuyển state do presentation.

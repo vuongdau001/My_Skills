@@ -1,89 +1,56 @@
 ---
 name: crm-specification-standard
-description: "Vận hành yêu cầu và backlog CRM theo workflow: tiếp nhận và phân rã scope từ function list/WBS/estimation, làm rõ Capability/Epic/Story và solution, review đặc tả, chuẩn bị baseline, kiểm readiness/handoff/completion, đánh giá thay đổi, báo cáo tiến độ và đề xuất bước tiếp theo theo hồ sơ CRM. Dùng để soạn hồ sơ hoặc kiểm điều kiện bàn giao theo chuẩn CRM; không tự triển khai product code hoặc thao tác Jira/Git/CI."
+description: "Soạn và review đặc tả CRM Capability/Epic/Story, solution, readiness, handoff, completion và change impact; giữ hồ sơ hiện hành, lịch sử qua Git. Không tự triển khai product code hoặc thao tác Git/Jira/CI."
 ---
 
 # CRM Workflow Kit
 
-Phiên bản **2.7.1**. Một root skill, các agent profiles logic và workflows tự chứa. Người mới đọc [Start Here](START-HERE.md). Nguồn kit tên crm-specification-standard; helper đóng gói bản cài một root skill tên crm-spec-kit. Các function IDs bên dưới vẫn là workflow nội bộ, không phải 13 slash commands riêng.
-
-Khi Epic có UI, tìm mockup nguồn theo chỉ dẫn người dùng. Bàn giao bản chạy được trong category prototypes theo từng hành trình. Kiểm Prototype ở baseline, DoR và E08. Đọc [quy trình Prototype](references/prototype-workflow-and-epic-gate.md).
+Phiên bản **3.0.0**. Một public skill, 10 function nội bộ; không giả lập slash commands.
 
 ## Installation and Admin Requests
 
-Khi user đưa folder kit và muốn cài cho một AI tool, bắt đầu bằng [BOOTSTRAP.md](BOOTSTRAP.md); agent khảo sát/chọn tham số, helper thực hiện cài. Đọc [INSTALL.md](INSTALL.md) khi cần install/doctor/context/lint/next-id/update/smoke-prompt/plan-layout/score/reset hoặc config/scaffold chưa có. Dùng Python 3.11+ stdlib helper tại `scripts/kit.py`; package root lấy từ vị trí script, không đoán ../../vendor. Install/update dry-run trước, chỉ --apply trong phạm vi được giao. Codex có --agent codex và router project tùy chọn --with-router; giữ instructions có sẵn. Không sửa global AGENTS/rules, không auto commit/push, không coi filesystem doctor hoặc smoke prompt là runtime discovery proof.
+Cài/nâng cấp đọc [BOOTSTRAP](BOOTSTRAP.md) và [INSTALL](INSTALL.md). Python 3.11+ stdlib helper lấy package root từ script. Dry-run trước apply, giữ config/instructions/spec hiện hữu. Bản cài không sửa trực tiếp; sửa nguồn riêng rồi update. Package doctor không là runtime discovery proof.
 
-Capability là tên chuẩn của cấp trên Epic. Dùng `crm-define-capability` và metadata kind `Capability` cho hồ sơ mới. Cấp ID `CAP-CRM-*`, dùng catalog C01–C08 và lấy thư mục `capabilities` từ `artifact_paths`.
+## Hồ sơ hiện hành
 
-## Bắt đầu lại từ đầu
-
-Khi user giao bỏ toàn bộ hồ sơ cũ, dùng [reset sạch dự án](references/clean-project-reset.md): xóa đầu ra của mọi workstream và reservation ledger, không archive/history theo đợt; kiểm sạch rồi cấp lại từng loại từ 001. Giữ nguồn đầu vào, config, kit và instructions. Không dùng historical IDs của bộ bị xóa để tăng số mới. Tiếp tục/sửa hồ sơ thì giữ ID và quản lý revision như thường; không tự reset do chạy lại prompt. Reset là helper quản trị, không thêm function thứ 14.
-
-## Standard viết mọi artifact
-
-Mọi artifact soạn mới hoặc chỉnh sửa theo [standard viết artifact](references/artifact-writing-standard.md), không chỉ Capability/Epic hoặc một workstream. Context nạp standard chung; đọc nó trước khi tạo output. Giữ catalog/schema/ID/gate; không rewrite nguồn hoặc historical records chỉ vì update kit. JSON/config/assessment giữ hợp đồng máy đọc, báo cáo Markdown theo standard. Tham chiếu hiển thị dùng tên có nghĩa kèm ID/link, không chỉ mã trần hoặc chuỗi mã rút gọn; hồ sơ mới dùng heading links Unicode NFC, không HTML anchor; legacy vẫn đọc được. Đổi heading cần cập nhật fragment và consumer theo scope. Một nguồn Markdown/model chuẩn; chỉ export bản đọc khác khi được yêu cầu, không bắt duy trì hai bản.
-
-Dùng [phân cấp Markdown chung](references/artifact-writing-standard.md#13-phân-cấp-thị-giác-bằng-markdown-thuần) cho mọi artifact trong scope: item có mã/tên nổi, field song song thành list gọn, gap có nhãn riêng và trace ở cuối. Giữ cấu trúc template theo loại, không ép mọi tài liệu thành một form hoặc tạo bản đọc phụ.
-
-Khi author hoặc review nội dung có nhiều bước/nhánh, điều kiện, quyền hoặc quan hệ khó đọc, áp dụng [minh họa để review và tra cứu](references/review-visualization-standard.md). Chọn diagram, bảng hoặc ví dụ theo câu hỏi review; giữ source text/model, ID/anchor và gap. Không bắt mọi mục có diagram.
+Đọc [current-state policy](references/current-state-and-history.md): giữ một bản canonical/ID/path theo đối tượng, cập nhật revision; lịch sử qua Git khi được giao commit. Không tạo history/archive/report theo lần chạy. Status/next step trả chat, scoring xuất stdout. Không có Prepare Baseline, Report Status hoặc Run Pilot.
 
 ## Route the Request
 
-Mỗi Epic sở hữu một Use Case cấp `user-goal` theo [policy use-case-v1](references/epic-use-case-policy.md). Soạn E03 bằng [D01](references/models/business-flows-and-use-cases.md) và áp dụng E01–E16 theo scope. Giữ Epic ID và anchor E03 ổn định qua revision của cùng mục tiêu; phân biệt hành trình liên Epic và Task kỹ thuật.
-
-Khi nhận function list/WBS/estimation/screen list, chia lại scope hoặc dùng allocation để báo tiến độ, áp dụng [checkpoint nguồn scope và cách phân rã](references/source-scope-and-decomposition-checkpoint.md). Khi tạo/đổi allocation, đọc cây hiện có, giải thích cấp/parent và kiểm cha–con có lặp cùng outcome theo checkpoint; không tạo đủ ba tầng chỉ để khớp template. Không mặc định một dòng nguồn là một Epic/Story; kiểm căn cứ ranh giới và giao thoa theo độ sâu nhiệm vụ. Context của các function liên quan nạp checkpoint này mặc định. Khi cần onboarding BA, mapping BRD/SRS/Use Case hoặc giải thích cách chọn ranh giới, đọc thêm [BA Getting Started](references/ba-getting-started.md); guide không thay catalog/gate.
-
-Khi cần xử lý Assumption, Constraint hoặc Decision, đọc [knowledge records](references/knowledge-records-and-evidence.md) và dùng đúng template/current-state policy: một ID, một nội dung hiện hành; lịch sử và lý do thay đổi qua Git, không timeline trong file, không tự commit. Cùng vấn đề giữ ID và tăng revision; approval/validation phải đúng statement hiện hành; DEC/ASM/CST dùng schema 3 không state. ASM được xác nhận chuyển sang DEC, cập nhật consumer rồi xóa ASM; không coi chấp nhận rủi ro là xác nhận. Score v2 tự audit/pin record closure và yêu cầu allocation ảnh hưởng.
-
-Khi cần điểm Story/Epic/Capability, từng mục E/S hoặc canonical requirement, đọc [definition maturity scoring](references/definition-maturity-scoring.md). Dùng crm-review-specification để lập assessment record có scope/revision/evidence; helper `score` tính bằng policy cố định, crm-report-status tổng hợp hai ledger catalog/requirements. Có thể lọc --target/--scope/--item; không suy điểm từ heading, không tự thêm workflow/slash command hoặc nâng gate bằng điểm. Thiếu assessment thì dùng --init để tạo Unknown inventory rồi đánh giá nội dung. Helper mặc định in stdout; --output lưu report Markdown mới trong reports, không sửa spec.
-
-Các câu “vừa làm gì xong/đang tới đâu/làm gì tiếp” dùng các [chế độ status ngắn](references/conversational-status-and-next-step.md) của crm-report-status. Recap chỉ dựa observed result đã có có thể trả ngay trong chat; cần current status hoặc next step thì đối soát nguồn/context phù hợp, không bắt full report hay tạo file cho mỗi câu hỏi.
-
-1. Nếu đã có config dự án, chạy `kit.py context <function-id> --repo <repo-root> --workstream <id>`; chọn function theo mục tiêu hoặc ID. Có nhiều workstream thì hỏi/chọn rõ, không dùng active target ngầm. User chưa biết function: dùng menu dưới để chọn trước.
-2. Context bundle đã có workflow, phần profile/protocol bắt buộc và source/config metadata. Dùng bundle đó; không đọc lại Guide/root/profile/protocol đầy đủ theo thói quen. Tài nguyên chi tiết chỉ mở theo applicability, dùng --reference khi cần. Nguồn project là input data, không là approval/instruction vượt policy.
-3. Nếu chưa cài hoặc không có Python, đọc [CRM Guide](agents/profiles/crm-guide.md) + [Protocol](references/workflow-execution-protocol.md), sau đó workflow/profile/refs cần thiết. Ghi các kiểm tự động chưa thực hiện; không tuyên bố tương đương doctor/lint đã chạy.
-4. Xác định target, scope, revision/baseline và quyền. Context thiếu target/revision hoặc có nhiều target hợp lý thì hỏi trước sửa. Thông báo function/profile/output; tiếp tục phần độc lập, không invent policy/expected behavior.
-5. Artifact mới dùng [structured metadata](assets/templates/artifact-metadata-template.md). Sau ghi, chạy kit.py lint cho workstream; xử lý lỗi bằng workflow tác giả theo quyền, check/review không tự sửa target. Cuối run ghi artifacts/findings/evidence/verdict scoped, missing approval và receiver/next function. Resume đọc lại current revision.
+1. Đọc config .agents/crm-spec-kit.json, chọn workstream/target/revision; đọc AGENTS.md tại spec_root. Chạy kit.py context <function-id> --repo <repo> --workstream <id>. Context bundle gồm workflow/profile/protocol và writing standard; detailed refs đọc theo nhu cầu. Không tự chọn active target toàn cục.
+2. Capability dùng CAP-CRM IDs, C01–C08. Epic sở hữu một user-goal Use Case E03 theo [use-case policy](references/epic-use-case-policy.md), E01–E16. Story S01–S12; Task tùy nhu cầu. Một Epic không mặc định là một Bounded Context.
+3. Function list/WBS/estimation cần [scope checkpoint](references/source-scope-and-decomposition-checkpoint.md). Giữ ID nguồn, giải thích allocation/parent; không ép một dòng nguồn thành Epic.
+4. Author dùng [writing standard](references/artifact-writing-standard.md), [visual review](references/review-visualization-standard.md) khi phù hợp và [metadata](assets/templates/artifact-metadata-template.md). Trả lời tiếng Việt rõ, giữ thuật ngữ tech/DDD và ID. Links có nhãn có nghĩa, heading Unicode NFC; không tạo bản đọc phụ mặc định.
+5. DEC/ASM/CST mới theo [knowledge records](references/knowledge-records-and-evidence.md), schema 3 không state; meeting notes chỉ là input. ASM được xác nhận thì chuyển DEC, cập nhật consumer rồi xóa ASM khi được giao. Source không tự là approval.
+6. Có UI thì dùng [Prototype](references/prototype-workflow-and-epic-gate.md), đối chiếu spec hai chiều và walkthrough trong scope. Không lấy mockup làm signed contract.
+7. Sau author chạy lint. Gate readiness kiểm cấu trúc/evidence closure, không thay authority/semantic/runtime verdict. Review/check chỉ sửa kết quả của mình, không sửa target. Sửa target bằng workflow tác giả riêng.
+8. Thay đổi nội dung đã dùng cần crm-assess-change, kiểm consumer/revision/evidence. Chuyển profile vẫn là self-check; không giả independent review, approval, QA hoặc Business acceptance.
 
 ## Functions
 
-| Function | Purpose | Agent |
-|---|---|---|
-| [crm-setup-project](workflows/crm-setup-project.md) | Set Up Project | Delivery Coordinator |
-| [crm-define-capability](workflows/crm-define-capability.md) | Define Capability | Requirements Analyst |
-| [crm-specify-epic](workflows/crm-specify-epic.md) | Specify Epic | Requirements Analyst |
-| [crm-design-solution](workflows/crm-design-solution.md) | Design Solution | Solution Architect |
-| [crm-prepare-stories](workflows/crm-prepare-stories.md) | Prepare Stories | Requirements Analyst |
-| [crm-review-specification](workflows/crm-review-specification.md) | Review Specification | Quality Reviewer |
-| [crm-prepare-baseline](workflows/crm-prepare-baseline.md) | Prepare Baseline | Delivery Coordinator |
-| [crm-check-readiness](workflows/crm-check-readiness.md) | Check Readiness | Quality Reviewer |
-| [crm-check-handoff](workflows/crm-check-handoff.md) | Check Handoff | Quality Reviewer |
-| [crm-check-completion](workflows/crm-check-completion.md) | Check Completion | Quality Reviewer |
-| [crm-assess-change](workflows/crm-assess-change.md) | Assess Change | Delivery Coordinator |
-| [crm-report-status](workflows/crm-report-status.md) | Report Status | Delivery Coordinator |
-| [crm-run-pilot](workflows/crm-run-pilot.md) | Run Pilot | Delivery Coordinator |
+| Function | Purpose |
+|---|---|
+| [crm-setup-project](workflows/crm-setup-project.md) | Set Up Project |
+| [crm-define-capability](workflows/crm-define-capability.md) | Define Capability |
+| [crm-specify-epic](workflows/crm-specify-epic.md) | Specify Epic |
+| [crm-design-solution](workflows/crm-design-solution.md) | Design Solution |
+| [crm-prepare-stories](workflows/crm-prepare-stories.md) | Prepare Stories |
+| [crm-review-specification](workflows/crm-review-specification.md) | Review Specification |
+| [crm-check-readiness](workflows/crm-check-readiness.md) | Check Readiness |
+| [crm-check-handoff](workflows/crm-check-handoff.md) | Check Handoff |
+| [crm-check-completion](workflows/crm-check-completion.md) | Check Completion |
+| [crm-assess-change](workflows/crm-assess-change.md) | Assess Change |
 
-## Operating Rules
+## Status, scoring và reset
 
-- Standards hiện hành nằm tại [quy ước CRM](references/crm-project-rules.md), catalogs/checks/models và [policy guide](references/project-policy-register.md). Workflow điều phối cách dùng, không ghi đè tiêu chí nguồn.
-- Không invent policy/expected behavior/approval. Policy bắt buộc Pending thì gate liên quan chưa đủ điều kiện; tiếp tục phần độc lập và nêu missing decision.
-- Story đủ DoR có thể dùng checklist, Task tùy nhu cầu. Chuẩn bị plan/brief Task qua crm-prepare-stories; crm-check-readiness chỉ kiểm và đề xuất.
-- Review/check chỉ ghi record/findings, không tự sửa source target. Full specification review xét catalog + Q01–Q07; focused review không kết luận toàn target. Task theo T01–T08/SMART.
-- Chuyển profile trong cùng phiên là self-check, không tự independent review. Human approval, QA runtime verdict, PM closure và Business acceptance cần evidence đúng authority.
-- Tách output prepared, review performed, authority approved và actual action confirmed. Package draft chưa là baseline merged; Task Done không tự Story Done.
-- Giữ source/IDs/pinned versions; thay đổi sau baseline qua crm-assess-change trước khi áp dụng correction. Ví dụ trong gói là giả định, không phải policy đã duyệt.
-- Không tự spawn multi-agent, triển khai product code/test runtime hoặc thực hiện Jira/Git/CI mutations. Ghi actions chưa làm và giới hạn access. Hard gates thực tế cần cơ chế chặn tại hệ thống tương ứng.
+Câu hỏi recap/current status/next step dùng [hướng dẫn chung](references/conversational-status-and-next-step.md); không là function riêng, không tự tạo file. [Scoring](references/definition-maturity-scoring.md) đọc assessment hiện hành và tính lại, không cấp Ready. [Reset](references/clean-project-reset.md) chỉ khi user giao bỏ outputs, dry-run và plan digest trước apply; không chạy reset do update kit.
 
-## Layout và knowledge records
+## Commit policy và ranh giới
 
-Workstream mới dùng thư mục đánh số; config cũ giữ legacy. Khi chọn nơi ghi/migrate, đọc [layout policy](references/artifact-layout-and-migration.md) và artifact_paths từ context. Khi nhận meeting/chat, quyết định, giả định hoặc ràng buộc, đọc [knowledge records](references/knowledge-records-and-evidence.md); dùng schema 3 cho DEC/ASM/CST mới (biên bản chỉ là nguồn đầu vào, không tạo Meeting record), không tự đổi schema 1. Source evidence không là approval. Review/check chỉ ghi record của mình, không sửa knowledge record/target đang kiểm.
+Khi đã được giao commit, đọc [commit policy](references/commit-message-policy.md), kiểm staged diff, validate message bằng commit_policy.py trước commit và đọc lại message thực tế. Không bypass hook hoặc khai validation chưa chạy. Root router và các adapter phải dẫn cùng policy; hướng dẫn trong skill không tự enforce mọi agent. Hook/CI chỉ khi được giao cấu hình, không ghi đè rule hiện hữu.
+
+Không tự spawn agents, triển khai product code/test runtime, commit/push/merge hoặc thao tác Jira/CI. User authorization rõ được xử lý theo scope riêng; hoàn tất workflow không là quyền làm external action. Phân biệt output prepared, review performed, authority approved và actual action confirmed.
 
 ## Registry & Verification
 
-[Manifest](reference-manifest.json) nối function → profile → workflow → refs/templates. [Nguồn và tailoring](references/standards-and-crm-tailoring.md), [BMAD inspiration](provenance/bmad-inspiration-and-crm-tailoring.md), [acceptance scenarios](references/pack-acceptance-scenarios.md) và [report 2.1.0](provenance/pack-validation-report-v2.1.0.md) phục vụ đối chiếu.
-
-Chạy `python3 scripts/validate_reference_pack.py` từ folder này hoặc gọi bằng đường dẫn script. Validator kiểm cấu trúc/refs/registry/migration, không cấp DoR/DoD approval hoặc chứng minh phần mềm đạt.
-
-Kiểm chứng reset sạch: [report 2.2.0](provenance/pack-validation-report-v2.2.0.md).
-
-Biên bản/ghi chú họp là input source; không tạo folder meeting, Meeting record hoặc MTG ID trong spec. Đọc từ workstream.sources trong config/context, gồm các file mới trong thư mục nguồn đã khai báo. Khi tiếp nhận, đọc [hướng dẫn nguồn họp](references/meeting-input-guide.md), rồi phân loại vào ASM/DEC/CST hoặc giữ gap theo căn cứ.
+[Manifest](reference-manifest.json) liên kết function → profile → workflow → refs/templates. Chạy scripts/validate_reference_pack.py và regression tests; đó là kiểm chất lượng kit, không là nghiệp vụ pilot dự án hoặc DoR/DoD approval. [Migration](references/artifact-layout-and-migration.md) giữ workstream cũ nguyên khi update; chỉ đổi hồ sơ dự án trong bước migration được giao. [Nguồn](provenance/source-to-reference-migration-map.md) giữ truy vết standard ban đầu; policy 3.0.0 hiện hành được ưu tiên so ví dụ lịch sử.

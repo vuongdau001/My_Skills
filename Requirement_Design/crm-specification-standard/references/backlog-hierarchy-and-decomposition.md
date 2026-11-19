@@ -41,12 +41,12 @@ Trong Jira mặc định, Story và Task là hai loại công việc cùng cấp
 3. Gán BR/model/AC cho từng Story. Kiểm không sót rule bắt buộc và không tính phạm vi hai lần. NFR/quyền/atomicity cần cho hành vi phải đi cùng nó.
 4. Dùng Example Mapping để làm rõ rules → examples → questions. Khi chưa biết expected result, ghi câu hỏi/authority; không tự sinh Gherkin để che quyết định chưa có.
 5. Review INVEST theo bảng dưới, dependency và capacity. Story quá lớn về kết quả nghiệp vụ phải tách Story; Task chỉ chia công việc, không làm Story lớn trở thành nhỏ.
-6. Business xác nhận expected behavior, TL xác nhận solution, QA xác nhận testability; PM chốt scope/manifest sau các phép kiểm. [Baseline và change control](baseline-and-change-control.md) quy định thời điểm merge/tạo Jira Story.
+6. Business xác nhận expected behavior, TL xác nhận solution, QA xác nhận testability; PM chốt scope/manifest sau các phép kiểm. [revision áp dụng và change control](revision-and-change-impact.md) quy định cách tham chiếu revision và đánh giá tác động; external actions theo policy dự án.
 
 | INVEST | Thao tác kiểm | Chưa đạt/cần xem lại khi |
 |---|---|---|
 | Independent | Liệt kê dependency và thử đổi thứ tự thực hiện; ghi lý do dependency không bỏ được | Dependency ẩn hoặc không có owner/contract; không đòi zero dependency |
-| Negotiable | Tách outcome/constraint bắt buộc khỏi lựa chọn triển khai; ghi cơ chế change sau baseline | Khóa tùy tiện mọi chi tiết code hoặc tự đổi rule đã duyệt |
+| Negotiable | Tách outcome/constraint bắt buộc khỏi lựa chọn triển khai; ghi cơ chế change khi đổi nội dung được sử dụng | Khóa tùy tiện mọi chi tiết code hoặc tự đổi rule đã duyệt |
 | Valuable | Nêu actor/người nhận và kết quả; minh họa một tình huống sử dụng | Chỉ có tên component, DB hoặc công đoạn |
 | Estimable | Dev/QA ước lượng từ scope/model/dependency; chỉ rõ unknown tác động lớn | Dùng số ước lượng để che feasibility chưa biết |
 | Small | Team xét khả năng code + tích hợp + kiểm chứng trong một Sprint | Chỉ code vừa Sprint, phần kiểm chứng để Sprint sau |
@@ -99,7 +99,7 @@ Ghi quyết định theo mẫu: `Story/Epic — checklist hoặc Task — lý do
 |---|---|---|---|
 | Capability | Phạm vi chức năng nghiệp vụ tổng thể cần theo dõi xuyên suốt | Mục tiêu, scope, yêu cầu dùng chung, danh sách Epic, AC cấp Capability và tiêu chí nghiệm thu tổng thể | Tài liệu Git |
 | Epic | Một mục tiêu sử dụng thuộc Capability, có đúng một Use Case ở E03 | Hồ sơ yêu cầu/solution, owner/readiness từng hạng mục, phương án Story, dependency và nghiệm thu Epic | Jira Epic liên kết tài liệu Git |
-| Story | Một lát cắt hành vi có kết quả quan sát và kiểm chứng được | Outcome, phạm vi, BR/AC, solution refs, dependency, estimate và DoR/DoD | Jira Story tham chiếu baseline Git |
+| Story | Một lát cắt hành vi có kết quả quan sát và kiểm chứng được | Outcome, phạm vi, BR/AC, solution refs, dependency, estimate và DoR/DoD | Jira Story tham chiếu revision áp dụng Git |
 | Task | Công việc triển khai, kiểm chứng hoặc hỗ trợ kỹ thuật có đầu ra cụ thể, cần giao/theo dõi riêng | Owner, input, output, reviewer, tiêu chí hoàn tất và evidence | Jira Task |
 
 Trước khi chọn cấp, dùng [nguồn phạm vi cấp dự án](source-scope-and-decomposition-checkpoint.md#project-placement) để xác định vai trò của cấp cha và các nhóm liền kề.

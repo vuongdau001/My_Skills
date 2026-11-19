@@ -38,7 +38,7 @@ Reviewer thực hiện theo thứ tự sau:
 
 1. **Chốt đường biên và nguồn:** actor/đầu mối nghiệp vụ, hệ thống giao tiếp, tài liệu hiện hành, constraint và phần thay đổi. Đối chiếu với thực tế/legacy và hỏi người vận hành về ngoại lệ đã biết; code hiện tại là nguồn phát hiện, không tự động là yêu cầu đúng.
 2. **Lập inventory cần rà** theo các chiều dưới đây và các đơn vị model trong [inventory và coverage](../coverage-inventories-and-traceability.md). Inventory là danh sách có ID/định nghĩa, không chỉ một tiêu đề “đã xem edge case”.
-3. **Gán disposition cho từng item:** đã đặc tả trong scope, kế thừa baseline nào, ngoài scope theo quyết định nào hoặc không khả thi/N/A với lý do nào. Unknown/TBD là gap cần xử lý, không phải disposition hợp lệ để qua gate nếu chặn scope.
+3. **Gán disposition cho từng item:** đã đặc tả trong scope, kế thừa revision áp dụng nào, ngoài scope theo quyết định nào hoặc không khả thi/N/A với lý do nào. Unknown/TBD là gap cần xử lý, không phải disposition hợp lệ để qua gate nếu chặn scope.
 4. **Nối tới output và verification:** mỗi item trong scope phải tìm được rule/model/AC và test condition/phương pháp kiểm phù hợp. Một item có nhiều refs, không bắt tạo một AC trùng cho mỗi ô.
 5. **Kiểm lỗ hổng và câu hỏi:** QA dùng inventory để tìm counterexample; Business/Dev xác nhận phần thiếu hoặc lý do loại trừ. Câu trả lời mới làm đổi tập item thì cập nhật inventory và rà lại phần ảnh hưởng.
 6. **Kết luận với mẫu số nhìn thấy:** ghi số item trong từng tập, số đã có disposition, số chưa quyết và số thiếu verification mapping. Reviewer ký nhận inventory/phạm vi; không tuyên bố “mọi tình huống ngoài đời đã đủ”.

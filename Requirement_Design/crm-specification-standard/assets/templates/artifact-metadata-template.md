@@ -31,3 +31,5 @@ Với Epic, bổ sung epic_policy và use_case theo [mẫu Epic](epic-specificat
 ```
 
 </details>
+
+Áp dụng [hồ sơ hiện hành](../../references/current-state-and-history.md): cập nhật vị trí canonical theo target/scope, không tạo file theo lần chạy hoặc timeline. Review/check không tự sửa target; evidence stale phải được đánh giá lại.

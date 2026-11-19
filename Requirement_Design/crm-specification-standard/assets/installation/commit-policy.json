@@ -1,0 +1,8 @@
+{
+  "version": 1,
+  "standard": "Conventional Commits 1.0.0 with explicit CRM repository extensions",
+  "types": ["feat", "fix", "refactor", "docs", "test", "chore", "revert", "build", "ci", "perf", "style"],
+  "header_max_length": 100,
+  "required_fields": ["Why", "Validation"],
+  "vague_descriptions": ["update", "fix", "fix bug", "done", "changes", "wip", "1", "sửa", "cập nhật", "xong"]
+}

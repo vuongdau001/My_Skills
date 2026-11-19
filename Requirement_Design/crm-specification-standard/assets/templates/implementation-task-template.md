@@ -22,7 +22,7 @@ Artifact/kết quả, in/out scope và vì sao cần Task thay vì checklist.
 
 ## T03 — Đầu vào và phiên bản
 
-Baseline/repo/commit/path/model/contract cùng environment/quyền thực có.
+revision áp dụng/repo/commit/path/model/contract cùng environment/quyền thực có.
 
 ## T04 — Kế hoạch và constraint
 
@@ -48,4 +48,6 @@ PR/SHA/build/run/log áp dụng; reviewer/receiver, revision và thời điểm 
 
 Với từng tiêu chí, ghi thao tác kiểm, expected/observed, evidence/ref/revision, verdict/reviewer và gap/owner/due. Bảng chỉ làm index nếu nội dung dài.
 
-Ghi phiên bản output, tiêu chí đã/chưa đạt, receiver acceptance, việc còn lại và impact tới Story/baseline. Task Done không tự Story Done. Kết thúc bằng metadata Task hợp lệ.
+Ghi phiên bản output, tiêu chí đã/chưa đạt, receiver acceptance, việc còn lại và impact tới Story/revision áp dụng. Task Done không tự Story Done. Kết thúc bằng metadata Task hợp lệ.
+
+Áp dụng [hồ sơ hiện hành](../../references/current-state-and-history.md): cập nhật vị trí canonical theo target/scope, không tạo file theo lần chạy hoặc timeline. Review/check không tự sửa target; evidence stale phải được đánh giá lại.

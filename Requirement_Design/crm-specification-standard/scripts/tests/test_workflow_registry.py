@@ -37,7 +37,7 @@ class WorkflowRegistryTests(unittest.TestCase):
         errors, counts = validator.validate(self.root)
         self.assertEqual(errors, [])
         self.assertEqual(counts['agent_profiles'], 5)
-        self.assertEqual(counts['workflow_functions'], 13)
+        self.assertEqual(counts['workflow_functions'], 10)
 
     def test_duplicate_function(self):
         self.mutate(lambda m: m['functions'].append(m['functions'][0]))

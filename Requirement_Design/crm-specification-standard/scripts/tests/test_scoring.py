@@ -207,19 +207,19 @@ class ScoringTests(unittest.TestCase):
         self.add_record(state='Validated');self.allrows(2)
         self.doc['targets'][0]['record_dependencies']=[];self.calc(code=2)
 
-    def test_report_output_is_explicit_scoped_and_never_overwrites(self):
-        self.allrows();(self.repo/'spec/reports').mkdir()
+    def test_score_is_stdout_only_and_rejects_retired_output_flag(self):
+        self.allrows()
         (self.repo/'assessment.json').write_text(json.dumps(self.doc))
-        command=[sys.executable,str(PACK/'scripts/kit.py'),'score','--repo',str(self.repo),'--workstream','p3','--assessment','assessment.json','--format','markdown','--output','spec/reports/score.md']
-        p=subprocess.run(command,capture_output=True,text=True);self.assertEqual(p.returncode,0,p.stderr)
-        text=(self.repo/'spec/reports/score.md').read_text();self.assertEqual(text,p.stdout)
-        self.assertIn('Evidence và bước xử lý tiếp',text);self.assertIn('Mức đề xuất | Mức hiệu lực',text)
-        meta=json.loads(text.split('```crm-spec-kit\n',1)[1].split('\n```',1)[0])
-        self.assertEqual(meta['kind'],'Report');self.assertEqual(meta['review_verdict'],'Chưa kiểm')
-        lint=subprocess.run([sys.executable,str(PACK/'scripts/kit.py'),'lint','--repo',str(self.repo),'--workstream','p3'],capture_output=True,text=True)
-        self.assertEqual(lint.returncode,0,lint.stdout+lint.stderr);self.assertTrue(json.loads(lint.stdout)['valid'])
-        p=subprocess.run(command,capture_output=True,text=True);self.assertEqual(p.returncode,2);self.assertEqual((self.repo/'spec/reports/score.md').read_text(),text)
-        command[-1]='spec/story.md';p=subprocess.run(command,capture_output=True,text=True);self.assertEqual(p.returncode,2)
+        before={str(p.relative_to(self.repo)):p.read_bytes() for p in self.repo.rglob('*') if p.is_file()}
+        command=[sys.executable,str(PACK/'scripts/kit.py'),'score','--repo',str(self.repo),'--workstream','p3','--assessment','assessment.json','--format','markdown']
+        result=subprocess.run(command,capture_output=True,text=True)
+        self.assertEqual(result.returncode,0,result.stderr)
+        self.assertIn('Evidence và bước xử lý tiếp',result.stdout)
+        result=subprocess.run(command+['--output','spec/reports/score.md'],capture_output=True,text=True)
+        self.assertEqual(result.returncode,2)
+        self.assertIn('unrecognized arguments',result.stderr)
+        after={str(p.relative_to(self.repo)):p.read_bytes() for p in self.repo.rglob('*') if p.is_file()}
+        self.assertEqual(before,after)
 
     def test_missing_evidence_timezone_and_item_context(self):
         self.allrows();self.doc['targets'][0]['items'][0]['evidence']=[];self.calc(code=2)

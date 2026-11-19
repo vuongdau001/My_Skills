@@ -24,7 +24,7 @@ Index ngắn: item/check → verdict → finding/evidence. Với từng check d�
 - **Evidence và kết luận:** refs/revision, verdict scoped, reviewer.
 - **Finding:** ID, tác động/gate, owner/due; severity theo policy nếu đã chốt.
 
-Với Epic, pin policy, Epic ID, locator E03 và phạm vi đợt và baseline/revision. Dùng E01–E03 để kiểm mục tiêu, boundary và từng đường đi tới outcome. Dùng E14–E16 để kiểm trace, phần còn lại, nghiệm thu đã có và evidence đúng đợt. Dẫn locator của từng finding.
+Với Epic, pin policy, Epic ID, locator E03 và phạm vi đợt và revision. Dùng E01–E03 để kiểm mục tiêu, boundary và từng đường đi tới outcome. Dùng E14–E16 để kiểm trace, phần còn lại, nghiệm thu đã có và evidence đúng đợt. Dẫn locator của từng finding.
 
 Nếu phát hiện lẫn vai trò hoặc phạm vi, ghi locator, vai trò đang bị gán, vai trò đúng theo evidence và ảnh hưởng tới Use Case, rule quyền hoặc gate bàn giao. [Quy ước vai trò](../../references/artifact-writing-standard.md#business-and-sdlc-roles).
 
@@ -37,3 +37,5 @@ Mỗi finding một mục có counterexample, correction/decision ref, reviewer 
 Ghi scope đã/chưa đủ điều kiện, thiếu approval nào và receiver/next action. Check/review không sửa target hoặc tự đóng ticket. [Review protocol](../../references/requirements-review-process-and-verdicts.md), [mapping](../../references/catalog-check-model-mapping.md) và [policy](../../references/project-policy-register.md) tiếp tục áp dụng.
 
 Trước code, nhận xét spec/model khác runtime test Pass. Sau code, evidence cần đúng build/config/run. Metadata Review chỉ khai báo verdict, không chứng nhận authority.
+
+Áp dụng [hồ sơ hiện hành](../../references/current-state-and-history.md): cập nhật vị trí canonical theo target/scope, không tạo file theo lần chạy hoặc timeline. Review/check không tự sửa target; evidence stale phải được đánh giá lại.

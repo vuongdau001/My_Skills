@@ -6,15 +6,15 @@ Mã tài liệu: **TPL-STORY-SPECIFICATION-TEMPLATE** · Gói CRM 1.10.0 · 05/1
 
 **Bố cục:** Giữ S01–S12. Scenario/AC có heading mã + tên, điều kiện/thao tác/kết quả thành list khi phù hợp; gap tách khỏi expected result và planned khác TestRun. Xem [phân cấp Markdown chung](../../references/artifact-writing-standard.md#13-phân-cấp-thị-giác-bằng-markdown-thuần).
 
-Mở bằng ID/tên và một câu actor → outcome. Dùng bảng context ngắn cho parent/revision, baseline, người nhận việc và trạng thái evidence. Đọc [Story catalog](../../references/story-specification-catalog.md).
+Mở bằng ID/tên và một câu actor → outcome. Dùng bảng context ngắn cho parent/revision, revision áp dụng, người nhận việc và trạng thái evidence. Đọc [Story catalog](../../references/story-specification-catalog.md).
 
 <a id="spec-10-2"></a>
 
 Ghi Use Case nguồn, scenario/step hoặc delta, dependency và phạm vi ngoài Story. Trace `parent` tới Epic. Trace `derived-from` dùng cùng Epic ID và revision, với path có anchor E03 của hành vi được giao.
 
-## S01 — Định danh và baseline
+## S01 — Định danh và revision áp dụng
 
-ID, Epic/Capability, selected scope và pinned baseline/revision. Có thể là section trong Epic nếu là một nơi nội dung chuẩn; không duy trì spec trùng.
+ID, Epic/Capability, selected scope và pinned revision. Có thể là section trong Epic nếu là một nơi nội dung chuẩn; không duy trì spec trùng.
 
 ## S02 — Actor và outcome
 
@@ -40,7 +40,7 @@ Subset và delta của data/validation/permission; không bỏ control chung đ�
 
 ## S07 — UI/API và solution
 
-Với Story có UI, dẫn Screen ID, Scenario ID, entrypoint và walkthrough từ đúng baseline Epic. Ghi BR/AC/contract áp dụng cho từng scenario.
+Với Story có UI, dẫn Screen ID, Scenario ID, entrypoint và walkthrough từ đúng revision áp dụng Epic. Ghi BR/AC/contract áp dụng cho từng scenario.
 
 Screen/query/contract/solution refs hiện hành; ranh giới implementation. Chưa có contract thì ghi gap.
 
@@ -71,3 +71,5 @@ Từng S item giữ applicability, output/revision, source/authority, owner/revi
 Trước nhận việc: kiểm DoR, Dev/QA read-back và PM planning. Bàn giao QA cần code/review/CI/build/environment/evidence thực tế; đóng Story cần AC/coverage đã chạy, defects/disposition, QA verdict và PM closure. Không lấy số item có nội dung thành % sản phẩm.
 
 Theo [coverage](../../references/coverage-inventories-and-traceability.md#spec-7-1) và [review/gate](../../references/requirements-review-process-and-verdicts.md). Kết thúc bằng metadata đúng kind, không đổi ID nguồn để khớp ví dụ.
+
+Áp dụng [hồ sơ hiện hành](../../references/current-state-and-history.md): cập nhật vị trí canonical theo target/scope, không tạo file theo lần chạy hoặc timeline. Review/check không tự sửa target; evidence stale phải được đánh giá lại.

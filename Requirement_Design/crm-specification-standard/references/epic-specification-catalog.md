@@ -30,7 +30,7 @@ Mã tài liệu: **CRM-EPIC** · Gói CRM 1.3.1 · 03/11/2026
 | <a id="e13"></a>E13 — B | Solution và dependency | Hiện trạng→delta, design/contract refs, assumptions/risk và owner/commitment | Khả thi cho scope chọn; không để dependency chưa xác nhận thành “Ready”; xem [D10 — Solution, phân rã Story và testability](models/solution-and-story-decomposition.md) | Dev / TL/peer + QA |
 | <a id="e14"></a>E14 — B | AC, coverage và test approach | Scenario/kết quả E03 → AC → test conditions/evidence | Kiểm outcome tích hợp, nhánh và các controls. Phân biệt planned coverage với kết quả chạy | BA + QA / Business + Dev |
 | <a id="e15"></a>E15 — B | Phương án Story | Epic ID, revision, locator E03 của scenario/bước hoặc delta, outcome, dependency và phần còn lại | Các lát giữ controls, không bỏ sót hoặc đếm lặp. Có phép kiểm outcome tích hợp và review INVEST | BA + Dev + QA / PM |
-| <a id="e16"></a>E16 — B | Policy, decision, review và baseline | Policy use-case-v1, selected scope/revision/baseline, evidence nghiệm thu trước và open decisions | Evidence pin đúng scope; lịch sử và delta truy được; authority xác nhận phần áp dụng trước handoff | BA điều phối / chuyên môn + PM |
+| <a id="e16"></a>E16 — B | Policy, decision, review và revision áp dụng | Policy use-case-v1, selected scope/revision/revision áp dụng, evidence nghiệm thu trước và open decisions | Evidence pin đúng scope; lịch sử và delta truy được; authority xác nhận phần áp dụng trước handoff | BA điều phối / chuyên môn + PM |
 
 Ví dụ E04 có thể N/A cho sửa copy thuần túy, nhưng không được N/A cho luồng duyệt vì chưa nghĩ ra vòng đời. E08 có thể N/A cho backend-only nếu đã xác nhận không có UI delta. E11/E12 vẫn phải rà tác động, không mặc định bỏ qua vì tên Epic không nói đến NFR/migration.
 
@@ -49,7 +49,7 @@ E01–E02 giữ mục tiêu/ranh giới; E03–E05 giữ hành vi dùng chung; E
 
 Áp dụng [Q01–Q07](requirements-review-process-and-verdicts.md), [inventory](coverage-inventories-and-traceability.md) và model liên quan để thực hiện tiêu chí, không tick bảng vì đã có tiêu đề. Chưa có input: Chưa kiểm; gap/contradiction: Không đạt; N/A cần reason/reviewer.
 
-Có thể baseline phần độc lập của Epic; shared rule ảnh hưởng scope chọn phải rõ. Phần chưa làm có owner/hạn/impact, không giấu gap bằng cách ghi out-of-scope. Đạt cổng sinh Story không làm Epic Done. [Gate Epic](readiness-completion-and-approval-gates.md#workflow-8-2), [phân rã](backlog-hierarchy-and-decomposition.md), [mẫu Epic](../assets/templates/epic-specification-template.md).
+Có thể revision áp dụng phần độc lập của Epic; shared rule ảnh hưởng scope chọn phải rõ. Phần chưa làm có owner/hạn/impact, không giấu gap bằng cách ghi out-of-scope. Đạt cổng sinh Story không làm Epic Done. [Gate Epic](readiness-completion-and-approval-gates.md#workflow-8-2), [phân rã](backlog-hierarchy-and-decomposition.md), [mẫu Epic](../assets/templates/epic-specification-template.md).
 
 
 ## Định tuyến review và báo cáo

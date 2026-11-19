@@ -11,7 +11,7 @@ Mã tài liệu: **CRM-TASK** · Gói CRM 1.3.1 · 03/11/2026
 
 Đọc [bảng quyết định checklist/Task](backlog-hierarchy-and-decomposition.md) trước khi tạo ticket. Task thường thuộc Epic và liên kết Story; không giả định Jira standard Task nằm dưới Story. Không tạo bộ Task cố định REQ/DESIGN/DEV/TEST cho mọi Story.
 
-**Đầu vào:** phạm vi được giao, baseline/contract liên quan, output dự kiến, dependency và ủy quyền phân rã. **Đầu ra:** brief và evidence của Task; với công việc nhỏ chỉ cần checklist trong Story. **Người kiểm:** reviewer/người nhận theo loại output; PM chỉ cần chốt từng Task khi chưa ủy quyền hoặc có thay đổi scope/cam kết đáng kể.
+**Đầu vào:** phạm vi được giao, revision áp dụng/contract liên quan, output dự kiến, dependency và ủy quyền phân rã. **Đầu ra:** brief và evidence của Task; với công việc nhỏ chỉ cần checklist trong Story. **Người kiểm:** reviewer/người nhận theo loại output; PM chỉ cần chốt từng Task khi chưa ủy quyền hoặc có thay đổi scope/cam kết đáng kể.
 
 ## Nội dung Task và cách kiểm — T01–T08
 
@@ -19,7 +19,7 @@ Mã tài liệu: **CRM-TASK** · Gói CRM 1.3.1 · 03/11/2026
 |---|---|---|
 | <a id="t01"></a>T01 — Liên kết và mục đích | Story/Epic, requirement/AC liên quan | Đi ngược được tới nhu cầu/đầu ra được giao; giải thích việc bỏ Task ảnh hưởng gì |
 | <a id="t02"></a>T02 — Đầu ra và ranh giới | Artifact/kết quả, phần không làm | Nhận diện được output và phạm vi; so với các Task khác để loại chồng/gap |
-| <a id="t03"></a>T03 — Đầu vào và phiên bản | Baseline, contract, repo/module, environment | Mở được đúng revision, đủ quyền; không dùng “latest” chưa xác định |
+| <a id="t03"></a>T03 — Đầu vào và phiên bản | revision áp dụng, contract, repo/module, environment | Mở được đúng revision, đủ quyền; không dùng “latest” chưa xác định |
 | <a id="t04"></a>T04 — Kế hoạch và constraint | Các bước chính, constraint kỹ thuật/quyền | Đủ bắt đầu mà không tự quyết requirement; không ép giả mã chi tiết |
 | <a id="t05"></a>T05 — Dependency và bàn giao | Điều kiện bắt đầu, người nhận output | Xác nhận input sẵn; người nhận biết contract và tiêu chí nhận |
 | <a id="t06"></a>T06 — Owner, reviewer và timebox | Người thực hiện/kiểm, estimate/timebox/capacity | Có khả năng thực hiện; biết mốc báo vượt dự kiến và hành động xem lại |
@@ -32,7 +32,7 @@ Mã tài liệu: **CRM-TASK** · Gói CRM 1.3.1 · 03/11/2026
 
 1. Áp dụng bảng quyết định để chứng minh cần ticket riêng. Nếu không, giữ các bước trong checklist Story.
 2. Đọc brief T01–T08; thử xác định input và output mà không hỏi người viết. Nêu counterexample nếu phạm vi hoặc expected result còn nhiều nghĩa.
-3. So Task với Story/baseline: không tự thêm quyền/rule/contract. Delta hành vi quay về change control; gap requirement chặn phần liên quan.
+3. So Task với Story/revision áp dụng: không tự thêm quyền/rule/contract. Delta hành vi quay về change control; gap requirement chặn phần liên quan.
 4. Kiểm SMART, dependency, khả năng thực hiện và ai nhận. Ghi missing items, owner, due; không dùng một approval để thay input đang thiếu.
 5. Khi đóng, thực hiện phép kiểm đầu ra dưới đây, review đúng revision, ghi receiver acceptance. Timebox hết chỉ kích hoạt xem lại kế hoạch, không là bằng chứng Done.
 

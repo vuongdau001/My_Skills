@@ -22,7 +22,7 @@ sys.dont_write_bytecode = True
 KIT = Path(__file__).resolve().parents[1]
 CONFIG = '.agents/crm-spec-kit.json'
 RECEIPT = 'crm-spec-kit-installation.json'
-DIRECTORIES = ['00-project', 'capabilities', 'epics', 'stories', 'tasks', 'reviews', 'baselines', 'reports', 'pilot', 'prototypes']  # Legacy API; scaffold resolves artifact_paths.
+DIRECTORIES = ['00-project', 'capabilities', 'epics', 'stories', 'tasks', 'reviews', 'prototypes']  # Legacy API; scaffold resolves artifact_paths.
 PREFIXES = {'CAP','EPIC','STORY','TASK','REQ','BR','AC','MOD','DEC','BASE','TC','RUN','Q','MTG','ASM','CST'}
 VERDICTS = {'Đạt','Không đạt','Chưa kiểm','N/A'}
 DECISIONS = {'Pending','Proposed','Approved','Superseded','Rejected','Withdrawn'}
@@ -109,6 +109,8 @@ def config_check(repo, config):
             raise KitError('Invalid or duplicate workstream id')
         ids.add(ws['id'])
         spec = relative(repo, ws.get('spec_root'))
+        if ws.get('layout_version', 2) not in (2, 3):
+            raise KitError('Unsupported layout_version; expected 2 or 3')
         if ws.get('record_schema_version', 1) not in (1, 2, 3):
             raise KitError('Unsupported record_schema_version')
         if 'prototype_gate' in ws and not isinstance(ws['prototype_gate'], bool):
@@ -335,7 +337,7 @@ def install(args):
                 raise KitError('--source expects SRC-ID=repo/relative/path')
             sources.append({'id':sid,'path':path,'use':''})
         ws={'id':wsid,'title':args.title or wsid,'spec_root':args.spec_root or 'spec','sources':sources,'read_only':args.read_only,
-            'layout':args.layout or 'numbered','record_schema_version':3,'prototype_gate':True}
+            'layout':args.layout or 'numbered','layout_version':3,'record_schema_version':3,'prototype_gate':True}
         if args.input_root:
             ws['input_root']=args.input_root
         config['workstreams'].append(ws)
@@ -459,6 +461,12 @@ def doctor(args):
             elif 'CRM' not in (root/file).read_text(encoding='utf-8'):add('WARN','existing-instructions',ws['id']+': review existing '+file+' for conflicts')
         for source in ws['sources']:
             if not relative(repo,source['path']).exists():add('WARN','source-missing',ws['id']+': '+source['id']+' '+source['path'])
+    for check in support('commits').doctor(repo):
+        add(check['level'], check['code'], check['message'])
+    for ws in config['workstreams']:
+        root = relative(repo, ws['spec_root'])
+        retired = [n for n in ('06-baselines','07-reports','08-pilot','baselines','reports','pilot') if (root/n).exists()]
+        if retired:add('WARN','retired-categories',ws['id']+': legacy files preserved; plan explicit migration: '+', '.join(retired))
     if selected == 'codex':
         try:
             router, _ = codex_router(repo)
@@ -515,7 +523,7 @@ def context(args):
     manifest=read_json(KIT/'reference-manifest.json')
     function_id = args.function
     function=next((f for f in manifest['functions'] if f['id']==function_id),None)
-    if not function:raise KitError('Unknown function ID; use the 13 verb-object IDs in SKILL.md')
+    if not function:raise KitError('Unknown function ID; use the 10 verb-object IDs in SKILL.md')
     target_kind = args.target_kind
     if target_kind and target_kind not in function['supported_targets']:
         raise KitError('Unsupported target kind for this function')
@@ -532,6 +540,8 @@ def context(args):
     protocol='references/workflow-execution-protocol.md';body=(KIT/protocol).read_text(encoding='utf-8')
     include(protocol,'\n\n'.join('## '+h+'\n'+section(body,h) for h in ('Work Context & Resume','Verbs & Write Boundaries','Review & Gate Semantics','Artifact Writing','Output & Handoff')))
     include('references/artifact-writing-standard.md')
+    include('references/current-state-and-history.md')
+    include('references/commit-message-policy.md')
     resources=function['references']+function['templates']
     scope_checkpoint='references/source-scope-and-decomposition-checkpoint.md'
     if scope_checkpoint in function['references']:
@@ -783,6 +793,7 @@ def reset(args):
 
 def next_id(args):
     repo=args.repo.resolve();cfg=load_config(repo)
+    if args.prefix == 'BASE':raise KitError('Baseline packages are retired; reference the current artifact revision instead')
     if args.prefix == 'MTG':raise KitError('Meeting notes are input sources; create ASM/DEC/CST records instead of MTG IDs')
     if args.prefix not in PREFIXES:raise KitError('Unknown prefix')
     if args.reserve and (not args.apply or not args.owner):raise KitError('--reserve requires --apply and --owner')
@@ -905,7 +916,6 @@ def parser():
             s.add_argument('--source',action='append',default=[]);s.add_argument('--read-only',action='append',default=[]);s.add_argument('--apply',action='store_true')
         elif command=='score':
             s.add_argument('--assessment',help='Repo-relative JSON assessment inventory')
-            s.add_argument('--output',help='Explicitly save Markdown report to a new file under workstream reports; never overwrite')
             s.add_argument('--target');s.add_argument('--scope');s.add_argument('--item')
             s.add_argument('--init',action='store_true',help='Emit unknown full-catalog assessment JSON to stdout; no writes')
             s.add_argument('--artifact');s.add_argument('--kind',choices=['Capability','Epic','Story','Requirement']);s.add_argument('--revision')
@@ -913,7 +923,7 @@ def parser():
         elif command=='plan-layout':
             s.add_argument('--to',choices=['legacy','numbered'],default='numbered')
         elif command=='lint':
-            s.add_argument('--gate',choices=['draft','readiness','baseline'],default='draft')
+            s.add_argument('--gate',choices=['draft','readiness'],default='draft')
             s.add_argument('--target',help='Limit gate evidence checks to this defined ID and its dependency closure')
         elif command=='context':
             s.add_argument('function');s.add_argument('--target');s.add_argument('--target-kind');s.add_argument('--revision')

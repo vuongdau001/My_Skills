@@ -23,7 +23,7 @@ Thực hiện các bước bên dưới và lưu [review record](../../assets/te
 1. Lập danh sách ID thuộc target: need/BR/AC/model/contract và selected scope. Kiểm ID duy nhất, refs resolve được, source/version đúng.
 2. Đi ngược từ từng requirement tới nhu cầu/quyết định; đi xuôi tới model/AC/Story và verification condition theo giai đoạn. Kiểm dependency/shared rule theo cả hai chiều.
 3. Phân biệt phần kế thừa với delta. Nội dung dùng chung có một nguồn chuẩn; bản sao có thể lệch phải bỏ hoặc thay bằng ref có version.
-4. Trước triển khai, liên kết code/run có thể là “chưa có — chưa triển khai”; phải có planned allocation/verification. Sau triển khai, bổ sung PR/SHA/build/test run/verdict thực tế và đối soát baseline được kiểm.
+4. Trước triển khai, liên kết code/run có thể là “chưa có — chưa triển khai”; phải có planned allocation/verification. Sau triển khai, bổ sung PR/SHA/build/test run/verdict thực tế và đối soát revision áp dụng được kiểm.
 5. Thử impact query bằng tay: đổi một rule, ví dụ BR-CRM-001, thì xác định được model/Story/test nào phải xem lại? Nếu không, finding chưa đóng. Đổi revision phải invalidate/check lại đúng phạm vi, không gắn kết quả cũ cho version mới.
 
 **Evidence:** RTM/allocation table, ref integrity result, pin commit/selected-scope và một impact walkthrough.

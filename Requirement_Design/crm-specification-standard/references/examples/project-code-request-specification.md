@@ -130,7 +130,7 @@ Requester có quyền và là owner mới đọc/sửa/gửi draft. Hết phiên
 
 ## E08 UI và Prototype
 
-SCR-PC-LIST dẫn [bước chuẩn bị](#stp01-chuẩn-bị). SCR-PC-EDIT dẫn [gửi](#stp02-gửi), [dữ liệu sai](#b03-dữ-liệu-sai) và [xung đột](#b04-xung-đột). SCR-PC-RECEIPT dẫn [receipt](#stp04-nhận-kết-quả) và [timeout/retry](#b05-timeout-và-retry). Prototype demo có fixture cho từng nhánh E14. Ví dụ manifest dùng refs như `EPIC-CRM-001#b05-timeout-và-retry` trong allocation `EPIC-CRM-001 / r1 / initial-submit`. Baseline thật cần bundle runnable và walkthrough pin bytes.
+SCR-PC-LIST dẫn [bước chuẩn bị](#stp01-chuẩn-bị). SCR-PC-EDIT dẫn [gửi](#stp02-gửi), [dữ liệu sai](#b03-dữ-liệu-sai) và [xung đột](#b04-xung-đột). SCR-PC-RECEIPT dẫn [receipt](#stp04-nhận-kết-quả) và [timeout/retry](#b05-timeout-và-retry). Prototype demo có fixture cho từng nhánh E14. Ví dụ manifest dùng refs như `EPIC-CRM-001#b05-timeout-và-retry` trong allocation `EPIC-CRM-001 / r1 / initial-submit`. revision áp dụng thật cần bundle runnable và walkthrough pin bytes.
 
 ## E09 Contract
 
@@ -175,29 +175,24 @@ Test conditions dự kiến. TestRun, walkthrough và nghiệm thu dùng evidenc
 | STORY-CRM-001 · Gửi draft qua CRM | EPIC-CRM-001 r1, [bước STP01](#stp01-chuẩn-bị) tới [bước STP04](#stp04-nhận-kết-quả) và toàn bộ nhánh r1 ở E14 | Quyền, data, concurrency, retry, atomicity và kiểm receipt/queue tích hợp. Phụ thuộc hợp đồng queue và Task notification. |
 | STORY-CRM-002 · Đọc trạng thái nộp sau mất kết nối kéo dài | EPIC-CRM-001 r2, delta từ [Chờ đối soát](#out03-chờ-đối-soát) | Dùng cùng ID, quyền và trạng thái bền vững; cần read contract và kiểm không lộ hồ sơ. Phân bổ r2, không đếm lại STORY-CRM-001. |
 
-## E16 Policy, revision, baseline và thay đổi
+## E16 Policy, revision, revision áp dụng và thay đổi
 
-| Đợt minh họa | Scope và trạng thái | Evidence và review |
-|---|---|---|
-| BASE-CRM-001 · r1 | `initial-submit`, giả định đã nghiệm thu, Epic done ở mốc này | Snapshot r1, manifest/walkthrough r1, AC-CRM-101–109 và nghiệm thu EVID-PC-R1. |
-| BASE-CRM-002 · r2 | `submission-status`, baseline draft. Change EX-CHG-01 giả định đã được chấp nhận để làm; Epic mở lại inprogress theo workflow. | Giữ EPIC-CRM-001 và các anchor E03 còn cùng nghĩa. Review lại timeout, quyền đọc, contract, UI và AC của delta. Pin evidence commit r1 để tái dùng cho invariant giữ nguyên, chạy lại phép kiểm tích hợp chịu tác động. |
-
-Câu hỏi EX-Q5 của r2. Mốc freshness và cách hiển thị “đang đối soát” chờ Product, TL và QA xác nhận. Báo riêng phạm vi r1 đã nghiệm thu và r2 đang bổ sung. Block minh họa metadata của snapshot r1 bên dưới.
+Hồ sơ canonical hiện tại là EPIC-CRM-001 r2 cho delta submission-status. Phần initial-submit đã được nghiệm thu ở commit r1 giả định có thể được consumer dẫn bằng Git reference thật khi áp dụng ví dụ; không lưu snapshot hoặc cấp BASE ID mới. Mốc freshness và hiển thị đang đối soát vẫn là câu hỏi EX-Q5 cần Product/TL/QA quyết. Không chuyển acceptance của r1 sang delta r2.
 
 ### Bài tập review
 
 Xóa câu về dữ liệu và điểm kết thúc ở nhánh [Dữ liệu sai](#b03-dữ-liệu-sai), giữ nguyên heading/binding. Lint cấu trúc vẫn có thể đạt. Reviewer ghi finding Q02/Q04 ở E03/E14, dẫn nhánh cụ thể và yêu cầu expected result trước khi cấp verdict cho scope đó.
 
 <details>
-<summary>Metadata minh họa của r1</summary>
+<summary>Metadata hiện hành minh họa của r2</summary>
 
 ```crm-spec-kit
 {
   "schema_version": 1,
   "kind": "Epic",
   "artifact_id": "EPIC-CRM-001",
-  "revision": "r1",
-  "work_status": "done",
+  "revision": "r2",
+  "work_status": "inprogress",
   "epic_policy": "use-case-v1",
   "use_case": {"level": "user-goal", "locator": "#e03-use-case"},
   "defined_ids": [

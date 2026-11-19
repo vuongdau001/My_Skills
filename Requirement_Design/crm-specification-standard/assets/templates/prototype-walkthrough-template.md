@@ -41,3 +41,5 @@ Dùng block crm-spec-kit dưới đây với dữ liệu thật. Tính SHA256 Ep
 ```
 
 Với N/A, thêm na_reason, dùng review_verdict N/A và bỏ manifest_sha256/observed_scenarios. Scope và epic_sha256 vẫn bắt buộc.
+
+Áp dụng [hồ sơ hiện hành](../../references/current-state-and-history.md): cập nhật vị trí canonical theo target/scope, không tạo file theo lần chạy hoặc timeline. Review/check không tự sửa target; evidence stale phải được đánh giá lại.

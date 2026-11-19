@@ -62,7 +62,6 @@ def run(api, args):
     epic_policy = api['support']('epics').POLICY
     legacy_policy = api['support']('epics').LEGACY
     if args.init:
-        require(not args.output,'--init emits JSON stdout; --output is for Markdown reports')
         require(not args.assessment and args.artifact and args.target and args.kind and args.revision and args.scope,
                 '--init requires --artifact --target --kind --revision --scope, without --assessment')
         require(not args.item,'--init always creates the full catalog')
@@ -198,7 +197,7 @@ def run(api, args):
                 rollup=dict(catalog_obligations=summarize(catalog),canonical_requirements=summarize(req)),
                 semantic_approval=False,authority_verified=False,project_completeness_verified=False,
                 dependency_policy='Current typed ASM/DEC/CST closure checked and pinned; unresolved mapped items capped at 1; unmapped impact suppresses index',
-                note='Equal-weight ordinal definition index, not percent correct/effort/value. Unknown applicability suppresses index. Bounds cover known applicable inventory only. No gate/approval granted; evidence hashes validate bytes, not truth or reviewer authority. Inventory completeness is a declaration, not a discovered fact. No source artifacts modified; --output explicitly saves a new report.')
+                note='Equal-weight ordinal definition index, not percent correct/effort/value. Unknown applicability suppresses index. Bounds cover known applicable inventory only. No gate/approval granted; evidence hashes validate bytes, not truth or reviewer authority. Inventory completeness is a declaration, not a discovered fact. No source artifacts modified; output is computed on demand and written to stdout only.')
     for name,kind in [('catalog_obligations',False),('canonical_requirements',True)]:
         if any(t['_dependency_check']['blockers'] or t['_prototype_blocker'] for t,_ in selected if (t['kind']=='Requirement')==kind):
             result['rollup'][name]['gate']='blocked'
@@ -206,7 +205,6 @@ def run(api, args):
         if any(t['_dependency_check']['impact_allocation_unknown'] for t,_ in selected if (t['kind']=='Requirement')==kind):
             result['rollup'][name]['definition_index']=None
     if args.format=='json':
-        require(not args.output,'--output requires --format markdown')
         return result
     lines=['# Báo cáo mức hoàn thiện phân tích','',
            'Báo cáo tách điểm đề xuất với điểm hiệu lực sau kiểm dependency. Kết quả là chỉ số mức hoàn thiện trên phạm vi đã khai báo, không là % yêu cầu đúng hoặc % sản phẩm hoàn thành.',
@@ -244,7 +242,7 @@ def run(api, args):
         if not out['dependency_check']['records']:
             lines.append('Không tìm thấy ASM/DEC/CST trong typed dependency closure; không chứng minh đã hết giả định/câu hỏi. Cần kiểm queue/prose và allocation bằng review.')
         for r in out['dependency_check']['records']:
-            lines.append(f'- **{r["id"]}:** {r["kind"]}, {r["state"]}, revision {r["revision"]}.')
+            lines.append(f'- **{r["id"]}:** {r["kind"]}, {r.get("state", "unresolved" if r.get("unresolved") else "evidence present")}, revision {r["revision"]}.')
         if out['dependency_check']['records']:
             lines.extend(['','<details>','<summary>Nguồn và hash của record dependencies</summary>',''])
             for r in out['dependency_check']['records']:
@@ -271,14 +269,6 @@ def run(api, args):
     lines.extend(['## Giới hạn kết luận','',
                   'Chỉ số dùng thang thứ bậc với trọng số bằng nhau, không đo % đúng, effort hoặc giá trị. Applicability Unknown làm chỉ số chưa được cấp; khoảng điểm chỉ bao phủ inventory đã biết là áp dụng.', '',
                   'Báo cáo không cấp gate hoặc approval. Hash chỉ xác minh byte, không chứng minh nội dung đúng hay reviewer có thẩm quyền. Tính đầy đủ của inventory là khai báo, không phải fact được tool tự phát hiện.', '',
-                  'Không sửa source artifacts. Chỉ lưu report mới khi có --output; không ghi đè kết quả cũ.'])
+                  'Không sửa source artifacts; kết quả tính theo yêu cầu chỉ xuất stdout.'])
     report='\n'.join(lines)+'\n'
-    if args.output:
-        output=api['relative'](repo,args.output)
-        reports=api['relative'](root,api['artifact_paths'](ws)['reports'])
-        require(output.is_relative_to(reports) and output.suffix=='.md','--output must be a new Markdown file inside configured reports directory')
-        api['check_write_boundaries'](repo,cfg,[output])
-        meta=dict(schema_version=1,kind='Report',review_verdict='Chưa kiểm',references=[os.path.relpath(api['relative'](repo,args.assessment),output.parent).replace(os.sep,'/')])
-        report+='\n<details>\n<summary>Metadata cho công cụ</summary>\n\n```crm-spec-kit\n'+json.dumps(meta,ensure_ascii=False,indent=2)+'\n```\n\n</details>\n'
-        with output.open('x',encoding='utf-8') as f:f.write(report)
     return report

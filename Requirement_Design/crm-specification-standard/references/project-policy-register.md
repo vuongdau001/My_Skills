@@ -2,11 +2,11 @@
 
 Mã tài liệu: **CRM-POLICY** · Gói CRM 1.3.1 · 03/11/2026
 
-**Đọc khi:** thiết lập dự án, xét DoR/DoD, chọn độ sâu review/test hoặc giải quyết policy còn thiếu. **Đầu vào:** constraints tổ chức/hợp đồng, scope, hệ thống thực tế và authority. **Đầu ra:** register policy được duy trì trong repo dự án, version refs trên baseline/Story và các câu hỏi chưa chốt.
+**Đọc khi:** thiết lập dự án, xét DoR/DoD, chọn độ sâu review/test hoặc giải quyết policy còn thiếu. **Đầu vào:** constraints tổ chức/hợp đồng, scope, hệ thống thực tế và authority. **Đầu ra:** register policy được duy trì trong repo dự án, version refs trên revision áp dụng/Story và các câu hỏi chưa chốt.
 
 ## Phân biệt chuẩn dùng lại và quyết định dự án
 
-Register này ghi policy **Dự án / SDLC** dùng cho review, kiểm thử, baseline và bàn giao. Policy chi phối hành vi hoặc quyền trong CRM thuộc **Nghiệp vụ / sản phẩm** và được dẫn tại Capability, Epic hoặc model áp dụng. Khi một chính sách tổ chức ảnh hưởng cả hai phạm vi, tách các điều khoản áp dụng và giữ liên kết đến nguồn chung. [Phạm vi áp dụng của record](knowledge-records-and-evidence.md#record-applicability).
+Register này ghi policy **Dự án / SDLC** dùng cho review, kiểm thử, revision áp dụng và bàn giao. Policy chi phối hành vi hoặc quyền trong CRM thuộc **Nghiệp vụ / sản phẩm** và được dẫn tại Capability, Epic hoặc model áp dụng. Khi một chính sách tổ chức ảnh hưởng cả hai phạm vi, tách các điều khoản áp dụng và giữ liên kết đến nguồn chung. [Phạm vi áp dụng của record](knowledge-records-and-evidence.md#record-applicability).
 
 Gói này quy định **cách khai báo/kiểm policy**, không tự phê duyệt ngưỡng CRM. Copy [mẫu register](../assets/templates/project-policy-register-template.md) vào repo dự án và điền bằng quyết định thật. Repo/đường dẫn dự án chưa xác định phải ghi thiếu input; không ghi policy Approved ngay trong gói chỉ vì người dùng đồng ý cập nhật tài liệu.
 
@@ -48,6 +48,6 @@ Severity, risk, SLA, required checks là các policy khác nhau. Không dùng m�
 
 **Đạt để áp dụng:** đầy đủ nội dung áp dụng, đúng authority/version, không còn conflict/chỗ trống làm thay đổi kết luận gate. **Chưa kiểm:** không có input/evidence/authority. **Không đạt:** policy mâu thuẫn hoặc không thể áp dụng nhất quán. Policy bắt buộc còn Pending thì gate liên quan chưa thể đạt; tiếp tục công việc độc lập không phụ thuộc nó.
 
-**Ranh giới ngoại lệ:** không hạ severity để qua gate; không dùng AI PASS hoặc SLA hết hạn làm approval; không dùng waiver để đổi expected behavior mà bỏ change control. Nếu yêu cầu bắt buộc đổi, cập nhật baseline và acceptance theo đúng thẩm quyền.
+**Ranh giới ngoại lệ:** không hạ severity để qua gate; không dùng AI PASS hoặc SLA hết hạn làm approval; không dùng waiver để đổi expected behavior mà bỏ change control. Nếu yêu cầu bắt buộc đổi, cập nhật revision áp dụng và acceptance theo đúng thẩm quyền.
 
 Liên quan: [Gate/authority](readiness-completion-and-approval-gates.md), [AI/hard gates](ai-handoff-and-hard-gates.md), [Nguồn và CRM tailoring](standards-and-crm-tailoring.md).

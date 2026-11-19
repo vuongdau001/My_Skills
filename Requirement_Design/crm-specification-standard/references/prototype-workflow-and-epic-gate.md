@@ -24,18 +24,18 @@ Chốt scope, BR/AC, role, quyền và trạng thái cần minh họa trước k
 | Không có nguồn dùng được | Tạo Prototype chạy được từ Epic, UI contract và Story candidates. Ghi lý do và chỉ dẫn người dùng đã cung cấp hoặc đang chờ. |
 | Scope không tác động UI | Ghi E08 N/A với lý do, contract liên quan và người xác nhận. Dùng cùng gate để kiểm evidence N/A. |
 
-Ghi draft HTML/CSS/JS và fixture giả trong vùng prototypes khi được giao author. Giữ nguồn gốc read-only, dùng asset local và tránh account/dữ liệu thật. Reviewer mở bản được chọn, ghi findings và walkthrough trong reviews. Author cập nhật spec/Prototype trong bước riêng. Đối với nội dung đã baseline, bắt đầu bằng crm-assess-change.
+Ghi draft HTML/CSS/JS và fixture giả trong vùng prototypes khi được giao author. Giữ nguồn gốc read-only, dùng asset local và tránh account/dữ liệu thật. Reviewer mở bản được chọn, ghi findings và walkthrough trong reviews. Author cập nhật spec/Prototype trong bước riêng. Đối với nội dung đã được sử dụng, bắt đầu bằng crm-assess-change.
 
 ## 3. Tổ chức bundle theo hành trình
 
-Đặt bản Prototype chạy được để review và bàn giao trực tiếp trong category prototypes của Work Context. Với layout numbered, đây là thư mục `09-prototypes/` dưới spec_root. Bàn giao từ chính bundle này để người review và baseline cùng tham chiếu một bản.
+Đặt bản Prototype chạy được để review và bàn giao trực tiếp trong category prototypes của Work Context. Với layout numbered, đây là thư mục `06-prototypes/` dưới spec_root. Bàn giao từ chính bundle này để người review và consumer cùng tham chiếu một bản.
 
-Mỗi hành trình người dùng có một thư mục ngay dưới category prototypes, đặt tên theo việc người dùng làm và giữ tên ổn định khi lên revision. Chia file theo màn hình bên trong `screens/` và dùng chung entrypoint, assets, fixture cho cả luồng. Ghi phân bổ Epic, revision và scope trong manifest để một hành trình có thể đi qua nhiều Epic. Baseline pin revision và hash của bundle đã review.
+Mỗi hành trình người dùng có một thư mục ngay dưới category prototypes, đặt tên theo việc người dùng làm và giữ tên ổn định khi lên revision. Chia file theo màn hình bên trong `screens/` và dùng chung entrypoint, assets, fixture cho cả luồng. Ghi phân bổ Epic, revision và scope trong manifest để một hành trình có thể đi qua nhiều Epic. Epic selection và walkthrough tham chiếu revision/hash của bundle được review.
 
 Ví dụ layout numbered cho một hành trình tạo Contact. Nếu bundle minh họa cả tạo và gắn, liệt kê scenario và phân bổ cho từng Epic, kể cả khi các scenario dùng chung entrypoint.
 
 ```text
-09-prototypes/
+06-prototypes/
   contact-create/
     README.md
     manifest.json
@@ -45,28 +45,27 @@ Ví dụ layout numbered cho một hành trình tạo Contact. Nếu bundle minh
     assets/
     fixtures/
 05-reviews/
-06-baselines/
 ```
 
 - **README.md** ghi phạm vi, nguồn và disposition, cách chạy, giới hạn mô phỏng và cách tới từng scenario. Một Screen ID có một bản canonical cho phạm vi/revision đang dùng. Dùng cùng bundle qua allocation khi nhiều Epic hoặc Story dùng chung màn hình.
 - **manifest.json** nối Epic ID/revision/scope → Scenario ID → Screen ID → BR/AC/contract refs. Pin SHA256 của scenarios.md và mọi file trong app, screens, assets, fixtures. Giữ runtime dependencies trong các thư mục này và đóng gói entrypoint chạy được.
 - **scenarios.md** ghi actor, fixture, trigger, bước, expected UI và expected contract. Chọn happy path và các nhánh validation/permission/empty/loading/error ảnh hưởng scope. Ghi hành vi giả lập và giới hạn của nó.
-- **Walkthrough** nằm trong reviews, ghi revision, cách chạy, người tham gia, kết quả từng scenario, chênh lệch và verdict. **Baseline** pin Epic, manifest, walkthrough và Story allocation đúng revision. Dùng mẫu bundle và walkthrough bên dưới.
+- **Walkthrough** nằm trong reviews, ghi revision, cách chạy, người tham gia, kết quả từng scenario, chênh lệch và verdict. Epic và walkthrough dẫn manifest/Story allocation đúng revision. Dùng mẫu bundle và walkthrough bên dưới.
 
 ## 4. Gate, DoR và scoring
 
 | Bước | Điều kiện và evidence |
 |---|---|
-| Bàn giao Epic → Story thực thi | Có bundle runnable, walkthrough Đạt đúng scope/revision và findings chặn đã xử lý, hoặc evidence N/A được xác nhận. PM xem cùng baseline package. Gate này diễn ra sau đặc tả. Epic entry DoR cho phép bắt đầu làm rõ trước đó. |
-| DoR của Story thực thi | Mở đúng baseline/commit đã xác nhận. Với UI, kiểm Story có Screen/Scenario IDs, BR/AC/contract refs, entrypoint và walkthrough còn áp dụng. Với scope backend dẫn disposition và contract tương ứng. Thiếu hoặc stale thì ghi điều kiện DoR bị chặn. |
+| Bàn giao Epic → Story thực thi | Có bundle runnable, walkthrough Đạt đúng scope/revision và findings chặn đã xử lý, hoặc evidence N/A được xác nhận. Authority theo policy dự án; không chuẩn bị package riêng. Gate này diễn ra sau đặc tả. Epic entry DoR cho phép bắt đầu làm rõ trước đó. |
+| DoR của Story thực thi | Mở đúng revision áp dụng/commit đã xác nhận. Với UI, kiểm Story có Screen/Scenario IDs, BR/AC/contract refs, entrypoint và walkthrough còn áp dụng. Với scope backend dẫn disposition và contract tương ứng. Thiếu hoặc stale thì ghi điều kiện DoR bị chặn. |
 | Scoring E08 | Với UI, mức 2/3 yêu cầu walkthrough hiện hành và Prototype đúng scope. Mức 3 vẫn cần specialist/independent review theo rubric. Khi thiếu hoặc stale evidence, điểm hiệu lực E08 tối đa mức 1 nếu đã chấm. E08 N/A thiếu evidence trở thành Unknown. |
 
-BA/Business xác nhận hành vi nghiệp vụ, UX xác nhận trải nghiệm, TL xác nhận Command/Query và feasibility, QA đối chiếu expected outcomes. PM chốt phạm vi baseline theo quy trình hiện hành. Đối chiếu UI Contract hoặc DDD artifacts khi workstream có những hồ sơ này.
+BA/Business xác nhận hành vi nghiệp vụ, UX xác nhận trải nghiệm, TL xác nhận Command/Query và feasibility, QA đối chiếu expected outcomes. PM chốt phạm vi revision áp dụng theo quy trình hiện hành. Đối chiếu UI Contract hoặc DDD artifacts khi workstream có những hồ sơ này.
 
-Workstream mới bật `prototype_gate: true`. Với workstream cũ, bật rõ trong config khi áp dụng. Chạy `lint --gate baseline --target <EPIC-ID>` hoặc dùng Baseline target có trace dependency đến Epic. Helper kiểm cấu trúc, files/hash, scope và evidence khai báo. Người review cần tự chạy Prototype và kiểm expected behavior. Scoring dùng cùng phép kiểm cho scope E08. Khi Epic, scenario, manifest hoặc runtime file thay đổi, chạy lại walkthrough phần ảnh hưởng và cập nhật pin sau review. Giữ biên bản cũ theo revision.
+Workstream mới bật `prototype_gate: true`. Với workstream cũ, bật rõ trong config khi áp dụng. Chạy `lint --gate readiness --target <EPIC-ID>` hoặc dùng revision áp dụng target có trace dependency đến Epic. Helper kiểm cấu trúc, files/hash, scope và evidence khai báo. Người review cần tự chạy Prototype và kiểm expected behavior. Scoring dùng cùng phép kiểm cho scope E08. Khi Epic, scenario, manifest hoặc runtime file thay đổi, chạy lại walkthrough phần ảnh hưởng và cập nhật pin sau review. Cập nhật walkthrough hiện hành sau khi chạy lại; lịch sử qua Git.
 
 - [Mẫu bundle Prototype](../assets/templates/prototype-bundle-template.md)
 - [Mẫu biên bản walkthrough Prototype](../assets/templates/prototype-walkthrough-template.md)
-- [Quy trình baseline](baseline-and-change-control.md)
+- [Quy trình revision áp dụng](revision-and-change-impact.md)
 - [DoR và thẩm quyền bàn giao](readiness-completion-and-approval-gates.md)
 - [Scoring](definition-maturity-scoring.md)

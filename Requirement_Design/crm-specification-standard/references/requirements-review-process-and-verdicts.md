@@ -7,11 +7,11 @@ Mã tài liệu: **CRM-REVIEW** · Gói CRM 1.3.1 · 03/11/2026
 **Đọc khi:** Review toàn bộ hoặc một phần Epic/Story.
 
 
-Review Epic áp dụng [use-case-v1](epic-use-case-policy.md). Ghi evidence E01–E03 và E14–E16 cho mục tiêu, boundary, nhánh, kết quả, coverage và baseline của scope. Thiếu expected result là finding nội dung dù lint cấu trúc đạt.
+Review Epic áp dụng [use-case-v1](epic-use-case-policy.md). Ghi evidence E01–E03 và E14–E16 cho mục tiêu, boundary, nhánh, kết quả, coverage và revision áp dụng của scope. Thiếu expected result là finding nội dung dù lint cấu trúc đạt.
 
 ## Chọn phạm vi review
 
-**Đầu vào:** target/revision/selected scope, baseline/source, catalog applicability và models. **Đầu ra:** [review record](../assets/templates/requirements-review-record-template.md), findings, evidence và verdict có phạm vi; PM dùng để xét gate.
+**Đầu vào:** target/revision/selected scope, revision áp dụng/source, catalog applicability và models. **Đầu ra:** [review record](../assets/templates/requirements-review-record-template.md), findings, evidence và verdict có phạm vi; PM dùng để xét gate.
 
 Full review: đánh giá toàn bộ catalog của target, bảy nhóm kiểm dưới đây và các model áp dụng. Targeted review: ghi rõ phép kiểm/model được giao; không nâng kết quả thành PASS cả Epic/Story. Không có source/revision/reviewer thì ghi Chưa kiểm. Đạt một phần không là approval cho phần còn lại.
 
@@ -42,7 +42,7 @@ Mỗi hạng mục E/S trong catalog có bản ghi:
 | Trường | Nội dung |
 |---|---|
 | Applicability | Áp dụng / N/A có lý do và người xác nhận |
-| Phạm vi và phiên bản | Epic/Story, phần scope, section/model ID, revision hoặc baseline ref |
+| Phạm vi và phiên bản | Epic/Story, phần scope, section/model ID, revision hoặc revision áp dụng ref |
 | Output | Đường dẫn, section, bảng hoặc mô hình cụ thể |
 | Owner / reviewer | Người viết và người có năng lực/quyền xác nhận |
 | Review result | Chưa kiểm / Không đạt / Đạt / N/A có lý do; ghi finding và reason |
@@ -79,7 +79,7 @@ NASA Appendix C.4 đưa các câu hỏi validation cụ thể; ISTQB cung cấp 
 
 **Đơn vị review:** một requirement, một nhóm rule/model hoặc toàn bộ scope được chọn của Epic/Story. Ghi rõ target và revision trước khi kiểm; “review Epic rồi” không xác định được bộ nội dung nào đã được xét.
 
-**Bộ đầu vào:** scope/source register, danh sách actor và authority, nội dung E/S áp dụng, model/contract refs, câu hỏi/quyết định, baseline cha và danh sách delta. Nếu chưa có input cần thiết, ghi `Chưa kiểm — thiếu input`, không ghi Đạt.
+**Bộ đầu vào:** scope/source register, danh sách actor và authority, nội dung E/S áp dụng, model/contract refs, câu hỏi/quyết định, revision áp dụng cha và danh sách delta. Nếu chưa có input cần thiết, ghi `Chưa kiểm — thiếu input`, không ghi Đạt.
 
 **Thực hiện:** owner chuẩn bị inventory; BA/Business, Dev/TL và QA kiểm từ các góc nhìn tương ứng. Người phát hiện ghi finding với vị trí/điều kiện/counterexample; owner sửa; reviewer xác nhận closure. PM xem kết quả/evidence và rủi ro, không thay kết luận của người chuyên môn.
 
@@ -112,8 +112,8 @@ Không tính điểm trung bình giữa các phép kiểm. Q01 sai nghiệp vụ
 | 3. Read-back và phản biện | Dev/TL + QA | Dev giải thích solution; QA đề xuất case sai/biên/đồng thời; BA so với ý nghĩa nghiệp vụ | Findings và sửa mô hình/contract/AC |
 | 4. Kiểm chéo | BA + Dev + QA | Cùng action có cùng guard/permission/data/state/error ở flow, model, contract và AC không | Cross-model findings đã xử lý |
 | 5. Xác nhận nội dung | Business/technical/control authority | Expected result, rủi ro và constraint đúng thẩm quyền | Specialist verdict đúng revision |
-| 6. PM review bàn giao | PM | Đủ output, hết blocker, phân rã hợp lý, baseline scope/manifest và approvals đúng version | Approve/return với lý do |
-| 7. Merge và kiểm DoR | Người/service có quyền; Dev/QA nhận | Merge đúng nội dung đã review; Story pin refs; điều kiện thực hiện hiện tại đủ chưa | Baseline receipt, Story refs và DoR result |
+| 6. PM review bàn giao | PM | Đủ output, hết blocker, phân rã hợp lý, revision áp dụng scope/manifest và approvals đúng version | Approve/return với lý do |
+| 7. Kiểm DoR | Dev/QA và authority theo policy dự án | Story dẫn đúng spec/revision; điều kiện thực hiện hiện tại | Readiness result và findings hiện hành |
 
 Review thực hiện async trên Jira và PR; không cần họp đủ mọi role cho mọi hạng mục. Owner tổng hợp findings, reviewer xác nhận sửa; không coi comment rải rác là đã có kết luận.
 
@@ -122,7 +122,7 @@ Review thực hiện async trên Jira và PR; không cần họp đủ mọi rol
 
 ### Cổng trước tạo Story và cổng trước code
 
-**Trước tạo Story:** phần Epic được chọn có model/rule/AC/solution/test approach đủ rõ; applicability và câu hỏi chặn đã xử lý; manifest được PM duyệt; bộ hồ sơ đó đã merge.
+**Trước tạo Story:** phần Epic được chọn có model/rule/AC/solution/test approach đủ rõ; applicability và câu hỏi chặn đã xử lý; allocation và authority theo policy dự án. Không yêu cầu package hoặc merge mặc định.
 
 **Trước code:** Story xác định đúng subset/version, không có delta chưa duyệt; Dev/QA hiểu khớp; các điều kiện DoR còn lại như dữ liệu, dependency, quyền và capacity đã đạt. Có skeleton Story hoặc có AC chưa đủ để qua cổng này.
 
@@ -136,7 +136,7 @@ Review thực hiện async trên Jira và PR; không cần họp đủ mọi rol
 | Required sections/fields, ID duy nhất, ref không gãy, type/enum/schema | Nội dung đúng nhu cầu và thuật ngữ đúng nghĩa |
 | Model refs hợp lệ, transition endpoint tồn tại, table/diagram IDs khớp khi có cấu trúc | Mô hình đã bao phủ các tình huống quan trọng; guards/default hợp nghiệp vụ |
 | BR/AC/model → Story/test-condition links, unknown/N/A records | Expected result đúng, quyết định đúng quyền và risk scope hợp lý |
-| Approval actor/revision/digest và baseline merge/manifest integrity | Solution khả thi, testcase có khả năng phát hiện lỗi và đủ kiểm độc lập |
+| Approval actor/revision/digest và artifact revision/reference integrity | Solution khả thi, testcase có khả năng phát hiện lỗi và đủ kiểm độc lập |
 
 Không lấy “AI review đạt” hoặc đủ số section làm gate duy nhất. Nội dung này chỉ xác định yêu cầu cho cơ chế kiểm; gói hiện tại chưa cài skill vào runtime hoặc cấu hình hook thực thi.
 

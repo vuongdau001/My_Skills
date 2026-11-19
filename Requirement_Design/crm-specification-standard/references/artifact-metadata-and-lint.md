@@ -2,13 +2,13 @@
 
 ID: **CRM-ARTIFACT-LINT** · CRM Workflow Kit 1.5.0 · 03/11/2026
 
-Epic schema 1/2 có thể khai `epic_policy: "use-case-v1"` và đúng một `use_case` với level user-goal và locator tường minh trong E03. Trace hành vi dẫn `artifact_id` của Epic, revision và path có anchor E03. Lint kiểm trùng Epic ID và nhận diện binding có MOD ID theo mẫu cũ. Gate baseline/readiness chặn Epic thiếu policy thuộc scope. Xem [policy Epic–Use Case](epic-use-case-policy.md).
+Epic schema 1/2 có thể khai `epic_policy: "use-case-v1"` và đúng một `use_case` với level user-goal và locator tường minh trong E03. Trace hành vi dẫn `artifact_id` của Epic, revision và path có anchor E03. Lint kiểm trùng Epic ID và nhận diện binding có MOD ID theo mẫu cũ. Gate readiness chặn Epic thiếu policy thuộc scope. Xem [policy Epic–Use Case](epic-use-case-policy.md).
 
 ## Purpose
 
 Cho helper kiểm được vocabulary/ID/links bằng dữ liệu có cấu trúc, không regex mọi câu văn rồi kết luận semantics. Mỗi artifact mới có tối đa một JSON block [theo mẫu](../assets/templates/artifact-metadata-template.md). File legacy chưa có block vẫn được audit explicit fields/links và được cảnh báo; không bắt rewrite dữ liệu cũ tự động.
 
-Metadata schema_version=1/2 tiếp tục được đọc. DEC/ASM/CST mới dùng schema 3 không state; biên bản chỉ là nguồn đầu vào, không tạo Meeting record. Schema 2 là hợp đồng legacy cho Meeting/Assumption/Constraint và structured Decision records theo [knowledge records](knowledge-records-and-evidence.md). kind cũ là Capability/Epic/Story/Task/Review/Baseline/Report/Pilot/Project/Decision/Requirement/Model/TestCase/TestRun. artifact_id, defined_ids và IDs của records là definitions thuộc PREFIX-CRM-NNN; nhắc ID trong nội dung không thành definition. Cùng ID trong artifact_id/defined_ids cùng file đếm một lần; record lặp trong register hoặc hai file định nghĩa cùng ID là lỗi. Một file có thể chứa nhiều BR/AC với defined_ids, hoặc nhiều knowledge records với records.
+Metadata schema_version=1/2 tiếp tục được đọc. DEC/ASM/CST mới dùng schema 3 không state; biên bản chỉ là nguồn đầu vào, không tạo Meeting record. Schema 2 là hợp đồng legacy cho Meeting/Assumption/Constraint và structured Decision records theo [knowledge records](knowledge-records-and-evidence.md). kind cũ là Capability/Epic/Story/Task/Review/revision áp dụng/Report/Pilot/Project/Decision/Requirement/Model/TestCase/TestRun. artifact_id, defined_ids và IDs của records là definitions thuộc PREFIX-CRM-NNN; nhắc ID trong nội dung không thành definition. Cùng ID trong artifact_id/defined_ids cùng file đếm một lần; record lặp trong register hoặc hai file định nghĩa cùng ID là lỗi. Một file có thể chứa nhiều BR/AC với defined_ids, hoặc nhiều knowledge records với records.
 
 work_status chỉ dùng cho Epic/Story/Task với đúng status của từng loại. Capability chỉ ở tài liệu, không được tự nhận Jira status. review_verdict: Đạt/Không đạt/Chưa kiểm/N/A; N/A cần na_reason và authority/evidence vẫn do người review xác nhận. DEC/ASM/CST schema 3 không có state; vocabulary state chỉ còn cho bộ đọc legacy schema 2. Approval trong metadata chỉ là khai báo, lint không chứng nhận có thẩm quyền.
 
@@ -16,7 +16,7 @@ references chứa repo-relative-from-artifact links, giống Markdown links; ki�
 
 DEC/ASM/CST schema 3 chỉ yêu cầu nội dung và scope; các trường giải thích khác dùng khi hữu ích. ASM tồn tại trong closure nghĩa là chưa xác nhận; DEC thiếu nội dung/căn cứ hoặc CST thiếu nguồn còn là gap, không có state thay thế. Khi ASM được xác nhận, tạo DEC ID và cập nhật consumer trước khi xóa ASM.
 
-trace_links kiểm target ID có definition đúng file, relation, revision và optional content hash; evidence schema 2 cần revision/hash. Kind schema 1 Decision không bị ép field mới. --gate readiness/baseline tăng unresolved record obligations thành ERROR trong closure của --target; không --target là whole-workstream hiện hành. Structural checks vẫn rộng. Lint không tìm được mọi missing trace link, không đánh giá nội dung đúng hoặc chạy full DoR. Layout inference dùng artifact_paths và cả hai tên thư mục chuẩn, xem [layout](artifact-layout-and-migration.md).
+trace_links kiểm target ID có definition đúng file, relation, revision và optional content hash; evidence schema 2 cần revision/hash. Kind schema 1 Decision không bị ép field mới. --gate readiness/revision áp dụng tăng unresolved record obligations thành ERROR trong closure của --target; không --target là whole-workstream hiện hành. Structural checks vẫn rộng. Lint không tìm được mọi missing trace link, không đánh giá nội dung đúng hoặc chạy full DoR. Layout inference dùng artifact_paths và cả hai tên thư mục chuẩn, xem [layout](artifact-layout-and-migration.md).
 
 ## Presentation của Markdown
 

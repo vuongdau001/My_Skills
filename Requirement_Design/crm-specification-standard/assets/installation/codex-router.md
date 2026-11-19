@@ -1,7 +1,9 @@
 <!-- crm-spec-kit:router:start -->
 ## CRM Spec Kit routing
 
-For CRM requirement/specification, Capability/Epic/Story, review, baseline, readiness, handoff, completion or pilot requests, read `.agents/skills/crm-spec-kit/SKILL.md` and project config `.agents/crm-spec-kit.json`. Select the workstream, target and current revision; read the selected spec_root's `AGENTS.md` even when working from the repository root. Run the installed `scripts/kit.py context` for the selected function and load detailed references as needed.
+For CRM requirements, Capability/Epic/Story, solution, review, readiness, handoff, completion or change-impact work, read `.agents/skills/crm-spec-kit/SKILL.md`, project config and the selected spec_root AGENTS.md. Select workstream/target/current revision and run kit.py context for one of 10 internal functions. Status questions are answered on demand; no baseline/report/pilot workflow.
 
-Use existing domain-modeling, development and project-state workflows for their own artifacts. The kit does not replace them or grant permission to modify their sources. Check/review functions write records only; draft preparation, review, authority approval and actual external actions remain separate. One public skill contains 13 internal functions, not 13 independent slash commands. Preserve other repository instructions; surface conflicts instead of silently overriding them.
+Keep one current canonical artifact per target/scope; history belongs in Git. Reviews/checks do not edit their targets or grant approval. Preserve other repository instructions and workflow boundaries.
+
+When a commit is explicitly authorized, read `.agents/skills/crm-spec-kit/references/commit-message-policy.md`, inspect staged diff, validate the message with the shared commit_policy.py validator, and verify the actual commit afterwards. Do not bypass hooks or fabricate validation evidence. Instructions do not replace local/remote enforcement; do not enable hooks/CI or overwrite existing policies without assigned scope.
 <!-- crm-spec-kit:router:end -->

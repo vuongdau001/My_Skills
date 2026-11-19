@@ -22,7 +22,7 @@ Nếu thiếu input ghi **Chưa kiểm**; có gap/mâu thuẫn ghi **Không đ�
 
 ### D04. Data dictionary, validation và ranh giới dữ liệu
 
-**Khi dùng:** mọi input/output/persisted data mới hoặc thay đổi; có thể tham chiếu contract đã baseline nếu không đổi.
+**Khi dùng:** mọi input/output/persisted data mới hoặc thay đổi; có thể tham chiếu contract đã được sử dụng nếu không đổi.
 
 **Trường tối thiểu:** field/entity, meaning, type/unit/precision/timezone, source/owner, required/default/null behavior, valid domain/length/range, normalization, relationship/uniqueness, error outcome và data/privacy handling liên quan.
 

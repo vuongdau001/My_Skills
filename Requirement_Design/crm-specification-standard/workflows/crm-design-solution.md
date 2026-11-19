@@ -67,10 +67,12 @@ Tách output prepared / review performed / authority approval / actual action co
 
 ## Failure & Rework
 
-Thiếu API/quyền/evidence feasibility phải ghi gap; không gọi tên công nghệ là đã có solution. Không sửa product code hoặc thực hiện PoC trong workflow này. Sau correction, đọc lại affected revision và kiểm lại scope liên quan. Giữ old findings/approval/evidence như lịch sử, không tự tái dùng cho nội dung mới. Khi thiếu quyền/tool/access, ghi giới hạn thay vì báo đã làm.
+Thiếu API/quyền/evidence feasibility phải ghi gap; không gọi tên công nghệ là đã có solution. Không sửa product code hoặc thực hiện PoC trong workflow này. Sau correction, đọc lại affected revision và kiểm lại scope liên quan. Kết quả cũ không áp dụng cho revision mới; đánh giá lại trong record hiện hành, lịch sử qua Git. Khi thiếu quyền/tool/access, ghi giới hạn thay vì báo đã làm.
 
 ## Usage Examples
 
 > Dùng crm-design-solution phân tích solution cho scope này, dựa trên code/contract được cung cấp, ghi feasibility gaps và cách kiểm chứng.
 
 Kết quả mong đợi: Solution/contract draft, rationale, dependency/feasibility record, verification approach và open technical decisions. Record phải chỉ đúng scope/revision, evidence đã xem và phần chưa kiểm. Phản ví dụ cần tránh: kết luận gate/ticket Done chỉ vì agent đã hoàn tất câu trả lời hoặc đổi profile.
+
+Áp dụng [hồ sơ hiện hành](../references/current-state-and-history.md): cập nhật vị trí canonical theo target/scope, không tạo file theo lần chạy hoặc timeline. Review/check không tự sửa target; evidence stale phải được đánh giá lại.

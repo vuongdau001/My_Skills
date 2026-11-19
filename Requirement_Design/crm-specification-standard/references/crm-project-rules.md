@@ -10,20 +10,20 @@ Mã tài liệu: **CRM-RULES** · Gói CRM 1.3.1 · 03/11/2026
 
 
 
-Epic sở hữu một Use Case user-goal, dùng Epic ID và anchor E03 để truy vết qua các revision của cùng mục tiêu. Phạm vi nghiệm thu được xác định theo baseline của từng đợt. Xem [policy use-case-v1](epic-use-case-policy.md).
+Epic sở hữu một Use Case user-goal, dùng Epic ID và anchor E03 để truy vết qua các revision của cùng mục tiêu. Phạm vi nghiệm thu được xác định theo revision áp dụng của từng đợt. Xem [policy use-case-v1](epic-use-case-policy.md).
 
 ## Quy ước hiện hành và cách đọc
 
-Gói này chuẩn hóa **tài liệu quy trình CRM**, không chứng nhận compliance hay phê duyệt requirement sản phẩm. Việc đồng ý dùng quy trình không xác nhận policy trong các ví dụ. Nội dung chuẩn theo phiên bản ở Git; Jira giữ trao đổi, phân công, blocker và evidence links. Quyết định trên Jira làm đổi requirement phải được đưa vào tài liệu Git và review lại trước dùng như baseline.
+Gói này chuẩn hóa **tài liệu quy trình CRM**, không chứng nhận compliance hay phê duyệt requirement sản phẩm. Việc đồng ý dùng quy trình không xác nhận policy trong các ví dụ. Nội dung chuẩn theo phiên bản ở Git; Jira giữ trao đổi, phân công, blocker và evidence links. Quyết định trên Jira làm đổi requirement phải được đưa vào tài liệu Git và review lại trước dùng như revision áp dụng.
 
 Capability nằm trong tài liệu trên Epic. **Story đủ DoR có thể triển khai trực tiếp; Task tùy nhu cầu quản lý đầu ra riêng.** Không tạo Task phân tích mặc định và không tạo ticket cho từng bước/lần chạy AI. Chi tiết lựa chọn nằm tại [Phân cấp và phân rã](backlog-hierarchy-and-decomposition.md).
 
-- Soạn Epic: [Catalog Epic](epic-specification-catalog.md) → model áp dụng → review → baseline.
-- Soạn Story: [Catalog Story](story-specification-catalog.md) → subset/delta của baseline → AC/test conditions → DoR.
+- Soạn Epic: [Catalog Epic](epic-specification-catalog.md) → model áp dụng → review → revision áp dụng.
+- Soạn Story: [Catalog Story](story-specification-catalog.md) → subset/delta của revision áp dụng → AC/test conditions → DoR.
 - Giao việc: [Task planning](task-planning-and-completion.md); checklist là lựa chọn mặc định khi không cần quản lý riêng.
 - Review: [Quy trình và verdict](requirements-review-process-and-verdicts.md), [inventory/coverage](coverage-inventories-and-traceability.md).
-- Chuyển bước: [DoR/DoD/approval](readiness-completion-and-approval-gates.md), [status/tiến độ](jira-status-and-progress-reporting.md).
-- Bàn giao/thay đổi: [baseline](baseline-and-change-control.md), [AI/hard gate](ai-handoff-and-hard-gates.md).
+- Chuyển bước: [DoR/DoD/approval](readiness-completion-and-approval-gates.md), [status/tiến độ](delivery-status-evidence.md).
+- Bàn giao/thay đổi: [revision áp dụng](revision-and-change-impact.md), [AI/hard gate](ai-handoff-and-hard-gates.md).
 
 Mỗi người có thể kiêm nhiều vai trò, nhưng ghi rõ trách nhiệm của lần xác nhận. Business/PO quyết nội dung nghiệp vụ; BA tổ chức yêu cầu; Dev/TL quyết/xác nhận kỹ thuật; QA phản biện và kiểm chứng; PM chốt scope, capacity và bộ đầu ra. PM không ký thay chuyên môn. AI hỗ trợ các vai trò, không là authority, không tự cấp quyền thao tác bên ngoài.
 
@@ -45,7 +45,7 @@ Nguồn: `CRM_Epic_Story_Specification_Standard_v1.md`, phiên bản 1.1. Metada
 2. Có đủ tiêu đề hoặc AI điền hết template chưa chứng minh nội dung đúng/đủ. Mỗi hạng mục cần output, nguồn, reviewer, kết quả review và phiên bản.
 3. Mọi nhóm nội dung trong checklist phải được đánh giá applicability. Nhóm có điều kiện có thể ghi N/A với lý do và người xác nhận; chưa biết không được đổi thành N/A.
 4. Mức chi tiết theo phạm vi và rủi ro. Không bắt sửa một nhãn UI phải vẽ BPMN, sequence diagram và state machine mới.
-5. Nội dung chuẩn nằm trong bộ yêu cầu + solution được baseline trong Git. Jira Epic giữ trao đổi, owner, readiness và blocker; không tạo Task phân tích mặc định.
+5. Nội dung chuẩn nằm trong bộ yêu cầu + solution được revision áp dụng trong Git. Jira Epic giữ trao đổi, owner, readiness và blocker; không tạo Task phân tích mặc định.
 6. “State transition” ở tài liệu đặc tả là vòng đời **đối tượng nghiệp vụ** như yêu cầu phê duyệt. Nó khác status Jira `todo/inprogress/resolved/done` của công việc triển khai.
 7. Đánh giá “đủ” trong phạm vi được duyệt, trên những mô hình/rủi ro đã xác định; không tuyên bố một checklist hữu hạn chứng minh mọi tình huống có thể xảy ra ngoài đời đã được biết hết.
 
@@ -65,7 +65,7 @@ Tài liệu trả lời các câu hỏi:
 
 1. Requirement được phân loại và tổ chức ở đâu?
 2. Capability, Epic, Story và Task có trách nhiệm quản lý nội dung gì?
-3. **Baseline của tài liệu/nội dung nào phải được duyệt và merge vào Git trước khi tạo Story?**
+3. **Nội dung/revision nào đang được dùng, authority nào cần review và consumer nào chịu tác động khi đổi?**
 4. AC, DoR và DoD của từng cấp là gì?
 5. Ai chuẩn bị, ai review, ai chốt, ai nhận đầu ra?
 6. Dùng các status Jira hiện có để theo dõi công việc như thế nào?
@@ -103,7 +103,7 @@ Việc đặt Capability trên Epic là quy ước của CRM. Nó khác thứ t�
 
 <a id="workflow-2"></a>
 
-## Định nghĩa: Requirement, AC, DoR, DoD và Baseline
+## Định nghĩa: Requirement, AC, DoR, DoD và revision áp dụng
 
 | Khái niệm | Định nghĩa sử dụng | Ví dụ / hệ quả |
 |---|---|---|
@@ -112,7 +112,7 @@ Việc đặt Capability trên Epic là quy ước của CRM. Nó khác thứ t�
 | Acceptance Criteria — AC | Điều kiện có thể kiểm chứng để chấp nhận hành vi/kết quả của một phạm vi cụ thể | Request không có quyền bị từ chối và không tạo bản ghi |
 | Definition of Ready — DoR | Bộ điều kiện để một loại công việc được bắt đầu ở bước đã xác định | Story đủ rõ, có solution, dữ liệu/dependency và người thực hiện trước khi code |
 | Definition of Done — DoD | Bộ điều kiện để xác nhận công việc/đầu ra của một loại đối tượng đã hoàn thành | Story đáp ứng AC, review/test đạt, evidence và tài liệu đầy đủ |
-| Baseline | Một tập nội dung xác định đã được review/phê duyệt và được định danh bằng phiên bản; thay đổi sau đó phải được kiểm soát | Bộ yêu cầu và solution của lát tạo thủ công thuộc Epic hồ sơ Customer, tại Git commit đã merge |
+| revision áp dụng | Một tập nội dung xác định đã được review/phê duyệt và được định danh bằng phiên bản; thay đổi sau đó phải được kiểm soát | Bộ yêu cầu và solution của lát tạo thủ công thuộc Epic hồ sơ Customer, tại Git commit đã merge |
 | Manifest | Danh sách có cấu trúc mô tả phạm vi được chốt và các child dự kiến được phép tạo | Story logical ID, BR/AC thực hiện, dependency và owner |
 | Evidence — EVD | Bằng chứng của quyết định, review, thao tác hoặc kiểm chứng thực tế | PR approval, gate receipt, CI run, QA verdict, acceptance record |
 
@@ -139,7 +139,7 @@ Các bộ DoR/DoD cho Epic và Task trong tài liệu này là quy định đi�
 - [Loại requirement, ID và trace](requirement-types-identifiers-and-traceability.md): BR là Business Rule; loại nội dung khác cấp backlog.
 - [Mapping E/S→Q/D](catalog-check-model-mapping.md): model/trigger/evidence/reviewer cho từng hạng mục.
 - [Measurement và roll-up](progress-measurement-and-capability-rollup.md): phân tích, triển khai và nghiệm thu báo riêng.
-- [Pilot thực tế](pilot-and-operational-validation.md): cách thử trên hồ sơ thật, chưa phải pilot đã làm.
+- Kiểm chứng kit bằng fixtures/regression; không là workflow pilot dự án.
 
 
 ---

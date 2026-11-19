@@ -2,7 +2,7 @@
 
 Mã tài liệu: **CRM-MAPPING** · Gói CRM 1.3.1 · 03/11/2026
 
-**Đọc khi:** soạn/review một hạng mục Epic/Story hoặc định tuyến agent. **Đầu vào:** target, scope/revision, applicability và delta so với baseline. **Đầu ra:** danh sách model/check cần thực hiện, evidence và reviewer; không tự cấp verdict từ bảng mapping.
+**Đọc khi:** soạn/review một hạng mục Epic/Story hoặc định tuyến agent. **Đầu vào:** target, scope/revision, applicability và delta so với revision áp dụng. **Đầu ra:** danh sách model/check cần thực hiện, evidence và reviewer; không tự cấp verdict từ bảng mapping.
 
 ## Cách dùng
 
@@ -31,8 +31,8 @@ Mã tài liệu: **CRM-MAPPING** · Gói CRM 1.3.1 · 03/11/2026
 | E13 — Solution/dependency | [D10 — Solution, phân rã Story và testability](models/solution-and-story-decomposition.md); [D07 — Contract API và tích hợp](models/api-and-integration-contracts.md) | Solution/feasibility; D07 nếu có contract | Delta/rationale + dependency commitment/reality check | Dev / TL + QA |
 | E14 — AC và coverage | Không bắt model riêng; dùng refs và inventory của target | Mọi model áp dụng cần allocation verification | Scenario/kết quả E03 → AC → setup/expected/observation → evidence đúng revision | BA + QA / Business + Dev |
 | E15 — Phân rã Story | [D10 — Solution, phân rã Story và testability](models/solution-and-story-decomposition.md) | Phân bổ scope sang Story | Epic ID, revision, anchor bước/nhánh E03 hoặc delta, controls, dependency, phần còn lại và kiểm outcome tích hợp | BA + Dev + QA / PM |
-| E16 — Policy và baseline | Không bắt model riêng; dùng refs và inventory của target | Mọi scope bàn giao | Quyết định nghiệp vụ và evidence xác nhận, policy SDLC và manifest đúng scope/revision, rationale dùng lại evidence | BA điều phối / authority + PM |
-| S01 — Định danh và baseline | Không bắt model riêng; dùng refs và inventory của target | Mọi Story; refs đúng subset/revision | Baseline receipt + ref/impact check | BA/Dev / PM |
+| E16 — Policy và revision áp dụng | Không bắt model riêng; dùng refs và inventory của target | Mọi scope bàn giao | Quyết định nghiệp vụ và evidence xác nhận, policy SDLC và manifest đúng scope/revision, rationale dùng lại evidence | BA điều phối / authority + PM |
+| S01 — Định danh và revision áp dụng | Không bắt model riêng; dùng refs và inventory của target | Mọi Story; refs đúng subset/revision | artifact revision + ref/impact check | BA/Dev / PM |
 | S02 — Outcome/scope | Không bắt model riêng; dùng refs và inventory của target | Mọi Story; value và ranh giới | Source/outcome + INVEST/scope allocation | BA / Business + Dev/QA |
 | S03 — Trigger/pre-postconditions | [D01 — Flow nghiệp vụ, use case và swimlane](models/business-flows-and-use-cases.md); [D02 — Vòng đời và chuyển trạng thái nghiệp vụ](models/business-state-transitions.md); [D04 — Từ điển dữ liệu và validation](models/data-dictionary-and-validation.md); [D05 — Quyền và phạm vi truy cập dữ liệu](models/permissions-and-data-access.md) | D01 cho hành vi; state/data/quyền khi có điều kiện | Setup → event → success/failure result | BA + Dev / QA + Business |
 | S04 — Flow subset/delta | [D01 — Flow nghiệp vụ, use case và swimlane](models/business-flows-and-use-cases.md); [D08 — Ngoại lệ và edge cases](models/exceptions-and-edge-cases.md) | Steps/nhánh thuộc scope Story | Pinned steps + alternate/exception outcomes | BA / Dev + QA |

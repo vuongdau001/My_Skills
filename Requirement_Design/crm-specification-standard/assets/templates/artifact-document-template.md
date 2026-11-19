@@ -4,7 +4,7 @@ ID: TPL-ARTIFACT-DOCUMENT · CRM Workflow Kit 1.10.0
 
 **Bố cục:** Chọn heading theo cấu trúc thật, không giữ mục trống chỉ để đủ form; item có ID nổi bật, field song song dùng list, giải thích dùng đoạn và gap có nhãn riêng. Xem [phân cấp Markdown chung](../../references/artifact-writing-standard.md#13-phân-cấp-thị-giác-bằng-markdown-thuần).
 
-Dùng [standard viết artifact](../../references/artifact-writing-standard.md) và catalog/schema của loại đang soạn. Mẫu này dành cho loại chưa có template riêng, như source/question register, model/solution hoặc baseline/change record. Chỉ giữ mục áp dụng; không tạo artifact giả để điền mẫu.
+Dùng [standard viết artifact](../../references/artifact-writing-standard.md) và catalog/schema của loại đang soạn. Mẫu này dành cho loại chưa có template riêng, như source/question register, model/solution hoặc revision áp dụng/change record. Chỉ giữ mục áp dụng; không tạo artifact giả để điền mẫu.
 
 ## Tiêu đề và ý chính
 
@@ -15,7 +15,7 @@ ID nếu có và tên mục đích. Một đoạn nêu artifact giúp ai làm g�
 | Thông tin | Giá trị thực tế |
 |---|---|
 | Loại / target / scope | Chọn loại schema hỗ trợ và đúng phạm vi được giao |
-| Revision / nguồn | Working revision hoặc baseline/source ref có thật |
+| Revision / nguồn | Working revision hoặc revision áp dụng/source ref có thật |
 | Người soạn / review / authority | Ghi đúng vai trò, cá nhân và evidence; thiếu thì nêu rõ |
 | Trạng thái | Vocabulary hợp lệ, khác với mức hoàn thiện trình bày |
 
@@ -30,3 +30,5 @@ Mỗi gap có ID/locator, câu hỏi, phần bị ảnh hưởng và người c�
 ## Metadata cuối artifact
 
 Thêm một block từ [metadata template](artifact-metadata-template.md), chọn đúng kind/schema. DEC/ASM/CST dùng template schema 3 không state; biên bản chỉ là nguồn đầu vào, không tạo Meeting record. Có thể bọc bằng details/summary; không sao chép ID minh họa hoặc biến template này thành một definition dự án thật.
+
+Áp dụng [hồ sơ hiện hành](../../references/current-state-and-history.md): cập nhật vị trí canonical theo target/scope, không tạo file theo lần chạy hoặc timeline. Review/check không tự sửa target; evidence stale phải được đánh giá lại.

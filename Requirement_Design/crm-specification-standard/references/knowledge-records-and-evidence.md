@@ -30,7 +30,7 @@ ASM chưa được xác nhận vẫn là ASM không state. Chấp nhận rủi r
 
 Sửa cùng nội dung: giữ ID, tăng revision, cập nhật căn cứ; chỉ một nội dung hiện hành trong file. Chuyển ASM → DEC dùng DEC ID mới. Trước khi xóa, tìm và cập nhật tất cả nơi sử dụng. Không tái dùng ID đã cấp. Không thêm field state hoặc lịch sử nhiều phiên bản trong record.
 
-Lịch sử qua Git diff/commit khi người dùng giao commit. Nếu chưa commit, nói rõ chưa có Git history của thay đổi; không tự commit hoặc tạo history file để giả lập. Baseline đã pin cần change/impact review trước khi thay nội dung được bảo vệ.
+Lịch sử qua Git diff/commit khi người dùng giao commit. Nếu chưa commit, nói rõ chưa có Git history của thay đổi; không tự commit hoặc tạo history file để giả lập. revision áp dụng đã pin cần change/impact review trước khi thay nội dung được bảo vệ.
 
 ## Tiếp nhận nguồn và phân loại
 
@@ -46,7 +46,7 @@ Typed relations: supports, derived-from, applies-to, depends-on, resolves, paren
 
 ## Kiểm tra và bàn giao
 
-Draft cho phép soạn khi còn gap; cấu trúc/ID/links sai là ERROR. Readiness/baseline: ASM còn được dùng nghĩa là điều chưa xác nhận; DEC cần nội dung và căn cứ/người xác nhận, CST cần nội dung và nguồn. Helper báo record-obligation khi thiếu; không dùng state hoặc đổi tên state thành một trường trạng thái khác để né kiểm. Lint chỉ xác minh dữ liệu khai báo, không xác thực authority hoặc thay review nghiệp vụ.
+Draft cho phép soạn khi còn gap; cấu trúc/ID/links sai là ERROR. Readiness/revision áp dụng: ASM còn được dùng nghĩa là điều chưa xác nhận; DEC cần nội dung và căn cứ/người xác nhận, CST cần nội dung và nguồn. Helper báo record-obligation khi thiếu; không dùng state hoặc đổi tên state thành một trường trạng thái khác để né kiểm. Lint chỉ xác minh dữ liệu khai báo, không xác thực authority hoặc thay review nghiệp vụ.
 
 Gate graph chỉ thấy typed links. Bỏ một dependency cần review ý nghĩa thật, không xóa để đạt gate. Record bị xóa còn consumer sẽ bị missing-reference/trace. Code/scoring phải dùng record obligations, không suy chất lượng từ lifecycle.
 

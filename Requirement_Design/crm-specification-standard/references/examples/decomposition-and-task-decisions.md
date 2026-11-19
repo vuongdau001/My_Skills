@@ -9,7 +9,7 @@ Mã tài liệu: **EX-DECOMPOSITION** · Gói CRM 1.3.1 · 03/11/2026
 
 ## Phạm vi minh họa
 
-Mọi tên/rule ở đây là giả định để học cách chia. Không có baseline CRM thật được duyệt. [Ví dụ ProjectCodeRequest](project-code-request-specification.md) mô phỏng hai đợt với câu hỏi freshness/hiển thị còn mở ở r2.
+Mọi tên/rule ở đây là giả định để học cách chia. Không có revision áp dụng CRM thật được duyệt. [Ví dụ ProjectCodeRequest](project-code-request-specification.md) mô phỏng hai đợt với câu hỏi freshness/hiển thị còn mở ở r2.
 
 Capability **Quản lý Project Code** có các Epic gửi, xét duyệt và đóng nháp. [Bảng phân bổ](project-code-request-specification.md#phân-bổ-dưới-capability-quản-lý-project-code) ghi mục tiêu, actor, outcome và shared model. Lưu nháp là bước chuẩn bị trong Use Case gửi; Approve/Reject là hai kết cục của Use Case xét duyệt. Kiểm đường đưa request vào hàng đợi trước khi chốt lát Story gửi.
 
@@ -38,7 +38,7 @@ Mỗi Task điền T01–T08, không sao chép state machine/permission matrix r
 
 ## Task dùng chung
 
-Một migration bổ sung cấu trúc hỗ trợ versioning cho nhiều Story: một Task thuộc Epic, links tới các Story tiêu thụ. Brief phải có schema/input version, điều kiện dữ liệu, phương án triển khai/khôi phục theo rủi ro, phép đối soát và người nhận. Nếu migration làm đổi nghĩa dữ liệu nghiệp vụ, decision đó phải vào baseline trước; Task không tự quyết mapping. Đóng Task chỉ khi artifact/check/reviewer/receiver đạt; không tự đóng các Story phụ thuộc. Effort tính một lần.
+Một migration bổ sung cấu trúc hỗ trợ versioning cho nhiều Story: một Task thuộc Epic, links tới các Story tiêu thụ. Brief phải có schema/input version, điều kiện dữ liệu, phương án triển khai/khôi phục theo rủi ro, phép đối soát và người nhận. Nếu migration làm đổi nghĩa dữ liệu nghiệp vụ, decision đó phải vào revision áp dụng trước; Task không tự quyết mapping. Đóng Task chỉ khi artifact/check/reviewer/receiver đạt; không tự đóng các Story phụ thuộc. Effort tính một lần.
 
 ## Phản ví dụ và cách sửa
 

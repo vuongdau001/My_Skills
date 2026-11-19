@@ -6,7 +6,7 @@ Mã tài liệu: **TPL-EPIC-SPECIFICATION-TEMPLATE** · Gói CRM 2.0.0 · 05/11/
 
 **Bố cục:** Giữ E01–E16. FLOW/STP/B/OUT và BR/AC có heading mã + tên nổi bật; gom các thuộc tính hành vi thành list gọn, tách Chưa chốt bằng blockquote và để truy vết cuối item. Xem [phân cấp Markdown chung](../../references/artifact-writing-standard.md#13-phân-cấp-thị-giác-bằng-markdown-thuần).
 
-ID/tên Epic và một đoạn về mục tiêu. Bảng context ngắn ghi Capability, phạm vi đợt, revision/baseline, nguồn và bước hiện tại. Dẫn Work Context cho trách nhiệm soạn, review và bàn giao. Đọc [Epic catalog](../../references/epic-specification-catalog.md).
+ID/tên Epic và một đoạn về mục tiêu. Bảng context ngắn ghi Capability, phạm vi đợt, revision/revision áp dụng, nguồn và bước hiện tại. Dẫn Work Context cho trách nhiệm soạn, review và bàn giao. Đọc [Epic catalog](../../references/epic-specification-catalog.md).
 
 ## Cách dùng mẫu
 
@@ -92,15 +92,15 @@ Dùng coverage matrix scenario/outcome E03 → BR/model → AC → test conditio
 
 Mỗi candidate dẫn Epic ID và revision, anchor của scenario/bước hoặc delta, outcome, BR/model/AC, controls và dependency. Ghi phần còn lại và phép kiểm tích hợp. Link + activation nếu cùng outcome không tự tách thành API/UI Stories. Chưa đủ gate thì giữ candidate.
 
-## E16 Applicability, quyết định và baseline
+## E16 Applicability, quyết định và revision áp dụng
 
-Ghi policy use-case-v1, scope/revision/baseline, phần đã nghiệm thu, questions/decisions, review và manifest. Giữ mục áp dụng/Unknown/N/A có reason; chỉ dẫn approval/merge khi có evidence.
+Ghi policy use-case-v1, scope/revision/revision áp dụng, phần đã nghiệm thu, questions/decisions, review và manifest. Giữ mục áp dụng/Unknown/N/A có reason; chỉ dẫn approval/merge khi có evidence.
 
 ## Review, kế hoạch và bàn giao
 
 Với từng item, giữ applicability/reason, output/revision, source/authority, owner/reviewer, work signal, verdict/evidence, gap/due và bước tiếp. Có thể dùng index ngắn rồi chi tiết từng item; không ép vào bảng bảy cột.
 
-Theo [coverage/AC](../../references/coverage-inventories-and-traceability.md#spec-7-1), nối scope → rule/model → AC → planned verification. Phân biệt analysis/solution/testability; thiếu input không được chấm Đạt. [Review/gate](../../references/requirements-review-process-and-verdicts.md) và PM manifest/baseline vẫn áp dụng trước tạo Story. Kết thúc bằng metadata đúng loại.
+Theo [coverage/AC](../../references/coverage-inventories-and-traceability.md#spec-7-1), nối scope → rule/model → AC → planned verification. Phân biệt analysis/solution/testability; thiếu input không được chấm Đạt. [Review/gate](../../references/requirements-review-process-and-verdicts.md) và authority theo policy dự án áp dụng khi kiểm bàn giao; không yêu cầu package/merge mặc định. Kết thúc bằng metadata đúng loại.
 
 <details>
 <summary>Metadata mẫu, thay ID và revision bằng giá trị đã cấp</summary>
@@ -118,3 +118,5 @@ Theo [coverage/AC](../../references/coverage-inventories-and-traceability.md#spe
 ```
 
 </details>
+
+Áp dụng [hồ sơ hiện hành](../../references/current-state-and-history.md): cập nhật vị trí canonical theo target/scope, không tạo file theo lần chạy hoặc timeline. Review/check không tự sửa target; evidence stale phải được đánh giá lại.

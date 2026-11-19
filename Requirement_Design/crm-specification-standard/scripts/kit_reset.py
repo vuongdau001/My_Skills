@@ -149,7 +149,7 @@ def run(api, args):
         return dict(mode='applied', scope='project', workstreams=fresh['workstreams'],
                     deleted_files=len(fresh['delete_files']), output_paths=fresh['output_paths'],
                     preserved_instructions=fresh['preserved_instructions'],
-                    next_ids={p:f'{p}-CRM-001' for p in sorted(api['PREFIXES'] - {'MTG'})},
+                    next_ids={p:f'{p}-CRM-001' for p in sorted(api['PREFIXES'] - {'MTG','BASE'})},
                     archives_created=False, artifacts_restored=False,
                     note='Clean reset verified. Run doctor then context crm-setup-project. No approval/baseline/maturity inherited. No reset receipt persisted.')
     finally:

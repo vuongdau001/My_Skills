@@ -32,8 +32,8 @@ Bổ sung Feature F01–F08, policy register/template, loại requirement và ID
 | AT21 — Review coverage | 12/14 là coverage review; gap E05/E07 vẫn chặn, không là % sản phẩm | [Measurement](../references/progress-measurement-and-capability-rollup.md) | Khớp |
 | AT22 — Mẫu số/unknown/change | Zero=N/A; unknown riêng; scope delta phải giải thích, không xóa mẫu số ngầm | [Measurement](../references/progress-measurement-and-capability-rollup.md) | Khớp |
 | AT23 — Task/cancel | Shared Task tính một lần; cancel không tự loại requirement khỏi scope | [Roll-up](../references/progress-measurement-and-capability-rollup.md) | Khớp |
-| AT24 — SLA | Chưa có ngưỡng chỉ báo age/clock; quá hạn không tự approval | [Policy](../references/project-policy-register.md), [report template](../assets/templates/progress-report-template.md) | Khớp |
-| AT25 — Chưa pilot | Hướng dẫn và mẫu không là evidence đã thử thật; phạm vi chưa kiểm được ghi riêng | [Pilot](../references/pilot-and-operational-validation.md) | Khớp |
+| AT24 — SLA | Chưa có ngưỡng chỉ báo age/clock; quá hạn không tự approval | [Policy](../references/project-policy-register.md), report template | Khớp |
+| AT25 — Chưa pilot | Hướng dẫn và mẫu không là evidence đã thử thật; phạm vi chưa kiểm được ghi riêng | Pilot | Khớp |
 
 Regression walkthrough: AT01 (Story không Task), AT04 (baseline một phần), AT06 (Task Done không bằng Story Done), AT12 (state matrix đầy nhưng còn unknown) vẫn giữ điều kiện cũ; bổ sung policy/Feature không thay các nguyên tắc này. Các kiểm tra lịch sử khác xem [report 1.2](pack-validation-report.md); không ghi nhận lại như đã chạy mới toàn bộ.
 

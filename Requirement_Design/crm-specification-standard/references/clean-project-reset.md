@@ -12,7 +12,7 @@ ID: CRM-CLEAN-RESET · CRM Workflow Kit 2.2.0 · 16/11/2026
 
 ## Xác định đúng phạm vi xóa
 
-Mặc định toàn bộ nội dung `spec_root` của mọi workstream là vùng đầu ra, gồm Project/Meeting/Decision/Assumption/Constraint, Capability/Epic/Story/Task, review, baseline, report/score/assessment, Prototype/pilot, history và các bản sao trong vùng đó. Giữ nguyên instructions `AGENTS.md`, `AGENTS.override.md`, `CLAUDE.md`; đây là instructions, không là hồ sơ nghiệp vụ. Recreate layout và marker rỗng, không phục hồi nội dung cũ.
+Mặc định toàn bộ nội dung `spec_root` của mọi workstream là vùng đầu ra, gồm Project/Meeting/Decision/Assumption/Constraint, Capability/Epic/Story/Task, review, revision áp dụng, report/score/assessment, Prototype/pilot, history và các bản sao trong vùng đó. Giữ nguyên instructions `AGENTS.md`, `AGENTS.override.md`, `CLAUDE.md`; đây là instructions, không là hồ sơ nghiệp vụ. Recreate layout và marker rỗng, không phục hồi nội dung cũ.
 
 Đầu ra cũ nằm ngoài `spec_root` phải được khảo sát và khai báo trong config dự án bằng `generated_output_paths`. Chỉ khai nơi đã xác định là đầu ra kit sở hữu; không đưa cả folder trộn nguồn và output vào danh sách. Ví dụ:
 
@@ -47,7 +47,7 @@ python3 .agents/skills/crm-spec-kit/scripts/kit.py reset --repo . --scope projec
 
 Dry-run không ghi file. Apply cần đúng digest hiện tại, dùng operation lock và cùng allocation lock với next-id; thay bytes/config/danh sách sau dry-run thì bị từ chối. Không tự gỡ lock tồn tại; xác định tác vụ/stale lock trước. Không có reset riêng workstream khi ID vẫn duy nhất toàn dự án. Dừng mọi tác giả khác; lock helper không khóa editor hoặc filesystem của công cụ ngoài.
 
-Không lưu plan/receipt chứa ID cũ trở lại spec_root hoặc output mới. Stdout apply chỉ báo phạm vi, số file xóa, instructions giữ lại và next IDs; không tạo archive/backup/reset journal. Helper không sửa Git history, external backups, baseline nằm trong vùng chỉ đọc hoặc hệ thống bên ngoài; những vùng đó không thuộc hồ sơ đầu ra được giao reset.
+Không lưu plan/receipt chứa ID cũ trở lại spec_root hoặc output mới. Stdout apply chỉ báo phạm vi, số file xóa, instructions giữ lại và next IDs; không tạo archive/backup/reset journal. Helper không sửa Git history, external backups, revision áp dụng nằm trong vùng chỉ đọc hoặc hệ thống bên ngoài; những vùng đó không thuộc hồ sơ đầu ra được giao reset.
 
 Nếu lỗi I/O/ngắt tiến trình sau khi bắt đầu xóa, không tuyên bố reset xong và không cố restore từ archive. Sửa nguyên nhân, kiểm lại phần còn lại và chạy dry-run mới; helper chỉ xác nhận thành công sau verification. Local locks không giải quyết đồng thời qua clone độc lập.
 
@@ -56,6 +56,6 @@ Nếu lỗi I/O/ngắt tiến trình sau khi bắt đầu xóa, không tuyên b�
 1. Không còn artifacts cũ trong các vùng xóa; chỉ instructions và scaffold rỗng. Reservation ledger đã bị xóa.
 2. `next-id CAP`, `next-id EPIC` và mọi prefix cho kết quả `PREFIX-CRM-001`; instructions không chiếm số. Trong sử dụng bình thường, references trong spec hiện hành và reservation vẫn giữ số theo allocator dự án.
 3. `doctor` và `lint` kiểm filesystem/binding/cấu trúc; không chứng minh discovery/runtime hoặc cấp approval.
-4. Nạp `context crm-setup-project` rồi đọc nguồn đầu vào, lập hồ sơ mới. Không kế thừa approval, maturity, verdict review, baseline hoặc Task Done cũ. Khi gặp ID CRM trong nguồn lịch sử được giữ như input, ghi nguồn và provenance, không coi nó là artifact hiện hành hoặc lý do bỏ qua số 001.
+4. Nạp `context crm-setup-project` rồi đọc nguồn đầu vào, lập hồ sơ mới. Không kế thừa approval, maturity, verdict review, revision áp dụng hoặc Task Done cũ. Khi gặp ID CRM trong nguồn lịch sử được giữ như input, ghi nguồn và provenance, không coi nó là artifact hiện hành hoặc lý do bỏ qua số 001.
 
 Reset không tự gọi Setup hoặc tạo artifact giả có ID. Authoring tiếp theo vẫn theo 13 workflows, catalog/gate/authority hiện hành.

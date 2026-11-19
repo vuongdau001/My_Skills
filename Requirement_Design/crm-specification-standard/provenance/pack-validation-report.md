@@ -26,19 +26,19 @@ Ngày: 02/11/2026. Đây là kiểm tra do agent triển khai thực hiện, g�
 | AT01 — Story không Task | DoR không đòi Task; hướng dẫn cho phép checklist | [Story](../references/story-specification-catalog.md), [decomposition](../references/backlog-hierarchy-and-decomposition.md) | Khớp |
 | AT02 — Thiếu rule chống trùng | Q02 giữ gap chặn; Task không bù thiếu requirement | [Q02](../references/checks/requirements-completeness.md), [Task](../references/task-planning-and-completion.md) | Khớp |
 | AT03 — Chia theo FE/BE/test | Review lại outcome; dùng Task khi cần chia lớp kỹ thuật | [Phân rã](../references/backlog-hierarchy-and-decomposition.md) | Khớp |
-| AT04 — Baseline một phần Epic | Cho phép scope độc lập, shared rule ảnh hưởng phải rõ | [Baseline](../references/baseline-and-change-control.md#workflow-4-3) | Khớp |
-| AT05 — Task đổi quyền/contract | Trả về change control và authority, không tự quyết | [Task](../references/task-planning-and-completion.md), [change](../references/baseline-and-change-control.md#workflow-14) | Khớp |
+| AT04 — Baseline một phần Epic | Cho phép scope độc lập, shared rule ảnh hưởng phải rõ | [Baseline](../references/revision-and-change-impact.md#workflow-4-3) | Khớp |
+| AT05 — Task đổi quyền/contract | Trả về change control và authority, không tự quyết | [Task](../references/task-planning-and-completion.md), [change](../references/revision-and-change-impact.md#workflow-14) | Khớp |
 | AT06 — Task Done, AC fail | Story DoD yêu cầu AC tích hợp và QA evidence | [Story DoD](../references/readiness-completion-and-approval-gates.md#workflow-9-4) | Khớp |
 | AT07 — Sai revision | Q05/hard gate kiểm target và version, không chỉ URL tồn tại | [Q05](../references/checks/traceability-and-versioning.md) | Khớp |
 | AT08 — Review một model | Targeted review không kết luận toàn bộ | [Review](../references/requirements-review-process-and-verdicts.md) | Khớp |
 | AT09 — AI điền đủ template | Thiếu authority không qua Q01/gate | [Q01](../references/checks/adequacy-and-necessity.md) | Khớp |
-| AT10 — Migration dùng chung | Một Task nhiều dependency links; effort một lần | [Reporting](../references/jira-status-and-progress-reporting.md) | Khớp |
+| AT10 — Migration dùng chung | Một Task nhiều dependency links; effort một lần | [Reporting](../references/delivery-status-evidence.md) | Khớp |
 | AT11 — Portable copy | Sao chép sang đường dẫn khác và chạy validator đạt | Kiểm tự động nêu trên | Đạt cấu trúc; chưa thử mọi agent runtime |
 | AT12 — Bảng 20 ô nhưng còn unknown | Ví dụ giữ retention/key limit chưa quyết và authority giả định | [Finding](../references/examples/review-findings-and-counterexamples.md), [spec ví dụ](../references/examples/project-code-request-specification.md) | Khớp |
 | AT13 — Sửa copy UI | Applicability có reason; không ép mọi model/sơ đồ | [Epic catalog](../references/epic-specification-catalog.md) | Khớp |
 | AT14 — Flow/quyền mâu thuẫn | Q03 có thao tác so cùng điều kiện và đóng finding sau sửa các representation | [Q03](../references/checks/cross-model-consistency.md) | Khớp |
 | AT15 — Kế thừa baseline | Story dẫn subset/version, không tạo bản sao rule | [Story catalog](../references/story-specification-catalog.md) | Khớp |
-| AT16 — Evidence cũ | Evidence đúng build/revision; delta cần impact/review | [Handoff](../references/ai-handoff-and-hard-gates.md), [change](../references/baseline-and-change-control.md#workflow-14) | Khớp |
+| AT16 — Evidence cũ | Evidence đúng build/revision; delta cần impact/review | [Handoff](../references/ai-handoff-and-hard-gates.md), [change](../references/revision-and-change-impact.md#workflow-14) | Khớp |
 
 ## Phần chưa được kiểm bằng lần đóng gói này
 

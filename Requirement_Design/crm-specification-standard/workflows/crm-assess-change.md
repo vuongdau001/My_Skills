@@ -3,7 +3,7 @@
 ID: **crm-assess-change** · CRM Workflow Kit 1.4.0 · 03/11/2026
 
 Function: **`crm-assess-change`** · Agent: **[Delivery Coordinator](../agents/profiles/crm-delivery-coordinator.md)**  
-Supported targets: Capability, Epic, Story, Task, BaselinePackage, Policy
+Supported targets: Capability, Epic, Story, Task, Epic, Policy
 
 Đọc [Workflow Execution Protocol](../references/workflow-execution-protocol.md) trước; workflow này là hướng dẫn trong root skill, không phải native slash command hay CLI.
 
@@ -17,7 +17,7 @@ Delivery Coordinator chủ trì góc nhìn AI. Quyền nội dung và gate theo 
 
 ## Required Inputs
 
-Đề nghị thay đổi/source/reason, current baseline/scope, model/Story/test allocation, evidence và decisions hiện hành.
+Đề nghị thay đổi/source/reason, current revision áp dụng/scope, model/Story/test allocation, evidence và decisions hiện hành.
 
 Context chung: target/logical ID, selected scope, input revision/canonical locations, policy refs/effective scope và quyền đọc/sửa. Sources chưa có thì ghi chưa xác định; không bịa commit/Jira key/actor hoặc evidence.
 
@@ -29,20 +29,20 @@ Biên bản là input: đọc file trong thư mục nguồn đã khai ở workst
 
 ## Execution Steps
 
-Áp dụng [policy Epic–Use Case](../references/epic-use-case-policy.md). Phân loại thay đổi theo mục tiêu. Cùng actor goal/boundary và chỉ đổi hành vi hay nhánh thì giữ Epic ID và các anchor E03 còn cùng nghĩa, lập revision/scope/baseline mới khi change được chấp nhận. Mục tiêu độc lập cần Epic ID mới và crosswalk. Xác định dependency cần review và rationale tái dùng evidence.
+Áp dụng [policy Epic–Use Case](../references/epic-use-case-policy.md). Phân loại thay đổi theo mục tiêu. Cùng actor goal/boundary và chỉ đổi hành vi hay nhánh thì giữ Epic ID và các anchor E03 còn cùng nghĩa, lập revision/scope/revision áp dụng mới khi change được chấp nhận. Mục tiêu độc lập cần Epic ID mới và crosswalk. Xác định dependency cần review và rationale tái dùng evidence.
 
-Kiểm hai chiều từ delta Epic/Story đến Prototype và từ thay đổi Prototype đến Epic/Story. Xác định Screen/Scenario, fixtures, BR/AC, contracts, walkthrough và baseline pins cần cập nhật. Lập plan author/review lại cho phần bị ảnh hưởng. Xem [standard Prototype](../references/prototype-workflow-and-epic-gate.md).
+Kiểm hai chiều từ delta Epic/Story đến Prototype và từ thay đổi Prototype đến Epic/Story. Xác định Screen/Scenario, fixtures, BR/AC, contracts, walkthrough và revision áp dụng pins cần cập nhật. Lập plan author/review lại cho phần bị ảnh hưởng. Xem [standard Prototype](../references/prototype-workflow-and-epic-gate.md).
 
-1. Mô tả proposed delta, phân biệt thay what/constraint với cách triển khai; chưa áp dụng vào canonical baseline.
+1. Mô tả proposed delta, phân biệt thay what/constraint với cách triển khai; chưa áp dụng vào canonical revision áp dụng.
 2. Đi theo trace từ requirement/BR/contract/policy tới models/Stories/Tasks/tests/acceptance, tìm scope và evidence bị ảnh hưởng.
 3. Phối hợp góc nhìn BA/Dev/QA để ghi tác động behavior, quyền/data/state, feasibility, effort/capacity/mốc và acceptance; không giả sign-off.
 4. Chỉ rõ phần cần dừng hoặc revalidation; approval/build/test evidence nào cũ không còn đủ cho revision mới.
-5. Lập correction/review/merge/pin-update plan cùng authority/receiver; các bản ghi cũ giữ lịch sử.
-6. Bàn giao Business/TL quyết nghĩa, PM quyết scope/resource và các workflow tác giả xử lý khi được phép; không tự sửa requirement/baseline.
+5. Lập correction/review/merge/pin-update plan cùng authority/receiver; lịch sử thay đổi qua Git.
+6. Bàn giao Business/TL quyết nghĩa, PM quyết scope/resource và các workflow tác giả xử lý khi được phép; không tự sửa requirement/revision áp dụng.
 
 **References đọc theo nhu cầu:**
 
-- [Baseline yêu cầu, solution và kiểm soát thay đổi](../references/baseline-and-change-control.md)
+- [revision áp dụng yêu cầu, solution và kiểm soát thay đổi](../references/revision-and-change-impact.md)
 - [Loại requirement, quy ước ID và truy vết](../references/requirement-types-identifiers-and-traceability.md)
 - [Q05 — Truy vết và quản lý phiên bản](../references/checks/traceability-and-versioning.md)
 - [Policy dự án: khai báo, phê duyệt và áp dụng vào gate](../references/project-policy-register.md)
@@ -54,11 +54,11 @@ Soạn output theo [standard viết artifact](../references/artifact-writing-sta
 
 Impact assessment, affected artifact/evidence list, missing decisions và correction/revalidation plan.
 
-Dùng [Work Context and Handoff Template](../assets/templates/work-context-and-handoff-template.md) để giữ function/target/revision, evidence, gaps, authority và receiver. Có thể ghi section trong hồ sơ hiện hành, không bắt file mới. **Write boundary:** impact assessment và plan; không tự áp dụng proposed change vào baseline hoặc target.
+Dùng [Work Context and Handoff Template](../assets/templates/work-context-and-handoff-template.md) để giữ function/target/revision, evidence, gaps, authority và receiver. Có thể ghi section trong hồ sơ hiện hành, không bắt file mới. **Write boundary:** impact assessment và plan; không tự áp dụng proposed change vào revision áp dụng hoặc target.
 
 ## Exit & Handoff
 
-Sau authority decision, thực hiện update ở workflow tác giả, review lại và confirmed baseline mới trước resume scope ảnh hưởng.
+Sau authority decision, thực hiện update ở workflow tác giả, review lại và review đúng revision mới trước resume scope ảnh hưởng.
 
 Tách output prepared / review performed / authority approval / actual action confirmed. Thiếu evidence thì verdict đúng phần là Chưa kiểm; có gap/counterexample là Không đạt; N/A cần reason/reviewer. Không dùng workflow complete thay gate verdict. Next function là đề xuất, không là quyền thực hiện bước mới.
 
@@ -66,10 +66,12 @@ Tách output prepared / review performed / authority approval / actual action co
 
 ## Failure & Rework
 
-Không tự đổi mọi Story sang latest commit; không silently bỏ child để làm scope nhẹ hơn hoặc giữ old approval cho new behavior. Sau correction, đọc lại affected revision và kiểm lại scope liên quan. Giữ old findings/approval/evidence như lịch sử, không tự tái dùng cho nội dung mới. Khi thiếu quyền/tool/access, ghi giới hạn thay vì báo đã làm.
+Không tự đổi mọi Story sang latest commit; không silently bỏ child để làm scope nhẹ hơn hoặc giữ old approval cho new behavior. Sau correction, đọc lại affected revision và kiểm lại scope liên quan. Kết quả cũ không áp dụng cho revision mới; đánh giá lại trong record hiện hành, lịch sử qua Git. Khi thiếu quyền/tool/access, ghi giới hạn thay vì báo đã làm.
 
 ## Usage Examples
 
-> Dùng crm-assess-change đánh giá thay đổi rule này sau baseline, liệt kê Story/test/evidence bị ảnh hưởng và bước cần làm lại.
+> Dùng crm-assess-change đánh giá thay đổi rule này khi đổi nội dung được sử dụng, liệt kê Story/test/evidence bị ảnh hưởng và bước cần làm lại.
 
 Kết quả mong đợi: Impact assessment, affected artifact/evidence list, missing decisions và correction/revalidation plan. Record phải chỉ đúng scope/revision, evidence đã xem và phần chưa kiểm. Phản ví dụ cần tránh: kết luận gate/ticket Done chỉ vì agent đã hoàn tất câu trả lời hoặc đổi profile.
+
+Áp dụng [hồ sơ hiện hành](../references/current-state-and-history.md): cập nhật vị trí canonical theo target/scope, không tạo file theo lần chạy hoặc timeline. Review/check không tự sửa target; evidence stale phải được đánh giá lại.

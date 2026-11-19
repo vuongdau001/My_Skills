@@ -33,4 +33,4 @@ Kết quả: các hướng dẫn cho quyết định nhất quán với các gat
 
 Chưa pilot với Epic/Story/participants thật, chưa truy cập hay cấu hình Jira/Git/CI, chưa chạy test sản phẩm, chưa cài skill vào runtime và chưa tích hợp BMAD. Native slash commands và external mutations không được cung cấp bởi bản này. Validator chỉ kiểm cấu trúc/registry/refs/migration, không kết luận requirement semantics hoặc DoR/DoD dự án.
 
-Khi có pilot thật, dùng [Run Pilot](../workflows/crm-run-pilot.md) và ghi observed evidence theo [protocol](../references/workflow-execution-protocol.md). Nguồn tư tưởng và CRM decisions nằm tại [BMAD Inspiration and CRM Tailoring](bmad-inspiration-and-crm-tailoring.md).
+Khi có pilot thật, dùng Run Pilot và ghi observed evidence theo [protocol](../references/workflow-execution-protocol.md). Nguồn tư tưởng và CRM decisions nằm tại [BMAD Inspiration and CRM Tailoring](bmad-inspiration-and-crm-tailoring.md).

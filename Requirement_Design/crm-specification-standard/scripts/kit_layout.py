@@ -6,9 +6,9 @@ import os
 import re
 from urllib.parse import unquote, urlsplit
 
-KEYS = ('project','capabilities','epics','stories','tasks','reviews','baselines','reports','pilot','prototypes')
-LEGACY = dict(zip(KEYS, ('00-project','capabilities','epics','stories','tasks','reviews','baselines','reports','pilot','prototypes')))
-NUMBERED = dict(zip(KEYS, ('00-project','01-capabilities','02-epics','03-stories','04-tasks','05-reviews','06-baselines','07-reports','08-pilot','09-prototypes')))
+KEYS = ('project','capabilities','epics','stories','tasks','reviews','prototypes')
+LEGACY = dict(zip(KEYS, ('00-project','capabilities','epics','stories','tasks','reviews','prototypes')))
+NUMBERED = dict(zip(KEYS, ('00-project','01-capabilities','02-epics','03-stories','04-tasks','05-reviews','06-prototypes')))
 
 
 def artifact_paths(ws, error=ValueError):
@@ -16,6 +16,8 @@ def artifact_paths(ws, error=ValueError):
     if layout not in ('legacy','numbered'):
         raise error('Unknown layout; expected legacy or numbered')
     result = dict(LEGACY if layout == 'legacy' else NUMBERED)
+    if layout == 'numbered' and ws.get('layout_version', 2) < 3:
+        result['prototypes'] = '09-prototypes'
     overrides = ws.get('artifact_paths', {})
     if not isinstance(overrides, dict) or set(overrides) - set(KEYS):
         raise error('artifact_paths must map known artifact categories to relative directories')
@@ -42,10 +44,21 @@ def plan(api, args):
     root = api['relative'](repo, ws['spec_root'])
     old = artifact_paths(ws, api['KitError'])
     # An explicit migration to a preset removes custom overrides in the candidate only.
-    candidate = dict(ws, layout=args.to)
+    candidate = dict(ws, layout=args.to, layout_version=3)
     candidate.pop('artifact_paths', None)
     new = artifact_paths(candidate, api['KitError'])
     moves, mapping, blockers, historical = [], {}, [], []
+    retired = []
+    retired_files = set()
+    for name in ('06-baselines','07-reports','08-pilot','baselines','reports','pilot'):
+        directory = root/name
+        if directory.is_symlink():
+            blockers.append('Retired category is a symlink: '+directory.relative_to(repo).as_posix())
+        elif directory.is_dir():
+            files = [p for p in sorted(directory.rglob('*')) if p.is_file() and not p.is_symlink()]
+            retired_files.update(files)
+            retired.append(dict(path=directory.relative_to(repo).as_posix(), files=[p.relative_to(repo).as_posix() for p in files], action='review-current-content-and-consumers-before-explicit-removal'))
+    retirement_consumers = []
     for key in KEYS:
         if key not in old:
             continue
@@ -92,7 +105,7 @@ def plan(api, args):
                     meta = api['metadata'](text)
                 except api['KitError']:
                     pass
-            if p.is_relative_to(root/old['baselines']) or p.is_relative_to(root/old['pilot']) or (meta and meta.get('kind') in {'Baseline','Review','Pilot'}):
+            if meta and meta.get('kind') in {'Baseline','Review','Pilot','Report'}:
                 historical.append(rel)
             # JSON and inline canonical locators can pin a path or digest without a Markdown link.
             mentioned = [str(src.relative_to(repo).as_posix()) for src in mapping
@@ -109,6 +122,8 @@ def plan(api, args):
                 if url.scheme or url.netloc or Path(url.path).is_absolute():
                     continue
                 target = (p.parent/unquote(url.path)).resolve() if url.path else p
+                if target in retired_files:
+                    retirement_consumers.append(dict(path=rel, reference=href, target=target.relative_to(repo).as_posix()))
                 if target not in mapping and p not in mapping:
                     continue
                 new_source, new_target = mapping.get(p,p), mapping.get(target,target)
@@ -122,8 +137,9 @@ def plan(api, args):
     candidate_cfg['workstreams'][index] = candidate
     material = {'config':cfg,'hashes':hashes,'moves':moves,'rewrites':rewrites}
     return {'mode':'dry-run','workstream':ws['id'],'from_layout':ws.get('layout','legacy'),'to_layout':args.to,
+            'retired_categories':retired,'retired_category_consumers':retirement_consumers,
             'moves':moves,'link_rewrites':rewrites,'locator_or_hash_impacts':pins,
-            'historical_records_to_preserve':sorted(historical),'blockers':blockers,
+            'evidence_to_recheck':sorted(historical),'blockers':blockers,
             'candidate_config':candidate_cfg,'snapshot_sha256':hashlib.sha256(json.dumps(material,sort_keys=True).encode()).hexdigest(),
             'automatic_apply_supported':False,
-            'note':'Plan only; no files/config/receipts changed. Link suggestions are not a complete parser for prose or embedded scripts. Preserve historical records and pinned snapshots at their original paths (or an explicitly reviewed archive); do not rewrite old approval/hash receipts. A separately authorized migration must reconcile every inbound reference, re-review changed revisions and rerun doctor/lint. No apply flag is provided.'}
+            'note':'Plan only; no files/config/receipts changed. Link suggestions are not a complete parser for prose or embedded scripts. Keep files unchanged during planning; apply migration only after reference/evidence review. History belongs in Git, not new archives. A separately authorized migration must reconcile every inbound reference, re-review changed revisions and rerun doctor/lint. No apply flag is provided.'}

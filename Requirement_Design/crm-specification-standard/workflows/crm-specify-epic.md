@@ -75,10 +75,12 @@ Tách output prepared / review performed / authority approval / actual action co
 
 ## Failure & Rework
 
-Nếu đã baseline, đề nghị thay nghĩa phải chuyển crm-assess-change trước; unknown ảnh hưởng scope vẫn chặn, dù diagram đầy. Sau correction, đọc lại affected revision và kiểm lại scope liên quan. Giữ old findings/approval/evidence như lịch sử, không tự tái dùng cho nội dung mới. Khi thiếu quyền/tool/access, ghi giới hạn thay vì báo đã làm.
+Nếu đã được sử dụng, đề nghị thay nghĩa phải chuyển crm-assess-change trước; unknown ảnh hưởng scope vẫn chặn, dù diagram đầy. Sau correction, đọc lại affected revision và kiểm lại scope liên quan. Kết quả cũ không áp dụng cho revision mới; đánh giá lại trong record hiện hành, lịch sử qua Git. Khi thiếu quyền/tool/access, ghi giới hạn thay vì báo đã làm.
 
 ## Usage Examples
 
 > Dùng crm-specify-epic làm rõ Epic này theo E01–E16, ghi model applicability và các câu hỏi chặn.
 
 Kết quả mong đợi: Epic spec/model inventory, BR/AC refs, question log, applicability và solution/decomposition inputs. Record phải chỉ đúng scope/revision, evidence đã xem và phần chưa kiểm. Phản ví dụ cần tránh: kết luận gate/ticket Done chỉ vì agent đã hoàn tất câu trả lời hoặc đổi profile.
+
+Áp dụng [hồ sơ hiện hành](../references/current-state-and-history.md): cập nhật vị trí canonical theo target/scope, không tạo file theo lần chạy hoặc timeline. Review/check không tự sửa target; evidence stale phải được đánh giá lại.

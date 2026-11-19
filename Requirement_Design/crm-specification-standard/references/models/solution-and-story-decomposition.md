@@ -24,7 +24,7 @@ Nếu thiếu input ghi **Chưa kiểm**; có gap/mâu thuẫn ghi **Không đ�
 
 **Trường tối thiểu:** hiện trạng, delta/components/interfaces, phương án/rationale, contract refs, assumptions/risk, dependency owners và evidence feasibility; phương án Story có outcome, scope, BR/AC/model refs và estimate.
 
-**Review đủ:** Dev/TL đọc lại rule bằng solution cụ thể; BA xác nhận hiểu khớp; QA nêu cách setup/observe/assert. Không cần thiết kế mọi dòng code trước baseline. Nếu chưa chứng minh được điều kiện quan trọng, ghi câu hỏi/blocker hoặc thực hiện nghiên cứu có timebox; không dùng từ “solution checked” để che giả định.
+**Review đủ:** Dev/TL đọc lại rule bằng solution cụ thể; BA xác nhận hiểu khớp; QA nêu cách setup/observe/assert. Không cần thiết kế mọi dòng code trước revision áp dụng. Nếu chưa chứng minh được điều kiện quan trọng, ghi câu hỏi/blocker hoặc thực hiện nghiên cứu có timebox; không dùng từ “solution checked” để che giả định.
 
 INVEST hỗ trợ review cách chia Story; nó không xác nhận toàn bộ model/contract đúng hoặc tự chứng minh Story đã đạt DoR.
 

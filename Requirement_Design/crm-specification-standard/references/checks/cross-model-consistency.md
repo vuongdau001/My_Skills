@@ -23,7 +23,7 @@ Thực hiện các bước bên dưới và lưu [review record](../../assets/te
 1. Chọn cùng một action và một bộ điều kiện cụ thể: actor, resource/owner, state/version, input và thời điểm/sequence liên quan.
 2. Lần theo flow → state/decision → data/permission → contract → AC. Ghi bảng so sánh với ref cho từng output/guard.
 3. So các expected result: allow/deny, target state, data mutation, response, audit/notification và recovery. Nếu cùng điều kiện dẫn hai kết quả trái nhau, mở finding.
-4. So với parent/shared baseline. Kiểm alias/thuật ngữ, đơn vị/timezone, thứ tự ưu tiên rule và NFR. Hai requirement trùng nghĩa phải hợp nhất hoặc dẫn chung, không giữ hai bản độc lập rồi sửa lệch.
+4. So với parent/shared revision áp dụng. Kiểm alias/thuật ngữ, đơn vị/timezone, thứ tự ưu tiên rule và NFR. Hai requirement trùng nghĩa phải hợp nhất hoặc dẫn chung, không giữ hai bản độc lập rồi sửa lệch.
 5. Business/technical authority giải quyết conflict; owner cập nhật mọi representation liên quan, reviewer kiểm lại cùng counterexample trước đóng finding.
 
 | Action + điều kiện | Flow ref/result | Rule/state ref/result | Permission/contract ref/result | AC ref/result | Conflict / closure |

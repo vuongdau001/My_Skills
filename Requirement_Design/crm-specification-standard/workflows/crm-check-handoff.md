@@ -8,7 +8,7 @@ Supported targets: Story
 
 ## Purpose & Triggers
 
-Check Handoff: Handoff check record scoped theo baseline/build, missing/stale evidence và next actions cho Dev/QA. Dùng khi người dùng yêu cầu công việc này hoặc khi bàn giao từ bước trước đã đủ context. Chỉ xử lý target kinds nêu trên; nếu target không phù hợp, dùng CRM Guide chọn lại workflow, không ép target vào loại khác.
+Check Handoff: Handoff check record scoped theo revision áp dụng/build, missing/stale evidence và next actions cho Dev/QA. Dùng khi người dùng yêu cầu công việc này hoặc khi bàn giao từ bước trước đã đủ context. Chỉ xử lý target kinds nêu trên; nếu target không phù hợp, dùng CRM Guide chọn lại workflow, không ép target vào loại khác.
 
 ## Participants
 
@@ -16,7 +16,7 @@ Quality Reviewer chủ trì góc nhìn AI. Quyền nội dung và gate theo [aut
 
 ## Required Inputs
 
-Story/baseline, code/review refs, required CI evidence, build/config/environment, deploy/smoke và QA handoff/data/slot refs.
+Story/revision áp dụng, code/review refs, required CI evidence, build/config/environment, deploy/smoke và QA handoff/data/slot refs.
 
 Context chung: target/logical ID, selected scope, input revision/canonical locations, policy refs/effective scope và quyền đọc/sửa. Sources chưa có thì ghi chưa xác định; không bịa commit/Jira key/actor hoặc evidence.
 
@@ -28,9 +28,9 @@ Biên bản là input: đọc file trong thư mục nguồn đã khai ở workst
 
 ## Execution Steps
 
-Áp dụng [policy Epic–Use Case](../references/epic-use-case-policy.md). Đối chiếu gói bàn giao với Epic ID, locator E03, scope/baseline/revision, phần scenario chuyển giao và receiver của từng dependency. Ghi finding nếu receipt, Prototype hoặc evidence trỏ đợt khác. Dùng lint readiness theo target cho closure bàn giao.
+Áp dụng [policy Epic–Use Case](../references/epic-use-case-policy.md). Đối chiếu gói bàn giao với Epic ID, locator E03, scope/revision, phần scenario chuyển giao và receiver của từng dependency. Ghi finding nếu receipt, Prototype hoặc evidence trỏ đợt khác. Dùng lint readiness theo target cho closure bàn giao.
 
-1. Xác định target Story, baseline scope và code/build/config/environment được bàn giao; mở các evidence refs được phép đọc.
+1. Xác định target Story, revision áp dụng scope và code/build/config/environment được bàn giao; mở các evidence refs được phép đọc.
 2. Đối chiếu Dev→QA gate: review, POL-CHECKS/POL-QUALITY versions, required tests/CI; skipped/not-run không là Pass.
 3. Kiểm deploy/smoke đúng build/môi trường, QA context/data/slot và cách nhận đầu ra; stale evidence ghi riêng.
 4. Tách structural/ref checks, semantic comparison và xác nhận cần Dev/QA/authority; không chạy test runtime để tự lấp evidence.
@@ -41,14 +41,14 @@ Biên bản là input: đọc file trong thư mục nguồn đã khai ở workst
 - [DoR, AC, DoD và thẩm quyền bàn giao](../references/readiness-completion-and-approval-gates.md)
 - [Bàn giao context cho AI và đặc tả hard gate](../references/ai-handoff-and-hard-gates.md)
 - [Policy dự án: khai báo, phê duyệt và áp dụng vào gate](../references/project-policy-register.md)
-- [Status Jira và tiến độ phân tích, triển khai](../references/jira-status-and-progress-reporting.md)
+- [Status Jira và tiến độ phân tích, triển khai](../references/delivery-status-evidence.md)
 
 ## Outputs
 
 Soạn output theo [standard viết artifact](../references/artifact-writing-standard.md), bao gồm review/check/report/handoff; giữ độ sâu theo mode và write boundary của function.
 
 
-Handoff check record scoped theo baseline/build, missing/stale evidence và next actions cho Dev/QA.
+Handoff check record scoped theo revision áp dụng/build, missing/stale evidence và next actions cho Dev/QA.
 
 Dùng [Work Context and Handoff Template](../assets/templates/work-context-and-handoff-template.md) để giữ function/target/revision, evidence, gaps, authority và receiver. Có thể ghi section trong hồ sơ hiện hành, không bắt file mới. **Write boundary:** chỉ ghi check record/evidence index; không sửa target, plan, code hoặc approval, không thay Jira state. Record cùng file chỉ sửa section record được giao, giữ target nguyên vẹn.
 
@@ -66,10 +66,12 @@ Tách output prepared / review performed / authority approval / actual action co
 
 ## Failure & Rework
 
-CI Pass thiếu deploy/smoke/QA receipt vẫn thiếu điều kiện; không dùng build cũ khi Staging đã đổi mà chưa impact assessment. Sau correction, đọc lại affected revision và kiểm lại scope liên quan. Giữ old findings/approval/evidence như lịch sử, không tự tái dùng cho nội dung mới. Khi thiếu quyền/tool/access, ghi giới hạn thay vì báo đã làm.
+CI Pass thiếu deploy/smoke/QA receipt vẫn thiếu điều kiện; không dùng build cũ khi Staging đã đổi mà chưa impact assessment. Sau correction, đọc lại affected revision và kiểm lại scope liên quan. Kết quả cũ không áp dụng cho revision mới; đánh giá lại trong record hiện hành, lịch sử qua Git. Khi thiếu quyền/tool/access, ghi giới hạn thay vì báo đã làm.
 
 ## Usage Examples
 
 > Dùng crm-check-handoff rà bộ bàn giao Dev→QA này; chỉ ghi evidence thiếu hoặc không khớp, không sửa target.
 
-Kết quả mong đợi: Handoff check record scoped theo baseline/build, missing/stale evidence và next actions cho Dev/QA. Record phải chỉ đúng scope/revision, evidence đã xem và phần chưa kiểm. Phản ví dụ cần tránh: kết luận gate/ticket Done chỉ vì agent đã hoàn tất câu trả lời hoặc đổi profile.
+Kết quả mong đợi: Handoff check record scoped theo revision áp dụng/build, missing/stale evidence và next actions cho Dev/QA. Record phải chỉ đúng scope/revision, evidence đã xem và phần chưa kiểm. Phản ví dụ cần tránh: kết luận gate/ticket Done chỉ vì agent đã hoàn tất câu trả lời hoặc đổi profile.
+
+Áp dụng [hồ sơ hiện hành](../references/current-state-and-history.md): cập nhật vị trí canonical theo target/scope, không tạo file theo lần chạy hoặc timeline. Review/check không tự sửa target; evidence stale phải được đánh giá lại.

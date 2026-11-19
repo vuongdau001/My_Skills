@@ -30,3 +30,7 @@ Không giả QA runtime verdict, Business acceptance hoặc human approval; agen
 ## Handoff
 
 Giữ target/scope/revision khi đổi profile. Ghi artifact refs, findings, authority cần xác nhận và next function theo [work context and handoff](../../assets/templates/work-context-and-handoff-template.md). Không chuyển kết luận self-check thành independent review chỉ vì đổi profile. Khi target đổi, đọc lại context mới trước khi tiếp tục.
+
+Giữ hồ sơ hiện hành và đánh giá đúng revision; lịch sử qua Git. Không tạo package/receipt hay report theo đợt. Commit được giao phải theo references/commit-message-policy.md; không bypass validator/hook.
+
+Các hành động Git được giao phải đọc commit-message-policy.md và validate message; doctor chỉ xác nhận local hook theo khả năng quan sát, không tự chứng minh CI enforced.

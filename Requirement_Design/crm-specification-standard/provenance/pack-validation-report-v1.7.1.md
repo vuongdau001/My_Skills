@@ -33,4 +33,4 @@ Tác giả đối chiếu các tình huống sau với rule mới. Đây là sel
 
 Giới hạn: guidance không tự chạy snapshot queries hoặc ghi checkpoint bằng hook. Runtime/agent adherence, semantic approval và trạng thái sản phẩm chưa được chứng minh bởi structural/tests/context probes. Không commit/push, Jira/CI mutation hoặc tự cập nhật package trong CRM. Người dùng cần update package riêng để nhận hướng dẫn mới ở bản cài.
 
-Hướng dẫn: [status/next step](../references/conversational-status-and-next-step.md), [workflow](../workflows/crm-report-status.md), [handoff template](../assets/templates/work-context-and-handoff-template.md).
+Hướng dẫn: [status/next step](../references/conversational-status-and-next-step.md), workflow, [handoff template](../assets/templates/work-context-and-handoff-template.md).

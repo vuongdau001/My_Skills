@@ -44,7 +44,7 @@ AGENTS.override.md không rỗng được xét trước AGENTS.md; helper không
 
 Mẫu nền: [project config blueprint](assets/installation/project-config.template.json). Mỗi workstream có id/title, spec_root, optional input_root, sources với id/path/use và read_only. Tất cả path là repo-relative POSIX; không `..`, absolute path hoặc symlink thoát repo. spec_root không được chồng tool dirs, source/read_only của bất kỳ workstream nào hoặc spec_root khác. input_root cũng phải tránh mọi source/read_only. Namespace hiện hành là CRM theo bộ chuẩn; không đổi ngầm theo tên domain.
 
-Scaffold mới mặc định numbered: `00-project`, `01-capabilities`, `02-epics`, `03-stories`, `04-tasks`, `05-reviews`, `06-baselines`, `07-reports`, `08-pilot`, `09-prototypes`. Workstream mới bật `prototype_gate: true`. Workstream cũ có thể thêm field này trong config và chạy lại install --apply để tạo category Prototype. Xem [quy trình Prototype](references/prototype-workflow-and-epic-gate.md). Project có các vùng 02-decisions/03-assumptions/04-constraints; nguồn biên bản nằm ngoài spec cho schema-3 DEC/ASM/CST (biên bản chỉ là nguồn đầu vào, không tạo Meeting record). Chọn `--layout legacy` khi cần layout không đánh số. Workstream thiếu layout dùng preset không đánh số; install lại/update không tự migration hoặc thêm record_schema_version vào config cũ. Context trả artifact_paths; có thể override category paths có kiểm boundary/overlap. [Layout và migration](references/artifact-layout-and-migration.md) là quy ước canonical. Có thư mục tasks không có nghĩa phải tạo Task. Mỗi thư mục scaffold có marker .crm-spec-kit-keep để tồn tại sau git clone; không sinh artifact nghiệp vụ giả để lấp thư mục.
+Scaffold mới mặc định numbered: `00-project`, `01-capabilities`, `02-epics`, `03-stories`, `04-tasks`, `05-reviews`, `06-prototypes`. Workstream mới có `layout_version: 3` và `prototype_gate: true`; workstream cũ thiếu layout_version giữ path Prototype cũ. Workstream cũ có thể thêm field này trong config và chạy lại install --apply để tạo category Prototype. Xem [quy trình Prototype](references/prototype-workflow-and-epic-gate.md). Project có các vùng 02-decisions/03-assumptions/04-constraints; nguồn biên bản nằm ngoài spec cho schema-3 DEC/ASM/CST (biên bản chỉ là nguồn đầu vào, không tạo Meeting record). Chọn `--layout legacy` khi cần layout không đánh số. Workstream thiếu layout dùng preset không đánh số; install lại/update không tự migration hoặc thêm record_schema_version vào config cũ. Context trả artifact_paths; có thể override category paths có kiểm boundary/overlap. [Layout và migration](references/artifact-layout-and-migration.md) là quy ước canonical. Có thư mục tasks không có nghĩa phải tạo Task. Mỗi thư mục scaffold có marker .crm-spec-kit-keep để tồn tại sau git clone; không sinh artifact nghiệp vụ giả để lấp thư mục.
 
 Scoped AGENTS/CLAUDE chỉ được tạo khi chưa có; file có sẵn được giữ và báo cần xem xét. Chúng hướng dẫn trong spec_root, không override instruction/policy cấp cao hơn. Mọi adapter vẫn tạo hai scoped files như 1.5 để giữ tương thích; chỉ root router mới là Codex opt-in. Không tự tạo file `.agents/rules` rồi tuyên bố mọi nền tảng sẽ nạp. Các thay đổi config để thêm workstream là cập nhật config kit có chủ đích; config fields/values cũ được giữ.
 
@@ -60,7 +60,7 @@ Doctor kiểm config/boundaries/scaffold/sources, validator, package receipt/has
 
 ERROR dẫn exit 1; WARN không tự làm structural health fail, nhưng `runtime_verified` luôn false vì filesystem presence không chứng minh runtime discovery. Kiểm package sạch không chứng minh authority hoặc requirement đúng.
 
-Sau cài, mở phiên mới trên từng công cụ; xác nhận chỉ một public `crm-spec-kit`, gọi một function, hỏi agent báo package root/workstream/target/revision và mode discovery. Lưu tool/version và observed evidence trong pilot. Đừng ghi discovery PASS từ việc `doctor` tìm thấy SKILL.md hoặc một CLI tên codex có trong PATH. Filesystem adapters được kiểm trên repo tạm; UI discovery và Windows native cần smoke test thật.
+Sau cài, mở phiên mới trên từng công cụ; xác nhận chỉ một public `crm-spec-kit`, gọi một function, hỏi agent báo package root/workstream/target/revision và mode discovery. Báo tool/version và observed evidence trong kết quả kiểm hiện hành khi được giao. Đừng ghi discovery PASS từ việc `doctor` tìm thấy SKILL.md hoặc một CLI tên codex có trong PATH. Filesystem adapters được kiểm trên repo tạm; UI discovery và Windows native cần smoke test thật.
 
 Sinh prompt chỉ đọc và evidence template từ package đã cài:
 
@@ -85,7 +85,7 @@ Context mặc định gồm workflow, phần profile liên quan, các section pr
 
 Các lệnh đọc doctor/context/lint/smoke-prompt nhận --config <candidate-config.json> để audit migration mà không tạo config trong repo thật; đường dẫn trong config vẫn được kiểm theo --repo.
 
-Sau khi ghi artifact chạy lint; cuối run ghi Handoff theo template hiện có. Admin actions install/doctor/context/lint/next-id/update/smoke-prompt là helper, không thêm function nghiệp vụ vào bộ 13 function IDs.
+Sau khi ghi artifact chạy lint; cuối run ghi Handoff theo template hiện có. Admin actions install/doctor/context/lint/next-id/update/smoke-prompt là helper, không thêm function nghiệp vụ vào bộ 10 function IDs.
 
 Setup Project và Define Capability tự nạp hướng dẫn [tái dùng hồ sơ](references/knowledge-records-and-evidence.md#tái-dùng-hồ-sơ-từ-đầu-vào) và `knowledge_intake`. Để thêm tệp đầu vào cho lần chạy, dùng `--input` với path repo-relative. Ví dụ:
 
@@ -97,7 +97,7 @@ Dùng `crm-define-capability`, metadata kind `Capability`, ID `CAP-CRM-*` và ca
 
 ## Artifact Lint and IDs
 
-Đọc [Artifact Metadata and Lint](references/artifact-metadata-and-lint.md). Lint kiểm cấu trúc metadata, fields và links. Với [policy Epic–Use Case](references/epic-use-case-policy.md), draft báo legacy; baseline/readiness chặn Epic legacy trong target closure. Kiểm trùng ID bao quát các workstream hiện hành. Gate nghiệp vụ cần review và authority đúng scope.
+Đọc [Artifact Metadata and Lint](references/artifact-metadata-and-lint.md). Lint kiểm cấu trúc metadata, fields và links. Với [policy Epic–Use Case](references/epic-use-case-policy.md), draft báo legacy; readiness chặn Epic legacy trong target closure. Kiểm trùng ID bao quát các workstream hiện hành. Gate nghiệp vụ cần review và authority đúng scope.
 
 ```text
 python3 scripts/kit.py lint --repo <repo-root> --workstream p3
@@ -140,11 +140,11 @@ Backup update được giữ tại `.agents/crm-spec-kit-backups/<installation-k
 
 ## Definition Maturity Scoring
 
-Đọc [scoring guideline](references/definition-maturity-scoring.md) cho schema/rubric/evidence. Lệnh `score --init` tạo JSON Unknown trên stdout; `score --assessment <repo-relative-json>` tính điểm. `--target <ID>` lọc Epic/Story/Capability/requirement; `--scope <scope>` chọn lát cắt; `--item E07` hoặc S09 tính riêng mục trong target; `--format markdown` in báo cáo. Không có --target thì tổng hợp inventory, tách catalog obligations và canonical requirements. Mặc định không ghi file; --output lưu báo cáo Markdown mới trong reports, không tự chấm semantics. Thay source/target/evidence phải reassess, không refresh hash để giữ điểm. Không tạo Ready hoặc approval dù điểm 100.
+Đọc [scoring guideline](references/definition-maturity-scoring.md) cho schema/rubric/evidence. Lệnh `score --init` tạo JSON Unknown trên stdout; `score --assessment <repo-relative-json>` tính điểm. `--target <ID>` lọc Epic/Story/Capability/requirement; `--scope <scope>` chọn lát cắt; `--item E07` hoặc S09 tính riêng mục trong target; `--format markdown` in báo cáo. Không có --target thì tổng hợp inventory, tách catalog obligations và canonical requirements. Kết quả luôn xuất stdout; --output đã bỏ trong 3.0.0. Không tự lưu report hoặc chấm semantics. Thay source/target/evidence phải reassess, không refresh hash để giữ điểm. Không tạo Ready hoặc approval dù điểm 100.
 
 ## Standard trình bày — 1.10
 
-[Standard viết artifact](references/artifact-writing-standard.md) được nạp cho cả 13 function. Update package không tự rewrite artifact hoặc scoped instructions có sẵn; tác giả áp dụng khi author/correction được giao, giữ revision/evidence lịch sử. Templates schema 2 và Markdown metadata footer vẫn đọc được bởi helper; JSON/config giữ schema gốc.
+[Standard viết artifact](references/artifact-writing-standard.md) được nạp cho cả 10 function. Update package không tự rewrite artifact hoặc scoped instructions có sẵn; tác giả áp dụng khi author/correction được giao, giữ revision/evidence lịch sử. Templates schema 2 và Markdown metadata footer vẫn đọc được bởi helper; JSON/config giữ schema gốc.
 
 ## Checkpoint nguồn scope — 1.11
 
@@ -156,11 +156,11 @@ Helper `reset --scope project` xóa outputs/reservations toàn namespace dự á
 
 ## Minh họa đặc tả — 2.3
 
-[CRM-VISUAL-REVIEW](references/review-visualization-standard.md) quy định cách chọn diagram/matrix/ví dụ để review và giữ source/model, ID/anchor, text trace, uncertainty và revision. Standard viết chung truyền nguyên tắc tối thiểu trong context của 13 functions; reference chi tiết đọc theo nhu cầu hoặc `--reference CRM-VISUAL-REVIEW`. Template Epic, D01 và workflows tác giả/review dẫn cùng một standard. Không thêm CLI, schema, gate approval hoặc tự rewrite spec đang có. Update package theo dry-run/apply hiện hành.
+[CRM-VISUAL-REVIEW](references/review-visualization-standard.md) quy định cách chọn diagram/matrix/ví dụ để review và giữ source/model, ID/anchor, text trace, uncertainty và revision. Standard viết chung truyền nguyên tắc tối thiểu trong context của 10 functions; reference chi tiết đọc theo nhu cầu hoặc `--reference CRM-VISUAL-REVIEW`. Template Epic, D01 và workflows tác giả/review dẫn cùng một standard. Không thêm CLI, schema, gate approval hoặc tự rewrite spec đang có. Update package theo dry-run/apply hiện hành.
 
 ## Hồ sơ Decision/Assumption/Constraint — 2.4
 
-[Current-state policy](references/knowledge-records-and-evidence.md#record-current-state) và ba template thống nhất cấu trúc, cùng một ID/revision hiện hành, evidence đúng statement và lịch sử qua Git. Source prose và metadata phải cùng state; không tự commit/push, tạo snapshot/history file cho mỗi lần sửa hoặc chuyển approval cũ sang nội dung mới. Schema 2, supersession legacy và record-obligation gates giữ tương thích. Update package không migrate records dự án hoặc commit lịch sử của chúng; áp dụng khi author/correction được giao. Git history chưa được helper tự resolve khi kiểm baseline pin cũ.
+[Current-state policy](references/knowledge-records-and-evidence.md#record-current-state) và ba template thống nhất cấu trúc, cùng một ID/revision hiện hành, evidence đúng statement và lịch sử qua Git. Source prose và metadata phải cùng state; không tự commit/push, tạo snapshot/history file cho mỗi lần sửa hoặc chuyển approval cũ sang nội dung mới. Schema 2, supersession legacy và record-obligation gates giữ tương thích. Update package không migrate records dự án hoặc commit lịch sử của chúng; áp dụng khi author/correction được giao. Git history chưa được helper tự resolve khi kiểm revision áp dụng pin cũ.
 
 ## Tham chiếu dễ đọc — 2.4.1
 
@@ -172,4 +172,10 @@ Helper `reset --scope project` xóa outputs/reservations toàn namespace dự á
 
 ## Phân cấp Markdown — 2.6
 
-[Standard phân cấp chung](references/artifact-writing-standard.md#13-phân-cấp-thị-giác-bằng-markdown-thuần) được nạp qua standard viết của 13 functions và dẫn từ mọi template. Heading/list/blockquote/separator giúp nhìn rõ item, nội dung chính, gap và trace; không đổi schema, function, state hoặc approval gate. Update kit không tự format hồ sơ ngoài scope, không tạo HTML/PDF phụ.
+[Standard phân cấp chung](references/artifact-writing-standard.md#13-phân-cấp-thị-giác-bằng-markdown-thuần) được nạp qua standard viết của 10 functions và dẫn từ mọi template. Heading/list/blockquote/separator giúp nhìn rõ item, nội dung chính, gap và trace; không đổi schema, function, state hoặc approval gate. Update kit không tự format hồ sơ ngoài scope, không tạo HTML/PDF phụ.
+
+## Thay đổi 3.0.0
+
+10 function, không còn ba workflow/category baseline/report/pilot. Đọc [current-state policy](references/current-state-and-history.md) và [migration](references/artifact-layout-and-migration.md). Layout mới dùng 06-prototypes; update giữ config/data cũ, không tự xóa folder. Lint chỉ có draft/readiness; BASE IDs không cấp mới.
+
+Commit policy: scripts/commit_policy.py validate --message-file <file>; range --repo <repo> --base <sha> --head <sha>; doctor --repo <repo>. Cài hook là bước quản trị riêng: install-hook --repo <repo> để dry-run rồi --apply khi được giao. Không ghi đè hook/core.hooksPath hiện hữu, không tự bật CI/ruleset. Xem [policy](references/commit-message-policy.md).

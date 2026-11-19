@@ -1,0 +1,4 @@
+#!/bin/sh
+# Integration example only. Keep existing hook-manager checks and adapt kit path.
+repo=$(git rev-parse --show-toplevel) || exit 2
+exec python3 "$repo/.agents/skills/crm-spec-kit/scripts/commit_policy.py" validate --message-file "$1"
